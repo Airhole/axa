@@ -12,9 +12,9 @@ const store = new Vuex.Store({
   state: {
   },
   modules: {
-    ui,
-    sale,
-    customer
+    ui
+    // sale,
+    // customer
   },
 
   actions: {
