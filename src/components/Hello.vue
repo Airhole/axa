@@ -1,39 +1,7 @@
 <template>
-  <div class="hello">
-      111111111111111111{ILOGIN}
+  <div>
+    <h3>I'm Hello.vue</h3>
+    <p>at src/components/Hello.vue</p>
+    <p>I'm a placeholder.</p>
   </div>
 </template>
-
-<script>
-
-export default {
-  name: 'Hello',
-  data () {
-    return {
-      msg: 'ILOGIN(true)',
-      msg1: 'ILOGIN()'
-    }
-  }
-}
-</script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang='scss' rel="stylesheet/scss"  scoped>
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
-</style>
