@@ -13,8 +13,6 @@ const store = new Vuex.Store({
   },
   modules: {
     ui
-    // sale,
-    // customer
   },
 
   actions: {
