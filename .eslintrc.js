@@ -129,6 +129,8 @@ module.exports = {
     // allow common js
     'no-duplicate-imports': 1,
     'import/no-unresolved': 0,
-    'eol-last': 0
+    'eol-last': 0,
+    'line-comment-position': 0,
+    'spaced-comment': 0
   }
 }

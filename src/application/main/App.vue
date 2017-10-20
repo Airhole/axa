@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <img src="~@/assets/logo.png" style="display:block;">
-    1231231231123123123
+    <!--<img src="~@/assets/logo.png" style="display:block;">-->
+    <!--1231231231123123123-->
     <router-view/>
   </div>
 </template>
@@ -10,7 +10,7 @@
 export default {
   name: 'app',
   created: function () {
-    this.$vux.toast.text('hello', 'top')
+  // this.$vux.toast.text('hello', 'top')
   }
 }
 </script>
