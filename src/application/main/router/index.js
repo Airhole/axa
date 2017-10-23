@@ -12,10 +12,9 @@ export default new Router({
     {
       // 路由画布页面
       path: '/',
-      name: 'hello',
+      name: 'gallery',
       components: {
         default: resolve => require(['@/application/base/gallery/gallery'], resolve)
-        // default: import('@/components/hello')
       },
       meta: {
         requireAuth: true,
@@ -36,8 +35,8 @@ export default new Router({
       }
     },
     { //  当路径为空时随便指向一个页面  TODO : 移除
-      path: '/hello',
-      name: 'hello/hello/hello/application',
+      path: '/main/hello',
+      name: 'hello',
       component: hello,
       meta: {
         requireAuth: true,

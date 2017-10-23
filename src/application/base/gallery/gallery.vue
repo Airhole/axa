@@ -128,6 +128,13 @@ export default{
           descript: 'servicegallery 基本 业务 组件汇总'
         }
       ],
+      routers: [{
+        title: 'Main Link',
+        name: this.mainRouter
+      }, {
+        title: 'Share Link',
+        name: this.shareRouter
+      }],
       mainRouter: mainRouter,
       shareRouter: shareRouter
     }
@@ -188,6 +195,14 @@ export default{
       margin: 20px 0 20px 0;
       clear: both
     }
+    summary {
+      background: #ffd89b;  /* fallback for old browsers */
+      background: -webkit-linear-gradient(to right, #19547b, #ffd8Bb);  /* Chrome 10-25, Safari 5.1-6 */
+      background: linear-gradient(to right, #19547b, #ffd8Bb); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+      color: #fff;
+      padding: 3px 10px;
+    }
     ol {
       padding-left: 0;
       width: 100%;
@@ -210,11 +225,11 @@ export default{
         word-break: break-all;
         font-size:9px;
         border: 1px solid #999;
-        border-radius: 5%;
+        border-radius: 5px;
         padding-bottom: 5px;
         p {
-          border-top-left-radius: 5%;
-          border-top-right-radius: 5%;
+          border-top-left-radius: 3px;
+          border-top-right-radius: 3px;
           margin: 0 0 5px 0;
           font-size: 12px;
           padding: 8px;
