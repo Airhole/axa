@@ -124,6 +124,28 @@ export default new Router({
         description: '产品详情',
         param: {}
       }
+    },
+    { //  计划书-产品介绍
+      path: '/plan/detail',
+      name: 'product',
+      component: () => import(/* webpackChunkName: "product-intro" */ '@/application/main/plan/product-intro.vue'),
+      meta: {
+        requireAuth: true,
+        title: 'hello',
+        rightMenu: null,
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn',
+          params: 'go:recommend'
+        },
+        exclude: {
+          default: ''
+        }
+      },
+      Info: {
+        description: '计划书-产品介绍',
+        param: {}
+      }
     }
   ]
 })
