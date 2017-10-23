@@ -8,31 +8,31 @@ var express = require('express')
 var log4js = require('./logger')
 var fs = require('fs')
 
-function mkdirs(dirname, callback) {  
-  fs.exists(dirname, function (exists) {  
-      if (exists) {  
-          callback();  
-      } else {  
-          //console.log(path.dirname(dirname));  
-          mkdirs(path.dirname(dirname), function () {  
-              fs.mkdir(dirname, callback);  
-          });  
-      }  
-  });  
-}  
+function mkdirs(dirname, callback) {
+  fs.exists(dirname, function (exists) {
+      if (exists) {
+          callback();
+      } else {
+          //console.log(path.dirname(dirname));
+          mkdirs(path.dirname(dirname), function () {
+              fs.mkdir(dirname, callback);
+          });
+      }
+  });
+}
 
-//递归创建目录 同步方法  
-function mkdirsSync(dirname) {  
-  //console.log(dirname);  
-  if (fs.existsSync(dirname)) {  
-      return true;  
-  } else {  
-      if (mkdirsSync(path.dirname(dirname))) {  
-          fs.mkdirSync(dirname);  
-          return true;  
-      }  
-  }  
-}  
+//递归创建目录 同步方法
+function mkdirsSync(dirname) {
+  //console.log(dirname);
+  if (fs.existsSync(dirname)) {
+      return true;
+  } else {
+      if (mkdirsSync(path.dirname(dirname))) {
+          fs.mkdirSync(dirname);
+          return true;
+      }
+  }
+}
 
 module.exports = function (app) {
   var expressproxy = require('express-http-proxy')
@@ -44,7 +44,7 @@ module.exports = function (app) {
   app.use(cors({
     origin:['http://localhost:8101'],
     methods:['GET','POST'],
-    alloweHeaders:['Conten-Type', 'Authorization']
+    alloweHeaders:['Content-Type', 'Authorization']
   }))
 
   app.use('/static', express.static(path.join(__dirname , '../dist/static')))
@@ -103,18 +103,18 @@ module.exports = function (app) {
         }
         return o.month.toString() + o.day.toString() + o.hours.toString() + o.seconds.toString() + '.json'
       }
-      function mkdirs(dirname, callback) {  
-        fs.exists(dirname, function (exists) {  
-            if (exists) {  
-                callback();  
-            } else {  
-                //console.log(path.dirname(dirname));  
-                mkdirs(path.dirname(dirname), function () {  
-                    fs.mkdir(dirname, callback);  
-                });  
-            }  
-        });  
-      } 
+      function mkdirs(dirname, callback) {
+        fs.exists(dirname, function (exists) {
+            if (exists) {
+                callback();
+            } else {
+                //console.log(path.dirname(dirname));
+                mkdirs(path.dirname(dirname), function () {
+                    fs.mkdir(dirname, callback);
+                });
+            }
+        });
+      }
 
       mkdirs(path.join(__dirname , './snap', userReq.url), function(){
         fs.writeFile(path.join(__dirname , './snap', userReq.url, name()), result, { 'flag': 'a' }, function(err) {

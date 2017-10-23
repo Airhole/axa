@@ -80,7 +80,9 @@ let webpackConfig = {
 
 
 module.exports = vuxLoader.merge(webpackConfig, {
-  options: {},
+  options: {
+    showVuxVersionInfo: false
+  },
   plugins: [
     {
       name: 'vux-ui'

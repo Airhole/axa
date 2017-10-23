@@ -1,68 +1,26 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import hello from '@/components/hello.vue'
+import products from '@/components/product/list.vue'
+import product from '@/components/product/item.vue'
 import Gallery from '@/application/base/gallery/gallery'
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
-    // {
-    //   path: '/',
-    //   name: 'Hello',
-    //   component: HelloWorld
-    // },
-    { //
+    { //  当路径为空时随便指向一个页面  TODO : 移除
       path: '/',
-      name: 'gallery',
-      components: {
-        default: resolve => require(['@/application/base/gallery/gallery'], resolve)
-      },
-      meta: {
-        requireAuth: true,
-        rightMenu: {
-          title: '分享',
-          javascript: 'shareBusscard'
-        },
-        leftMenu: {
-          title: '返回',
-          javascript: 'closeWebview'
-        },
-        title: '页面汇总',
-        exclude: {
-          default: 'gallery'
-        }
-      },
-      Info: {
-        descript: '页面汇总',
-        param: {}
-      }
-    },
-    { //
-      path: '/gallery',
-      name: 'gallery',
-      components: {
-        default: resolve => require(['@/application/base/gallery/gallery'], resolve)
-      },
-      meta: {
-        requireAuth: true,
-        rightMenu: {
-          title: '分享',
-          javascript: 'shareBusscard'
-        },
-        leftMenu: {
-          title: '返回',
-          javascript: 'closeWebview'
-        },
-        title: '页面汇总',
-        exclude: {
-          default: 'gallery'
-        }
-      },
-      Info: {
-        descript: '页面汇总',
-        param: {}
-      }
+      name: 'hello',
+      component: hello
+    }, { // 产品列表
+      path: '/products',
+      name: 'products',
+      component: products
+    }, { //  产品页
+      path: '/product/:productId',
+      name: 'product',
+      component: product
     }
   ]
 })
