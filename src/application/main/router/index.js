@@ -9,8 +9,34 @@ Vue.use(Router)
 
 export default new Router({
   routes: [
-    { //  当路径为空时随便指向一个页面  TODO : 移除
+    {
+      // 路由画布页面
       path: '/',
+      name: 'hello',
+      components: {
+        default: resolve => require(['@/application/base/gallery/gallery'], resolve)
+        // default: import('@/components/hello')
+      },
+      meta: {
+        requireAuth: true,
+        title: '画布',
+        rightMenu: null,
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn',
+          params: 'go:recommend'
+        },
+        exclude: {
+          default: 'recommend_search'
+        }
+      },
+      Info: {
+        description: '画布',
+        param: {}
+      }
+    },
+    { //  当路径为空时随便指向一个页面  TODO : 移除
+      path: '/hello',
       name: 'hello/hello/hello/application',
       component: hello,
       meta: {
@@ -70,110 +96,6 @@ export default new Router({
       },
       Info: {
         description: '产品详情',
-        param: {}
-      }
-    },
-    {
-      // 入职推荐搜索页
-      path: '/hello',
-      name: 'hello',
-      components: {
-        default: resolve => require(['@/application/base/gallery/gallery'], resolve)
-        // default: import('@/components/hello')
-      },
-      meta: {
-        requireAuth: true,
-        title: '画布',
-        rightMenu: null,
-        leftMenu: {
-          title: '返回',
-          javascript: 'gobackbtn',
-          params: 'go:recommend'
-        },
-        exclude: {
-          default: 'recommend_search'
-        }
-      },
-      Info: {
-        description: '画布',
-        param: {}
-      }
-    },
-    {
-      // 入职推荐搜索页
-      path: '/hello',
-      name: 'hello',
-      components: {
-        default: resolve => require(['@/application/base/gallery/gallery'], resolve)
-        // default: import('@/components/hello')
-      },
-      meta: {
-        requireAuth: true,
-        title: '画布',
-        rightMenu: null,
-        leftMenu: {
-          title: '返回',
-          javascript: 'gobackbtn',
-          params: 'go:recommend'
-        },
-        exclude: {
-          default: 'recommend_search'
-        }
-      },
-      Info: {
-        description: '画布',
-        param: {}
-      }
-    },
-    {
-      // 入职推荐搜索页
-      path: '/hello',
-      name: 'hello',
-      components: {
-        default: resolve => require(['@/application/base/gallery/gallery'], resolve)
-        // default: import('@/components/hello')
-      },
-      meta: {
-        requireAuth: true,
-        title: '画布',
-        rightMenu: null,
-        leftMenu: {
-          title: '返回',
-          javascript: 'gobackbtn',
-          params: 'go:recommend'
-        },
-        exclude: {
-          default: 'recommend_search'
-        }
-      },
-      Info: {
-        description: '画布',
-        param: {}
-      }
-    },
-    {
-      // 入职推荐搜索页
-      path: '/hello',
-      name: 'hello',
-      components: {
-        default: resolve => require(['@/application/base/gallery/gallery'], resolve)
-        // default: import('@/components/hello')
-      },
-      meta: {
-        requireAuth: true,
-        title: '画布',
-        rightMenu: null,
-        leftMenu: {
-          title: '返回',
-          javascript: 'gobackbtn',
-          params: 'go:recommend'
-        },
-        exclude: {
-          default: 'recommend_search'
-        }
-      },
-      Info: {
-        description: '画布',
         param: {}
       }
     }
