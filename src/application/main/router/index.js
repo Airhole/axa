@@ -58,29 +58,6 @@ export default new Router({
         param: {}
       }
     },
-    {
-      path: '/main/hello',
-      name: 'hello',
-      component: hello,
-
-      meta: {
-        requireAuth: true,
-        title: 'hello',
-        rightMenu: null,
-        leftMenu: {
-          title: '返回',
-          javascript: 'gobackbtn',
-          params: 'go:recommend'
-        },
-        exclude: {
-          default: ''
-        }
-      },
-      Info: {
-        description: 'Hello World 页面',
-        param: {}
-      }
-    },
     { // 产品列表
       path: '/products',
       name: 'products',
