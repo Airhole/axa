@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import hello from '@/components/Afff.vue'
 import products from '@/components/product/list.vue'
-import product from '@/components/product/item.vue'
 
 Vue.use(Router)
 const Foo = () => Promise.resolve({
@@ -35,7 +34,7 @@ export default new Router({
         param: {}
       }
     },
-    { //  当路径为空时随便指向一个页面  TODO : 移除
+    {
       path: '/hello',
       name: 'world',
       // component: Afff,
@@ -77,28 +76,6 @@ export default new Router({
       },
       Info: {
         description: '产品列表',
-        param: {}
-      }
-    },
-    { //  产品页
-      path: '/product/:productId',
-      name: 'product',
-      component: product,
-      meta: {
-        requireAuth: true,
-        title: 'hello',
-        rightMenu: null,
-        leftMenu: {
-          title: '返回',
-          javascript: 'gobackbtn',
-          params: 'go:recommend'
-        },
-        exclude: {
-          default: ''
-        }
-      },
-      Info: {
-        description: '产品详情',
         param: {}
       }
     },
