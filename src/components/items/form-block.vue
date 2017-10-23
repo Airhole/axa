@@ -75,7 +75,7 @@
 </template>
 
 <script>
-  import rootChecker from "../rootItem/root-checker"
+  import rootChecker from "../root-items/root-checker"
   import textareaItem from "./textarea-item"
   import titleItem from "./title-item"
   import checkBlockItem from "./check-block-item"

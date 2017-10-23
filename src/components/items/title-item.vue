@@ -19,7 +19,7 @@
   <!-- title 类型 -->
 </template>
 <script>
-import formMixin from '../mixin/form-mixin'
+import formMixin from '../mixins/form-mixin'
 
 export default {
   name: 'title-item',

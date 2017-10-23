@@ -123,6 +123,28 @@ export default new Router({
         description: '计划书-产品介绍',
         param: {}
       }
+    },
+    { //  计划书-投保人信息
+      path: '/plan/applicant_info',
+      name: 'plan_applicant',
+      component: () => import(/* webpackChunkName: "product-intro" */ '@/application/main/plan/applicant-info.vue'),
+      meta: {
+        requireAuth: true,
+        title: 'hello',
+        rightMenu: null,
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn',
+          params: 'go:recommend'
+        },
+        exclude: {
+          default: ''
+        }
+      },
+      Info: {
+        description: '计划书-投保人信息',
+        param: {}
+      }
     }
   ]
 })

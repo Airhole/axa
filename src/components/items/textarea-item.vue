@@ -20,7 +20,7 @@
 </template>
 <script>
   import {Group, XTextarea} from 'vux'
-  import formMixin from '../mixin/rootInput-mixin'
+  import formMixin from '../mixins/root-input-mixin'
 
   export default {
     name: 'root-input',

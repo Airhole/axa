@@ -24,7 +24,7 @@
 </template>
 <script>
 import {Datetime, Group} from 'vux'
-import formMixin from '../mixin/form-mixin'
+import formMixin from '../mixins/form-mixin'
 
 export default {
   name: 'time-item',

@@ -19,8 +19,8 @@
   </div>
 </template>
 <script>
-import rootInput from '../rootItem/rootInput'
-import formMixin from '../mixin/form-mixin'
+import rootInput from '../root-items/root-input'
+import formMixin from '../mixins/form-mixin'
 
 export default {
   name: 'input-txt-item',

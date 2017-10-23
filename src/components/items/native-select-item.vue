@@ -14,7 +14,7 @@
   <!-- <x-address :title="" :list="list" placeholder="省 / 市 / 县" v-model="inne"></x-address> -->
 </template>
 <script>
-  import formMixin from '../mixin/form-mixin'
+  import formMixin from '../mixins/form-mixin'
   // import { Group, XAddress, ChinaAddressV3Data, XButton, Cell, Value2nameFilter as value2name } from 'vux'
 
   export default {

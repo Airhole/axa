@@ -22,7 +22,7 @@
     :disabled="rules.disabled" />
 </template>
 <script>
-  import formMixin from '../mixin/rootInput-mixin'
+  import formMixin from '../mixins/root-input-mixin'
 
   export default {
     name: 'root-input',

@@ -88,14 +88,14 @@
           <!-- 日期 -->
 
           <!-- input-camera 类型 -->
-          <input-camera-item
-            v-if="$formRule.type=='input-camera'"
-            @formChange="onChange"
-            @formPassed="onVlid"
-            :rules="$formRule.rules"
-            :value="$formModel.value"
-            :name="name">
-          </input-camera-item>
+          <!--<input-camera-item-->
+            <!--v-if="$formRule.type=='input-camera'"-->
+            <!--@formChange="onChange"-->
+            <!--@formPassed="onVlid"-->
+            <!--:rules="$formRule.rules"-->
+            <!--:value="$formModel.value"-->
+            <!--:name="name">-->
+          <!--</input-camera-item>-->
           <!-- input-camera 类型 -->
 
           <!-- input-txt 类型 -->
@@ -126,16 +126,16 @@
 </template>
 
 <script>
-  import rootItem from '../rootItem/rootBase'
-  import rootSelect from '../rootItem/rootSelect'
-  import rootInput from '../rootItem/rootInput'
+  import rootItem from '../root-items/root-base'
+  import rootSelect from '../root-items/root-select'
+  import rootInput from '../root-items/root-input'
   import webSelectItem from './web-select-item'
   import sexItem from './sex-item'
   import timeItem from './time-item'
-  import inputCameraItem from './input-camera-item'
+//  import inputCameraItem from './input-camera-item'
   import yesornoItem from "./yesorno-item"
   import inputTxtItem from './input-txt-item'
-  import formMixin from "../mixin/form-mixin"
+  import formMixin from "../mixins/form-mixin"
 
   export default {
     name: 'form-row',
@@ -145,7 +145,7 @@
       rootSelect,
       rootInput,
       sexItem,
-      inputCameraItem,
+      // inputCameraItem,
       inputTxtItem,
       timeItem,
       webSelectItem,

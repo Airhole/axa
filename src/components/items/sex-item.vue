@@ -15,7 +15,7 @@
   </div>
 </template>
 <script>
-import formMixin from '../mixin/form-mixin'
+import formMixin from '../mixins/form-mixin'
 
 export default {
   name: 'sex-item',
@@ -105,7 +105,7 @@ export default {
       return {
         name: this.name,
         value: evalue,
-        msg: this.rules && (this.rules.errorMsg || this.rules.placeholder) || '请选择性别',
+        msg: this.rules && (this.rules.errorMsg || this.rules.placeholder || '请选择性别'),
         isValid: (this.seled === false || this.seled === true) ? true : !!this.seled
       }
     }

@@ -4,7 +4,7 @@
         param:
 -->
 <template>
-  <div class="page_plan-product-int">
+  <div class="page_plan-product-intro">
     <div class="img-wrapper">
       <img src="~@/assets/image/long-pic.jpg" alt="">
     </div>
@@ -14,7 +14,7 @@
   </div>
 </template>
 <script>
-  import defaultBtn from '../../../components/base/default-btn.vue'
+  import defaultBtn from '@/components/base/default-btn.vue'
   export default {
     data () {
       return {
@@ -35,7 +35,7 @@
 </script>
 <style lang='scss' rel="stylesheet/scss" scoped>
   @import '~@/assets/scss/function';
-  .page_plan-product-int {
+  .page_plan-product-intro {
     .img-wrapper {
       margin-bottom: -20px;
       img {
@@ -44,9 +44,13 @@
       }
     }
     .btn-wrapper {
+      background: #fff;
+      padding: rem-calc(15) 0;
       width: 100%;
       position: fixed;
       bottom: 0;
+      left: 0;
+      right: 0;
     }
     .make-plan-btn {
       margin: 0 auto;

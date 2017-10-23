@@ -113,9 +113,9 @@
 </template>
 
 <script>
-import formRow from '../item/form-row'
-import formBlock from '../item/form-block'
-import formMixin from '../mixin/form-mixin'
+import formRow from '../items/form-row'
+import formBlock from '../items/form-block'
+import formMixin from '../mixins/form-mixin'
 
 export default {
   name: 'form-unit',
@@ -246,7 +246,7 @@ export default {
     innerModel () {
       this.mountErrors()
 
-      let _msg = this.errorBag[0] && this.errorBag[0].msg || null
+      let _msg = this.errorBag[0] || this.errorBag[0].msg || null
       return {
         name: ((this.name || this.index) || 'formUnit').toString(),
         value: this.form,

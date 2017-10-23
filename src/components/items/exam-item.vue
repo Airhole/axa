@@ -28,7 +28,7 @@
 </template>
 <script>
   import csinglebox from '@/components/base/csinglebox'
-  import radioBlock from '@/components/rootItem/rootRadioBlock'
+  import radioBlock from '@/components/root-items/rootRadioBlock'
 
   export default {
     name: 'exam-item',

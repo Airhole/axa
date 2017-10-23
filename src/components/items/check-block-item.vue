@@ -31,7 +31,7 @@
 </template>
 
 <script>
-  import formMixin from '../mixin/form-mixin'
+  import formMixin from '../mixins/form-mixin'
   export default {
     name: 'check-block-item',
     mixins: [formMixin],
@@ -63,7 +63,7 @@
     },
     computed: {
       showOptions () {
-        return this.rules.options && this.innerValue.yesorno === 'yes' || !this.innerValue.yesorno
+        return this.rules.options && (this.innerValue.yesorno === 'yes' || !this.innerValue.yesorno)
       },
       modValue: {
         set (v) {

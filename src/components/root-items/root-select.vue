@@ -21,7 +21,7 @@
 </template>
 <script>
   import {Group, PopupPicker, Picker} from 'vux'
-  import formMixin from '../mixin/form-mixin'
+  import formMixin from '../mixins/form-mixin'
 
   export default {
     mixins: [formMixin],
