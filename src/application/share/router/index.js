@@ -7,7 +7,7 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/share/hello',
+      path: '/hello',
       name: 'hello',
       component: HelloWorld,
       meta: {

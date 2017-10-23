@@ -1,9 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Afff from '@/components/Afff.vue'
+import hello from '@/components/Afff.vue'
 import products from '@/components/product/list.vue'
 import product from '@/components/product/item.vue'
-import Gallery from '@/application/base/gallery/gallery'
 
 Vue.use(Router)
 const Foo = () => Promise.resolve({
@@ -40,7 +39,7 @@ export default new Router({
       path: '/hello',
       name: 'world',
       // component: Afff,
-      component: () => import(/* webpackChunkName: "Afff" */ '../../../components/Afff.vue'),
+      component: () => import(/* webpackChunkName: "Afff" */ '@/components/Afff.vue'),
       meta: {
         requireAuth: true,
         title: 'hello',

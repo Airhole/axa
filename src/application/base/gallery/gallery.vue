@@ -49,7 +49,8 @@ gallery用于在开发中汇总单个页面列表
       <summary>Share Link</summary>
       <ol>
         <li v-for="item in shareRouter.options.routes" key="item.link">
-          <router-link :to="{path:item.path, saveScrollPosition: true}" tag="div">
+          <a :href="'/share.html#' + item.path">
+            <!--<a href="/share.html#">AAA</a>-->
             <div v-if="item.Info">
               <p>{{item.Info.description}}</p>
               <dl>
@@ -67,7 +68,7 @@ gallery用于在开发中汇总单个页面列表
                 <dt>name: {{item.name}}</dt>
               </dl>
             </div>
-          </router-link>
+          </a>
         </li>
       </ol>
     </details>
@@ -197,7 +198,7 @@ export default{
         text-align: left;
         vertical-align: top;
         margin-bottom: 10px;
-        flex: 0 0 49%;
+        flex: 0 0 48%;
         display: inline-block;
         line-height: 1;
         margin-left:1%;
@@ -208,6 +209,12 @@ export default{
         border: 1px solid #999;
         border-radius: 5px;
         padding-bottom: 5px;
+        a {
+          text-decoration: none;
+        }
+        a:visited {
+          color: #000;
+        }
         p {
           border-top-left-radius: 3px;
           border-top-right-radius: 3px;
