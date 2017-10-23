@@ -1,4 +1,3 @@
-<title>产品列表</title>
 <template>
   <div>
     <group>
@@ -14,7 +13,7 @@
   import supplies from '@/data/suppliers'
   import products from '@/data/products'
   import {PopupPicker, Group} from 'vux'
-  console.log(supplies)
+
   export default {
     name: 'products',
     components: {PopupPicker, Group},
