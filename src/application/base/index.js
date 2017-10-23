@@ -1,2 +1,2 @@
 import 'babel-polyfill'
-import '@/assets/scss/_function.scss'
+import '@/assets/scss/global.scss'

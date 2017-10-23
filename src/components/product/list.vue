@@ -30,7 +30,7 @@
 </script>
 <style lang="scss">
   h2{
-    font-size: rem-calc(22)
+    font-size: rem-calc(22);
   }
 
 </style>
