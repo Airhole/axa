@@ -1,8 +1,8 @@
-import 'babel-polyfill'
 import '@/application/base'
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import store from '@/store'
 import {axioshttp} from '@/widget'
 import Vuex from 'vuex'
 import { ToastPlugin, AlertPlugin, ConfirmPlugin } from 'vux'
@@ -21,6 +21,7 @@ Vue.config.devtools = true
 export const app = new Vue({
   el: '#app',
   router,
+  store,
   mixins: [baseMixin],
   template: '<App/>',
   components: { App }

@@ -72,25 +72,6 @@ gallery用于在开发中汇总单个页面列表
         </li>
       </ol>
     </details>
-    <router-link to="/web/recordCustomerInfor" tag="div">E投保</router-link>
-    <br/>
-    <router-link to="/web/progress" tag="div">投保过程</router-link>
-    <br/>
-    <router-link to="study" tag="div">学习</router-link>
-    <br/>
-    <router-link to="/web/jsApp" tag="div">JSaPP</router-link>
-    <br/>
-    <router-link to="appfeature" tag="div">featureapp</router-link>
-    <div>
-      <a href="https://hq-app-dev.zhongan.io/web/appfeature?id=HQL00100&type=2">feature</a>
-      <!-- <router-link :to="item.path" tag="div">投保过程</router-link> -->
-      <!-- <div @click="gg">lkjfl;kajld;kfjasld;kfjla;skdjf;lkasjdf;lkajslf;dk</div>
-      <div @click="bb">asdfasdfasdfasdfasdfasdfasdf</div> -->
-      <!-- <div @click="cc">asdfasdfasdfasdfasdfasdfasdf</div> -->
-      <!-- <div @click="addressaaa">================addressaaa=====================</div> -->
-      <Comp></Comp>
-    </div>
-    <div>cookies:<input @click="onFoucs" :value="cookies"/></div>
   </div>
 </template>
 
@@ -217,7 +198,7 @@ export default{
         text-align: left;
         vertical-align: top;
         margin-bottom: 10px;
-        flex: 0 0 32%;
+        flex: 0 0 49%;
         display: inline-block;
         line-height: 1;
         margin-left:1%;
