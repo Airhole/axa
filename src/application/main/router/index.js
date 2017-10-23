@@ -1,13 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-<<<<<<< HEAD
-import Afff from '@/components/Afff.vue'
-=======
-import hello from '@/components/Hello.vue'
->>>>>>> f59a87b471f94bfef05b24c1358949e5e86a8177
+import hello from '@/components/Afff.vue'
 import products from '@/components/product/list.vue'
 import product from '@/components/product/item.vue'
-import Gallery from '@/application/base/gallery/gallery'
 
 Vue.use(Router)
 const Foo = () => Promise.resolve({
@@ -18,11 +13,7 @@ export default new Router({
     {
       // 路由画布页面
       path: '/',
-<<<<<<< HEAD
-      name: 'helloAbcd',
-=======
       name: 'gallery',
->>>>>>> f59a87b471f94bfef05b24c1358949e5e86a8177
       components: {
         default: resolve => require(['@/application/base/gallery/gallery'], resolve)
       },
