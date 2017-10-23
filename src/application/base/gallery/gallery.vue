@@ -20,14 +20,14 @@ gallery用于在开发中汇总单个页面列表
       <!--</ol>-->
     <!--</details>-->
     <details open>
-      <summary>Router link</summary>
+      <summary>Main Link</summary>
       <ol>
-        <li v-for="item in linkitem.options.routes" key="item.link">
+        <li v-for="item in mainRouter.options.routes" key="item.link">
           <router-link :to="{path:item.path, saveScrollPosition: true}" tag="div">
             <div v-if="item.Info">
               <p>{{item.Info.description}}</p>
               <dl>
-                <dt>link:{{ item.path }}</dt>
+                <dt class="link">link:{{ item.path }}</dt>
                 <dt>name:{{item.name}}</dt>
                 <dt>param:</dt>
                 <dd v-for="(value, key) in item.Info.param">
@@ -35,7 +35,38 @@ gallery用于在开发中汇总单个页面列表
                 </dd>
               </dl>
             </div>
-            <div v-else>==========这里没写Info=================={{item.name}}</div>
+            <div v-else>
+              <dl>
+                <dt>===这里没写Info===</dt>
+                <dt>{{item.name}}</dt>
+              </dl>
+            </div>
+          </router-link>
+        </li>
+      </ol>
+    </details>
+    <details open>
+      <summary>Share Link</summary>
+      <ol>
+        <li v-for="item in shareRouter.options.routes" key="item.link">
+          <router-link :to="{path:item.path, saveScrollPosition: true}" tag="div">
+            <div v-if="item.Info">
+              <p>{{item.Info.description}}</p>
+              <dl>
+                <dt class="link">link:{{ item.path }}</dt>
+                <dt>name: &nbsp;{{item.name}}</dt>
+                <dt>param:</dt>
+                <dd v-for="(value, key) in item.Info.param">
+                  {{ key }} : {{ value }}
+                </dd>
+              </dl>
+            </div>
+            <div v-else>
+              <dl>
+                <dt>==这里没写Info==</dt>
+                <dt>name: {{item.name}}</dt>
+              </dl>
+            </div>
           </router-link>
         </li>
       </ol>
@@ -64,7 +95,9 @@ gallery用于在开发中汇总单个页面列表
 
 <script>
 import Vue from 'vue'
-import routerconf from '../../main/router/index'
+import mainRouter from '../../main/router/index'
+import shareRouter from '../../share/router/index'
+
 let a1 = {
   template: `<div>sdasdfsf</div>`
 }
@@ -95,13 +128,14 @@ export default{
           descript: 'servicegallery 基本 业务 组件汇总'
         }
       ],
-      linkitem: routerconf
+      mainRouter: mainRouter,
+      shareRouter: shareRouter
     }
   },
   components: {Comp},
   created () {
     this.cookies = document.cookie
-    console.log(this.linkitem)
+    console.log(this.mainRouter)
   },
   methods: {
     addressaaa () {
@@ -155,16 +189,19 @@ export default{
       clear: both
     }
     ol {
+      padding-left: 0;
       width: 100%;
       clear: both;
       font-size: 0;
       padding-top: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: space-between;
       & > li {
         text-align: left;
         vertical-align: top;
         margin-bottom: 10px;
-        line-height: 25px;
-        width:32%;
+        flex: 0 0 32%;
         display: inline-block;
         line-height: 1;
         margin-left:1%;
@@ -173,17 +210,32 @@ export default{
         word-break: break-all;
         font-size:9px;
         border: 1px solid #999;
-        border-radius: 10px;
+        border-radius: 5%;
         padding-bottom: 5px;
         p {
+          border-top-left-radius: 5%;
+          border-top-right-radius: 5%;
+          margin: 0 0 5px 0;
           font-size: 12px;
-          border-radius: 5px;
-          padding: 5px;
-          background: #aaa;
+          padding: 8px;
+          text-align: center;
+          background: #485563;  /* fallback for old browsers */
+          background: -webkit-linear-gradient(to right, #29323c, #485563);  /* Chrome 10-25, Safari 5.1-6 */
+          background: linear-gradient(to right, #29323c, #485563); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
           color: #fff;
         }
+        dl {
+          margin: 0;
+        }
         dt {
+          line-height: 1.5;
           padding-left: 5px;
+          padding-right: 5px;
+          padding-bottom: .3rem;
+          font-size: 1rem;
+        }
+        .link {
+          color: #00abff;
         }
       }
     }
