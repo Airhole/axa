@@ -21,6 +21,32 @@ export default new Router({
       path: '/product/:productId',
       name: 'product',
       component: product
+    },
+    {
+      // 入职推荐搜索页
+      path: '/hello',
+      name: 'hello',
+      components: {
+        default: resolve => require(['@/application/base/gallery/gallery'], resolve)
+        // default: import('@/components/hello')
+      },
+      meta: {
+        requireAuth: true,
+        title: '画布',
+        rightMenu: null,
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn',
+          params: 'go:recommend'
+        },
+        exclude: {
+          default: 'recommend_search'
+        }
+      },
+      Info: {
+        description: '画布',
+        param: {}
+      }
     }
   ]
 })

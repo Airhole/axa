@@ -25,7 +25,7 @@ gallery用于在开发中汇总单个页面列表
         <li v-for="item in linkitem.options.routes" key="item.link">
           <router-link :to="{path:item.path, saveScrollPosition: true}" tag="div">
             <div v-if="item.Info">
-              <p>{{item.Info.descript}}</p>
+              <p>{{item.Info.description}}</p>
               <dl>
                 <dt>link:{{ item.path }}</dt>
                 <dt>name:{{item.name}}</dt>
