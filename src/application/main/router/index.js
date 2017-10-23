@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import hello from '@/components/hello.vue'
+import hello from '@/components/Hello.vue'
 import products from '@/components/product/list.vue'
 import product from '@/components/product/item.vue'
 import Gallery from '@/application/base/gallery/gallery'
@@ -34,7 +34,7 @@ export default new Router({
         param: {}
       }
     },
-    { //  当路径为空时随便指向一个页面  TODO : 移除
+    {
       path: '/main/hello',
       name: 'hello',
       component: hello,
