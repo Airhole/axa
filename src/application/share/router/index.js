@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import hello from '@/components/Afff.vue'
+import HelloWorld from '@/components/Afff.vue'
 
 Vue.use(Router)
 
@@ -9,7 +9,7 @@ export default new Router({
     {
       path: '/hello',
       name: 'hello',
-      component: hello,
+      component: HelloWorld,
       meta: {
         requireAuth: true,
         title: 'hello',

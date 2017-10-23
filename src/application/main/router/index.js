@@ -3,7 +3,6 @@ import Router from 'vue-router'
 import hello from '@/components/Afff.vue'
 import products from '@/components/product/list.vue'
 import product from '@/components/product/item.vue'
-import Gallery from '@/application/base/gallery/gallery'
 
 Vue.use(Router)
 const Foo = () => Promise.resolve({
