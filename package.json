@@ -101,7 +101,7 @@
     "url-loader": "^0.6.2",
     "url-search-params": "^0.10.0",
     "vue-loader": "^13.3.0",
-    "vue-style-loader": "^3.0.1",
+    "vue-style-loader": "^3.0.3",
     "vue-template-compiler": "^2.5.2",
     "vux": "^2.6.5",
     "vux-loader": "^1.1.14-rc.1",
