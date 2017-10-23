@@ -198,7 +198,7 @@ export default{
         text-align: left;
         vertical-align: top;
         margin-bottom: 10px;
-        flex: 0 0 49%;
+        flex: 0 0 48%;
         display: inline-block;
         line-height: 1;
         margin-left:1%;
@@ -209,6 +209,12 @@ export default{
         border: 1px solid #999;
         border-radius: 5px;
         padding-bottom: 5px;
+        a {
+          text-decoration: none;
+        }
+        a:visited {
+          color: #000;
+        }
         p {
           border-top-left-radius: 3px;
           border-top-right-radius: 3px;
