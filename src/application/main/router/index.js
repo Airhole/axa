@@ -1,18 +1,20 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import hello from '@/components/hello.vue'
+import Afff from '@/components/Afff.vue'
 import products from '@/components/product/list.vue'
 import product from '@/components/product/item.vue'
 import Gallery from '@/application/base/gallery/gallery'
 
 Vue.use(Router)
-
+const Foo = () => Promise.resolve({
+  template: `<div>this is World</div>`
+})
 export default new Router({
   routes: [
     {
       // 路由画布页面
       path: '/',
-      name: 'hello',
+      name: 'helloAbcd',
       components: {
         default: resolve => require(['@/application/base/gallery/gallery'], resolve)
         // default: import('@/components/hello')
@@ -37,8 +39,9 @@ export default new Router({
     },
     { //  当路径为空时随便指向一个页面  TODO : 移除
       path: '/hello',
-      name: 'hello/hello/hello/application',
-      component: hello,
+      name: 'world',
+      // component: Afff,
+      component: () => import(/* webpackChunkName: "Afff" */ '../../../components/Afff.vue'),
       meta: {
         requireAuth: true,
         title: 'hello',
@@ -56,10 +59,11 @@ export default new Router({
         description: 'Hello World 页面',
         param: {}
       }
-    }, { // 产品列表
+    },
+    { // 产品列表
       path: '/products',
       name: 'products',
-      component: products,
+      component: resolve => require(['@/components/product/list.vue'], resolve),
       meta: {
         requireAuth: true,
         title: 'hello',
@@ -77,7 +81,8 @@ export default new Router({
         description: '产品列表',
         param: {}
       }
-    }, { //  产品页
+    },
+    { //  产品页
       path: '/product/:productId',
       name: 'product',
       component: product,
