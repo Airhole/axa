@@ -16,11 +16,8 @@
 </template>
 
 <script>
-  import formMixin from '../mixins/form-mixin'
-
   export default {
     name: 'yes-no',
-    mixins: [formMixin],
     data () {
       return {
         innerValue: this.modValue,

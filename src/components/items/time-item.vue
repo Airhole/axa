@@ -24,7 +24,6 @@
 </template>
 <script>
 import {Datetime, Group} from 'vux'
-import formMixin from '../mixins/form-mixin'
 
 export default {
   name: 'time-item',
@@ -34,7 +33,6 @@ export default {
       innerValue: this.modValue
     }
   },
-  mixins: [formMixin],
   props: {
     label: String,
     value: [String, Number],

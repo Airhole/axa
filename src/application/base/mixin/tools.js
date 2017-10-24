@@ -114,7 +114,7 @@ export default {
     __str (obj) {
       return JSON.stringify(obj)
     },
-    __obj (str) {
+    __s2o (str) {
       let o = null
       try {
         o = JSON.parse(str)
@@ -123,7 +123,7 @@ export default {
       }
       return o
     },
-    __purge (obj) {
+    __obj (obj) {
       let o = this.__str(obj)
       return JSON.parse(o)
     }

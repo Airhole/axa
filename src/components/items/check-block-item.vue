@@ -31,10 +31,8 @@
 </template>
 
 <script>
-  import formMixin from '../mixins/form-mixin'
   export default {
     name: 'check-block-item',
-    mixins: [formMixin],
     data () {
       return {
         innerValue: this.modValue,

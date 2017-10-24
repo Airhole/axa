@@ -100,6 +100,7 @@
     "sinon-chai": "^2.8.0",
     "url-loader": "^0.6.2",
     "url-search-params": "^0.10.0",
+    "vee-validate": "^2.0.0-beta.25",
     "vue-loader": "^13.3.0",
     "vue-style-loader": "^3.0.3",
     "vue-template-compiler": "^2.5.2",

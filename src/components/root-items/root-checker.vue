@@ -17,11 +17,9 @@
 </template>
 <script>
   import {Checker, CheckerItem} from 'vux'
-  import formMixin from '../mixins/form-mixin'
 
   export default {
     name: 'root-checker',
-    mixins: [formMixin],
     data () {
       return {
         innerValue: this.value || [],
