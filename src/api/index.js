@@ -27,5 +27,10 @@ example:
 export const ILOGIN = root + login
 */  
 let login = (process.env.NODE_ENV === 'production') ? '/jdt-web/wx/configdata.do' : '/jdt-web/wx/configdata.do'
+let demo = (process.env.NODE_ENV === 'production') ? '/demo' : '/demo'
 
 export const ILOGIN = (n = false) => path(login, n)
+export const IDEMO = (n = false) => path(demo, n)
+export const ENROLL_INTERSET = (n = false) => path(demo, n)
+export const QUERY_DICT = (n = false) => path(demo, n)
+export const ENROLL_SUBMMIT = (n = false) => path(demo, n)
