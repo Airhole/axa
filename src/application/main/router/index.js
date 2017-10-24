@@ -177,13 +177,28 @@ export default new Router({
         leftMenu: {
           title: '返回',
           javascript: 'gobackbtn'
-        },
-        exclude: {
-          default: ''
         }
       },
       Info: {
         description: '计划书-被保人信息',
+        param: {}
+      }
+    },
+    { //  在线投保-指定受益人提填写
+      path: '/insurance/add_beneficiary',
+      name: 'add_beneficiary',
+      component: () => import(/* webpackChunkName: "add-beneficiary" */ '@/application/main/insurance/add-beneficiary.vue'),
+      meta: {
+        requireAuth: true,
+        title: '被保人信息',
+        rightMenu: null,
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '在线投保-指定受益人提填写',
         param: {}
       }
     }
