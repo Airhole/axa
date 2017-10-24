@@ -130,7 +130,7 @@ export default new Router({
     { //  计划书-产品演示
       path: '/plan/product_demo',
       name: 'product_demo',
-      component: () => import(/* webpackChunkName: "product-intro" */ '@/application/main/plan/product_demo.vue'),
+      component: () => import(/* webpackChunkName: "product_demo" */ '@/application/main/plan/product_demo.vue'),
       meta: {
         requireAuth: true,
         title: '产品演示',
