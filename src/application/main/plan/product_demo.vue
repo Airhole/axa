@@ -1,10 +1,10 @@
 
 <!--********************************************************************
- * Author        : Geyan
+ * Author        : xiangzhi
  * Email         : geyan@zhongan.io
- * Create Date   : 2017-04-13 14:49
+ * Create Date   : 2017-10-24 14:49
  * Filename      : suggestion.vue
- * Description   : e投保－制作建议书－预览建议书
+ * Description   : 计划书-产品演示
 
 ********************************************************************-->
 
