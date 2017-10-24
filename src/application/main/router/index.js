@@ -138,9 +138,6 @@ export default new Router({
         leftMenu: {
           title: '返回',
           javascript: 'gobackbtn'
-        },
-        exclude: {
-          default: ''
         }
       },
       Info: {
@@ -199,6 +196,42 @@ export default new Router({
       },
       Info: {
         description: '在线投保-指定受益人提填写',
+        param: {}
+      }
+    },
+    { //  在线投保-投保书预览-手工单录入结果
+      path: '/insurance/manual_result',
+      name: 'manual_result',
+      component: () => import(/* webpackChunkName: "manual_result" */ '@/application/main/insurance/manual_result.vue'),
+      meta: {
+        requireAuth: true,
+        title: '手工单录入结果',
+        rightMenu: null,
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '在线投保-手工单录入结果',
+        param: {}
+      }
+    },
+    { //  在线投保-投保书预览-录入投保单号
+      path: '/insurance/input_policy',
+      name: 'input_policy',
+      component: () => import(/* webpackChunkName: "input_policy" */ '@/application/main/insurance/input_policy.vue'),
+      meta: {
+        requireAuth: true,
+        title: '录入投保单号',
+        rightMenu: null,
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '在线投保-录入投保单号',
         param: {}
       }
     }
