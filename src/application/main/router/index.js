@@ -127,7 +127,7 @@ export default new Router({
         param: {}
       }
     },
-    { //  产品演示-产品介绍
+    { //  计划书-产品介绍
       path: '/plan/product_demo',
       name: 'product_demo',
       component: () => import(/* webpackChunkName: "product-intro" */ '@/application/main/plan/product_demo.vue'),
@@ -144,7 +144,7 @@ export default new Router({
         }
       },
       Info: {
-        description: '产品介绍',
+        description: '计划书-产品演示',
         param: {}
       }
     },
