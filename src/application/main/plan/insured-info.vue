@@ -196,7 +196,7 @@
       .insured {
         margin: 0 rem-calc(15);
         flex: 1;
-        border-bottom: 2px solid #00a4ff;
+        border-bottom: 2px solid #20aee5;
       }
     }
     .form {
@@ -216,12 +216,12 @@
       font-size: rem-calc(18);
       .pre-step {
         flex: 1;
-        color: #00a4ff;
+        color: #20aee5;
         background: #fff;
       }
       .next-step {
         flex: 1;
-        background: #00a4ff;
+        background: #20aee5;
         color: #fff;
       }
     }
