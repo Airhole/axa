@@ -89,8 +89,7 @@ export default new Router({
         rightMenu: null,
         leftMenu: {
           title: '返回',
-          javascript: 'gobackbtn',
-          params: 'go:recommend'
+          javascript: 'gobackbtn'
         },
         exclude: {
           default: ''
@@ -98,6 +97,27 @@ export default new Router({
       },
       Info: {
         description: '计划书-产品介绍',
+        param: {}
+      }
+    },
+    { //  计划书-录入客户信息
+      path: '/plan/import-client-info',
+      name: 'import-client-info',
+      component: () => import(/* webpackChunkName: "import-client-info" */ '@/application/main/plan/import-client-info.vue'),
+      meta: {
+        requireAuth: true,
+        title: 'hello',
+        rightMenu: null,
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        },
+        exclude: {
+          default: ''
+        }
+      },
+      Info: {
+        description: '计划书-录入客户信息',
         param: {}
       }
     },

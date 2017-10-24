@@ -1,13 +1,5 @@
 <template>
   <div class="page_applicant-info">
-    <div class="tab">
-      <div class="applicant">
-        投保人信息
-      </div>
-      <div class="insured">
-        被保人信息
-      </div>
-    </div>
     <div class="form">
       <form-unit
         :formModels="formModels"
@@ -27,7 +19,7 @@
 <script>
   import formUnit from '@/components/unit/form-unit'
   import epMixin from '@/components/mixins/enroll-page-mixin'
-//  import {ENROLL_SUBMMIT, ENROLL_INTERSET, QUERY_DICT} from '@/api'
+  //  import {ENROLL_SUBMMIT, ENROLL_INTERSET, QUERY_DICT} from '@/api'
   import defaultBtn from '@/components/base/default-btn.vue'
 
   // models
@@ -168,32 +160,8 @@
     overflow: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    .tab {
-      background: #fff;
-      position: fixed;
-      z-index: 2;
-      top: 0;
-      left: 0;
-      right: 0;
-      display: flex;
-      height: rem-calc(50);
-      line-height: rem-calc(50);
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      font-size: rem-calc(16);
-      .applicant {
-        margin: 0 rem-calc(15);
-        flex: 1;
-        border-bottom: 2px solid #00a4ff;
-      }
-      .insured {
-        flex: 1;
-        color: #999;
-      }
-    }
     .form {
-      margin: rem-calc(50) 0 rem-calc(50) 0;
+      margin: 0 0 rem-calc(50) 0;
     }
     .btn-wrapper {
       position: fixed;
