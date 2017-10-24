@@ -94,7 +94,7 @@ export default new Router({
       component: () => import(/* webpackChunkName: "product-intro" */ '@/application/main/plan/product-preview.vue'),
       meta: {
         requireAuth: true,
-        title: 'hello',
+        title: '产品介绍',
         rightMenu: null,
         leftMenu: {
           title: '返回',
@@ -115,7 +115,7 @@ export default new Router({
       component: () => import(/* webpackChunkName: "import-client-info" */ '@/application/main/plan/import-client-info.vue'),
       meta: {
         requireAuth: true,
-        title: 'hello',
+        title: '录入客户信息',
         rightMenu: null,
         leftMenu: {
           title: '返回',
@@ -154,7 +154,7 @@ export default new Router({
       component: () => import(/* webpackChunkName: "product-intro" */ '@/application/main/plan/applicant-info.vue'),
       meta: {
         requireAuth: true,
-        title: 'hello',
+        title: '投保人信息',
         rightMenu: null,
         leftMenu: {
           title: '返回',
@@ -172,7 +172,7 @@ export default new Router({
       component: () => import(/* webpackChunkName: "product-intro" */ '@/application/main/plan/insured-info.vue'),
       meta: {
         requireAuth: true,
-        title: 'hello',
+        title: '被保人信息',
         rightMenu: null,
         leftMenu: {
           title: '返回',
