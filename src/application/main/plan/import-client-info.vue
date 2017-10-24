@@ -10,8 +10,8 @@
     </div>
     <div class="btn-wrapper">
       <!--<default-btn class='next' val='下一步' @Click="nextStep"></default-btn>-->
-      <div class="pre-step">上一步</div>
-      <div class="next-step">下一步</div>
+      <div class="pre-step">首年保费合计：<span>666.00元</span></div>
+      <div class="next-step">生成计划书</div>
     </div>
   </div>
 </template>
@@ -23,8 +23,8 @@
   import defaultBtn from '@/components/base/default-btn.vue'
 
   // models
-  import formModels from './models/applicant-info-model'
-  import formRules from './models/applicant-info-rule'
+  import formModels from './models/import-client-info-model'
+  import formRules from './models/import-client-info-rule'
 
   const ENROLL_SUBMMIT = ''
   const ENROLL_INTERSET = ''
@@ -174,15 +174,19 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      font-size: rem-calc(18);
+      font-size: rem-calc(16);
+      border-top: 1px solid #e9e9e9;
       .pre-step {
-        flex: 1;
-        color: #00a4ff;
+        flex: 3;
+        color: #666;
         background: #fff;
+        span {
+          color: #20aee5;
+        }
       }
       .next-step {
-        flex: 1;
-        background: #00a4ff;
+        flex: 2;
+        background: #20aee5;
         color: #fff;
       }
     }
