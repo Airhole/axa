@@ -2,7 +2,7 @@
  * Author        : rickyshin
  * Filename      : product-intro.vue
  * Description   : 计划书-产品介绍
- * Time          : 2017/10/23
+ * Time          : 2017/10/24
  *
 ********************************************************************-->
 <template>
@@ -38,6 +38,10 @@
 <style lang='scss' rel="stylesheet/scss" scoped>
   @import '~@/assets/scss/function';
   .page_plan-product-intro {
+    @include fullpage;
+    overflow: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     .img-wrapper {
       margin-bottom: -20px;
       img {
