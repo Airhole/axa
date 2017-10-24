@@ -150,12 +150,6 @@ export default {
       errorMsg: errorMsg.height
     }
   },
-  contactInfo: {
-    label: '其他信息',
-    name: 'contactInfo',
-    type: 'title',
-    extraClass: 'title'
-  },
   coName: {
     label: '单位名称',
     type: 'input',
