@@ -1,20 +1,12 @@
 <!--********************************************************************
  * Author        : rickyshin
- * Filename      : applicant-info.vue
- * Description   : 计划书-投保人信息
+ * Filename      : import-client-info.vue
+ * Description   : 计划书-录入客户信息
  * Time          : 2017/10/24
  *
 ********************************************************************-->
 <template>
-  <div class="page_applicant-info">
-    <div class="tab">
-      <div class="applicant">
-        投保人信息
-      </div>
-      <div class="insured">
-        被保人信息
-      </div>
-    </div>
+  <div class="page_import-client-info">
     <div class="form">
       <form-unit
         :formModels="formModels"
@@ -25,8 +17,8 @@
     </div>
     <div class="btn-wrapper">
       <!--<default-btn class='next' val='下一步' @Click="nextStep"></default-btn>-->
-      <div class="pre-step">上一步</div>
-      <div class="next-step">下一步</div>
+      <div class="pre-step">首年保费合计：<span>666.00元</span></div>
+      <div class="next-step">生成计划书</div>
     </div>
   </div>
 </template>
@@ -34,12 +26,12 @@
 <script>
   import formUnit from '@/components/unit/form-unit'
   import epMixin from '@/components/mixins/enroll-page-mixin'
-//  import {ENROLL_SUBMMIT, ENROLL_INTERSET, QUERY_DICT} from '@/api'
+  //  import {ENROLL_SUBMMIT, ENROLL_INTERSET, QUERY_DICT} from '@/api'
   import defaultBtn from '@/components/base/default-btn.vue'
 
   // models
-  import formModels from './models/applicant-info-model'
-  import formRules from './models/applicant-info-rule'
+  import formModels from './models/import-client-info-model'
+  import formRules from './models/import-client-info-rule'
 
   const ENROLL_SUBMMIT = ''
   const ENROLL_INTERSET = ''
@@ -64,7 +56,8 @@
     methods: {
       nextStep () {
         if (!this.isValid) {
-          this.__toast(this.formErrors[0].msg)
+          let emsg = (this.formErrors && this.formErrors[0].msg) || '出错了...'
+          this.__toast(emsg)
         } else {
           if (this.validIdCardBirthdaySex()) {
             this.axios.post(ENROLL_SUBMMIT, {baseInfo: Object.values(this.form), ...this.options}).then(res => {
@@ -175,32 +168,8 @@
     overflow: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    .tab {
-      background: #fff;
-      position: fixed;
-      z-index: 2;
-      top: 0;
-      left: 0;
-      right: 0;
-      display: flex;
-      height: rem-calc(50);
-      line-height: rem-calc(50);
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      font-size: rem-calc(16);
-      .applicant {
-        margin: 0 rem-calc(15);
-        flex: 1;
-        border-bottom: 2px solid #00a4ff;
-      }
-      .insured {
-        flex: 1;
-        color: #999;
-      }
-    }
     .form {
-      margin: rem-calc(50) 0 rem-calc(50) 0;
+      margin: 0 0 rem-calc(50) 0;
     }
     .btn-wrapper {
       position: fixed;
@@ -213,15 +182,19 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      font-size: rem-calc(18);
+      font-size: rem-calc(16);
+      border-top: 1px solid #e9e9e9;
       .pre-step {
-        flex: 1;
-        color: #00a4ff;
+        flex: 3;
+        color: #666;
         background: #fff;
+        span {
+          color: #20aee5;
+        }
       }
       .next-step {
-        flex: 1;
-        background: #00a4ff;
+        flex: 2;
+        background: #20aee5;
         color: #fff;
       }
     }

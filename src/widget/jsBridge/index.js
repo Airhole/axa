@@ -1,3 +1,4 @@
+/*eslint-disable */
 /*
  *
  * jsbridge
@@ -31,6 +32,8 @@ studyArticleDetail  *
  * setWebViewMenu 右边按钮
  *
  * showPosterDetail 点击显示大图数组可分享
+ *
+ * sendSms 发送短信
  *
  * 导入 扫描 客户 待定
  *
@@ -77,6 +80,10 @@ window.jsBridge = {
     shareInvoke: {
       status: false,
       value: ''
+    },
+    audio: {
+      status: false,
+      value: ''
     }
   }
 }
@@ -115,6 +122,11 @@ window.token = function () {
 window.HQAppGetH5Header = function (n) { // 当app加载完毕后 app调用修改 loadstatus 表示完毕
   window.jsBridge.status.loadstatus = true
 }
+
+// window.TestShare = function () {
+//   alert('分享成功')
+// }
+
 window.checkload = function () {
   return new Promise((resolve, reject) => {
     if (!window.jsBridge.status.loadstatus) {
@@ -220,6 +232,31 @@ window.articleDetail = function (url, title, btnTxt) {  // app 只读pdf
   }).catch(error => {
     console.log(error)
     throw new Error(error)
+  })
+}
+
+window.startAudioRec = function (isShow) {  // app 启动录音
+  clearTimer()
+  let startAudio = function () {
+    return new Promise((resolve, reject) => {
+      window.jsBridge.status.audio.status = false
+      window.jsBridge.status.audio.value = ''
+      window.HQAppJSInterface.requestAudioRecording(isShow)
+      window.__tid = window.setInterval(success => {
+        // alert(window.jsBridge.status.audio.status)
+        if (window.jsBridge.status.audio.status) {
+          clearTimer()
+          resolve(window.jsBridge.status.audio.value)
+          window.jsBridge.status.audio.status = false
+          window.jsBridge.status.audio.value = ''
+        } else {
+          // reject('fail')
+        }
+      }, 30)
+    })
+  }
+  return window.checkload().then(function (data) {
+    return startAudio()
   })
 }
 
@@ -335,32 +372,6 @@ window.setAllDictionary = function () {
 }
 window.setAllDictionary()
 
-if (process.env.NODE_ENV !== 'production') { // 为了在页面能获取字典而使用
-  let area = require("./json/area")
-  let bankcode = require("./json/bankcode")
-  let benefittype = require("./json/benefit_type")
-  let cardtype = require("./json/card_type")
-  let citizenship = require("./json/citizenship")
-  let cover = require("./json/cover")
-  let degree = require("./json/degree")
-  let coveragestate = require("./json/coverage_state")
-  let gender = require("./json/gender")
-  let insurestate = require("./json/insure_state")
-  let marriage = require("./json/marriage")
-  let nation = require("./json/nation")
-  let occupation = require("./json/occupation")
-  let occupationlevel = require("./json/occupation_level")
-  let payment = require("./json/payment")
-  let policychannel = require("./json/policy_channel")
-  let posttype = require("./json/post_type")
-  let preserve = require("./json/preserve")
-  let relation = require("./json/relation")
-  let saleschannel = require("./json/sales_channel")
-  let aa = [area, bankcode, benefittype, cardtype, citizenship, cover, degree, coveragestate, gender, insurestate, marriage, nation, occupation, occupationlevel, payment, policychannel, posttype, preserve, relation, saleschannel]
-  aa.map(function (v, i, arr) {
-    window.dictionary[v.name] = KVtoNV(v.item)
-  })
-}
 // 查询字典后返回数据
 window.getDictionary = function (n) {
   var dir = function () {
@@ -459,6 +470,38 @@ window.callCamera = function (n) {
     return camera()
   })
 }
+
+// 呼叫app 照相机-裁剪
+window.tailorCamera = function (n, bool, width, height) {
+  clearTimer()
+  let camera = function () {
+    return new Promise((resolve, reject) => {
+      window.jsBridge.status.index += 1
+      window.jsBridge.status['camera' + window.jsBridge.status.index] = {
+        status: false,
+        value: ''
+      }
+      window.jsBridge.status.camera.status = false
+      window.jsBridge.status.camera.value = ''
+      window.HQAppJSInterface.takeUserImage(bool, width, height)
+
+      window.__tid = window.setInterval(success => {
+        if (window.jsBridge.status.camera.status) {
+          clearTimer()
+          resolve(window.jsBridge.status.camera.value, n)
+          window.jsBridge.status.camera.status = false
+          window.jsBridge.status.camera.value = ''
+        } else {
+          // reject('fail')
+        }
+      }, 30)
+    })
+  }
+  return window.checkload().then(function (data) {
+    return camera()
+  })
+}
+
 // // 呼叫app 相机返回
 // window.HQAppUploadResult = function (data) {
 //   window.jsBridge.status.camera = true
@@ -680,6 +723,13 @@ window.app2js_onDataResult = function (type, data) {
   case 'appLocalShare':
     window.jsBridge.status.shareInvoke.value = data
     window.jsBridge.status.shareInvoke.status = true
+    // alert(data)
+    // window.AAA = data
+    break
+  case 'requestAudioRecording':
+    window.jsBridge.status.audio.value = data
+    window.jsBridge.status.audio.status = true
+    // alert(data)
     break
   }
 }
@@ -719,7 +769,10 @@ window.closeWebview = function (n = 2) {
 “2;3”
  **/
  // 指定显示右上角的分享按钮(右上角分享按钮事件)
-window.showShare = function (type, url, imageUrl, title, desc, callback) {
+window.showShare = function (type, url, imageUrl, title, desc, callback, hasCallback) {
+  if (hasCallback) {
+    return window.HQAppJSInterface.appLocalShare(type, url, imageUrl, title, desc, callback)
+  }
   clearTimer()
   let share = function () {
     return new Promise((resolve, reject) => {
@@ -780,9 +833,68 @@ window.showShareArr = function (fun, url, imageUrl, title, desc) {
   })
 }
 
+// 原生ajax请求
+window.nativeAjax = function (url, data, method) {
+  // 异步对象
+  var ajax = new XMLHttpRequest()
+  // get 跟post  需要分别写不同的代码
+  if (method == 'get') {
+    // get请求
+    if (data) {
+      // 如果有值
+      url += '?'
+      url += data
+    } else {
+
+    }
+    // 设置 方法 以及 url
+    ajax.open(method, url)
+    // send即可
+    ajax.send()
+  } else {
+    // post请求
+    // post请求 url 是不需要改变
+    ajax.open(method, url)
+
+    // 需要设置请求报文
+    ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+
+    // 判断data send发送数据
+    if (data) {
+      // 如果有值 从send发送
+      ajax.send(data)
+    } else {
+      // 木有值 直接发送即可
+      ajax.send()
+    }
+  }
+  // 注册事件
+  ajax.onreadystatechange = function () {
+    // 在事件中 获取数据 并修改界面显示
+    if (ajax.readyState == 4 && ajax.status == 200) {
+      // console.log(ajax.responseText);
+
+      // 将 数据 让 外面可以使用
+      // return ajax.responseText;
+
+      // 当 onreadystatechange 调用时 说明 数据回来了
+      // ajax.responseText;
+
+      // 如果说 外面可以传入一个 function 作为参数 success
+      // success(ajax.responseText)
+      alert('bbbb')
+    }
+  }
+}
+
 // 显示详情页大图数组分享
-window.showPosterDetail = function (urlArr, index) {
-  window.HQAppJSInterface.showPosterDetail(JSON.stringify(urlArr), index)
+window.showPosterDetail = function (param, index) {
+  window.HQAppJSInterface.showPosterDetail(JSON.stringify(param), index)
+}
+
+// 发短信
+window.sendSms = function (telNum, content) {
+  window.HQAppJSInterface.sendSms(JSON.stringify(telNum), content)
 }
 
 window.showShareEntry = function (type, url, title, desc, callback) {
@@ -796,6 +908,10 @@ window.showShareEntry = function (type, url, title, desc, callback) {
     console.log(error)
     throw new Error(error)
   })
+}
+
+window.testShare = function (res) {
+  alert('aaaa')
 }
 
 function clearTimer () {

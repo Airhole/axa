@@ -24,9 +24,6 @@ export default new Router({
           title: '返回',
           javascript: 'gobackbtn',
           params: 'go:recommend'
-        },
-        exclude: {
-          default: 'recommend_search'
         }
       },
       Info: {
@@ -47,9 +44,6 @@ export default new Router({
           title: '返回',
           javascript: 'gobackbtn',
           params: 'go:recommend'
-        },
-        exclude: {
-          default: ''
         }
       },
       Info: {
@@ -69,9 +63,6 @@ export default new Router({
           title: '返回',
           javascript: 'gobackbtn',
           params: 'go:recommend'
-        },
-        exclude: {
-          default: ''
         }
       },
       Info: {
@@ -80,8 +71,8 @@ export default new Router({
       }
     },
     { //  计划书-产品介绍
-      path: '/plan/detail',
-      name: 'product',
+      path: '/plan/product-intro',
+      name: 'product_intro',
       component: () => import(/* webpackChunkName: "product-intro" */ '@/application/main/plan/product-intro.vue'),
       meta: {
         requireAuth: true,
@@ -89,15 +80,50 @@ export default new Router({
         rightMenu: null,
         leftMenu: {
           title: '返回',
-          javascript: 'gobackbtn',
-          params: 'go:recommend'
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '计划书-产品介绍',
+        param: {}
+      }
+    },
+    { //  计划书-产品预览
+      path: '/plan/product-preview',
+      name: 'product_preview',
+      component: () => import(/* webpackChunkName: "product-intro" */ '@/application/main/plan/product-preview.vue'),
+      meta: {
+        requireAuth: true,
+        title: 'hello',
+        rightMenu: null,
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
         },
         exclude: {
           default: ''
         }
       },
       Info: {
-        description: '计划书-产品介绍',
+        description: '计划书-产品预览',
+        param: {}
+      }
+    },
+    { //  计划书-录入客户信息
+      path: '/plan/import-client-info',
+      name: 'import-client-info',
+      component: () => import(/* webpackChunkName: "import-client-info" */ '@/application/main/plan/import-client-info.vue'),
+      meta: {
+        requireAuth: true,
+        title: 'hello',
+        rightMenu: null,
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '计划书-录入客户信息',
         param: {}
       }
     },
@@ -124,7 +150,7 @@ export default new Router({
     },
     { //  计划书-投保人信息
       path: '/plan/applicant_info',
-      name: 'plan_applicant',
+      name: 'plan_applicant_info',
       component: () => import(/* webpackChunkName: "product-intro" */ '@/application/main/plan/applicant-info.vue'),
       meta: {
         requireAuth: true,
@@ -132,15 +158,32 @@ export default new Router({
         rightMenu: null,
         leftMenu: {
           title: '返回',
-          javascript: 'gobackbtn',
-          params: 'go:recommend'
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '计划书-投保人信息',
+        param: {}
+      }
+    },
+    { //  计划书-被保人信息
+      path: '/plan/insured_info',
+      name: 'plan_insured_info',
+      component: () => import(/* webpackChunkName: "product-intro" */ '@/application/main/plan/insured-info.vue'),
+      meta: {
+        requireAuth: true,
+        title: 'hello',
+        rightMenu: null,
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
         },
         exclude: {
           default: ''
         }
       },
       Info: {
-        description: '计划书-投保人信息',
+        description: '计划书-被保人信息',
         param: {}
       }
     }

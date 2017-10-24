@@ -1,8 +1,10 @@
-<!--
-        description: 计划书-产品介绍
-        author: ChenRihua
-        param:
--->
+<!--********************************************************************
+ * Author        : rickyshin
+ * Filename      : product-intro.vue
+ * Description   : 计划书-产品介绍
+ * Time          : 2017/10/23
+ *
+********************************************************************-->
 <template>
   <div class="page_plan-product-intro">
     <div class="img-wrapper">

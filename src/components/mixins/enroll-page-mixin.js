@@ -4,7 +4,8 @@
  desc: 一些表单通用方法
  */
 import formMixin from './form-mixin'
-import {ENROLL_INTERSET} from '@/api'
+// import {ENROLL_INTERSET} from '@/api'
+const ENROLL_INTERSET = ''
 
 export default {
   mixins: [formMixin],
