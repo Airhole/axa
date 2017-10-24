@@ -94,7 +94,7 @@ export default {
     type: 'web-select',
     rules: {
       vRules: 'required',
-      placeholder: '请选择您的家庭住址',
+      placeholder: '请选择住址',
       options: [['广东']],
       errorMsg: errorMsg.familyAdress
     }
@@ -105,7 +105,7 @@ export default {
     // overRide: true,
     rules: {
       vRules: 'required|min:5|max:30',
-      placeholder: '请输入家庭详细地址',
+      placeholder: '请输入住所详细地址',
       errorMsg: errorMsg.familyDetailAdress
     }
   },
@@ -139,27 +139,6 @@ export default {
       errorMsg: errorMsg.education
     }
   },
-  height: {
-    label: '年收入',
-    type: "input-txt",
-    rules: {
-      vRules: 'required|numeric|min:3|max:3',
-      maxLength: '3',
-      txt: '万',
-      placeholder: '请输入年收入',
-      errorMsg: errorMsg.height
-    }
-  },
-  coName: {
-    label: '单位名称',
-    type: 'input',
-    rules: {
-      vRules: 'required',
-      placeholder: '请输入单位名称',
-      options: [['广东']],
-      errorMsg: errorMsg.registeredBylaw
-    }
-  },
   telephone: {
     label: '联系电话',
     type: "input",
@@ -178,6 +157,26 @@ export default {
       maxlength: 11,
       placeholder: '请输入移动电话',
       errorMsg: errorMsg.mobilePhone
+    }
+  },
+  benefitPercent: {
+    label: '受益比例',
+    type: 'input',
+    rules: {
+      // maxlength: 6,
+      vRules: 'required|username|checkUser|usernameLength',
+      placeholder: '请输入受益比例',
+      errorMsg: errorMsg.name
+    }
+  },
+  benefitOrder: {
+    label: '受益顺序',
+    type: 'select',
+    rules: {
+      vRules: '',
+      placeholder: '请选择受益顺序',
+      options: [dict.core_degree],
+      errorMsg: errorMsg.education
     }
   }
 }

@@ -1,7 +1,7 @@
 <!--********************************************************************
  * Author        : rickyshin
- * Filename      : applicant-info.vue
- * Description   : 计划书-投保人信息
+ * Filename      : add-beneficiary.vue
+ * Description   : 在线投保-指定受益人填写
  * Time          : 2017/10/24
  *
 ********************************************************************-->
@@ -17,8 +17,7 @@
     </div>
     <div class="btn-wrapper">
       <!--<default-btn class='next' val='下一步' @Click="nextStep"></default-btn>-->
-      <div class="pre-step">上一步</div>
-      <div class="next-step">下一步</div>
+      <div class="next-step">确定</div>
     </div>
   </div>
 </template>
@@ -37,7 +36,7 @@
   const ENROLL_INTERSET = ''
   const QUERY_DICT = ''
   export default {
-    name: 'baseInfo',
+    name: 'choose-beneficiary',
     components: {
       formUnit,
       defaultBtn
@@ -75,6 +74,7 @@
       },
       // 验证身份证和性别，身份证和出生日期是否符合
       validIdCardBirthdaySex () {
+        /**
         let idCardVal = this.form.idCardNo.value
         let birthday = this.form.birthday.value
         let sex = this.form.sex.value
@@ -91,8 +91,10 @@
         } else {
           return true
         }
+         */
       },
       getData () {
+        /**
         this.axios.all([this.getBackendData(), this.getBank()]).then(res => {
           let serverData = res[0].data
           let bankData = res[1].data
@@ -109,14 +111,19 @@
             }
           })
         })
+         */
       },
       // 获取后台数据
       getBackendData () {
+        /**
         return this.axios.post(ENROLL_INTERSET, this.options)
+         */
       },
       // 获取银行字典数据
       getBank () {
+        /**
         return this.axios.get(QUERY_DICT, {params: {dictionarys: 'core_bank_code'}})
+         */
       },
       // 数据转义，将后台接口返回数据转换成前端可用的数据
       getDictFromBackend (arr, formRulesKey) {
@@ -139,6 +146,7 @@
       }
     },
     watch: {
+      /**
       'form.idCardNo': {
         deep: true,
         handler () {
@@ -156,6 +164,7 @@
           }
         }
       }
+       */
     }
   }
 </script>
@@ -168,29 +177,25 @@
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     .form {
-      margin: 0 0 rem-calc(50) 0;
+      margin: 0 0 rem-calc(80) 0;
     }
     .btn-wrapper {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      margin: rem-calc(25) 0 0 0;
+      margin: rem-calc(50) 0 0 0;
       display: flex;
       line-height: rem-calc(50);
       align-items: center;
       justify-content: center;
       text-align: center;
       font-size: rem-calc(18);
-      .pre-step {
-        flex: 1;
-        color: #00a4ff;
-        background: #fff;
-      }
       .next-step {
         flex: 1;
-        background: #00a4ff;
+        background: #20aee5;
         color: #fff;
+        border: 1px solid #e9e9e9;
       }
     }
   }

@@ -151,7 +151,7 @@ export default new Router({
     { //  计划书-投保人信息
       path: '/plan/applicant_info',
       name: 'plan_applicant_info',
-      component: () => import(/* webpackChunkName: "product-intro" */ '@/application/main/plan/applicant-info.vue'),
+      component: () => import(/* webpackChunkName: "applicant-info" */ '@/application/main/plan/applicant-info.vue'),
       meta: {
         requireAuth: true,
         title: '投保人信息',
@@ -169,7 +169,7 @@ export default new Router({
     { //  计划书-被保人信息
       path: '/plan/insured_info',
       name: 'plan_insured_info',
-      component: () => import(/* webpackChunkName: "product-intro" */ '@/application/main/plan/insured-info.vue'),
+      component: () => import(/* webpackChunkName: "insured-info" */ '@/application/main/plan/insured-info.vue'),
       meta: {
         requireAuth: true,
         title: '被保人信息',
@@ -184,13 +184,13 @@ export default new Router({
         param: {}
       }
     },
-    { //  在线投保-指定受益人提填写
-      path: '/insurance/add_beneficiary',
-      name: 'add_beneficiary',
-      component: () => import(/* webpackChunkName: "add-beneficiary" */ '@/application/main/insurance/add-beneficiary.vue'),
+    { //  在线投保-选择受益人
+      path: '/insurance/choose_beneficiary',
+      name: 'insurance_choose_beneficiary',
+      component: () => import(/* webpackChunkName: "choose-beneficiary" */ '@/application/main/insurance/choose-beneficiary.vue'),
       meta: {
         requireAuth: true,
-        title: '被保人信息',
+        title: '选择受益人',
         rightMenu: null,
         leftMenu: {
           title: '返回',
@@ -198,7 +198,43 @@ export default new Router({
         }
       },
       Info: {
-        description: '在线投保-指定受益人提填写',
+        description: '在线投保-选择受益人',
+        param: {}
+      }
+    },
+    { //  在线投保-受益人列表
+      path: '/insurance/beneficiary_list',
+      name: 'beneficiary_list',
+      component: () => import(/* webpackChunkName: "add-beneficiary" */ '@/application/main/insurance/beneficiary-list.vue'),
+      meta: {
+        requireAuth: true,
+        title: '受益人列表',
+        rightMenu: null,
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '在线投保-受益人列表',
+        param: {}
+      }
+    },
+    { //  在线投保-指定受益人填写
+      path: '/insurance/add_beneficiary',
+      name: 'add_beneficiary',
+      component: () => import(/* webpackChunkName: "add-beneficiary" */ '@/application/main/insurance/add-beneficiary.vue'),
+      meta: {
+        requireAuth: true,
+        title: '指定受益人填写',
+        rightMenu: null,
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '在线投保-指定受益人填写',
         param: {}
       }
     }
