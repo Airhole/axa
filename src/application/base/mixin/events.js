@@ -13,6 +13,7 @@ export default {
   },
   watch: {
     '$route' (to, from) {
+      let _self = this
       if (this.planId) {
         let _qr = JSON.stringify(to.query)
         let _param = { params: {} }
@@ -22,7 +23,6 @@ export default {
           this.$root.updateCache(this.planId, _param)
         }
       }
-      funpage.scrollTop = 0
       if (this.$route.query.type) {
         this.$store.dispatch('setPressStatus', this.$route.query.type)
       }
@@ -177,7 +177,7 @@ export default {
         if (this.$store.state.ui.step == 7 && to.name == 'searchquery') {
           window.toggleMenu(1, true)
         } else if (meta.leftMenu === '__SKIP__') {
-           跳过路由设置
+          // 跳过路由设置
         } else {
           window.toggleMenu(1, true)
           window.leftMenu(meta.leftMenu)

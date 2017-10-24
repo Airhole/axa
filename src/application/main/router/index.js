@@ -24,9 +24,6 @@ export default new Router({
           title: '返回',
           javascript: 'gobackbtn',
           params: 'go:recommend'
-        },
-        exclude: {
-          default: 'recommend_search'
         }
       },
       Info: {
@@ -47,9 +44,6 @@ export default new Router({
           title: '返回',
           javascript: 'gobackbtn',
           params: 'go:recommend'
-        },
-        exclude: {
-          default: ''
         }
       },
       Info: {
@@ -69,9 +63,6 @@ export default new Router({
           title: '返回',
           javascript: 'gobackbtn',
           params: 'go:recommend'
-        },
-        exclude: {
-          default: ''
         }
       },
       Info: {
@@ -90,9 +81,6 @@ export default new Router({
         leftMenu: {
           title: '返回',
           javascript: 'gobackbtn'
-        },
-        exclude: {
-          default: ''
         }
       },
       Info: {
@@ -132,9 +120,6 @@ export default new Router({
         leftMenu: {
           title: '返回',
           javascript: 'gobackbtn'
-        },
-        exclude: {
-          default: ''
         }
       },
       Info: {
@@ -153,9 +138,6 @@ export default new Router({
         leftMenu: {
           title: '返回',
           javascript: 'gobackbtn'
-        },
-        exclude: {
-          default: ''
         }
       },
       Info: {

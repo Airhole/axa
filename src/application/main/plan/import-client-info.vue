@@ -56,7 +56,8 @@
     methods: {
       nextStep () {
         if (!this.isValid) {
-          this.__toast(this.formErrors[0].msg)
+          let emsg = (this.formErrors && this.formErrors[0].msg) || '出错了...'
+          this.__toast(emsg)
         } else {
           if (this.validIdCardBirthdaySex()) {
             this.axios.post(ENROLL_SUBMMIT, {baseInfo: Object.values(this.form), ...this.options}).then(res => {
