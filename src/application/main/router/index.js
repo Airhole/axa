@@ -80,8 +80,8 @@ export default new Router({
       }
     },
     { //  计划书-产品介绍
-      path: '/plan/detail',
-      name: 'product',
+      path: '/plan/product-intro',
+      name: 'product_intro',
       component: () => import(/* webpackChunkName: "product-intro" */ '@/application/main/plan/product-intro.vue'),
       meta: {
         requireAuth: true,
@@ -97,6 +97,27 @@ export default new Router({
       },
       Info: {
         description: '计划书-产品介绍',
+        param: {}
+      }
+    },
+    { //  计划书-产品预览
+      path: '/plan/product-preview',
+      name: 'product_preview',
+      component: () => import(/* webpackChunkName: "product-intro" */ '@/application/main/plan/product-preview.vue'),
+      meta: {
+        requireAuth: true,
+        title: 'hello',
+        rightMenu: null,
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        },
+        exclude: {
+          default: ''
+        }
+      },
+      Info: {
+        description: '计划书-产品预览',
         param: {}
       }
     },
@@ -123,7 +144,7 @@ export default new Router({
     },
     { //  计划书-投保人信息
       path: '/plan/applicant_info',
-      name: 'plan_applicant',
+      name: 'plan_applicant_info',
       component: () => import(/* webpackChunkName: "product-intro" */ '@/application/main/plan/applicant-info.vue'),
       meta: {
         requireAuth: true,
@@ -131,8 +152,7 @@ export default new Router({
         rightMenu: null,
         leftMenu: {
           title: '返回',
-          javascript: 'gobackbtn',
-          params: 'go:recommend'
+          javascript: 'gobackbtn'
         },
         exclude: {
           default: ''
@@ -140,6 +160,27 @@ export default new Router({
       },
       Info: {
         description: '计划书-投保人信息',
+        param: {}
+      }
+    },
+    { //  计划书-被保人信息
+      path: '/plan/insured_info',
+      name: 'plan_insured_info',
+      component: () => import(/* webpackChunkName: "product-intro" */ '@/application/main/plan/insured-info.vue'),
+      meta: {
+        requireAuth: true,
+        title: 'hello',
+        rightMenu: null,
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        },
+        exclude: {
+          default: ''
+        }
+      },
+      Info: {
+        description: '计划书-被保人信息',
         param: {}
       }
     }

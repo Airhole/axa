@@ -1,3 +1,10 @@
+<!--********************************************************************
+ * Author        : rickyshin
+ * Filename      : applicant-info.vue
+ * Description   : 计划书-投保人信息
+ * Time          : 2017/10/24
+ *
+********************************************************************-->
 <template>
   <div class="page_applicant-info">
     <div class="tab">
