@@ -56,7 +56,7 @@
       /*width: 100%;*/
       z-index: -1;
       height: 100%;
-      background: #gB0D5F7;
+      background: #B0D5F7;
     }
     .img-wrapper {
       z-index: 2;
