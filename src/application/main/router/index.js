@@ -127,6 +127,27 @@ export default new Router({
         param: {}
       }
     },
+    { //  产品演示-产品介绍
+      path: '/plan/product_demo',
+      name: 'product_demo',
+      component: () => import(/* webpackChunkName: "product-intro" */ '@/application/main/plan/product_demo.vue'),
+      meta: {
+        requireAuth: true,
+        title: '产品介绍',
+        rightMenu: null,
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        },
+        exclude: {
+          default: ''
+        }
+      },
+      Info: {
+        description: '产品介绍',
+        param: {}
+      }
+    },
     { //  计划书-投保人信息
       path: '/plan/applicant_info',
       name: 'plan_applicant_info',
