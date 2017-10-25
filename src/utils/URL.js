@@ -1,5 +1,11 @@
 /**
  * 需要注意的是，浏览器环境有个native的URL类
+ * 另外，Node环境也有一个URL类,详见 http://nodejs.cn/api/url.html
+ * Node环境中，通过 const {URL} = require('url')得到的工具类和当前类功能相似（但不完全一致）
+ *
+ * URLi常用于查询字符串处理，vux也提供了相关的功能函数
+ * import { querystring } from 'vux'
+ * querystring.parse('a=b&c=d') // {a:'b',c:'d'}
  */
 
 import {isArray, isObject} from "./index"

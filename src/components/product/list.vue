@@ -237,7 +237,7 @@
       color: #333;
     }
     h3{
-      font-weight: lighter;
+      font-weight: 300;
       font-size: rem-calc(12);
       line-height: rem-calc(16);
       height: rem-calc(32);
