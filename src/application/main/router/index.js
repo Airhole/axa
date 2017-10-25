@@ -270,6 +270,24 @@ export default new Router({
         description: '在线投保-录入投保单号',
         param: {}
       }
+    },
+    { //  添加附加险弹窗
+      path: '/base/additional_insurance',
+      name: 'additional_insurance',
+      component: () => import(/* webpackChunkName: "additional_insurance" */ '@/application/base/modals/add-additional-insurance.vue'),
+      meta: {
+        requireAuth: true,
+        title: '附加险',
+        rightMenu: null,
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '添加附加险弹窗',
+        param: {}
+      }
     }
   ]
 })

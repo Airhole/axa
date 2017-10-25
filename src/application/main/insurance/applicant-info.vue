@@ -1,12 +1,12 @@
 <!--********************************************************************
  * Author        : rickyshin
- * Filename      : insured-info.vue
- * Description   : 计划书-被保人信息
- * Time          : 2017/10/24
+ * Filename      : applicant-info.vue
+ * Description   : 在线投保-投保人信息
+ * Time          : 2017/10/25
  *
 ********************************************************************-->
 <template>
-  <div class="page_plan-insured-info">
+  <div class="page_insurance-applicant-info">
     <div class="tab">
       <div class="applicant">
         投保人信息
@@ -34,12 +34,12 @@
 <script>
   import formUnit from '@/components/unit/form-unit'
   import epMixin from '@/components/mixins/enroll-page-mixin'
-  //  import {ENROLL_SUBMMIT, ENROLL_INTERSET, QUERY_DICT} from '@/api'
+//  import {ENROLL_SUBMMIT, ENROLL_INTERSET, QUERY_DICT} from '@/api'
   import defaultBtn from '@/components/base/default-btn.vue'
 
   // models
-  import formModels from './models/insured-info-model'
-  import formRules from './models/insured-info-rule'
+  import formModels from './models/add-beneficiary-model'
+  import formRules from './models/add-beneficiary-rule'
 
   const ENROLL_SUBMMIT = ''
   const ENROLL_INTERSET = ''
@@ -170,7 +170,7 @@
 <style lang='scss' rel="stylesheet/scss" scoped>
   @import '~@/assets/scss/function';
 
-  .page_plan-insured-info {
+  .page_insurance-applicant-info {
     @include fullpage;
     overflow: hidden;
     overflow-y: auto;
@@ -190,13 +190,13 @@
       text-align: center;
       font-size: rem-calc(16);
       .applicant {
-        flex: 1;
-        color: #999;
-      }
-      .insured {
         margin: 0 rem-calc(15);
         flex: 1;
         border-bottom: 2px solid #20aee5;
+      }
+      .insured {
+        flex: 1;
+        color: #999;
       }
     }
     .form {

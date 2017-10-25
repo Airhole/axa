@@ -6,7 +6,7 @@
  *
 ********************************************************************-->
 <template>
-  <div class="page_applicant-info">
+  <div class="page_plan-applicant-info">
     <div class="tab">
       <div class="applicant">
         投保人信息
@@ -170,7 +170,7 @@
 <style lang='scss' rel="stylesheet/scss" scoped>
   @import '~@/assets/scss/function';
 
-  .page_applicant-info {
+  .page_plan-applicant-info {
     @include fullpage;
     overflow: hidden;
     overflow-y: auto;

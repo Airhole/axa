@@ -29,8 +29,8 @@
   import defaultBtn from '@/components/base/default-btn.vue'
 
   // models
-  import formModels from './models/applicant-info-model'
-  import formRules from './models/applicant-info-rule'
+  import formModels from './models/add-beneficiary-model'
+  import formRules from './models/add-beneficiary-rule'
 
   const ENROLL_SUBMMIT = ''
   const ENROLL_INTERSET = ''
