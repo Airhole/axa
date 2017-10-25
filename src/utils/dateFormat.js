@@ -4,8 +4,8 @@ export default function dateFormat (date, format) {
     date = new Date(date)
   }
   let info = {
-    'y+': date.getFullYear(),   //  年
-    'M+': date.getMonth() + 1,  // 月
+    'y+': date.getFullYear(), //  年
+    'M+': date.getMonth() + 1, // 月
     'd+': date.getDate(), // 日
     'h+': date.getHours(), // 时
     'm+': date.getMinutes(), // 分
