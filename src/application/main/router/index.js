@@ -270,6 +270,24 @@ export default new Router({
         description: '在线投保-录入投保单号',
         param: {}
       }
+    },
+    { //  在线投保-投保书预览-查看投保结果
+      path: '/insurance/see_insurance_result',
+      name: 'see_insurance_result',
+      component: () => import(/* webpackChunkName: "see_insurance_result" */ '@/application/main/insurance/see_insurance_result.vue'),
+      meta: {
+        requireAuth: true,
+        title: '查看投保结果',
+        rightMenu: null,
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '在线投保-查看投保结果',
+        param: {}
+      }
     }
   ]
 })

@@ -2,20 +2,20 @@
 <!--********************************************************************
  * Author			: xiangzhi
  * Email			:
- * Last modified	: 2017-10-24 13:35
+ * Last modified	: 2017-10-25
  * Filename			: resultSucc.vue
  * Description		:  在线投保-投保书预览-手工单录入结果
 
 ********************************************************************-->
 
 <template>
-  <div class="manual_result">
+  <div class="see_insurance_result">
     <div v-if='show'>
       <div class="rst-succ">
-        <p>手工单录入成功！</p>
+        <p>恭喜您投保成功！</p>
         <!--<p>您的保险合同编号为{{resObjet.contNo}},保险合同生效日期为{{resObjet.startTime}}。</p>-->
-        <p>您的手工投保单信息录入成功，您可以在投保单查询查询该投保单信息!</p>
-        <!-- <p class="succ-tip" v-if="resObjet.isNeedEmail=='Y'">温馨提示: 电子保单将发送到您的电子邮箱,请注意查收。</p> -->
+        <p>您的保险合同编号为0033432233，保险合同生效日期为2017年03月21日00时00分。</p>
+        <p class="succ-tip">温馨提示：电子保单将发送至您的电子邮箱，请注意查收。</p>
         <!--{{resObjet.isNeedEmail}}-->
       </div>
     </div>
@@ -61,7 +61,7 @@
 
 <style lang="scss" rel="stylesheet/scss" scoped>
   @import '~@/assets/scss/function';
-  .manual_result {
+  .see_insurance_result {
     position:absolute;
     width:100%;
     height:100%;
@@ -90,7 +90,7 @@
       & p:nth-child(2) {
         font-size:rem-calc(15px);
         color:#666;
-        line-height:rem-calc(28px);
+        line-height:rem-calc(20px);
         padding-left:rem-calc(10px);
         padding-right:rem-calc(10px);
         margin-bottom:rem-calc(11px);

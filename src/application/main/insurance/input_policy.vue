@@ -50,7 +50,7 @@
     },
     tel: {
       label: '投保日期：',
-      type: 'input',
+      type: 'time',
       rules: {
         vRules: '',
         placeholder: '请输入您的投保日期'
@@ -84,27 +84,6 @@
     }
   }
 </script>
-<style lang='scss' rel="stylesheet/scss">
-  @import '~@/assets/scss/function';
-  .page_applicant_input_policy {
-    .form {
-      .baseBoxLeft {
-        label {
-          padding-right: rem-calc(15);
-        }
-      }
-      .baseBoxright {
-        input {
-          text-align: left;
-
-          &::-webkit-input-placeholder {
-            text-align: left;
-          }
-        }
-      }
-    }
-  }
-</style>
 <style lang='scss' rel="stylesheet/scss" scoped>
   @import '~@/assets/scss/function';
 
