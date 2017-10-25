@@ -19,11 +19,9 @@
   <!-- title 类型 -->
 </template>
 <script>
-import formMixin from '../mixins/form-mixin'
 
 export default {
   name: 'title-item',
-  mixins: [formMixin],
   props: ['rules', 'value', 'name', 'label'],
   computed: {
     $rules: {

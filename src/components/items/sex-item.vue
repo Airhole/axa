@@ -15,7 +15,6 @@
   </div>
 </template>
 <script>
-import formMixin from '../mixins/form-mixin'
 
 export default {
   name: 'sex-item',
@@ -32,7 +31,6 @@ export default {
       seled: this._gender
     }
   },
-  mixins: [formMixin],
   props: {
     value: {
       type: [String, Number]

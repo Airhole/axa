@@ -1,12 +1,12 @@
 <!--********************************************************************
  * Author        : rickyshin
  * Filename      : insured-info.vue
- * Description   : 计划书-被保人信息
- * Time          : 2017/10/24
+ * Description   : 在线投保-被保人信息
+ * Time          : 2017/10/25
  *
 ********************************************************************-->
 <template>
-  <div class="page_plan-insured-info">
+  <div class="page_insurance-insured-info">
     <div class="tab">
       <div class="applicant">
         投保人信息
@@ -170,7 +170,7 @@
 <style lang='scss' rel="stylesheet/scss" scoped>
   @import '~@/assets/scss/function';
 
-  .page_plan-insured-info {
+  .page_insurance-insured-info {
     @include fullpage;
     overflow: hidden;
     overflow-y: auto;

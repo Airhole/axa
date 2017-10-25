@@ -1,8 +1,6 @@
-// import {Validator} from 'vee-validate'
-import formMixin from './form-mixin'
+import {Validator} from 'vee-validate'
 
 export default {
-  mixins: [formMixin],
   data () {
     return {
       innerValue: this.value
@@ -25,13 +23,13 @@ export default {
   },
   computed: {
     validator () {
-      // if (this._validator) {
-      //   return this._validator
-      // }
-      // const validator = new Validator()
-      // validator.attach(this.name, this.rules.vRules, this.label)
-      // this._validator = validator
-      // return validator
+      if (this._validator) {
+        return this._validator
+      }
+      const validator = new Validator()
+      validator.attach(this.name, this.rules.vRules, this.label)
+      this._validator = validator
+      return validator
     }
   },
   methods: {
@@ -42,24 +40,24 @@ export default {
       this.innerValue = e.target.value || ""
     },
     onValidate () {
-      // if (this.rules) {
-      //   // rules 是表单规则，无规则则不触发验证
-      //   this.validator.validate(this.name, this.innerValue).then(res => {
-      //     if (res === true) {
-      //       this.$emit('formValid', this.innerModel())
-      //     }
-      //   }).catch((e) => {
-      //     // this.$emit('formError', this.innerModel)
-      //   })
-      // }
-      // this.$emit('formChange', this.innerModel())
+      if (this.rules) {
+        // rules 是表单规则，无规则则不触发验证
+        this.validator.validate(this.name, this.innerValue).then(res => {
+          if (res === true) {
+            this.$emit('formValid', this.innerModel())
+          }
+        }).catch((e) => {
+          // this.$emit('formError', this.innerModel)
+        })
+      }
+      this.$emit('formChange', this.innerModel())
     },
     errorMsg () {
-      // let _msg = this.validator.errorBag.first(this.name)
-      // if (_msg !== this.name) {
-      //   return _msg
-      // }
-      // return this.rules.errorMsg || this.rules.placeholder
+      let _msg = this.validator.errorBag.first(this.name)
+      if (_msg !== this.name) {
+        return _msg
+      }
+      return this.rules.errorMsg || this.rules.placeholder
     },
     innerModel () {
       return {

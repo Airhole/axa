@@ -11,11 +11,9 @@
 </template>
 <script>
   import { Group, XAddress, Value2nameFilter as value2name } from 'vux'
-  import formMixin from '../mixins/form-mixin'
 
   export default {
     name: 'web-select-item',
-    mixins: [formMixin],
     components: {
       Group, XAddress
     },

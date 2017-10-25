@@ -135,11 +135,9 @@
 //  import inputCameraItem from './input-camera-item'
   import yesornoItem from "./yesorno-item"
   import inputTxtItem from './input-txt-item'
-  import formMixin from "../mixins/form-mixin"
 
   export default {
     name: 'form-row',
-    mixins: [formMixin],
     components: {
       rootItem,
       rootSelect,

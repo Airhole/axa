@@ -1,12 +1,6 @@
-<!--********************************************************************
- * Author        : rickyshin
- * Filename      : import-client-info.vue
- * Description   : 计划书-录入客户信息
- * Time          : 2017/10/24
- *
-********************************************************************-->
 <template>
-  <div class="page_import-client-info">
+  <div class="page_applicant-info">
+    <!-- 投被保人信息 -->
     <div class="form">
       <form-unit
         :formModels="formModels"
@@ -15,10 +9,11 @@
         @formValid="onValid">
       </form-unit>
     </div>
+    <!-- 投被保人信息 -->
     <div class="btn-wrapper">
       <!--<default-btn class='next' val='下一步' @Click="nextStep"></default-btn>-->
       <div class="pre-step">首年保费合计：<span>666.00元</span></div>
-      <div class="next-step">生成计划书</div>
+      <div class="next-step" @click="nextStep">生成计划书</div>
     </div>
   </div>
 </template>
@@ -56,22 +51,9 @@
     methods: {
       nextStep () {
         if (!this.isValid) {
-          let emsg = (this.formErrors && this.formErrors[0].msg) || '出错了...'
-          this.__toast(emsg)
+          this.__toast(this.formErrors[0].msg)
         } else {
-          if (this.validIdCardBirthdaySex()) {
-            this.axios.post(ENROLL_SUBMMIT, {baseInfo: Object.values(this.form), ...this.options}).then(res => {
-              let result = res.data
-              if (result.success) {
-                window.name = JSON.stringify({uid: result.value.id})
-                this.$router.push({name: 'registerResume', query: {id: result.value.id}})
-              } else {
-                if (result.errorMsg) {
-                  this.__toast(result.errorMsg)
-                }
-              }
-            })
-          }
+          this.__toast('提交成功！')
         }
       },
       // 验证身份证和性别，身份证和出生日期是否符合
@@ -94,68 +76,6 @@
         }
       },
       getData () {
-        this.axios.all([this.getBackendData(), this.getBank()]).then(res => {
-          let serverData = res[0].data
-          let bankData = res[1].data
-          this.$nextTick(() => {
-            if (serverData.success) {
-              this.formModels = this.__patch(serverData.value)
-            } else {
-              this.__toast(serverData.value.errorMsg)
-            }
-            if (bankData.success) {
-              this.getDictFromBackend(bankData.value.core_bank_code, 'bank')
-            } else {
-              this.__toast(bankData.value.errorMsg)
-            }
-          })
-        })
-      },
-      // 获取后台数据
-      getBackendData () {
-        return this.axios.post(ENROLL_INTERSET, this.options)
-      },
-      // 获取银行字典数据
-      getBank () {
-        return this.axios.get(QUERY_DICT, {params: {dictionarys: 'core_bank_code'}})
-      },
-      // 数据转义，将后台接口返回数据转换成前端可用的数据
-      getDictFromBackend (arr, formRulesKey) {
-        let temp = []
-        arr.map(item => {
-          temp.push(item.name)
-        })
-        this.formRules[formRulesKey].rules.options = [temp]
-      },
-      setIdCardInfo (val) {
-        let year = val.split('').splice(6, 4).join('')
-        let month = val.split('').splice(10, 2).join('')
-        let day = val.split('').splice(12, 2).join('')
-        let birthdayFromIdCard = [year, month, day].join('-')
-        let sexFromIdCard = val.split('').splice(16, 1).join('')
-        let sexFlag = sexFromIdCard % 2 === 0 ? 'F' : 'M'
-        this.formModels.birthday.value = birthdayFromIdCard
-        this.formModels.sex.value = sexFlag
-        // this.formRules.idCardNo.rules.disabled = true
-      }
-    },
-    watch: {
-      'form.idCardNo': {
-        deep: true,
-        handler () {
-          let idCardNoValid = this.formErrors.find(item => (item.name === 'idCardNo' && item.isValid === false))
-          if (idCardNoValid === undefined && this.formModels.idCardNo.value) {
-            this.setIdCardInfo(this.form.idCardNo.value)
-          }
-        }
-      },
-      'form.nationality': {
-        deep: true,
-        handler (v) {
-          if (v && v.value && v.value.indexOf('族') === -1) {
-            this.formModels.nationality.value = v.value + '族'
-          }
-        }
       }
     }
   }

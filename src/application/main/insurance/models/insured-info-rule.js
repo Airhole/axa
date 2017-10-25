@@ -179,7 +179,7 @@ export default {
     }
   },
   coName: {
-    label: '单位名称',
+    label: '单位/学校名称',
     type: 'input',
     rules: {
       vRules: 'required',
@@ -199,7 +199,7 @@ export default {
     }
   },
   coAddress: {
-    label: '单位地址',
+    label: '单位/学校地址',
     type: 'web-select',
     rules: {
       vRules: 'required',

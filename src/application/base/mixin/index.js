@@ -6,10 +6,9 @@
  */
 
 import tools from './tools'
-import events from './events'
 
 export default {
-  mixins: [tools, events],
+  mixins: [tools],
   data () {
     return {
       isInit: null

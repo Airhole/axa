@@ -21,10 +21,8 @@
 </template>
 <script>
   import {Group, PopupPicker, Picker} from 'vux'
-  import formMixin from '../mixins/form-mixin'
 
   export default {
-    mixins: [formMixin],
     data () {
       return {
         innerValue: this.modelValue

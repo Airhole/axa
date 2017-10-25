@@ -20,7 +20,6 @@
 <script>
 import formRow from '../items/form-row'
 import formBlock from '../items/form-block'
-import formMixin from '../mixins/form-mixin'
 
 export default {
   name: 'form-unit',
@@ -32,7 +31,6 @@ export default {
       isValid: false
     }
   },
-  mixins: [formMixin],
   components: {
     formRow,
     formBlock

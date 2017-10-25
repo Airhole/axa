@@ -21,7 +21,7 @@ export default {
     rules: {
       // maxlength: 6,
       vRules: 'required|username|checkUser|usernameLength',
-      placeholder: '请输入您的姓名',
+      placeholder: '请输入投保人姓名',
       errorMsg: errorMsg.name
     }
   },
@@ -75,7 +75,7 @@ export default {
     rules: {
       // maxlength: 6,
       vRules: 'required|username|checkUser|usernameLength',
-      placeholder: '请输入您的姓名',
+      placeholder: '请输入被保人姓名',
       errorMsg: errorMsg.name
     }
   },

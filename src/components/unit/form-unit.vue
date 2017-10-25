@@ -115,7 +115,6 @@
 <script>
 import formRow from '../items/form-row'
 import formBlock from '../items/form-block'
-import formMixin from '../mixins/form-mixin'
 
 export default {
   name: 'form-unit',
@@ -127,7 +126,6 @@ export default {
       isValid: false
     }
   },
-  mixins: [formMixin],
   components: {
     formRow,
     formBlock
@@ -189,6 +187,7 @@ export default {
       }
       let mod = this.__obj(this.innerModel())
       this.timer = setTimeout(() => {
+        console.log(mod)
         this.$emit('formChange', mod)
         this.timer = null
       }, 200)
@@ -246,7 +245,7 @@ export default {
     innerModel () {
       this.mountErrors()
 
-      let _msg = this.errorBag[0] || this.errorBag[0].msg || null
+      let _msg = (this.errorBag[0] && this.errorBag[0].msg) || null
       return {
         name: ((this.name || this.index) || 'formUnit').toString(),
         value: this.form,
@@ -262,13 +261,25 @@ export default {
         return (item.value === '' || item.value === null)
       })
       return _all.length === this.keys.length
+    },
+    validFun (err) {
+      for (let i in err) {
+        let item = err[i]
+        if (typeof item === 'string') continue
+        if (!item) return false
+        if (!item.isValid) {
+          // err.errorMsg = item.msg || item.name + " error: 未指定errorMsg或placeHolder"
+          return false
+        }
+      }
+      return true
     }
   },
   watch: {
     form: {
       deep: true,
       handler () {
-        this.isValid = this.__isValid(this.formErrors)
+        this.isValid = this.validFun(this.formErrors)
         this.$nextTick(() => {
           this.submit()
         })
