@@ -7,22 +7,24 @@
 
 import tools from './tools'
 
+export let initialized = Symbol('initialized')
+
 export default {
   mixins: [tools],
   data () {
     return {
-      isInit: null
+      [initialized]: false
     }
   },
   created () {
-    if (!this.isInit) {
-      this.isInit = true
+    if (!this[initialized]) {
+      this[initialized] = true
     }
     this.init()
   },
   activated () {
-    if (!this.isInit) {
-      this.isInit = true
+    if (!this[initialized]) {
+      this[initialized] = true
       this.init()
     }
   },
@@ -30,16 +32,16 @@ export default {
     this.ready()
   },
   deactivated () {
-    if (this.isInit !== null) {
+    if (this[initialized]) {
       this.destroy()
     }
-    this.isInit = null
+    this[initialized] = false
   },
   beforeDestroy () {
-    if (this.isInit !== null) {
+    if (this[initialized]) {
       this.destroy()
     }
-    this.isInit = null
+    this[initialized] = false
   },
   methods: {
     init () {},
