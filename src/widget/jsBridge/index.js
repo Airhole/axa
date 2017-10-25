@@ -40,6 +40,7 @@ studyArticleDetail  *
  * 职业查询
  *
  */
+import cookie from '@/utils/cookie'
 
 window.jsBridge = {
   status: {
@@ -88,36 +89,12 @@ window.jsBridge = {
   }
 }
 
-window.cookie = {
-  set: function (name, value) { // 设置cookie方法
-    var Days = 30
-    var exp = new Date()
-    exp.setTime(exp.getTime() + Days * 24 * 60 * 60 * 1000)
-    document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString()
-  },
-  get: function (key) { // 获取cookie方法
-    var arrStr = document.cookie.split("; ")
-    for (var i = 0; i < arrStr.length; i++) {
-      var temp = arrStr[i].split("=")
-      if (temp[0] == key) {
-        return unescape(temp[1])
-      }
-    }
-  },
-  delete: function (key) { // 删除cookie方法
-    var exp = new Date()
-    exp.setTime(exp.getTime() - 1)
-    var cval = window.cookie.set(name)
-    if (cval != null) {
-      document.cookie = name + "=" + cval + ";expires=" + exp.toGMTString()
-    }
-  }
-}
+
 window.ostype = function () {
-  return window.cookie.get('hq_http_ostype')
+  return cookie.get('hq_http_ostype')
 }
 window.token = function () {
-  return window.cookie.get('hq_http_usertoken')
+  return cookie.get('hq_http_usertoken')
 }
 window.HQAppGetH5Header = function (n) { // 当app加载完毕后 app调用修改 loadstatus 表示完毕
   window.jsBridge.status.loadstatus = true
@@ -833,59 +810,7 @@ window.showShareArr = function (fun, url, imageUrl, title, desc) {
   })
 }
 
-// 原生ajax请求
-window.nativeAjax = function (url, data, method) {
-  // 异步对象
-  var ajax = new XMLHttpRequest()
-  // get 跟post  需要分别写不同的代码
-  if (method == 'get') {
-    // get请求
-    if (data) {
-      // 如果有值
-      url += '?'
-      url += data
-    } else {
 
-    }
-    // 设置 方法 以及 url
-    ajax.open(method, url)
-    // send即可
-    ajax.send()
-  } else {
-    // post请求
-    // post请求 url 是不需要改变
-    ajax.open(method, url)
-
-    // 需要设置请求报文
-    ajax.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
-
-    // 判断data send发送数据
-    if (data) {
-      // 如果有值 从send发送
-      ajax.send(data)
-    } else {
-      // 木有值 直接发送即可
-      ajax.send()
-    }
-  }
-  // 注册事件
-  ajax.onreadystatechange = function () {
-    // 在事件中 获取数据 并修改界面显示
-    if (ajax.readyState == 4 && ajax.status == 200) {
-      // console.log(ajax.responseText);
-
-      // 将 数据 让 外面可以使用
-      // return ajax.responseText;
-
-      // 当 onreadystatechange 调用时 说明 数据回来了
-      // ajax.responseText;
-
-      // 如果说 外面可以传入一个 function 作为参数 success
-      // success(ajax.responseText)
-      alert('bbbb')
-    }
-  }
-}
 
 // 显示详情页大图数组分享
 window.showPosterDetail = function (param, index) {
@@ -908,10 +833,6 @@ window.showShareEntry = function (type, url, title, desc, callback) {
     console.log(error)
     throw new Error(error)
   })
-}
-
-window.testShare = function (res) {
-  alert('aaaa')
 }
 
 function clearTimer () {
