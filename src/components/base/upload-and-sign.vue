@@ -52,10 +52,8 @@
   </div>
 </template>
 <script>
-  import formMix from '@/components/mixins/form-mixin'
   export default {
     name: 'sign_item_no_cache',
-    mixins: [formMix],
     data () {
       return {
         innerErrors: '',
@@ -146,7 +144,7 @@
               }
             }
             if (el.cType == '4') {
-//              debugger
+              // debugger
               if (!(el.imagePathList && el.imagePathList[0])) {
                 this.innerModel[el.title].msg = this.errorMsg(el.desc)
                 this.innerModel[el.title].isValid = false
