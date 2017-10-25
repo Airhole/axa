@@ -4,108 +4,150 @@
         param:
 
 -->
+<!--
+      descript: 展业工具-贺卡-模态框
+        author: ChenRihua
+        param:
+-->
 <template>
-  <div class="page_exam_confirm">
-    <confirm
-      v-model="show"
-      :close-on-confirm="false"
-      title="请再次确认以下信息是否正确"
-      @on-confirm="$emit('confirm')"
-      @on-cancel="$emit('close')"
-    >
+  <div class="page_add-additional-insurance">
+    <x-dialog v-model="show" class="page_dialog">
+      <div class="close-wrapper">
+        <!--<span class="vux-close" @click="$emit('close')"></span>-->
+        <span class="vux-close">
+            <x-icon type="ios-close-outline" class="icon" @click="$emit('close')"></x-icon>
+          </span>
+      </div>
+      <div class="dialog-wrapper">
+        <div class="title">附加险</div>
+        <slot name="content"></slot>
+        <div class="checklist">
+          <checklist :label-position="'left'" required :options="commonList" v-model="checklist001" @on-change="change"></checklist>
+        </div>
+        <div class="confirm-btn" @click="$emit('confirm')">
+          确定
+        </div>
+      </div>
 
-      <ul>
-        <li>
-          <span class="title">渠道</span>
-          <span class="exam-content">CCCC</span>
-        </li>
-        <li>
-          <span class="title">营业部代码</span>
-          <span class="exam-content">BBBB</span>
-        </li>
-      </ul>
-    </confirm>
+    </x-dialog>
   </div>
+  <!--<div v-transfer-dom>-->
+  <!---->
+  <!--</div>-->
+
 </template>
 <script>
-  import { Group, XSwitch, Confirm } from 'vux'
+  import { Checklist, PopupPicker, Group, Datetime, XTextarea, XDialog, XSwitch, TransferDomDirective as TransferDom } from 'vux'
+  import CButton from '../../../components/base/default-btn.vue'
+
   export default {
-    name: 'examConfirm',
+    name: 'c_modal',
+    directives: {
+      TransferDom
+    },
     data () {
       return {
+        commonList: ['1001 附加医疗', '1002 附加住院', '1003 附加保险', '1004 附加xx', '1003 附加保险', '1003 附加保险', '1003 附加保险', '1003 附加保险', '1003 附加保险'],
         show: true
       }
     },
     methods: {
-      /**
-      onConfirm4 () {
-        console.log('on confirm')
-        this.$vux.loading.show({
-          transition: '',
-          text: 'processing'
-        })
-        setTimeout(() => {
-          this.$vux.loading.hide()
-          this.show4 = false
-        }, 1000)
+      confirm () {
+        console.log(this.firstdetail)
+      },
+      onHide () {
+
+      },
+      onChange () {
+
+      },
+      checkgander (v) {
+        if (v === 'M') {
+          this.form.genderCode = 'M'
+        } else {
+          this.form.genderCode = 'F'
+        }
       }
-       */
     },
-    props: ['personalInfo'],
     components: {
-      Confirm, XSwitch, Group
+      CButton, PopupPicker, Group, Datetime, XTextarea, XDialog, XSwitch, Checklist
     }
   }
 </script>
 <style lang='scss' rel="stylesheet/scss">
   @import '~@/assets/scss/function';
-  .page_exam_confirm {
+
+  .page_dialog {
     .weui-dialog {
-      max-width: rem-calc(500);
+      background: none;
+      top: 45%;
+      max-width: rem-calc(400);
       width: 90%;
-      .weui-dialog__title {
-        font-size: rem-calc(15);
-      }
-      .weui-dialog__hd {
-        @include borderbottom-1px(#f0f0f0);
-        padding: rem-calc(15);
-      }
-      .weui-dialog__bd {
-        padding: rem-calc(15);
-      }
-      .weui-dialog__btn {
-        font-size: rem-calc(15);
-        height: rem-calc(50);
-        line-height: rem-calc(50);
-      }
-      .weui-dialog__btn_primary {
-        color: #159dff;
+    }
+    /*.dialog-title {*/
+    /*line-height: 30px;*/
+    /*color: #666;*/
+    /*}*/
+    /*.img-box {*/
+    /*height: 350px;*/
+    /*overflow: hidden;*/
+    /*}*/
+    .close-wrapper {
+      display: flex;
+      justify-content: flex-end;
+      .vux-close {
+        margin-top: 8px;
+        margin-bottom: 8px;
+        display: inline-block;
+        vertical-align: middle;
+        .icon {
+          fill: #fff;
+          width: 28px;
+          height: 28px;
+        }
       }
     }
+    .dialog-wrapper {
+      background: #fff;
+      border-radius: 8px;
+      padding-bottom: rem-calc(50);
+      /*height: 350px;*/
+      overflow: hidden;
+    }
+    .confirm-btn {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: rem-calc(50);
+      background-color: #20aee5;
+      line-height: rem-calc(50);
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+      font-size: rem-calc(17);
+      color: #fff;
+    }
+    .weui-cell__bd {
+      text-align: left;
+      font-size: rem-calc(16);
+    }
+    .weui-cells:before {
+      border-top: none;
+    }
   }
+
+  /*}*/
 </style>
 <style lang='scss' rel="stylesheet/scss" scoped>
-  @import '~@/assets/scss/function';
-  .page_exam_confirm {
-    ul {
-      position: relative;
-      list-style: none;
-      li {
-        display: flex;
-        line-height: rem-calc(36);
-        font-size: rem-calc(15);
-        text-align: left;
-
-        .title {
-          flex: 1;
-          text-align: left;
-          color: #333;
-        }
-        .exam-content {
-          flex: 1;
-          color: #999;
-        }
-      }
+  .page_dialog {
+    .title {
+      line-height: rem-calc(50);
+      font-size: rem-calc(18);
+      border-bottom: 1px solid #D9D9D9;
+    }
+    .checklist {
+      /*padding: rem-calc(15) 0;*/
+      max-height: rem-calc(350);
+      overflow: scroll;
     }
   }
 </style>
