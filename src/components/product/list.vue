@@ -194,7 +194,7 @@
       line-height: rem-calc(34);
       text-align: center;
       color: #666;
-      font-family: 'PingFang SC';
+      font-family: 'PingFang SC',"Helvetica Neue","Helvetica","Hiragino Sans GB","Century Gothic",system, Arial, Verdana, Tahoma,"微软雅黑", Arial,sans-serif;;
       word-break: keep-all;
       overflow: hidden;
       font-size: rem-calc(15);
@@ -226,7 +226,7 @@
     }
     h2, h3{
       font-weight: normal;
-      font-family: 'PingFang HK';
+      font-family: 'PingFang HK', "Helvetica Neue","Helvetica","Hiragino Sans GB","Century Gothic",system, Arial, Verdana, Tahoma,"微软雅黑", Arial,sans-serif;;
     }
     h2{
       line-height: rem-calc(24);
@@ -253,7 +253,7 @@
       margin-right: rem-calc(15);
     }
     .bar{
-      font-family: 'PingFang SC';
+      font-family: 'PingFang SC',"Helvetica Neue","Helvetica","Hiragino Sans GB","Century Gothic",system, Arial, Verdana, Tahoma,"微软雅黑", Arial,sans-serif;;
       text-align: right;
       > label {
         color: #00afff;
