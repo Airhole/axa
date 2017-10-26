@@ -22,6 +22,14 @@ export default {
   name: 'insurance-unit',
   mixins: [formUnitMixin],
   props: ['insItem'],
+  mounted () {
+    window.xx = this
+  },
+  computed: {
+    $formRules () {
+
+    }
+  },
   components: {
     formRow
   }
@@ -67,6 +75,10 @@ export default {
         background-size: 40%;
         background-position: center center;
       }
+    }
+    .pre-step{
+      text-align:right;
+      padding-right:rem-calc(15);
     }
     .relative {
       position: relative;

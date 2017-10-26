@@ -1,16 +1,14 @@
 <template>
-  <div class="page_applicant-info">
-    <!-- 主、附险信息 -->
-    <div class="form">
-      <template v-for="(insItem, index) in $insureList" v-if="insItem.inputType">
-        <insurance-unit
-          :insItem="insItem"
-          @formChange="onChange">
-        </insurance-unit>
-      </template>
-    </div>
-    <!-- 主、附险信息 -->
+  <!-- 主、附险信息 -->
+  <div class="form">
+    <template v-for="(insItem, index) in $insureList" v-if="insItem.abbrName">
+      <insurance-unit
+        :insItem="insItem"
+        @formChange="onChange">
+      </insurance-unit>
+    </template>
   </div>
+  <!-- 主、附险信息 -->
 </template>
 
 <script>
@@ -25,7 +23,7 @@
       insuranceUnit,
       defaultBtn
     },
-    mixins: [epMixin],
+    // mixins: [epMixin],
     props: ['insureList'],
     computed: {
       $insureList: {
@@ -33,7 +31,9 @@
           if (!this.insureList || this.insureList.length == 0) {
             return []
           }
-        }
+          return this.insureList
+        },
+        set () {}
       }
     },
     data () {
@@ -44,6 +44,9 @@
       }
     },
     methods: {
+      init () {
+        window.ii = this
+      },
       nextStep () {
         if (!this.isValid) {
           this.__toast(this.formErrors[0].msg)

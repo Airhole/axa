@@ -46,7 +46,7 @@
       insuranceInfo,
       defaultBtn
     },
-    mixins: [epMixin],
+    // mixins: [epMixin],
     data () {
       window.info = this
       return {
@@ -63,7 +63,79 @@
     },
     methods: {
       init () {
-        this.getData()
+        // this.getData()
+        setTimeout(() => {
+          this.insureList = [{
+            "commodityId": "HQL00100",
+            "companyId": "hengqin",
+            "engineProductId": "1508470143074_123_M0",
+            "productCode": "16010",
+            "name": "横琴优健人生终身重大疾病保险",
+            "abbrName": "优健人生",
+            "riskType": "main",
+            "hasRider": false,
+            "paramList": [{
+              "inputType": "select",
+              "label": "交费期间",
+              "key": "pay",
+              "itemList": [{
+                "key": "single",
+                "value": "一次交清"
+              }, {
+                "key": "term_5",
+                "value": "5年期"
+              }, {
+                "key": "term_10",
+                "value": "10年期"
+              }, {
+                "key": "term_15",
+                "value": "15年期"
+              }, {
+                "key": "term_20",
+                "value": "20年期"
+              }, {
+                "key": "term_30",
+                "value": "30年期"
+              }],
+              "value": "term_20",
+              "canEdit": true
+            }, {
+              "inputType": "select",
+              "label": "交费频次",
+              "key": "pay_freq",
+              "itemList": [{
+                "key": "single",
+                "value": "一次交清"
+              }, {
+                "key": "year",
+                "value": "年交"
+              }],
+              "value": "year",
+              "canEdit": true
+            }, {
+              "inputType": "select",
+              "label": "保险期间",
+              "key": "insure",
+              "itemList": [{
+                "key": "to_full",
+                "value": "终身"
+              }],
+              "value": "to_full",
+              "canEdit": true
+            }, {
+              "inputType": "input",
+              "label": "保险金额",
+              "key": "amount",
+              "itemList": null,
+              "value": "0.00",
+              "canEdit": true
+            }],
+            "premium": null,
+            "amount": null,
+            "payDesc": "20年期",
+            "insureDesc": "终身"
+          }]
+        }, 1000)
       },
       nextStep () {
         if (!this.isValid) {
