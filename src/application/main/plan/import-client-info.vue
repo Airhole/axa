@@ -29,7 +29,7 @@
   import formUnit from '@/components/unit/form-unit'
   import insuranceInfo from './import-client-insure-info'
   import epMixin from '@/components/mixins/enroll-page-mixin'
-  //  import {ENROLL_SUBMMIT, ENROLL_INTERSET, QUERY_DICT} from '@/api'
+  import {MAKE_PLAN} from '@/api'
   import defaultBtn from '@/components/base/default-btn.vue'
 
   // models
@@ -62,6 +62,9 @@
 
     },
     methods: {
+      init () {
+        this.getData()
+      },
       nextStep () {
         if (!this.isValid) {
           this.__toast(this.formErrors[0].msg)
@@ -69,7 +72,15 @@
           this.__toast('提交成功！')
         }
       },
-      getData () {}
+      getData () {
+        this.axios.get(MAKE_PLAN(true)).then((response) => {
+          console.log(response)
+        }, (response) => {
+        }).catch((err) => {
+          console.log(err)
+          throw new Error(err)
+        })
+      }
     }
   }
 </script>

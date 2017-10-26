@@ -1,9 +1,9 @@
-let root
+let root = ''
 let pro = process.env.NODE_ENV === 'production'
 if (pro) {
   root = '/api'
 } else {
-  root = '/testapi'
+  // root = '/testapi'
   // root = '/devapi'
 }
 let path = (inf = null, n = false) => {
