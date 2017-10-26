@@ -1,12 +1,18 @@
 <!--********************************************************************
  * Author        : rickyshin
- * Filename      : add-beneficiary.vue
- * Description   : 在线投保-指定受益人填写
- * Time          : 2017/10/24
+ * Filename      : insure-application-pre.vue
+ * Description   : 在线投保-投保书预览
+ * Time          : 2017/10/25
  *
 ********************************************************************-->
 <template>
-  <div class="page_add-beneficiary">
+  <div class="page_insure-application-pre">
+    <tab :animate="false" :line-width="2" :defaultColor="'#333'" :active-color="'#20aee5'">
+      <tab-item selected>基本信息</tab-item>
+      <tab-item >保障计划</tab-item>
+      <tab-item>支付信息</tab-item>
+      <tab-item>健康告知</tab-item>
+    </tab>
     <div class="form">
       <form-unit
         :formModels="formModels"
@@ -17,29 +23,33 @@
     </div>
     <div class="btn-wrapper">
       <!--<default-btn class='next' val='下一步' @Click="nextStep"></default-btn>-->
-      <div class="next-step">确定</div>
+      <div class="pre-step">上一步</div>
+      <div class="next-step">下一步</div>
     </div>
   </div>
 </template>
 
 <script>
+  import {Tab, TabItem} from 'vux'
   import formUnit from '@/components/unit/form-unit'
   import epMixin from '@/components/mixins/enroll-page-mixin'
   //  import {ENROLL_SUBMMIT, ENROLL_INTERSET, QUERY_DICT} from '@/api'
   import defaultBtn from '@/components/base/default-btn.vue'
 
   // models
-  import formModels from './models/add-beneficiary-model'
-  import formRules from './models/add-beneficiary-rule'
+  import formModels from './models/insure-application-pre-model'
+  import formRules from './models/insure-application-pre-rule'
 
   const ENROLL_SUBMMIT = ''
   const ENROLL_INTERSET = ''
   const QUERY_DICT = ''
   export default {
-    name: 'choose-beneficiary',
+    name: 'baseInfo',
     components: {
       formUnit,
-      defaultBtn
+      defaultBtn,
+      Tab,
+      TabItem
     },
     mixins: [epMixin],
     data () {
@@ -74,7 +84,6 @@
       },
       // 验证身份证和性别，身份证和出生日期是否符合
       validIdCardBirthdaySex () {
-        /**
         let idCardVal = this.form.idCardNo.value
         let birthday = this.form.birthday.value
         let sex = this.form.sex.value
@@ -91,10 +100,8 @@
         } else {
           return true
         }
-         */
       },
       getData () {
-        /**
         this.axios.all([this.getBackendData(), this.getBank()]).then(res => {
           let serverData = res[0].data
           let bankData = res[1].data
@@ -111,19 +118,14 @@
             }
           })
         })
-         */
       },
       // 获取后台数据
       getBackendData () {
-        /**
         return this.axios.post(ENROLL_INTERSET, this.options)
-         */
       },
       // 获取银行字典数据
       getBank () {
-        /**
         return this.axios.get(QUERY_DICT, {params: {dictionarys: 'core_bank_code'}})
-         */
       },
       // 数据转义，将后台接口返回数据转换成前端可用的数据
       getDictFromBackend (arr, formRulesKey) {
@@ -146,7 +148,6 @@
       }
     },
     watch: {
-      /**
       'form.idCardNo': {
         deep: true,
         handler () {
@@ -164,38 +165,41 @@
           }
         }
       }
-       */
     }
   }
 </script>
 <style lang='scss' rel="stylesheet/scss" scoped>
   @import '~@/assets/scss/function';
 
-  .page_add-beneficiary {
+  .page_insure-application-pre {
     @include fullpage;
     overflow: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     .form {
-      margin: 0 0 rem-calc(80) 0;
+      margin: 0 0 rem-calc(50) 0;
     }
     .btn-wrapper {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      margin: rem-calc(50) 0 0 0;
+      margin: rem-calc(25) 0 0 0;
       display: flex;
       line-height: rem-calc(50);
       align-items: center;
       justify-content: center;
       text-align: center;
       font-size: rem-calc(18);
+      .pre-step {
+        flex: 1;
+        color: #20aee5;
+        background: #fff;
+      }
       .next-step {
         flex: 1;
         background: #20aee5;
         color: #fff;
-        border: 1px solid #e9e9e9;
       }
     }
   }

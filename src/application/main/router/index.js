@@ -288,6 +288,24 @@ export default new Router({
         description: '添加附加险弹窗',
         param: {}
       }
+    },
+    { //  在线投保-投保书预览
+      path: '/main/insure_application_pre',
+      name: 'insure_application_pre',
+      component: () => import(/* webpackChunkName: "insure_application_pre" */ '@/application/main/insurance/insure-application-pre.vue'),
+      meta: {
+        requireAuth: true,
+        title: '投保书预览',
+        rightMenu: null,
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '在线投保-投保书预览',
+        param: {}
+      }
     }
   ]
 })
