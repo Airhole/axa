@@ -4,7 +4,7 @@ if (pro) {
   root = '/api'
 } else {
   // root = '/testapi'
-  // root = '/devapi'
+  root = '/devapi'
 }
 let path = (inf = null, n = false) => {
   let result = ''

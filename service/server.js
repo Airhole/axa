@@ -78,6 +78,7 @@ module.exports = function (app) {
   //     res.json({name:'aaa',pwd:'123'});
   // })
   app.use('/local', function (req, res, next){
+    console.log('ffffff')
     let path = filter(req, res)
     path = './mock' + path + '.json'
     console.log(path)
