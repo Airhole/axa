@@ -1,153 +1,93 @@
 <!--********************************************************************
- * Author     : xiangzhi
- * Email      :
- * Last modified  : 2017-10-25
- * Filename     : upload_insurance.vue
- * Description    :  在线投保-投保书预览-手工单录入结果
-
+ * Author        : xiangzhi
+ * Filename      : upload_insurance.vue
+ * Description   :
+ * Time          : 2017/10/26
+ *
 ********************************************************************-->
 <template>
   <div class="upload_insurance">
-    <sign-item @signChange="signChange" @on="signChange" :eSignModel="defaultMod"></sign-item>
-    <div class="footer">
-        <span class="btn btn-submit" @click="submit">确定</span>
+    <div class="upload_insurance_certify">
+      <div class="head"><div class="msg">证件影像上传</div></div>
+      <ul class="item-wrapper">
+        <li>
+          <div class="item-block">
+            <div>
+              <div>啊啊啊<span class="relation">投保人</span></div>
+              <div class="id_card">身份证&nbsp;&nbsp;12312312312312</div>
+            </div>
+            <div class="upload-img">
+             <div class="camera"></div>
+            </div>
+          </div>
+          <div class="img_gallery" style="display: none;">
+            <span class="uploadImgEle" style="display: none;"><i class="deleimg"></i> <img/></span>
+            <span class="uploadImgEle" style="display: none;"><i class="deleimg"></i> <img/></span>
+          </div>
+          <div data-v-37149d1a="" class="img_gallery" style="display: none;"></div>
+        </li>
+        <li>温馨提示：证件影像必须上传，注意身份证必须上传正反面。</li>
+      </ul>
+    </div>
+    <div class="upload_insurance_other">
+      <!-- <div class="title">其他影像上传</div> -->
+      <div class="head"><div class="msg">其他影像上传</div></div>
+      <upload-img @signChange="signChange" @on="signChange" :eSignModel="eSignModels"></upload-img>
+      <div class="prompt">温馨提示:根据客户投保情况选择性上传资料</div>
     </div>
   </div>
 </template>
 <script>
-  import { XTextarea, Group } from 'vux'
-  import eSignModels from './models/e-signature-model'
-  import signItem from "@/components/base/upload-and-sign"
+  import eSignModel from './models/e-signature-model'
+  import UploadImg from '@/components/base/upload-and-sign'
 
-  const defaultMod = {
-    'value': {
-      'placeholder': '请输入您的审批意见',
-      'caInfoList': [
-        {
-          'title': 'approvalSign',
-          'cType': 1,
-          'imagePathList': [],
-          'desc': '学历证明',
-          'keyWordRule': {
-            'alignMethod': 3,
-            'xOffest': 10,
-            'yOffest': 10,
-            'keyword': '投保人签名'
-          },
-          'signPkgPath': null,
-          'signImgPath': null,
-          'photoPath': null
-        }
-      ]
-    }
-  }
   export default {
-    name: 'upload_insurance',
     data () {
       return {
-        now: Date.now(),
-        innerErrors: {
-          textarea: {
-            value: false,
-            errMsg: '请输入您的审批意见'
-          },
-          sign: {
-            value: false,
-            errMsg: '请审批人签名'
-          }
-        },
-        textareaValue: '',
-        placeholder: '请输入您的审批意见',
-        info: '',
-        status: '',
-        timeTitle: '',
-        agree: true,
-        signInfo: null,
-        form: {
-          caInfoList: []
-        },
-        eSignModels: this.modValue
+        eSignModels: eSignModel,
+        infoModel: '',
+        submitInfo: ''
       }
     },
+    activated () {
+      // console.log('esign======', this.eSignModels)
+    },
     methods: {
-      init () {
-        window.ini = this
-        this.status = this.$route.query.status
-        this.info = JSON.parse(this.$route.query.info)
-        this.modValue = this.info
-        console.log(this.info)
-      },
       signChange (info) {
         if (info) {
-          this.signInfo = info
-          // this.innerErrors = info.approvalSign.errorMsg
-          console.log('this.signInfo', this.signInfo)
-          this.innerErrors.sign = {
-            value: this.signInfo.info.approvalSign.isValid,
-            errMsg: this.signInfo.info.approvalSign.msg
-          }
+          console.log('infoList=====', info)
+          this.infoModel = info
         }
       },
-      viewPdf (pdfPath) {
-        window.articleDetail(pdfPath)
-      },
-      onChangeTextarea () {
-        if (!this.textareaValue) {
-          this.innerErrors.textarea = {
-            value: false,
-            errMsg: '请输入您的审批意见'
-          }
-        } else {
-          this.innerErrors.textarea = {
-            value: true,
-            errMsg: ''
-          }
-        }
-      },
-      submit () {
-        // console.log('LLLLLL', this.innerErrors)
+      onSubmit () {
         if (this.isValid) {
-          let form = this.signInfo.form[0]
-          let params = {
-            comment: this.textareaValue,
-            id: this.info.reviewApproval.id,
-            signPath: form.signImgPath,
-            updateTime: form.signTime,
-            status: this.status,
-            entryId: this.info.guarantee.entryId
+          alert('success')
+          let subMsg = this.infoModel.info
+          let submitModel = {}
+          for (let i in subMsg) {
+            let item = subMsg[i]
+            submitModel[i] = item.value
           }
-          params.status = '3'
+          console.log('submitMODEL=====', submitModel)
         } else {
-          this.__toast(this.innerErrors.errMsg)
+          this.$vux.toast.show({
+            text: this.infoModel.info.errorMsg,
+            type: 'text',
+            width: '50%',
+            isShowMask: true
+          })
         }
       }
     },
     computed: {
-      modValue: {
-        get () {
-          let mod = defaultMod
-          this.info = JSON.parse(this.$route.query.info)
-          if (this.info) {
-            mod.value.caInfoList[0].handlerName = this.info.reviewApproval.handlerName
-          }
-          return this.__str(mod)
-        },
-        set (v) {
-          let mod = defaultMod
-          if (v) {
-            mod.value.caInfoList[0].handlerName = v.reviewApproval.handlerName
-          }
-          this.eSignModels = this.__str(mod)
-        }
-      },
       isValid () {
-        let errors = this.innerErrors
+        let errors = this.infoModel.info
         for (let i in errors) {
           let item = errors[i]
           if (typeof item === 'string') continue
           if (!item) return false
-          if (!item.value) {
-            this.innerErrors.errMsg = item.errMsg
+          if (!item.isValid) {
+            this.infoModel.info.errorMsg = item.msg
             return false
           }
         }
@@ -155,203 +95,65 @@
       }
     },
     components: {
-      signItem,
-      XTextarea,
-      Group
+      UploadImg
     }
   }
 </script>
-<style lang='scss' rel="stylesheet/scss">
+<style lang="scss" rel="stylesheet/scss" scoped>
   @import '~@/assets/scss/function';
-
   .upload_insurance {
-    .weui-textarea {
-      font-size: rem-calc(15);
-    }
-  }
-</style>
-<style lang='scss' rel="stylesheet/scss" scoped>
-  @import '~@/assets/scss/function';
-
-  .upload_insurance {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-    .router-head {
-      position: fixed;
-      width: 100%;
-      top: 0;
-      left: 0;
-      z-index: 9999;
-      @include trans3d
-    }
-    .approval-title {
-      color: #828282;
-    }
-    .approval-manager {
-      color: #828282;
-    }
-    .view-info {
-      display: flex;
-      flex: 1;
-      justify-content: flex-end;
-      padding-right: rem-calc(16);
-      color: #43A6F8;
-      font-size: rem-calc(15);
-      text-decoration: none;
-    }
-    .view-info:after {
-      content: " ";
-      display: inline-block;
-      height: 10px;
-      width: 10px;
-      border-width: 1px 1px 0 0;
-      border-color: #43A6F8;
-      border-style: solid;
-      -webkit-transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
-      transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
-      position: absolute;
-      top: 50%;
-      margin-top: -6px;
-      right: rem-calc(15);
-    }
-    .evaluation-by-recommender {
-      display: flex;
-      height: auto;
-      background-size: 0;
-      .evaluation-title {
-        position: absolute;
-        top: rem-calc(15);
-        color: #828282;
-      }
-      .evaluation-content {
-        padding-left: rem-calc(105);
-        padding-top: rem-calc(9);
-        padding-bottom: rem-calc(15);
-        flex: 1;
-        line-height: rem-calc(24);
-        .recommender-name {
-          color: #828282;
-        }
-      }
-      .manager-idea {
-        padding-left: rem-calc(105)!important;
-      }
-    }
-
-    .footer {
-      padding: rem-calc(18) 0;
-      text-align: center;
-      .btn {
-        display: inline-block;
-        width: rem-calc(150);
-        height: rem-calc(45);
-        line-height: rem-calc(45);
-        border: 1px solid #d2d2d2;
-        border-radius: rem-calc(2.5);
-        font-size: rem-calc(15);
-      }
-      .btn-submit {
-        background: #00b1ff;
-        border-color: #00b1ff;
-        color: #fff;
-        /*margin: 0 20px;*/
-        width: 25rem;
-      }
-    }
-    ul {
-      position: relative;
-      background-color: #fff;
-      list-style: none;
-      padding-left: rem-calc(15);
-      border-bottom: rem-calc(10) solid #F7F7F7;
-
-      & > li {
-        position: relative;
-        display: flex;
-        align-items: center;
-        height: rem-calc(45);
-        padding-right: rem-calc(15);
-        font-size: rem-calc(15);
-        @include borderbottom-1px(#efefef);
-        & > span {
-          display: inline-block;
-        }
-      }
-      .input {
-        flex: 1;
-        font-size: rem-calc(15);
-        border: 0;
-        outline: none;
-        -webkit-appearance: none;
-        color: #999999;
-        & > a {
-          text-decoration: none;
-        }
-      }
-    }
-    .weui-cells {
-      padding: 0;
-      height: rem-calc(44px);
-      line-height: rem-calc(44px);
+    position:absolute;
+    width:100%;
+    height:100%;
+    background-color:#f7f7f7;
+    .head {
+      background-color: #f7f7f7;
       overflow: hidden;
-      vertical-align: middle;
-      a {
-        padding: rem-calc(0px) 0 0 0;
-        font-size: rem-calc(16px);
+      height: rem-calc(91/2px);
+      line-height: rem-calc(91/2px);
+      box-sizing: border-box;
+      padding: 0px rem-calc(30/2px);
+      .msg {
+        float: left;
+        font-size: rem-calc(30/2px);
+        color: #666;
+        &:before {
+          content: "";
+          display: inline-block;
+          width: rem-calc(5/2px);
+          height: rem-calc(32/2px);
+          padding-left: rem-calc(16/2px);
+          box-sizing: border-box;
+          border-left: rem-calc(5/2px) solid #00b0ff;
+          vertical-align: middle;
+          margin-top: rem-calc(-2);
+        }
       }
     }
-    .approval-opinion {
-      padding-left: 0;
-      min-height: rem-calc(200);
-      font-size: rem-calc(15);
-      line-height: rem-calc(24);
-    }
-    .wrapper {
-      background-size: 0;
-      padding: rem-calc(5) rem-calc(15) rem-calc(5) 0;
-    }
-    .add-doc {
-      position: absolute;
-      top: rem-calc(16);
-      right: rem-calc(16);
-      width: rem-calc(25);
-      height: rem-calc(24);
-      font-size: rem-calc(15);
-      text-decoration: none;
-    }
-    .sign {
-      background: url('~@/assets/image/sign.png') no-repeat;
-      background-size: contain;
-      right: rem-calc(12px);
-    }
-    .esign-upload {
-      .other-title {
-        height: rem-calc(40);
-        line-height: rem-calc(40);
-        color: #646464;
-        padding-left: rem-calc(15);
-      }
+    .upload_insurance_certify {
       .item-wrapper {
         background-color: #ffffff;
         padding: 0 0 0 rem-calc(15);
         list-style: none;
         /*padding: rem-calc(5);*/
         li:last-child {
-          border-bottom: 0;
+          /*border-bottom: 0;*/
         }
         & > li {
           display: block;
           height: auto;
           padding: rem-calc(5) rem-calc(15) rem-calc(5) 0;
-          /*box-sizing: border-box;*/
+          box-sizing: border-box;
           -webkit-background-size: 0;
           background-size: 0;
           /*border-bottom: 1px solid #e1e1e1;*/
+          @include borderbottom-1px(#efefef);
+
+          &:last-child {
+            font-size: rem-calc(12px);
+            color: #00b0ff;
+            padding: rem-calc(15) rem-calc(15) rem-calc(15) 0;
+          }
           .item-block {
             display: flex;
             /*flex: 1;*/
@@ -359,6 +161,20 @@
             align-items: center;
             & > :first-child {
               flex: 1;
+            }
+            .relation {
+              display: inline-block;
+              padding: rem-calc(5);
+              background-color: #00b0ff;
+              color: #fff;
+              font-size: rem-calc(13);
+              margin-left: rem-calc(8);
+              border-radius: rem-calc(5);
+            }
+            .id_card {
+              font-size: rem-calc(12);
+              padding-top: rem-calc(5);
+              color: #ccc;
             }
             .upload-img {
               width: rem-calc(25);
@@ -433,11 +249,12 @@
         }
       }
     }
-    .sign-time {
-      font-size: rem-calc(12);
-      color: #999;
-      span {
-        color: #666;
+    .upload_insurance_other {
+      .prompt {
+        background-color: #fff;
+        font-size: rem-calc(12px);
+        color: #00b0ff;
+        padding: rem-calc(15) rem-calc(15) rem-calc(15) rem-calc(15);
       }
     }
   }
