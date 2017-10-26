@@ -1,7 +1,7 @@
 
 <!--********************************************************************
  * Author			: xiangzhi
- * Email			: geyan@zhongan.io
+ * Email			:
  * Last modified	: 2017-10-24 13:35
  * Filename			: resultSucc.vue
  * Description		:  在线投保-投保书预览-手工单录入结果
@@ -9,13 +9,13 @@
 ********************************************************************-->
 
 <template>
-  <div class="rst-succ-content">
+  <div class="manual_result">
     <div v-if='show'>
       <div class="rst-succ">
         <p>手工单录入成功！</p>
         <!--<p>您的保险合同编号为{{resObjet.contNo}},保险合同生效日期为{{resObjet.startTime}}。</p>-->
         <p>您的手工投保单信息录入成功，您可以在投保单查询查询该投保单信息!</p>
-        <p class="succ-tip" v-if="resObjet.isNeedEmail=='Y'">温馨提示: 电子保单将发送到您的电子邮箱,请注意查收。</p>
+        <!-- <p class="succ-tip" v-if="resObjet.isNeedEmail=='Y'">温馨提示: 电子保单将发送到您的电子邮箱,请注意查收。</p> -->
         <!--{{resObjet.isNeedEmail}}-->
       </div>
     </div>
@@ -61,7 +61,7 @@
 
 <style lang="scss" rel="stylesheet/scss" scoped>
   @import '~@/assets/scss/function';
-  .rst-succ-content {
+  .manual_result {
     position:absolute;
     width:100%;
     height:100%;

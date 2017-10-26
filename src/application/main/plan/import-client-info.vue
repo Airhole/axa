@@ -5,11 +5,18 @@
       <form-unit
         :formModels="formModels"
         :formRules="formRules"
-        @formChange="onChange"
-        @formValid="onValid">
+        @formChange="onChange">
       </form-unit>
     </div>
     <!-- 投被保人信息 -->
+    <!-- 主、附险信息 -->
+    <div class="form">
+      <insurance-info
+        :insureList="insureList"
+        @formChange="onChange">
+      </insurance-info>
+    </div>
+    <!-- 主、附险信息 -->
     <div class="btn-wrapper">
       <!--<default-btn class='next' val='下一步' @Click="nextStep"></default-btn>-->
       <div class="pre-step">首年保费合计：<span>666.00元</span></div>
@@ -20,8 +27,9 @@
 
 <script>
   import formUnit from '@/components/unit/form-unit'
+  import insuranceInfo from './import-client-insure-info'
   import epMixin from '@/components/mixins/enroll-page-mixin'
-  //  import {ENROLL_SUBMMIT, ENROLL_INTERSET, QUERY_DICT} from '@/api'
+  import {MAKE_PLAN} from '@/api'
   import defaultBtn from '@/components/base/default-btn.vue'
 
   // models
@@ -35,6 +43,7 @@
     name: 'baseInfo',
     components: {
       formUnit,
+      insuranceInfo,
       defaultBtn
     },
     mixins: [epMixin],
@@ -43,12 +52,19 @@
       return {
         formModels: formModels,
         formRules: formRules,
+        insureList: [],
         options: {
           editStep: '1'
         }
       }
     },
+    computed: {
+
+    },
     methods: {
+      init () {
+        this.getData()
+      },
       nextStep () {
         if (!this.isValid) {
           this.__toast(this.formErrors[0].msg)
@@ -56,26 +72,14 @@
           this.__toast('提交成功！')
         }
       },
-      // 验证身份证和性别，身份证和出生日期是否符合
-      validIdCardBirthdaySex () {
-        let idCardVal = this.form.idCardNo.value
-        let birthday = this.form.birthday.value
-        let sex = this.form.sex.value
-        let birthFromIdCard = idCardVal.split('').splice(6, 8).join('')
-        let birthFromBirth = birthday.split('-').join('')
-        let sexFromIdCard = idCardVal.split('').splice(16, 1).join('')
-        let sexFlag = sexFromIdCard % 2 === 0 ? 'F' : 'M'
-        if (sex !== sexFlag) {
-          this.__toast('性别和身份证不符')
-          return false
-        } else if (birthFromBirth !== birthFromIdCard) {
-          this.__toast('出生日期和身份证不符')
-          return false
-        } else {
-          return true
-        }
-      },
       getData () {
+        this.axios.get(MAKE_PLAN(true)).then((response) => {
+          console.log(response)
+        }, (response) => {
+        }).catch((err) => {
+          console.log(err)
+          throw new Error(err)
+        })
       }
     }
   }

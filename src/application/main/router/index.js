@@ -271,6 +271,60 @@ export default new Router({
         param: {}
       }
     },
+    { //  在线投保-投保资料上传
+      path: '/insurance/see_insurance_result',
+      name: 'see_insurance_result',
+      component: () => import(/* webpackChunkName: "see_insurance_result" */ '@/application/main/insurance/see_insurance_result.vue'),
+      meta: {
+        requireAuth: true,
+        title: '投保资料上传',
+        rightMenu: null,
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '在线投保-投保资料上传',
+        param: {}
+      }
+    },
+    { //  在线投保-查看投保结果
+      path: '/insurance/upload_insurance',
+      name: 'upload_insurance',
+      component: () => import(/* webpackChunkName: "see_insurance_result" */ '@/application/main/insurance/upload_insurance.vue'),
+      meta: {
+        requireAuth: true,
+        title: '查看投保结果',
+        rightMenu: null,
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '在线投保-查看投保结果',
+        param: {}
+      }
+    },
+    { //  在线投保-支付信息
+      path: '/insurance/pay_insurance',
+      name: 'pay_insurance',
+      component: () => import(/* webpackChunkName: "see_insurance_result" */ '@/application/main/insurance/pay_insurance.vue'),
+      meta: {
+        requireAuth: true,
+        title: '支付信息',
+        rightMenu: null,
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '在线投保-支付信息',
+        param: {}
+      }
+    },
     { //  添加附加险弹窗
       path: '/base/additional_insurance',
       name: 'additional_insurance',
