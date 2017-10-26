@@ -10,7 +10,7 @@
     <ul class="item-wrapper" v-show="true">
       <li v-for="(item, index) in form.caInfoList" :key="index">
         <div class="item-block">
-          <div class="type-title">{{item.desc}}</div>
+          <div>{{item.desc}}</div>
           <div class="upload-img" @click="uploadPic(item)">
             <div :class="[item.cType != 1 ? 'camera' : 'sign']"></div>
           </div>
@@ -20,29 +20,25 @@
               <i class="deleimg" @click.self="deleImg(item.cType, item)"></i>
               <img :src="item.signImgPath"/>
             </span>
-          <span class="uploadImgEle" v-show="item.photoPath">
+            <span class="uploadImgEle" v-show="item.photoPath">
               <i class="deleimg" @click.self="deleImg(item.cType, item)"></i>
               <img :src="item.photoPath"/>
             </span>
-          <span class="sign-time">签名时间：<span>{{item.signTime | timefilter}}</span></span>
+            <span class="sign-time">签名时间：<span>{{item.signTime | timefilter}}</span></span>
         </div>
-        <div class="img_gallery" v-show="item.signImgPath || item.photoPath" v-if="item.cType != 1">
+        <div class="img_gallery" v-show="item.signImgPath || item.photoPath" v-if="item.cType == 2 || item.cType == 3 || item.cType == 4">
             <span class="uploadImgEle" v-show="item.signImgPath">
               <i class="deleimg" @click.self="deleImg(item.cType, item)"></i>
               <img :src="item.signImgPath"/>
             </span>
-          <span class="uploadImgEle" v-show="item.photoPath">
+            <span class="uploadImgEle" v-show="item.photoPath">
               <i class="deleimg" @click.self="deleImg(item.cType, item)"></i>
               <img :src="item.photoPath"/>
             </span>
         </div>
         <!--{{item.imagePathList}}-->
         <div class="img_gallery" v-show="item.imagePathList && item.imagePathList[0]">
-          <!--<span class="uploadImgEle" v-show="item.signImgPath">-->
-          <!--<i class="deleimg" @click.self="deleImg(item.cType, item)"></i>-->
-          <!--<img :src="item.signImgPath"/>-->
-          <!--</span>-->
-          <span class="uploadImgEle" v-show="item.imagePathList" v-for="(i, index) in item.imagePathList" :key="index">
+            <span class="uploadImgEle" v-show="item.imagePathList" v-for="(i, index) in item.imagePathList" :key="index">
               <i class="deleimg" @click.self="dImg(item.imagePathList, index)"></i>
               <img :src="i.url"/>
             </span>
@@ -52,42 +48,44 @@
   </div>
 </template>
 <script>
+  //  import eSignModel from './model/e-signature-model'
   export default {
-    name: 'sign_item_no_cache',
+    name: 'uploadImg',
     data () {
       return {
         innerErrors: '',
-        form: this.$eSignModel,
-        innerModel: {}
+        form: {}
       }
     },
     props: ['eSignModel'],
     computed: {
-      $eSignModel: {
-        set (v) {
-          console.log('sssssssssssssssssssssss', v)
-          this.form = JSON.parse(v).value
-        },
-        get () {
-          console.log('ggggggggggggggggggggggg', this.eSignModel)
-          return JSON.parse(this.eSignModel).value
+      $eSignModel: function () {
+        return this.eSignModel
+      },
+      innerModel () {
+        return {
+          // name: this.name,
+          // value: this.form.caInfoList,
+          // msg: this.innerErrors,
+          // isValid: ''
         }
       }
     },
-    watch: {
-      eSignModel: {
-        deep: true,
-        handler (v) {
-          console.log('))))))))))))))', v)
-          this.$eSignModel = v
-        }
-      }
+    activated () {
+      this.init()
+      // this.deleImg()
+      // this.$emit('on', this.innerModel)
+      // this.delCache()
+      console.log('this.info ==== ', this.info)
+      console.log('this.status ==== ', this.status)
     },
     methods: {
       init () {
-        window.testItem = this
-        this.form = this.$eSignModel
+        this.form = this.$eSignModel.value
+        // console.log('this.Model', this.form)
         this.initInnerModel(this.form.caInfoList)
+        this.getCachedImg()
+
         this.onValidate(this.form.caInfoList)
       },
       initInnerModel (list) {
@@ -172,12 +170,16 @@
       errorMsg (_msg) {
         return _msg + '不能为空'
       },
+      delCache () {
+        this.$store.state.ui.store.del('formCache')
+      },
       deleImg (type, item) {
         item.photoPath = ''
         item.signImgPath = ''
         item.signData = ''
         item.faceFlag = null
         this.$nextTick(() => {
+          this.$store.state.ui.store.set('formCache', this.form)
         })
         this.innerModel[item.title].isValid = false
         this.innerModel[item.title].msg = this.errorMsg(item.desc)
@@ -188,6 +190,7 @@
         list.splice(index, 1)
         this.onValidate(this.form.caInfoList)
         this.$nextTick(() => {
+          this.$store.state.ui.store.set('formCache', this.form)
         })
       },
       uploadPic (item) {
@@ -195,6 +198,7 @@
           window.callCamera('123').then((success, n) => {
             console.log('uploadIMG=====', success, n)
             this.n = n
+            // debugger
             if (item.imagePathList.length < item.maxLength) {
               item.imagePathList.push(JSON.parse(success))
             } else {
@@ -206,6 +210,7 @@
               })
             }
             this.onValidate(this.form.caInfoList)
+            this.$store.state.ui.store.set('formCache', this.form)
             this.$emit('signChange', {info: this.innerModel, form: this.form.caInfoList})
           }, fail => {
             console.log(fail)
@@ -215,13 +220,13 @@
           })
         } else {
           let itemJSON = Object.assign({}, item.keyWordRule)
-          console.log('item======', item)
-          window.caSign(item.handlerName, item.cType, JSON.stringify(itemJSON)).then(success => {
+          window.caSign(item.title, item.cType, JSON.stringify(itemJSON)).then(success => {
             let res = JSON.parse(success)
             console.log('res=======', res)
             if (item.cType == 1) {
               item.signImgPath = res.gestureImage // 签名 url
               item.signTime = Date.now()
+              // this.now = Date.now()
             }
             console.log('imgPATH', item.signImgPath)
             if (item.cType == 2) {
@@ -230,13 +235,15 @@
             }
             if (item.cType == 3) {
               if (res.IDRecognizeResult === '0') {
-                // failed
                 item.faceFlag = '1'
               }
               item.signImgPath = '' // 签名 url
               item.photoPath = res.gestureImage // 人脸识别url
             }
+            // write to localStorage
+            console.log('caInfoList', this.form.caInfoList)
             this.onValidate(this.form.caInfoList)
+            this.$store.state.ui.store.set('formCache', this.form)
             this.$emit('signChange', {info: this.innerModel, form: this.form.caInfoList})
           }, fail => {
             console.log(fail)
@@ -244,6 +251,18 @@
             console.log(e)
             throw new Error(e)
           })
+        }
+      },
+      getCachedImg () {
+        const info = this.$store.state.ui.store.get('formCache') || {}
+        // console.log('infoFromCache====', info)
+        // let cacheList = info.caInfoList
+        this.onValidate(info.caInfoList)
+        const _info = info.caInfoList
+        if (_info && _info.length > 0 && info.applyId === this.form.applyId) {
+          this.form.caInfoList = _info
+        } else {
+          this.delCache()
         }
       }
     }
@@ -283,9 +302,6 @@
           align-items: center;
           & > :first-child {
             flex: 1;
-          }
-          .type-title {
-            color: #333;
           }
           .upload-img {
             width: rem-calc(25);
