@@ -1,65 +1,47 @@
 <template>
   <div class="page_applicant-info">
-    <!-- 投被保人信息 -->
-    <div class="form">
-      <form-unit
-        :formModels="formModels"
-        :formRules="formRules"
-        @formChange="onChange">
-      </form-unit>
-    </div>
-    <!-- 投被保人信息 -->
     <!-- 主、附险信息 -->
     <div class="form">
-      <insurance-info
-        :insureList="insureList"
-        @formChange="onChange">
-      </insurance-info>
+      <template v-for="(insItem, index) in $insureList" v-if="insItem.inputType">
+        <insurance-unit
+          :insItem="insItem"
+          @formChange="onChange">
+        </insurance-unit>
+      </template>
     </div>
     <!-- 主、附险信息 -->
-    <div class="btn-wrapper">
-      <!--<default-btn class='next' val='下一步' @Click="nextStep"></default-btn>-->
-      <div class="pre-step">首年保费合计：<span>666.00元</span></div>
-      <div class="next-step" @click="nextStep">生成计划书</div>
-    </div>
   </div>
 </template>
 
 <script>
-  import formUnit from '@/components/unit/form-unit'
-  import insuranceInfo from './import-client-insure-info'
+  import insuranceUnit from '@/components/unit/insurance-unit'
   import epMixin from '@/components/mixins/enroll-page-mixin'
   //  import {ENROLL_SUBMMIT, ENROLL_INTERSET, QUERY_DICT} from '@/api'
   import defaultBtn from '@/components/base/default-btn.vue'
 
-  // models
-  import formModels from './models/import-client-info-model'
-  import formRules from './models/import-client-info-rule'
-
-  const ENROLL_SUBMMIT = ''
-  const ENROLL_INTERSET = ''
-  const QUERY_DICT = ''
   export default {
-    name: 'baseInfo',
+    name: 'insurance-info',
     components: {
-      formUnit,
-      insuranceInfo,
+      insuranceUnit,
       defaultBtn
     },
     mixins: [epMixin],
+    props: ['insureList'],
+    computed: {
+      $insureList: {
+        get () {
+          if (!this.insureList || this.insureList.length == 0) {
+            return []
+          }
+        }
+      }
+    },
     data () {
-      window.info = this
       return {
-        formModels: formModels,
-        formRules: formRules,
-        insureList: [],
         options: {
           editStep: '1'
         }
       }
-    },
-    computed: {
-
     },
     methods: {
       nextStep () {
@@ -69,7 +51,8 @@
           this.__toast('提交成功！')
         }
       },
-      getData () {}
+      getData () {
+      }
     }
   }
 </script>
