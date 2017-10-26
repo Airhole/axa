@@ -14,13 +14,58 @@
       <tab-item>健康告知</tab-item>
     </tab>
     <div class="form">
-      <form-unit
-        :formModels="formModels"
-        :formRules="formRules"
-        @formChange="onChange"
-        @formValid="onValid">
-      </form-unit>
+      <div class="head">
+        <div class="msg">投保人信息</div>
+      </div>
+      <root-text></root-text>
+
+      <div class="head">
+        <div class="msg">被保人信息</div>
+      </div>
+      <root-text></root-text>
+
+      <div class="head">
+        <div class="msg">受益人信息</div>
+      </div>
+      <div v-for="item in [1, 2]">
+        <div>受益人{{item}}</div>
+        <root-text></root-text>
+      </div>
+
+      <div class="head">
+        <div class="msg">保障计划</div>
+      </div>
+      <div>
+        <div class="main-insure">
+          <label>主</label>
+          <span>康乐人寿重大疾病保险-30年期</span>
+        </div>
+        <root-text></root-text>
+        <div v-for="item in [1, 2]">
+          <div class="main-insure additional-insure">
+            <label>附</label>
+            <span>康乐人寿重大疾病保险-30年期</span>
+          </div>
+          <root-text></root-text>
+        </div>
+      </div>
+
+      <div class="head">
+        <div class="msg">健康告知</div>
+      </div>
+
+      <div class="head">
+        <div class="msg">客户声明信息</div>
+      </div>
     </div>
+    <!--<div class="form">-->
+      <!--<form-unit-->
+        <!--:formModels="formModels"-->
+        <!--:formRules="formRules"-->
+        <!--@formChange="onChange"-->
+        <!--@formValid="onValid">-->
+      <!--</form-unit>-->
+    <!--</div>-->
     <div class="btn-wrapper">
       <!--<default-btn class='next' val='下一步' @Click="nextStep"></default-btn>-->
       <div class="pre-step">上一步</div>
@@ -32,6 +77,7 @@
 <script>
   import {Tab, TabItem} from 'vux'
   import formUnit from '@/components/unit/form-unit'
+  import rootText from '@/components/root-items/root-text'
   import epMixin from '@/components/mixins/enroll-page-mixin'
   //  import {ENROLL_SUBMMIT, ENROLL_INTERSET, QUERY_DICT} from '@/api'
   import defaultBtn from '@/components/base/default-btn.vue'
@@ -49,7 +95,8 @@
       formUnit,
       defaultBtn,
       Tab,
-      TabItem
+      TabItem,
+      rootText
     },
     mixins: [epMixin],
     data () {
@@ -168,6 +215,28 @@
     }
   }
 </script>
+<style lang='scss' rel="stylesheet/scss">
+  @import '~@/assets/scss/function';
+  .page_insure-application-pre {
+    .vux-tab {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: rem-calc(50);
+      line-height: rem-calc(50);
+      align-items: center;
+      background: #fff;
+      z-index: 2;
+      .vux-tab-item {
+        line-height: rem-calc(50);
+        font-size: rem-calc(15);
+      }
+    }
+  }
+
+
+</style>
 <style lang='scss' rel="stylesheet/scss" scoped>
   @import '~@/assets/scss/function';
 
@@ -177,7 +246,49 @@
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     .form {
-      margin: 0 0 rem-calc(50) 0;
+      margin: rem-calc(50) 0;
+      .head {
+        background-color: #f7f7f7;
+        overflow: hidden;
+        height: rem-calc(91/2px);
+        line-height: rem-calc(91/2px);
+        box-sizing: border-box;
+        padding: 0px rem-calc(30/2px);
+        .msg {
+          float: left;
+          font-size: rem-calc(30/2px);
+          color: #666;
+          &:before {
+            content: "";
+            display: inline-block;
+            width: rem-calc(5/2px);
+            height: rem-calc(32/2px);
+            padding-left: rem-calc(16/2px);
+            box-sizing: border-box;
+            border-left: rem-calc(5/2px) solid #00b0ff;
+            vertical-align: middle;
+            margin-top: rem-calc(-2);
+          }
+        }
+      }
+      .main-insure {
+        padding-left: rem-calc(15);
+        height: rem-calc(45);
+        line-height: rem-calc(45);
+        background-color: #20aee5;
+        font-size: rem-calc(15);
+        color: #fff;
+        @include borderbottom-1px(#efefef);
+        label {
+          border-radius: 5%;
+          padding: rem-calc(1) rem-calc(5);
+          border: 1px solid #fff;
+          margin-right: rem-calc(8);
+        }
+      }
+      .additional-insure {
+        background-color: #4AD995;
+      }
     }
     .btn-wrapper {
       position: fixed;
