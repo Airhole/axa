@@ -42,9 +42,164 @@ studyArticleDetail  *
  */
 import cookie from '@/utils/cookie'
 
-window.jsBridge = {
+// 通过API : app.title = 'xinNen' 设置标题
+// 通过app.title获取当前标题 输出 xinNen
+// 可以较早尝试设置标题，但会等待jsBridge初始化后才真正设置标题
+// 可以多次设置标题 但是最后一次胜出并给出warn
+// app.title = title1 ; app.title = title2; 最后app标题会变成 title2，但是这种情况应给出warn
+
+// 所以，得有一个状态集记录 app的状态
+// 添加一个加载监听函数： app.load = callback or app.load(callback)
+
+const ACTION = {
+  SET_TITLE : 1
+}
+
+let nativeInterface = window.HQAppJSInterface
+
+const mockInterface = {
+  onJSInvokeResult (actionType, value) {
+    if (actionType === ACTION.SET_TITLE) {
+      document.title = value
+      console.log(`[${Date.now()}]:mock set title.`)
+    }
+  },
+  setActionBarBackItem () {
+    console.log(`[${Date.now()}]:mock set backItem in bar.`)
+  }
+}
+
+// nativeInterface = mockInterface
+
+//  一个symbol的factory, 通过属性访问符添加和访问（但不允许重置）
+//  这样添加一个symbol:  $.LOAD
+//  再次访问这个symbol也依然用 $.LOAD
+//  坏的就是IDE还不能解析这种动态语法
+const $ = new Proxy(new WeakMap(), {
+  get(target, key) {
+    if (!Reflect.has(target, key)) {
+      Reflect.set(target, key, Symbol(key))
+    }
+    return Reflect.get(target, key)
+  },
+  set (target, key, value) {
+    if (Reflect.has(target, key)) {
+      throw new TypeError('Assignment to constant variable.')
+    } else {
+      Reflect.set(target, key, Symbol(value))
+    }
+    return Reflect.get(target, key)
+  }
+})
+
+
+const STATUS_LOAD = Symbol('status_load')
+const COUNT_SET_STATUS_LOAD = Symbol('count_set_status_load')
+const HANDLERS = Symbol('handlers')
+const HANDLER_TITLE = Symbol('handler_title')
+const Q_TITLE = Symbol('q_title')
+const ON_SET_TITLE = Symbol('on_set_title')
+
+const jsBridge = {
+  /**
+   * 当前key存放作为一个集合，存放了各种事件的处理函数
+   *
+   * 通过使用一个symbol作为对象的key的方式，兼顾了调试和安全两个方面，
+   * 因为打印时可以看见，当前文件中是可以访问这个，所以调试是方便的
+   * 但是因为这个key是'protected'的，当前文件外无法访问，所以这是安全的
+   */
+  [HANDLERS]: {},
+  /**
+   * 主动触发一个事件
+   * @param event {String} <required> 事件名
+   * @param payload {any} <optional> 负荷，会捎带给事件的处理函数
+   */
+  emit (event, payload) {
+    let handlers = this[HANDLERS][event] // handlers是以事件名分组的，每个组是一个数组
+    if (Array.isArray(handlers)) { // 如果某种事件有监听的处理函数，那么一定在事件名组成的数组里
+      for(let it of handlers) { // 遍历当前事件的处理函数
+        if (!it.invalid && typeof it.handler === 'function') { // 如果被标记为不合法的，或者说当前项内没有有效的函数，则跳过
+          it.handler(payload) // 一一调用对应的处理函数，并把负荷捎带给它们
+          if (it.once) { // 如果一个处理函数被声明为只调用一次，那么先标记为不合法，稍后处理。
+            // 为什么不在这儿处理？因为遍历数组的过程中，一边遍历一边更新数组不是一个好的实践
+            it.invalid = true
+          }
+        }
+      }
+      // 重新归并当前事件的处理函数数组，去掉刚才遍历时标记为不合法的项
+      this[HANDLERS][event] = this[HANDLERS][event].reduce((pub, it) => { // pub即为reduce函数的第二个参数，在这里最开始时是[]
+        if (!it.invalid) { // 如果是合法的，则收集它们
+          pub.push(it)
+        }
+        return pub
+      },[])
+      // 如果当前事件的处理函数数组为空，则把空集合清理掉
+      if (this[HANDLERS][event].length === 0) {
+        delete this[HANDLERS][event]
+      }
+    }
+  },
+  /**
+   * 向jsBridge注册一个事件处理函数，当该事件发生时该函数会反复发生
+   * @param event {String} <required> 事件类型
+   * @param handler {Function} <required> 处理函数
+   * @param once {Boolean} <optional> 标记当前处理函数是否是只执行一次就移除
+   */
+  on (event, handler, {once} = {}) {
+    // 如果当前集合中没有事件x的事件队列，则以事件为作为key声明一个空数组作为事件x的事件队列
+    if (!this[HANDLERS][event] || !Array.isArray(this[HANDLERS][event])) {
+      this[HANDLERS][event] = []
+    }
+    // 在当前的事件队列中放入当前事件处理函数（以及其它标志信息）
+    this[HANDLERS][event].push({handler, once})
+  },
+  /**
+   * 向jsBridge注册一个事件处理函数
+   * 和on函数注册的事件相比，当前函数注册的事件只会发生一次
+   * @param event {String} <required> 事件类型
+   * @param handler {Function} <required> 处理函数
+   */
+  once (event, handler) {
+    this.on(event, handler, {once: true}) // 委托on函数绑定事件
+  },
+  /**
+   * 接受一个回调函数，当jsBridge初始化后自动调用
+   * 如果jsBridge已经初始化了，则会马上执行（注意，这里仍然是异步）
+   * @param callback {Function} 回调函数
+   * @returns {Promise} 返回一个promise，可以不使用回调，而是使用promise去处理调用关系
+   */
+  ready (callback) {
+    // 初始化一个promise
+    let promise = new Promise(resolve => {
+      // 如果jsBridge已经初始化了，立马resolve，否则，则注册一个load事件的处理函数，load事件发生了，resolve当前promise
+      this.isInitialized ? resolve() : this.once('load', () => resolve())
+    })
+    // 如果当前函数调用时传递了回调，则promise好了以后调用该回调函数
+    if (typeof callback === 'function') {
+      promise.then(() => callback())
+    }
+    return promise // 返回该回调函数，让调用方处理（如果调用方需要的话）
+  },
+  get isInitialized () {
+    return this.status.loadStatus
+  },
   status: {
-    loadstatus: false,
+    [STATUS_LOAD]: false,
+    [COUNT_SET_STATUS_LOAD]: 0,
+    set loadStatus (loaded) {
+      let historyStatus = this[STATUS_LOAD]
+      this[STATUS_LOAD] = loaded
+      if (loaded) {
+        console.assert(this[COUNT_SET_STATUS_LOAD] <= 1 , '设置load status为true多于1次')
+        if (historyStatus === false) {  // 当 load status从false变成true，触发一次
+          jsBridge.emit('load')
+        }
+      }
+      this[COUNT_SET_STATUS_LOAD] ++
+    },
+    get loadStatus () {
+      return this[STATUS_LOAD]
+    },
     camera: {
       status: false,
       value: '',
@@ -89,6 +244,32 @@ window.jsBridge = {
   }
 }
 
+const app = {
+  [Q_TITLE]: [],
+  [ON_SET_TITLE]: false,
+  [HANDLER_TITLE] () {
+    if (this[Q_TITLE].length > 1) {
+      console.warn('try to set app title multiple.')
+    }
+    let title = this[Q_TITLE].pop()
+    nativeInterface.onJSInvokeResult(ACTION.SET_TITLE, title)
+    this[Q_TITLE] = []
+    this[ON_SET_TITLE] = false
+  },
+  set title (title) {
+    this[Q_TITLE].push(title)
+    if (!this[ON_SET_TITLE]) {
+      this[ON_SET_TITLE] = true
+      jsBridge.ready(this[HANDLER_TITLE].bind(this))
+    }
+  },
+  get title () {
+    // ??
+  }
+}
+
+window.jsBridge = jsBridge
+window.app = app
 
 window.ostype = function () {
   return cookie.get('hq_http_ostype')
@@ -99,10 +280,6 @@ window.token = function () {
 window.HQAppGetH5Header = function (n) { // 当app加载完毕后 app调用修改 loadstatus 表示完毕
   window.jsBridge.status.loadstatus = true
 }
-
-// window.TestShare = function () {
-//   alert('分享成功')
-// }
 
 window.checkload = function () {
   return new Promise((resolve, reject) => {
@@ -129,16 +306,17 @@ window.checkload = function () {
   // })
 }
 window.SetH5Header = function (n) {
-  window.checkload().then(success => {
-    if (window.HQAppJSInterface) {
-      window.HQAppJSInterface.onJSInvokeResult(1, n) // 1 title
-    }
-  }, fail => {
-    console.log(fail)
-  }).catch(error => {
-    console.log(error)
-    throw new Error(error)
-  })
+  app.title = n
+  // window.checkload().then(success => {
+  //   if (window.HQAppJSInterface) {
+  //     window.HQAppJSInterface.onJSInvokeResult(1, n) // 1 title
+  //   }
+  // }, fail => {
+  //   console.log(fail)
+  // }).catch(error => {
+  //   console.log(error)
+  //   throw new Error(error)
+  // })
 }
 // {
 // title: //显示的标题
@@ -146,17 +324,20 @@ window.SetH5Header = function (n) {
 // params: //JavaScript调用时传递的参数，H5给过来什么数据，App在调用JS时会完整的传回去
 // }
 window.leftMenu = function (n) { // left menu
-  let param = JSON.stringify(n)
-  window.checkload().then(success => {
-    if (window.HQAppJSInterface) {
-      window.HQAppJSInterface.setActionBarBackItem(param)
-    }
-  }, fail => {
-    console.log(fail)
-  }).catch(error => {
-    console.log(error)
-    throw new Error(error)
+  jsBridge.ready(function () {
+    nativeInterface.setActionBarBackItem(JSON.stringify(n))
   })
+  // let param = JSON.stringify(n)
+  // window.checkload().then(success => {
+  //   if (window.HQAppJSInterface) {
+  //     window.HQAppJSInterface.setActionBarBackItem(param)
+  //   }
+  // }, fail => {
+  //   console.log(fail)
+  // }).catch(error => {
+  //   console.log(error)
+  //   throw new Error(error)
+  // })
 }
 window.toggleMenu = function (n, show) { // hide menu tring param 隐藏左右bar按钮 1 左 2右  3全部
   window.checkload().then(success => {
