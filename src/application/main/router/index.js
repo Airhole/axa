@@ -360,6 +360,24 @@ export default new Router({
         description: '在线投保-投保书预览',
         param: {}
       }
+    },
+    { //  投保进度-主页
+      path: '/main/progress',
+      name: 'progress',
+      component: () => import(/* webpackChunkName: "progress" */ '@/application/main/progress/index.vue'),
+      meta: {
+        requireAuth: true,
+        title: '投保进度',
+        rightMenu: null,
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '投保进度-主页',
+        param: {}
+      }
     }
   ]
 })

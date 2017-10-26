@@ -35,6 +35,7 @@
       <upload-img @signChange="signChange" @on="signChange" :eSignModel="eSignModels"></upload-img>
       <div class="prompt">温馨提示:根据客户投保情况选择性上传资料</div>
     </div>
+    <div class="btn">确定</div>
   </div>
 </template>
 <script>
@@ -256,6 +257,22 @@
         color: #00b0ff;
         padding: rem-calc(15) rem-calc(15) rem-calc(15) rem-calc(15);
       }
+    }
+    .btn {
+      display: block;
+      border-radius: 4px;
+      border: 1px solid;
+      font-size:rem-calc(18px);
+      text-align: center;
+      box-sizing: border-box;
+      height: rem-calc(45);
+      line-height: rem-calc(45);
+      margin-top: rem-calc(15);
+      margin-right: rem-calc(15);
+      margin-left: rem-calc(15);
+      background-color: #00b0ff;
+      border-color: #00b0ff;
+      color: #fff;
     }
   }
 </style>
