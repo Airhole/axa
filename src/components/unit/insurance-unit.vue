@@ -1,6 +1,8 @@
 <template>
   <div class="form-unit">
-    <template v-for="(value, key, index) in $formRules" v-if="$formModels[key]">
+    <slot name="unit-title" :order="order"></slot>
+
+    <template v-for="(value, key, index) in $formRules" v-if="$formModels && $formRules">
       <form-row
         :key="key"
         :index="index"
@@ -10,7 +12,10 @@
         @formChange="onChange">
       </form-row>
     </template>
-    <div class="pre-step">首年保费：<span>666.00元</span></div>
+
+    <slot name="unit-foot" :order="order">
+      <div class="pre-step">首年保费：<span>666.00元</span></div>
+    </slot>
   </div>
 </template>
 
@@ -21,13 +26,70 @@ import formUnitMixin from '../mixins/form-unit-mixin'
 export default {
   name: 'insurance-unit',
   mixins: [formUnitMixin],
-  props: ['insItem'],
-  mounted () {
-    window.xx = this
+  data () {
+    return {
+      Models: null,
+      Rules: null
+    }
+  },
+  props: ["insItem", "order"],
+  methods: {
+    init () {
+      if (this.insItem && this.insItem.paramList) {
+        // 创建rules,modles
+        let _rules = {}
+        let _modles = {}
+
+        this.insItem.paramList.forEach(item => {
+          try {
+            _rules[item.key] = {
+              label: item.label,
+              type: item.inputType,
+              rules: {
+                vRules: 'required',
+                disabled: !item.canEdit,
+                showName: true
+              }
+            }
+            // 如果是select
+            if (item.inputType === 'select') {
+              let lst = item.itemList.map(i => {
+                return {name: i.value, value: i.key}
+              })
+              _rules[item.key].rules.options = [lst]
+            }
+            // 如果是input
+            if (item.inputType === 'input') {
+              _rules[item.key].rules.placeholder = '请填写' + item.label
+            }
+            // 构造 models
+            _modles[item.key] = {
+              name: item.key,
+              value: item.value || ''
+            }
+          } catch (e) {
+            alert(e)
+          }
+        })
+
+        this.Rules = _rules
+        this.Models = _modles
+      }
+    }
   },
   computed: {
+    $formModels () {
+      return this.Models
+    },
     $formRules () {
-
+      return this.Rules
+    }
+  },
+  watch: {
+    insItem: {
+      deep: true,
+      handler () {
+      }
     }
   },
   components: {
@@ -64,21 +126,27 @@ export default {
           margin-top: rem-calc(-2);
         }
       }
-      .delete-unit {
+      .act-btn{
         position: absolute;
-        right: 0;
+        right: rem-calc(10);
         display: inline-block;
         width: rem-calc(91/2px);
         height: rem-calc(91/2px);
-        background: url('~@/assets/image/enroll/trash.png') no-repeat;
         -webkit-background-size: cover;
         background-size: 40%;
-        background-position: center center;
+        text-indent: -999em;
+        overflow: hidden;
+      }
+      .add-unit {
+        background: url('~@/assets/image/enroll/add.png') no-repeat center center
+      }
+      .delete-unit {
+        background: url('~@/assets/image/enroll/trash.png') no-repeat center center
       }
     }
     .pre-step{
       text-align:right;
-      padding-right:rem-calc(15);
+      padding:rem-calc(15);
     }
     .relative {
       position: relative;
@@ -94,17 +162,6 @@ export default {
         float: left;
         font-size: rem-calc(30/2px);
         color: #666;
-      }
-      .delete-unit {
-        position: absolute;
-        right: 0;
-        display: inline-block;
-        width: rem-calc(91/2px);
-        height: rem-calc(91/2px);
-        background: url('~@/assets/image/enroll/trash.png') no-repeat;
-        -webkit-background-size: cover;
-        background-size: 40%;
-        background-position: center center;
       }
     }
   }

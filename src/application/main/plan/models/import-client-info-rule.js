@@ -47,7 +47,7 @@ export default {
     label: '职业',
     type: 'select',
     rules: {
-      vRules: '',
+      vRules: 'required',
       placeholder: '请输入您的职业',
       options: [dict.core_degree],
       errorMsg: errorMsg.education

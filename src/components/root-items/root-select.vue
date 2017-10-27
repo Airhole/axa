@@ -5,7 +5,20 @@
 -->
 <template>
   <div class="root-select">
-    <group>
+    <group v-if="rules.showName">
+      <popup-picker
+        :title="title"
+        :data="rules.options"
+        v-model="innerValue"
+        show-name
+        @on-show="onShow"
+        @on-hide="onHide"
+        @on-change="onChange"
+        :readonly="readonly"
+        :placeholder="rules.placeholder"
+      ></popup-picker>
+    </group>
+    <group v-else>
       <popup-picker
         :title="title"
         :data="rules.options"
