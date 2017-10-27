@@ -135,6 +135,7 @@
         } else if ((this.formStatus === 'valid' && this.formGroupStatus === 'valid') || (this.formStatus === 'empty' && this.formGroupStatus === 'valid') || (this.formStatus === 'valid' && this.formGroupStatus === 'empty') || (this.formStatus === 'empty' && this.formGroupStatus === 'empty')) {
           this.Submit()
         }
+        this.$router.push({name: 'plan_applicant_info'})
       },
       Submit () {
         alert('提交成功！')
