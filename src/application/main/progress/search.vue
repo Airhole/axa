@@ -79,7 +79,7 @@
 </template>
 <script>
   import {PopupPicker, Group, Datetime} from 'vux'
-  import {ISBANKS} from '@/api'
+  // import {ISBANKS} from '@/api'
   export default {
     name: 'recommend_search',
     data () {
@@ -107,40 +107,40 @@
     activated () {
       // this.hideRight()
     },
+    // methods: {
+    //   // hideRight () {
+    //   //   window.toggleMenu('2', 'false')
+    //   // },
+    //   submit () {
+    //     let param = {name: this.form.name || '', phone: this.form.phone || '', sex: this.form.sex || '', startTime: this.form.startTime || '', endTime: this.form.endTime || '', status: this.form.status[0] || ''}
+    //     // console.log(param)
+    //     // this.$router.push({name: 'recommend_result', query: param})
+    //   },
+    //   chooseGender (v) {
+    //     this.form.sex = v
+    //   },
+    //   reset () {
+    //     this.form = {
+    //       name: '',
+    //       insurestatus: '',
+    //       cardNum: '',
+    //       appFlag: [], //  保单状态
+    //       contNo: '', //  保单号
+    //       polApplyStartDate: '', //  投保开始日期
+    //       polApplyEndDate: '' //  投保结束日期
+    //     }
+    //   },
+    //   onHide () {
+    //   },
+    //   onChange () {
+    //   },
+    //   change () {},
+    //   cardtime () {
+
+    //   }
+    // },
     components: {
       PopupPicker, Group, Datetime
-    },
-    methods: {
-      // hideRight () {
-      //   window.toggleMenu('2', 'false')
-      // },
-      submit () {
-        let param = {name: this.form.name || '', phone: this.form.phone || '', sex: this.form.sex || '', startTime: this.form.startTime || '', endTime: this.form.endTime || '', status: this.form.status[0] || ''}
-        // console.log(param)
-        // this.$router.push({name: 'recommend_result', query: param})
-      },
-      chooseGender (v) {
-        this.form.sex = v
-      },
-      reset () {
-        this.form = {
-          name: '',
-          insurestatus: '',
-          cardNum: '',
-          appFlag: [], //  保单状态
-          contNo: '', //  保单号
-          polApplyStartDate: '', //  投保开始日期
-          polApplyEndDate: '' //  投保结束日期
-        }
-      },
-      onHide () {
-      },
-      onChange () {
-      },
-      change () {},
-      cardtime () {
-
-      }
     }
   }
 </script>

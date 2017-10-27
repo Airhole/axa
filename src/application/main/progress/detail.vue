@@ -21,7 +21,7 @@
 
 <script>
   import StaticList from '@/components/service/staticlist'
-  import {IPROGRESSDETAIL, IVIEWPLAN, QUERYDEATIL, ISHAREPROPOSAL} from '@/api'
+  // import {IPROGRESSDETAIL, IVIEWPLAN, QUERYDEATIL, ISHAREPROPOSAL} from '@/api'
 
   export default {
     name: 'progressdetail',
@@ -35,36 +35,36 @@
       }
     },
     components: {StaticList},
-    props: [],
-    created: function () {
-      this.planId = this.$store.state.sale.planId || this.$route.query.planId || ""
-      this.applyId = this.applyId = this.$store.state.sale.applyId || this.$route.query.applyId || ""
-      this.getData()
-    },
-    methods: {
-      shareBtn () {
-        // alert(ISHAREPROPOSAL)
-        // alert(this.planId)
-        this.axios.post(ISHAREPROPOSAL, {planId: this.planId}).then(response => {
-          if (response.data.success) {
-            window.showShare('1', response.data.value.url, response.data.value.coverPath, response.data.value.title, response.data.value.remark, 'shareCallback')
-          }
-        }, fail => {
-        }).catch((err) => {
-          throw new Error(err)
-        })
-      },
-      getData () {
-        this.axios.post(QUERYDEATIL, {planId: this.planId.toString(), applyId: this.applyId}).then((res) => {
-          console.log(res)
-          this.planlist = res.data.value
-          console.log(this.planlist)
-        }).catch((err) => {
-          console.log(err)
-          throw new Error(err)
-        })
-      }
-    }
+    props: []
+    // created: function () {
+    //   this.planId = this.$store.state.sale.planId || this.$route.query.planId || ""
+    //   this.applyId = this.applyId = this.$store.state.sale.applyId || this.$route.query.applyId || ""
+    //   this.getData()
+    // },
+    // methods: {
+    //   shareBtn () {
+    //     // alert(ISHAREPROPOSAL)
+    //     // alert(this.planId)
+    //     this.axios.post(ISHAREPROPOSAL, {planId: this.planId}).then(response => {
+    //       if (response.data.success) {
+    //         window.showShare('1', response.data.value.url, response.data.value.coverPath, response.data.value.title, response.data.value.remark, 'shareCallback')
+    //       }
+    //     }, fail => {
+    //     }).catch((err) => {
+    //       throw new Error(err)
+    //     })
+    //   },
+    //   getData () {
+    //     this.axios.post(QUERYDEATIL, {planId: this.planId.toString(), applyId: this.applyId}).then((res) => {
+    //       console.log(res)
+    //       this.planlist = res.data.value
+    //       console.log(this.planlist)
+    //     }).catch((err) => {
+    //       console.log(err)
+    //       throw new Error(err)
+    //     })
+    //   }
+    // }
     // activated: function () {
     //   this.getData()
     // }
