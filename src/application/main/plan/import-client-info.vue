@@ -46,7 +46,6 @@
     },
     mixins: [epMixin],
     data () {
-      window.info = this
       return {
         formModels: formModels,
         formRules: formRules,

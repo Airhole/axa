@@ -2,7 +2,7 @@
   <!-- 主、附险信息 -->
   <div class="form">
     <template v-for="(insItem, index) in formMods" v-if="insItem.abbrName">
-      <insurance-unit :order="index" :insItem="insItem" :index="index" @formChange="onChange">
+      <insurance-unit :order="index" :insItem="insItem" :index="index" :key="index" @formChange="onChange">
         <template slot="unit-title" slot-scope="unit">
           <div class="baseBox title">
             <div class="main nonflex title">
