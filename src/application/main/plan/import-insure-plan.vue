@@ -19,14 +19,9 @@
 </template>
 
 <script>
-  import formUnit from '@/components/unit/form-unit'
   import insuranceInfo from './import-client-insure-info'
   import {MAKE_PLAN} from '@/api'
   import defaultBtn from '@/components/base/default-btn.vue'
-
-  // models
-  import formModels from './models/import-client-info-model'
-  import formRules from './models/import-client-info-rule'
 
   const ENROLL_SUBMMIT = ''
   const ENROLL_INTERSET = ''
@@ -34,14 +29,11 @@
   export default {
     name: 'baseInfo',
     components: {
-      formUnit,
       insuranceInfo,
       defaultBtn
     },
     data () {
       return {
-        formModels: formModels,
-        formRules: formRules,
         insureList: [],
         formGroup: {},
         formGroupErrors: {},
@@ -68,11 +60,9 @@
       },
       nextStep () {
         let insureInfo = Object.values(this.formGroup).map(i => Object.values(i))
-        if (this.formStatus === 'dirty') {
-          this.__toast(this.formErrors[0].msg)
-        } else if (this.formGroupStatus === 'dirty') {
+        if (this.formGroupStatus === 'dirty') {
           this.__toast(this.formGroupErrors)
-        } else if ((this.formStatus === 'valid' && this.formGroupStatus === 'valid') || (this.formStatus === 'empty' && this.formGroupStatus === 'valid') || (this.formStatus === 'valid' && this.formGroupStatus === 'empty') || (this.formStatus === 'empty' && this.formGroupStatus === 'empty')) {
+        } else if (this.formGroupStatus === 'valid') {
           this.Submit()
         }
       },
