@@ -71,7 +71,7 @@ export default new Router({
       }
     },
     { //  计划书-产品介绍
-      path: '/plan/product-intro',
+      path: '/plan/product_intro',
       name: 'product_intro',
       component: () => import(/* webpackChunkName: "product-intro" */ '@/application/main/plan/product-intro.vue'),
       meta: {
@@ -110,7 +110,7 @@ export default new Router({
       }
     },
     { //  计划书-产品预览
-      path: '/plan/product-preview',
+      path: '/plan/product_preview',
       name: 'product_preview',
       component: () => import(/* webpackChunkName: "product-intro" */ '@/application/main/plan/product-preview.vue'),
       meta: {
@@ -131,8 +131,8 @@ export default new Router({
       }
     },
     { //  计划书-录入客户信息
-      path: '/plan/import-client-info',
-      name: 'import-client-info',
+      path: '/plan/import_client_info',
+      name: 'import_client_info',
       component: () => import(/* webpackChunkName: "import-client-info" */ '@/application/main/plan/import-client-info.vue'),
       meta: {
         requireAuth: true,
@@ -222,7 +222,7 @@ export default new Router({
     },
     { //  在线投保-受益人列表
       path: '/insurance/beneficiary_list',
-      name: 'beneficiary_list',
+      name: 'insurance_beneficiary_list',
       component: () => import(/* webpackChunkName: "add-beneficiary" */ '@/application/main/insurance/beneficiary-list.vue'),
       meta: {
         requireAuth: true,
@@ -240,7 +240,7 @@ export default new Router({
     },
     { //  在线投保-指定受益人填写
       path: '/insurance/add_beneficiary',
-      name: 'add_beneficiary',
+      name: 'insurance_add_beneficiary',
       component: () => import(/* webpackChunkName: "add-beneficiary" */ '@/application/main/insurance/add-beneficiary.vue'),
       meta: {
         requireAuth: true,
@@ -258,7 +258,7 @@ export default new Router({
     },
     { //  在线投保-投保书预览-手工单录入结果
       path: '/insurance/manual_result',
-      name: 'manual_result',
+      name: 'insurance_manual_result',
       component: () => import(/* webpackChunkName: "manual_result" */ '@/application/main/insurance/manual_result.vue'),
       meta: {
         requireAuth: true,
@@ -276,7 +276,7 @@ export default new Router({
     },
     { //  在线投保-投保书预览-录入投保单号
       path: '/insurance/input_policy',
-      name: 'input_policy',
+      name: 'insurance_input_policy',
       component: () => import(/* webpackChunkName: "input_policy" */ '@/application/main/insurance/input_policy.vue'),
       meta: {
         requireAuth: true,
@@ -312,7 +312,7 @@ export default new Router({
     },
     { //  在线投保-查看投保结果
       path: '/insurance/upload_insurance',
-      name: 'upload_insurance',
+      name: 'insurance_upload_insurance',
       component: () => import(/* webpackChunkName: "see_insurance_result" */ '@/application/main/insurance/upload_insurance.vue'),
       meta: {
         requireAuth: true,
@@ -330,7 +330,7 @@ export default new Router({
     },
     { //  在线投保-支付信息
       path: '/insurance/pay_insurance',
-      name: 'pay_insurance',
+      name: 'insurance_pay_insurance',
       component: () => import(/* webpackChunkName: "see_insurance_result" */ '@/application/main/insurance/pay_insurance.vue'),
       meta: {
         requireAuth: true,
@@ -365,8 +365,8 @@ export default new Router({
       }
     },
     { //  在线投保-投保书预览
-      path: '/main/insure_application_pre',
-      name: 'insure_application_pre',
+      path: '/main/insurance_application_pre',
+      name: 'insurance_application_pre',
       component: () => import(/* webpackChunkName: "insure_application_pre" */ '@/application/main/insurance/insure-application-pre.vue'),
       meta: {
         requireAuth: true,

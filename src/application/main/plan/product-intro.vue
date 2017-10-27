@@ -24,6 +24,7 @@
     },
     methods: {
       makePlan () {
+        this.$router.push({name: 'import_client_info'})
       }
     },
     created () {
