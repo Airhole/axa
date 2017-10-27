@@ -35,7 +35,7 @@
       <upload-img @signChange="signChange" @on="signChange" :eSignModel="eSignModels"></upload-img>
       <div class="prompt">温馨提示:根据客户投保情况选择性上传资料</div>
     </div>
-    <div class="btn">确定</div>
+    <div class="btn" @click="nextStep">确定</div>
   </div>
 </template>
 <script>
@@ -54,6 +54,9 @@
       // console.log('esign======', this.eSignModels)
     },
     methods: {
+      nextStep () {
+        this.$router.push({name: 'insurance_application_pre'})
+      },
       signChange (info) {
         if (info) {
           console.log('infoList=====', info)

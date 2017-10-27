@@ -13,7 +13,7 @@
     </div>
     <x-button type="primary" class="share" @click.native="toggleMask(true)">分享</x-button>
     <div class="p-mask" v-show="showMask" @click="toggleMask(false)">
-      <img src="../../../assets/image/mask.png" class="p-mask-icon"/>
+      <img src="@/assets/image/mask.png" class="p-mask-icon"/>
     </div>
   </div>
 </template>
@@ -57,7 +57,7 @@
     position: relative;
     padding-top: rem-calc(50);
     font-size: rem-calc(16);
-    background: url(../../../assets/image/start_bg.png) no-repeat;
+    background: url('~@/assets/image/start_bg.png') no-repeat;
     background-size: contain;
     .product-info{
       margin: 0 auto;

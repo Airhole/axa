@@ -473,7 +473,7 @@ export default {
   //   //   this.getBenefitText()
   //   // }
   // },
-  // methods: {
+  methods: {
   //   shareBtn () {
   //     // alert(ISHAREPROPOSAL)
   //     // alert(this.planId)
@@ -498,18 +498,21 @@ export default {
   //       throw new Error(err)
   //     })
   //   },
-  //   makeOrder () {
-  //     this.$validator.validateAll().then(() => {
-  //       this.getstep(this.planId)
-  //     }).catch((e) => {
-  //       this.$vux.toast.show({
-  //         type: "text",
-  //         width: "200px",
-  //         text: this.$validator.getErrors().errors[0].msg
-  //       })
-  //       throw new Error(e)
-  //     })
-  //   },
+    makeOrder () {
+      this.$router.push({name: 'plan_applicant_info'})
+      /**
+      this.$validator.validateAll().then(() => {
+        this.getstep(this.planId)
+      }).catch((e) => {
+        this.$vux.toast.show({
+          type: "text",
+          width: "200px",
+          text: this.$validator.getErrors().errors[0].msg
+        })
+        throw new Error(e)
+      })
+       */
+    }
   //   viewPdf (n) {
   //     window.articleDetail(n)
   //   },
@@ -705,8 +708,8 @@ export default {
   //       console.log(err)
   //       throw new Error(err)
   //     })
-  //   }
-  // },
+  // }
+  },
   components: {
     Tab,
     TabItem,

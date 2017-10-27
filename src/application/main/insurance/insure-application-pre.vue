@@ -122,7 +122,7 @@
     <div class="btn-wrapper">
       <!--<default-btn class='next' val='下一步' @Click="nextStep"></default-btn>-->
       <div class="pre-step">上一步</div>
-      <div class="next-step">下一步</div>
+      <div class="next-step" @click="nextStep">下一步</div>
     </div>
   </div>
 </template>
@@ -189,6 +189,9 @@
         // debugger
         let _offset = this.$el.querySelector(id).offsetTop
         this.$refs.preview_form.scrollTop = _offset
+      },
+      nextStep () {
+        this.$router.push({name: 'view_insurance_result'})
       }
       /**
       nextStep () {

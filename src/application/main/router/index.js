@@ -202,6 +202,24 @@ export default new Router({
         param: {}
       }
     },
+    { //  在线投保-保障计划
+      path: '/plan/insurance_insure_plan',
+      name: 'insurance_insure_plan',
+      component: () => import(/* webpackChunkName: "insurance-insure-plan" */ '@/application/main/plan/insurance-insure-plan.vue'),
+      meta: {
+        requireAuth: true,
+        title: '保障计划',
+        rightMenu: null,
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '在线投保-保障计划',
+        param: {}
+      }
+    },
     { //  在线投保-选择受益人
       path: '/insurance/choose_beneficiary',
       name: 'insurance_choose_beneficiary',
@@ -293,9 +311,9 @@ export default new Router({
       }
     },
     { //  在线投保-投保资料上传
-      path: '/insurance/see_insurance_result',
-      name: 'see_insurance_result',
-      component: () => import(/* webpackChunkName: "see_insurance_result" */ '@/application/main/insurance/see_insurance_result.vue'),
+      path: '/insurance/view_insurance_result',
+      name: 'view_insurance_result',
+      component: () => import(/* webpackChunkName: "view_insurance_result" */ '@/application/main/insurance/view_insurance_result.vue'),
       meta: {
         requireAuth: true,
         title: '投保资料上传',

@@ -134,7 +134,7 @@
         } else if ((this.formStatus === 'valid' && this.formGroupStatus === 'valid') || (this.formStatus === 'empty' && this.formGroupStatus === 'valid') || (this.formStatus === 'valid' && this.formGroupStatus === 'empty') || (this.formStatus === 'empty' && this.formGroupStatus === 'empty')) {
           this.Submit()
         }
-        this.$router.push({name: 'plan_applicant_info'})
+        this.$router.push({name: 'product_demo'})
       },
       Submit () {
         alert('提交成功！')

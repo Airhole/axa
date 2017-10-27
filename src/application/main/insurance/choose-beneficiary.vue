@@ -42,6 +42,11 @@
         </div>
       </li>
     </ul>
+    <div class="btn-wrapper">
+      <!--<default-btn class='next' val='下一步' @Click="nextStep"></default-btn>-->
+      <div class="pre-step">上一步</div>
+      <div class="next-step" @click="nextStep">下一步</div>
+    </div>
   </div>
 </template>
 
@@ -66,6 +71,9 @@
        */
     },
     methods: {
+      nextStep () {
+        this.$router.push({name: 'insurance_pay_insurance'})
+      },
       choose (index, size) {
         /**
         if (index == 1) {
@@ -176,6 +184,29 @@
         background: url('~@/assets/image/selecticon.png');
         background-size: contain;
         margin-top: rem-calc(10);
+      }
+    }
+    .btn-wrapper {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: rem-calc(25) 0 0 0;
+      display: flex;
+      line-height: rem-calc(50);
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: rem-calc(18);
+      .pre-step {
+        flex: 1;
+        color: #20aee5;
+        background: #fff;
+      }
+      .next-step {
+        flex: 1;
+        background: #20aee5;
+        color: #fff;
       }
     }
   }

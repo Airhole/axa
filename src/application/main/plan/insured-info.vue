@@ -26,7 +26,7 @@
     <div class="btn-wrapper">
       <!--<default-btn class='next' val='下一步' @Click="nextStep"></default-btn>-->
       <div class="pre-step">上一步</div>
-      <div class="next-step">下一步</div>
+      <div class="next-step" @click="nextStep">下一步</div>
     </div>
   </div>
 </template>
@@ -63,6 +63,7 @@
     },
     methods: {
       nextStep () {
+        this.$router.push({name: 'insurance_insure_plan'})
         if (!this.isValid) {
           this.__toast(this.formErrors[0].msg)
         } else {

@@ -2,7 +2,7 @@
  * Author			: xiangzhi
  * Email			:
  * Last modified	: 2017-10-25
- * Filename			: see_insurance_result.vue
+ * Filename			: view_insurance_result.vue
  * Description		:  在线投保-投保书预览-手工单录入结果
 
 ********************************************************************-->
