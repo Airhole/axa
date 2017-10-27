@@ -31,35 +31,40 @@
     },
     data () {
       return {
-        list: [{key: '姓名', value: '任汝芬'}, {key: '证件类型', value: '身份证'}, {key: '证件类型', value: '身份证'}]
+        // list: [{key: '姓名', value: '任汝芬'}, {key: '证件类型', value: '身份证'}, {key: '证件类型', value: '身份证'}]
       }
+    },
+    props: {
+      list: {
+        type: [Object, Array]
+      }
+      /**
+      name: {
+        type: String
+      },
+      rule: {
+        type: Object
+      },
+      isalert: {
+        type: Boolean,
+        default () {
+          return false
+        }
+      },
+      overRide: {
+        type: [Boolean, Object, Array],
+        default () {
+          return false
+        }
+      },
+      isShowUnderLine: {
+        type: Boolean,
+        default () {
+          return true
+        }
+      }
+       */
     }
-//    props: {
-//      name: {
-//        type: String
-//      },
-//      rule: {
-//        type: Object
-//      },
-//      isalert: {
-//        type: Boolean,
-//        default () {
-//          return false
-//        }
-//      },
-//      overRide: {
-//        type: [Boolean, Object, Array],
-//        default () {
-//          return false
-//        }
-//      },
-//      isShowUnderLine: {
-//        type: Boolean,
-//        default () {
-//          return true
-//        }
-//      }
-//    }
 //    computed: {
 //      slotName () {
 //        if (!this.overRide) {
