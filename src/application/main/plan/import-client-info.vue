@@ -7,16 +7,14 @@
         :formRules="formRules"
         @formChange="onChange">
       </form-unit>
-    </div>
-    <!-- 投被保人信息 -->
-    <!-- 主、附险信息 -->
-    <div class="form">
+      <!-- 主、附险信息 -->
       <insurance-info
         :insureList="insureList"
-        @formChange="onChange">
+        @formChange="onUnitChange">
       </insurance-info>
+      <!-- 主、附险信息 -->
     </div>
-    <!-- 主、附险信息 -->
+    <!-- 投被保人信息 -->
     <div class="btn-wrapper">
       <!--<default-btn class='next' val='下一步' @Click="nextStep"></default-btn>-->
       <div class="pre-step">首年保费合计：<span>666.00元</span></div>
@@ -53,33 +51,102 @@
         formModels: formModels,
         formRules: formRules,
         insureList: [],
+        formGroup: {},
+        formGroupErrors: {},
+        formGroupStatus: 'empty',
         options: {
           editStep: '1'
         }
       }
     },
     computed: {
-
+    },
+    created () {
+      this.init()
     },
     methods: {
       init () {
         this.getData()
+        // 暂时假数据
+        setTimeout(() => {
+          this.insureList = [{
+            "name": "横琴优健人生终身重大疾病保险",
+            "abbrName": "优健人生",
+            "paramList": [{
+              "inputType": "select",
+              "label": "交费期间",
+              "key": "pay",
+              "itemList": [{
+                "key": "term_30",
+                "value": "30年期"
+              }],
+              "value": "term_20",
+              "canEdit": true
+            }, {
+              "inputType": "select",
+              "label": "交费频次",
+              "key": "pay_freq",
+              "itemList": [{
+                "key": "single",
+                "value": "一次交清"
+              }],
+              "value": "year",
+              "canEdit": true
+            }, {
+              "inputType": "select",
+              "label": "保险期间",
+              "key": "insure",
+              "itemList": [{
+                "key": "to_full",
+                "value": "终身"
+              }],
+              "value": "to_full",
+              "canEdit": true
+            }, {
+              "inputType": "input",
+              "label": "保险金额",
+              "key": "amount",
+              "itemList": null,
+              "value": "",
+              "canEdit": true
+            }],
+            "premium": null,
+            "amount": null,
+            "payDesc": "20年期",
+            "insureDesc": "终身"
+          }]
+        }, 1000)
+      },
+      onUnitChange (val) {
+        console.log('onUnitChange', val)
+        this.formGroupErrors = val.msg
+        this.formGroupStatus = val.status
+        this.formGroup = val.value
       },
       nextStep () {
-        if (!this.isValid) {
+        let appInfo = Object.values(this.form)
+        let insureInfo = Object.values(this.formGroup).map(i => Object.values(i))
+        console.log('appinfo:::', appInfo)
+        console.log('insureInfo:::', insureInfo)
+        if (this.formStatus === 'dirty') {
           this.__toast(this.formErrors[0].msg)
-        } else {
-          this.__toast('提交成功！')
+        } else if (this.formGroupStatus === 'dirty') {
+          this.__toast(this.formGroupErrors)
+        } else if ((this.formStatus === 'valid' && this.formGroupStatus === 'valid') || (this.formStatus === 'empty' && this.formGroupStatus === 'valid') || (this.formStatus === 'valid' && this.formGroupStatus === 'empty') || (this.formStatus === 'empty' && this.formGroupStatus === 'empty')) {
+          this.Submit()
         }
       },
+      Submit () {
+        alert('提交成功！')
+      },
       getData () {
-        this.axios.get(MAKE_PLAN(true)).then((response) => {
-          console.log(response)
-        }, (response) => {
-        }).catch((err) => {
-          console.log(err)
-          throw new Error(err)
-        })
+        // this.axios.get(MAKE_PLAN(true)).then((response) => {
+        //   console.log(response)
+        // }, (response) => {
+        // }).catch((err) => {
+        //   console.log(err)
+        //   throw new Error(err)
+        // })
       }
     }
   }

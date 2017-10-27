@@ -77,6 +77,9 @@ export default {
         this.__cacheParent = {}
         this.mountChild()
       }
+      // 收集所有表单信息，用来验证错误
+      this.$set(this.formErrors, val.name, val)
+
       // 如果是子节点更新了
       if (this.__cacheParent[val.name]) {
         let parent = this.__cacheParent[val.name]
@@ -90,7 +93,6 @@ export default {
         let prop = this.__attach(['name', 'value', 'index'], val)
         this.$set(this.form, val.name, prop)
       }
-      this.$set(this.formErrors, val.name, val)
     },
     mountChild () {
       let obj = this.$formRules
@@ -113,6 +115,7 @@ export default {
       this.keys.forEach(i => {
         let err = this.formErrors[i]
         if (err && err.name && !err.isValid) {
+          console.log('eeeeeeeee', err)
           this.errorBag.push(err)
         }
       })
@@ -121,7 +124,7 @@ export default {
     innerModel () {
       this.mountErrors()
 
-      let _msg = this.errorBag[0] || this.errorBag[0].msg || null
+      let _msg = (this.errorBag[0] && this.errorBag[0].msg) || '表单信息填写不完整'
       return {
         name: ((this.name || this.index) || 'formUnit').toString(),
         value: this.form,
@@ -154,6 +157,7 @@ export default {
     form: {
       deep: true,
       handler () {
+        console.log('formchange::::::', this.formErrors)
         this.isValid = this.__isValid(this.formErrors)
         this.$nextTick(() => {
           this.submit()

@@ -1,57 +1,83 @@
 <template>
-  <div class="page_applicant-info">
-    <!-- 主、附险信息 -->
-    <div class="form">
-      <template v-for="(insItem, index) in $insureList" v-if="insItem.inputType">
-        <insurance-unit
-          :insItem="insItem"
-          @formChange="onChange">
-        </insurance-unit>
-      </template>
-    </div>
-    <!-- 主、附险信息 -->
+  <!-- 主、附险信息 -->
+  <div class="form">
+    <template v-for="(insItem, index) in formMods" v-if="insItem.abbrName">
+      <insurance-unit :order="index" :insItem="insItem" :index="index" @formChange="onChange">
+        <template slot="unit-title" slot-scope="unit">
+          <div class="baseBox title">
+            <div class="main nonflex title">
+              <div class="head">
+                <div class="msg">保险计划</div>
+                <!-- 暂不放出附加险 -->
+                <!-- <div class="act-btn add-unit" v-if="unit.order==0" @click="addOneForm">添加附加险</div> -->
+                <!-- <div class="act-btn delete-unit" v-else @click="onDelted(insItem, index)">删除</div> -->
+              </div>
+            </div>
+          </div>
+        </template>
+      </insurance-unit>
+    </template>
   </div>
+  <!-- 主、附险信息 -->
 </template>
 
 <script>
   import insuranceUnit from '@/components/unit/insurance-unit'
-  import epMixin from '@/components/mixins/enroll-page-mixin'
+  import multiInsureMixin from '@/components/mixins/multi-insure-form-mixin'
   //  import {ENROLL_SUBMMIT, ENROLL_INTERSET, QUERY_DICT} from '@/api'
   import defaultBtn from '@/components/base/default-btn.vue'
 
   export default {
     name: 'insurance-info',
+    data () {
+      return {
+        formMods: this.$insureList
+      }
+    },
+    mixins: [multiInsureMixin],
     components: {
       insuranceUnit,
       defaultBtn
     },
-    mixins: [epMixin],
     props: ['insureList'],
     computed: {
       $insureList: {
         get () {
-          if (!this.insureList || this.insureList.length == 0) {
-            return []
+          let obj = {}
+          if (this.insureList && this.insureList.length) {
+            this.insureList.forEach((item, index) => {
+              obj[index] = item
+            })
+          }
+          return obj
+        },
+        set (form) {
+          let obj = {}
+          if (form && form.length) {
+            form.forEach((item, index) => {
+              obj[index] = item
+            })
+          }
+          this.formMods = obj
+        }
+      }
+    },
+    watch: {
+      insureList: {
+        deep: true,
+        handler (v) {
+          if (v) {
+            this.$insureList = v
+            if (!this.defaultModel) {
+              this.defaultModel = JSON.stringify(_v)
+            }
           }
         }
       }
     },
-    data () {
-      return {
-        options: {
-          editStep: '1'
-        }
-      }
-    },
     methods: {
-      nextStep () {
-        if (!this.isValid) {
-          this.__toast(this.formErrors[0].msg)
-        } else {
-          this.__toast('提交成功！')
-        }
-      },
-      getData () {
+      init () {
+        window.ii = this
       }
     }
   }

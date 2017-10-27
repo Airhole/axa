@@ -3,10 +3,10 @@ let pro = process.env.NODE_ENV === 'production'
 if (pro) {
   root = '/api'
 } else {
-  // root = '/testapi'
-  root = '/devapi'
+  root = '/testapi'
+  // root = '/devapi'
 }
-let path = (inf = null, n = false) => {
+let path = (inf = null, n) => {
   let result = ''
   if (!n) n = false
   if (pro) {

@@ -8,8 +8,12 @@ export default {
   data () {
     return {
       errorMsg: null,
+      form: [],
+      formErrors: [],
+      defaultModle: null,
       formStatus: '',
-      mutiFormStatus: ''
+      mutiFormStatus: '',
+      modQueue: [] // 如果有一个队列需要初始化
     }
   },
   watch: {
@@ -26,6 +30,7 @@ export default {
     },
     addForm (idx, name, mod) {
       let demod = JSON.parse(this.defaultModle)
+      if (!demod) return
       this.__reset(demod.formModels)
       // 如果给定数据的情况下，按数据渲染新条目
       if (mod) {
@@ -38,6 +43,9 @@ export default {
       this.updateTitle()
     },
     addMeta (idx, name) {
+      if (!this.titleConfig) {
+        return {}
+      }
       return {
         name: '' + (name || idx),
         index: idx,
@@ -52,7 +60,16 @@ export default {
     addOneForm () {
       let keys = Object.keys(this.formMods)
       let index = keys.length ? parseInt(keys[keys.length - 1]) + 1 : 0
-      this.addForm(index, name)
+      let mod
+      if (this.modQueue.length) {
+        mod = this.modQueue.shift(0)
+      }
+      this.addForm(index, name, mod)
+    },
+    addAllForm () {
+      for (;this.modQueue.length;) {
+        this.addOneForm()
+      }
     },
     onDelted (val) {
       this.$delete(this.formMods, val.index || 0)
@@ -62,6 +79,7 @@ export default {
       this.updateTitle()
     },
     updateTitle () {
+      if (!this.titleConfig) return
       let index = 0
       for (let i in this.formMods) {
         this.formMods[i].titleConfig = this.__obj(this.titleConfig(index))
