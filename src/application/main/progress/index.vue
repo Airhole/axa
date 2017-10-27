@@ -50,7 +50,25 @@
     data: () => {
       return {
         seled: 0,
-        tab: [],
+        tab: [
+          {
+            name: '全部'
+          },
+          {
+            name: '录入中'
+          },
+          {
+            name: '待缴费'
+          },
+          {
+            name: '核保中'
+          },
+          {
+            name: '已完成'
+          },
+          {
+            name: '手工单'
+          }],
         show: true,
         currentView: 'allBox',
         boxInterface: INPROGRESSLIST,
@@ -77,7 +95,7 @@
         // @debug
         this.axios.post(PROGRESSTAB).then((response) => {
           console.log(response)
-          this.tab = response.data.value
+          // this.tab = response.data.value
         })
         // @debug
         // this.tab = JSON.parse('[{ "code": "001", "name": "健康险" }, { "code": "002", "name": "理财险" }, { "code": "003", "name": "意外险" }, { "code": "004", "name": "养老险" }, { "code": "005", "name": "其他" }]')

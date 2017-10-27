@@ -368,7 +368,10 @@ export default new Router({
       meta: {
         requireAuth: true,
         title: '投保进度',
-        rightMenu: null,
+        rightMenu: {
+          title: '搜索',
+          javascript: 'gotoprogressSearch'
+        },
         leftMenu: {
           title: '返回',
           javascript: 'gobackbtn'
@@ -376,6 +379,23 @@ export default new Router({
       },
       Info: {
         description: '投保进度-主页',
+        param: {}
+      }
+    },
+    { //  投保进度-查询保单
+      path: '/main/prosearch',
+      name: 'prosearch',
+      component: () => import(/* webpackChunkName: "progress" */ '@/application/main/progress/search.vue'),
+      meta: {
+        requireAuth: true,
+        title: '查询保单',
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '投保进度-查询保单',
         param: {}
       }
     }
