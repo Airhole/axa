@@ -88,6 +88,27 @@ export default new Router({
         param: {}
       }
     },
+    { //  计划书-请启书
+      path: '/plan/product-preview',
+      name: 'product_preview',
+      component: () => import(/* webpackChunkName: "product_letter" */ '@/application/main/plan/product_letter.vue'),
+      meta: {
+        requireAuth: true,
+        title: '计划书',
+        rightMenu: null,
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        },
+        exclude: {
+          default: ''
+        }
+      },
+      Info: {
+        description: '计划书-产品预览',
+        param: {}
+      }
+    },
     { //  计划书-产品预览
       path: '/plan/product-preview',
       name: 'product_preview',
