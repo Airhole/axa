@@ -131,7 +131,7 @@
   import {Tab, TabItem} from 'vux'
   import formUnit from '@/components/unit/form-unit'
   import rootText from '@/components/root-items/root-text'
-  import epMixin from '@/components/mixins/enroll-page-mixin'
+//  import epMixin from '@/components/mixins/enroll-page-mixin'
   //  import {ENROLL_SUBMMIT, ENROLL_INTERSET, QUERY_DICT} from '@/api'
   import defaultBtn from '@/components/base/default-btn.vue'
 
@@ -151,7 +151,6 @@
       TabItem,
       rootText
     },
-    mixins: [epMixin],
     data () {
       window.info = this
       return {
