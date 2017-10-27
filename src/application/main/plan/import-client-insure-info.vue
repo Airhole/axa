@@ -69,7 +69,7 @@
           if (v) {
             this.$insureList = v
             if (!this.defaultModel) {
-              this.defaultModel = JSON.stringify(_v)
+              this.defaultModel = JSON.stringify(v[0])
             }
           }
         }
