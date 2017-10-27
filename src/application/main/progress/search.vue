@@ -1,85 +1,74 @@
 <!--********************************************************************
  * Author        : xiangzhi
- * Filename      : index.vue
- * Description   : 投保查询
+ * Filename      : prosearch.vue
+ * Description   : 投保进度－查询保单
+ * Time          : 2017/10/27
 
 ********************************************************************-->
 <template>
-  <div class="progressscanidcard-page">
+  <div class="page_progress_search">
     <div class="listbox">
       <ul>
         <li class="centeli">
-          <span>姓名</span>
+          <span>投保人</span>
           <div class="_input">
-            <input type="text" v-model.trim="form.name" placeholder="请输入姓名"
-                      maxlength ="120"
-                      v-validate:name.initial="'required|username|usernameLength'"
-                      data-vv-as="请重新录入姓名"
-                      name="name"
-                      style="vertical-align: baseline"
-                      :class="{'is-danger': errors.has('name') }"/>
+            <input type="text" v-model.trim="form.name" placeholder="被推荐人姓名"/>
           </div>
         </li>
-        <li>
-          <span>性别</span>
-          <div>
-            <c_gender @Click="chooseGender" :gender="form.genderCode === 'M'"></c_gender>
+        <li class="centeli">
+          <span class="name">证件号码</span>
+          <div class="_input">
+            <input type="text" class="input" maxlength="30" v-model.trim="form.cardNum" placeholder="请输入证件号"
+                  style="vertical-align: baseline">
           </div>
         </li>
-        <li><span>出生日期</span>
+        <li class="centeli">
+          <span class="name">保单号</span>
+          <div class="_input">
+            <input type="text" class="input" maxlength="30" v-model.trim="form.contNo" placeholder="请输入保单号"
+                  style="vertical-align: baseline">
+          </div>
+        </li>
+        <li class="search_time">
+          <span class="name">日期</span>
           <div>
             <group>
               <datetime
-                @on-change="changebirthday"
-                clear-text=""
-                placeholder="请选择出生日期"
-                v-model.trim="form.birthday"
+                placeholder="开始日期"
+                v-model.trim="form.polApplyStartDate"
                 format="YYYY-MM-DD"
                 :title="title"
                 confirm-text="确定"
                 cancel-text="取消"
-                :start-date="stime"
-                :end-date="etime"
-                :min-year="1917"
+              >
+              </datetime>
+              <span class="time_txt">至</span>
+              <datetime
+                placeholder="结束日期"
+                v-model.trim="form.polApplyEndDate"
+                format="YYYY-MM-DD"
+                :title="title"
+                confirm-text="确定"
+                cancel-text="取消"
               >
               </datetime>
             </group>
           </div>
-      </li>
-      <li>
-        <popup-picker class="qeryele" title="证件类型" :data="cardKindList" @on-hide="onHide('cardKind')" placeholder="请选择证件类型"
-                      @on-change="onChange" v-model.trim="form.cardKind"  show-name
-        ></popup-picker>
-        <input
-          class="hiddenInput"
-          type="hidden"
-          placeholder="请选择证件类型"
-          name="cardKind"
-          v-model.trim="form.cardKind"
-          v-validate
-          data-vv-as="请选择证件类型"
-          data-vv-rules="required">
-      </li>
-      <li class="centeli">
-        <span class="name">证件号码</span>
-        <div class="_input">
-          <input type="text" class="input" maxlength="30" v-model.trim="form.cardNum" placeholder="请输入证件号码"
-                 style="vertical-align: baseline"
-                 v-validate:cardNum.initial="'required|idcard'" data-vv-as="请输入证件号码" name="cardNum"
-                 :class="{'is-danger': errors.has('cardNum') }">
-        </div>
-      </li>
-      <!-- <li>
-        <span>代理人代码</span>
-        <div>
-          <input type="text" v-model.trim="form.agent" placeholder="请输入代理人代码"
-                    maxlength ="10"
-                    v-validate:name.initial="'required|agent'"
-                    data-vv-as="请重新录入代理人代码"
-                    name="agent"
-                    :class="{'is-danger': errors.has('agent') }"/>
-        </div>
-      </li> -->
+        </li>
+        <li>
+          <popup-picker class="qeryele" title="状态" :data="cardKindList" @on-hide="onHide('cardKind')" placeholder="不限"
+                        @on-change="onChange" v-model.trim="form.appFlag"  show-name
+          ></popup-picker>
+          <input
+            class="hiddenInput"
+            type="hidden"
+            placeholder="不限"
+            name="cardKind"
+            v-model.trim="form.appFlag"
+            v-validate
+            data-vv-as="不限"
+            data-vv-rules="required">
+        </li>
       </ul>
       <div class="buttonGroup">
         <div  class="resetbtn" @click="reset"><button style="border: 1px solid #dedede">重置</button></div>
@@ -91,101 +80,57 @@
 <script>
   import {PopupPicker, Group, Datetime} from 'vux'
   import {ISBANKS} from '@/api'
-  const nowTime = function () {
-    return new Date().getFullYear() + '-' + ((new Date().getMonth() + 1) > 10 ? (new Date().getMonth() + 1) : '0' + (new Date().getMonth() + 1)) + '-' + new Date().getDate()
-  }
-  let endtime = (new Date().getFullYear() - 100) + '-' + ((new Date().getMonth() + 1) > 10 ? (new Date().getMonth() + 1) : '0' + (new Date().getMonth() + 1)) + '-' + new Date().getDate()
   export default {
-    name: 'progressSearch',
+    name: 'recommend_search',
     data () {
       return {
-        stime: endtime,
         title: '',
-        etime: nowTime(),
-        hascardKind: false,
         cardKindList: [[
-          {
-            "value": "0",
-            "name": "身份证"
-          },
-          {
-            "value": "1",
-            "name": "护照"
-          },
-          {
-            "value": "10",
-            "name": "中国护照"
-          }]],
-        // [['身份证', '军人证', '护照']],
+          { value: '0', name: '录入中' },
+          { value: '1', name: '待担保提交' },
+          { value: '2', name: '待初审' },
+          { value: '3', name: '待复审' },
+          { value: '4', name: '待公司审核' },
+          { value: '100', name: '入职成功' },
+          { value: '101', name: '入职不通过' }]],
         form: {
           name: '',
           insurestatus: '',
-          genderCode: 'M',
-          birthday: null,
-          cardKind: [],
-          cardNum: ''
+          cardNum: '',
+          appFlag: [], //  保单状态
+          contNo: '', //  保单号
+          polApplyStartDate: '', //  投保开始日期
+          polApplyEndDate: '' //  投保结束日期
         }
       }
     },
-    created () {
-      if (process.env.NODE_ENV === 'production') {
-        window.getDictionary('card_type').then(success => {
-          this.cardKindList = [[...success]]
-        }, fail => {
-          console.log(fail)
-        }).catch(e => {
-          console.log(e)
-          throw new Error(e)
-        })
-      } else {
-        this.cardKindList = [window.dictionary['card_type']]
-      }
+    activated () {
+      // this.hideRight()
     },
     components: {
       PopupPicker, Group, Datetime
     },
     methods: {
+      // hideRight () {
+      //   window.toggleMenu('2', 'false')
+      // },
       submit () {
-        let param = {name: this.form.name || '', idType: this.form.cardKind[0] || '', idNo: this.form.cardNum || '', genderCode: this.form.genderCode || '', birthday: this.form.birthday || ''}
-        // alert(JSON.stringify(param))
-        // this.$router.push({path: "/web/progress", query: param})
+        let param = {name: this.form.name || '', phone: this.form.phone || '', sex: this.form.sex || '', startTime: this.form.startTime || '', endTime: this.form.endTime || '', status: this.form.status[0] || ''}
+        // console.log(param)
+        // this.$router.push({name: 'recommend_result', query: param})
       },
       chooseGender (v) {
-        this.form.genderCode = v
-      },
-      ages: function (str) {
-        const r = str.match(/^(\d{1,4})(-|\/)(\d{1,2})\2(\d{1,2})$/)
-        const d = new Date(r[1], r[3] - 1, r[4])
-        if (d.getFullYear() == r[1] && (d.getMonth() + 1) == r[3] && d.getDate() == r[4]) {
-          const Y = new Date().getFullYear()
-          const age = Y - r[1]
-          if (age < 16) {
-            this.$vux.toast.show({
-              text: "投保人年龄不得小于16周岁",
-              type: 'text',
-              width: '50%',
-              isShowMask: true
-            })
-          }
-        }
-      },
-      changebirthday (v) {
-        // this.ages(v)
-        // console.log(nowTime())
-      },
-      chooseaddress () {
-        this.address = !this.address
-        this.seled = !this.seled
+        this.form.sex = v
       },
       reset () {
         this.form = {
           name: '',
           insurestatus: '',
-          genderCode: 'M',
-          agent: '',
-          birthday: null,
-          cardKind: [],
-          cardNum: ''
+          cardNum: '',
+          appFlag: [], //  保单状态
+          contNo: '', //  保单号
+          polApplyStartDate: '', //  投保开始日期
+          polApplyEndDate: '' //  投保结束日期
         }
       },
       onHide () {
@@ -201,13 +146,34 @@
 </script>
 <style lang='scss' rel="stylesheet/scss">
 @import '~@/assets/scss/function';
-.vux-datetime-value,.vux-popup-picker-placeholder, input::-webkit-input-placeholder{
-  font-size: rem-calc(30/2)
-}
-.weui-cell_access .weui-cell__ft:after{
-  border-width: 1px 1px 0 0;
-}
-.progressscanidcard-page{
+.page_progress_search{
+  .vux-datetime-value,.vux-popup-picker-placeholder, input::-webkit-input-placeholder{
+    font-size: rem-calc(30/2)
+  }
+  .weui-cell_access .weui-cell__ft:after{
+    border-width: 1px 1px 0 0;
+  }
+  .search_time {
+    .vux-no-group-title {
+      display: flex;
+      &>a {
+        &:before {
+          display: none;
+        }
+        .weui-cell__ft {
+          padding-right: rem-calc(16);
+          &:after {
+            width: 0;
+            height: 0;
+            border: 0;
+            border-bottom: rem-calc(7) solid #999999;
+            border-left: rem-calc(7) solid transparent;
+            margin-top: rem-calc(-6);
+          }
+        }
+      }
+    }
+  }
   .qeryele{
     &:before{display: none;}
     & > .weui-cell{
@@ -273,14 +239,11 @@
     -webkit-appearance: none;
     text-align: right;
 }
-li:nth-child(2),li:nth-child(3),li:nth-child(4){
-  line-height: rem-calc(45);
-}
   input{
    border: 0;
    outline: none;
   }
-  .progressscanidcard-page{
+  .page_progress_search{
     background:#f7f7f7;
     min-height: 100%;
     .listbox{
@@ -288,20 +251,25 @@ li:nth-child(2),li:nth-child(3),li:nth-child(4){
       ul{
         margin-left: rem-calc(15px);
         padding:0;
+
         &>li{
           margin: 0;
           padding:0;
           list-style: none;
           height: rem-calc(45px);
-          /*line-height: rem-calc(45px);*/
+          line-height: rem-calc(45px);
           vertical-align: middle;
           position: relative;
           @include borderbottom-1px(#e5e5e5);
           font-size: rem-calc(16px);
           overflow: hidden;
+          .time_txt {
+            padding: 0 rem-calc(36);
+            font-size: rem-calc(30/2);
+          }
           &>span:first-child{
             color:#333;
-            font-size: rem-calc(30/2)
+            font-size: rem-calc(30/2);
           }
           .choose_gender{
             margin-top: rem-calc(5px);

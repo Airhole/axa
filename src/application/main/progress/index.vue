@@ -2,6 +2,7 @@
  * Author        : gy
  * Filename      : index.vue
  * Description   : 投保进度－建议书首页
+ * Time          : 2017/10/27
 
 ********************************************************************-->
 
@@ -23,7 +24,7 @@
 <script>
   import Vue from 'vue'
   import { Tab, TabItem } from 'vux'
-  import {INSBENEFICARYINFOR, PROGRESSTAB, INPROGRESSLIST, IPROGRESSDETAIL, IPROGRESS, IPROGRESSINSURE, IPROGRESSPAY, IPROGRESSFINISH, IPROGRESSDELE, ISAMULET} from '@/api'
+  // import {INSBENEFICARYINFOR, PROGRESSTAB, INPROGRESSLIST, IPROGRESSDETAIL, IPROGRESS, IPROGRESSINSURE, IPROGRESSPAY, IPROGRESSFINISH, IPROGRESSDELE, ISAMULET} from '@/api'
   import progressbox from '@/application/main/progress/progressbox'
 
   // 定义一个使用混合对象的组件
@@ -71,56 +72,56 @@
           }],
         show: true,
         currentView: 'allBox',
-        boxInterface: INPROGRESSLIST,
+        // boxInterface: INPROGRESSLIST,
         idcode: 0
       }
     },
-    name: 'progress',
+    name: 'prosearch',
     components: {
       Tab, TabItem, progressbox, insurebox, finishbox, delebox, paybox, adviceBox, allBox
     },
-    created: function () {
-      this.$store.dispatch('setapplyId', null)
-      this.$store.dispatch('setplanid', null)
-      this.$store.dispatch('setproposal', null)
-      this.$store.dispatch('setproduct', null)
-      if (this.$route.query.type == 3) {
-        this.$store.dispatch('setPressStatus', 3)
-      }
-      this.getTabData()
-    },
-    props: [],
-    methods: {
-      getTabData () {
-        // @debug
-        this.axios.post(PROGRESSTAB).then((response) => {
-          console.log(response)
-          // this.tab = response.data.value
-        })
-        // @debug
-        // this.tab = JSON.parse('[{ "code": "001", "name": "健康险" }, { "code": "002", "name": "理财险" }, { "code": "003", "name": "意外险" }, { "code": "004", "name": "养老险" }, { "code": "005", "name": "其他" }]')
-      },
-      handler (n, idc) {
-        this.boxInterface = INPROGRESSLIST
-        this.idcode = idc
-        if (n == 0) {
-          this.currentView = 'allBox'
-        } else if (n == 1) {
-          this.currentView = 'adviceBox'
-        } else if (n == 2) {
-          this.currentView = 'insurebox'
-        } else if (n == 3) {
-          this.currentView = 'paybox'
-        } else if (n == 4) {
-          this.currentView = 'finishbox'
-        } else {
-          this.currentView = 'delebox'
-        }
-      },
-      test () {
-        // alert('this is currentView' + this.currentView)
-      }
-    },
+    // created: function () {
+    //   this.$store.dispatch('setapplyId', null)
+    //   this.$store.dispatch('setplanid', null)
+    //   this.$store.dispatch('setproposal', null)
+    //   this.$store.dispatch('setproduct', null)
+    //   if (this.$route.query.type == 3) {
+    //     this.$store.dispatch('setPressStatus', 3)
+    //   }
+    //   this.getTabData()
+    // },
+    // props: [],
+    // methods: {
+    //   getTabData () {
+    //     // @debug
+    //     this.axios.post(PROGRESSTAB).then((response) => {
+    //       console.log(response)
+    //       // this.tab = response.data.value
+    //     })
+    //     // @debug
+    //     // this.tab = JSON.parse('[{ "code": "001", "name": "健康险" }, { "code": "002", "name": "理财险" }, { "code": "003", "name": "意外险" }, { "code": "004", "name": "养老险" }, { "code": "005", "name": "其他" }]')
+    //   },
+    //   handler (n, idc) {
+    //     this.boxInterface = INPROGRESSLIST
+    //     this.idcode = idc
+    //     if (n == 0) {
+    //       this.currentView = 'allBox'
+    //     } else if (n == 1) {
+    //       this.currentView = 'adviceBox'
+    //     } else if (n == 2) {
+    //       this.currentView = 'insurebox'
+    //     } else if (n == 3) {
+    //       this.currentView = 'paybox'
+    //     } else if (n == 4) {
+    //       this.currentView = 'finishbox'
+    //     } else {
+    //       this.currentView = 'delebox'
+    //     }
+    //   },
+    //   test () {
+    //     // alert('this is currentView' + this.currentView)
+    //   }
+    // },
     activated: function () {
 
     }

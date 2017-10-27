@@ -361,6 +361,42 @@ export default new Router({
         param: {}
       }
     },
+    { //  投保进度-查询保单
+      path: '/main/prosearch',
+      name: 'prosearch',
+      component: () => import(/* webpackChunkName: "prosearch" */ '@/application/main/progress/search.vue'),
+      meta: {
+        requireAuth: true,
+        title: '查询保单',
+        rightMenu: null,
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '投保进度-查询保单',
+        param: {}
+      }
+    },
+    { //  投保进度-详情
+      path: '/main/progressdetail',
+      name: 'progressdetail',
+      component: () => import(/* webpackChunkName: "progressdetail" */ '@/application/main/progress/detail.vue'),
+      meta: {
+        requireAuth: true,
+        title: '投保进度详情',
+        rightMenu: null,
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '投保进度-详情',
+        param: {}
+      }
+    },
     { //  投保进度-主页
       path: '/main/progress',
       name: 'progress',
@@ -379,23 +415,6 @@ export default new Router({
       },
       Info: {
         description: '投保进度-主页',
-        param: {}
-      }
-    },
-    { //  投保进度-查询保单
-      path: '/main/prosearch',
-      name: 'prosearch',
-      component: () => import(/* webpackChunkName: "progress" */ '@/application/main/progress/search.vue'),
-      meta: {
-        requireAuth: true,
-        title: '查询保单',
-        leftMenu: {
-          title: '返回',
-          javascript: 'gobackbtn'
-        }
-      },
-      Info: {
-        description: '投保进度-查询保单',
         param: {}
       }
     }

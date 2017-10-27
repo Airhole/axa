@@ -30,7 +30,7 @@ export default {
         // alert('shareCallback')
       }
       window.gotoprogressSearch = () => {
-        _self.$router.push({path: '/web/prosearch'})
+        _self.$router.push({name: 'prosearch'})
       }
       window.gotoprogress = () => {
         _self.$router.push({path: '/web/searchquery', query: {'type': 5}})
