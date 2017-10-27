@@ -212,7 +212,8 @@
       <p class="endRemark" style="color:#949494">{{endRemark}}</p>
     </div>
   </div>
-    <ul class='suggest-footer' v-if="isWeixin">
+    <!-- <ul class='suggest-footer' v-if="isWeixin"> -->
+    <ul class='suggest-footer'>
     <li>
       <button class='suggest-btn default' @click='shareBtn'>分享</button>
     </li>

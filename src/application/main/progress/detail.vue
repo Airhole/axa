@@ -1,7 +1,6 @@
 
 <!--********************************************************************
- * Author        : Geyan
- * Email         : geyan@zhongan.io
+ * Author        : xiangzhi
  * Create Date   : 2017-10-27
  * Filename      : detail.vue
  * Description   : 投保进度－投保进度详情
