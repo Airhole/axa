@@ -117,7 +117,6 @@
         }, 1000)
       },
       onUnitChange (val) {
-        console.log('onUnitChange', val)
         this.formGroupErrors = val.msg
         this.formGroupStatus = val.status
         this.formGroup = val.value
@@ -140,13 +139,13 @@
         alert('提交成功！')
       },
       getData () {
-        // this.axios.get(MAKE_PLAN(true)).then((response) => {
-        //   console.log(response)
-        // }, (response) => {
-        // }).catch((err) => {
-        //   console.log(err)
-        //   throw new Error(err)
-        // })
+        this.axios.get(MAKE_PLAN).then((response) => {
+          console.log(response)
+        }, (response) => {
+        }).catch((err) => {
+          console.log(err)
+          throw new Error(err)
+        })
       }
     }
   }

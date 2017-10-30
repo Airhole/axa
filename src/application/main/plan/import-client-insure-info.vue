@@ -20,7 +20,7 @@
     <div class="btn-wrapper">
       <!--<default-btn class='next' val='下一步' @Click="nextStep"></default-btn>-->
       <div class="pre-step">首年保费合计：<span>666.00元</span></div>
-      <div class="next-step" @click="nextStep">生成计划书</div>
+      <div class="next-step">生成计划书</div>
     </div>
   </div>
   <!-- 主、附险信息 -->
