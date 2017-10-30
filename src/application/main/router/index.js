@@ -166,10 +166,10 @@ export default new Router({
         param: {}
       }
     },
-    { //  计划书-投保人信息
-      path: '/plan/applicant_info',
-      name: 'plan_applicant_info',
-      component: () => import(/* webpackChunkName: "applicant-info" */ '@/application/main/plan/applicant-info.vue'),
+    { //  在线投保-投保人信息
+      path: '/insurance/applicant_info',
+      name: 'insurance_applicant_info',
+      component: () => import(/* webpackChunkName: "applicant-info" */ '@/application/main/insurance/applicant-info.vue'),
       meta: {
         requireAuth: true,
         title: '投保人信息',
@@ -180,14 +180,14 @@ export default new Router({
         }
       },
       Info: {
-        description: '计划书-投保人信息',
+        description: '在线投保-投保人信息',
         param: {}
       }
     },
-    { //  计划书-被保人信息
-      path: '/plan/insured_info',
-      name: 'plan_insured_info',
-      component: () => import(/* webpackChunkName: "insured-info" */ '@/application/main/plan/insured-info.vue'),
+    { //  在线投保-被保人信息
+      path: '/insurance/insured_info',
+      name: 'insurance_insured_info',
+      component: () => import(/* webpackChunkName: "insured-info" */ '@/application/main/insurance/insured-info.vue'),
       meta: {
         requireAuth: true,
         title: '被保人信息',
@@ -198,7 +198,7 @@ export default new Router({
         }
       },
       Info: {
-        description: '计划书-被保人信息',
+        description: '在线投保-被保人信息',
         param: {}
       }
     },

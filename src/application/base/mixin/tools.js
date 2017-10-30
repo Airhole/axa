@@ -89,7 +89,7 @@ export default {
       }
       return target
     },
-    __plan(obj) {
+    __plan (obj) {
       let newobj = {}
       for (let i in obj) {
         if (obj[i].name === undefined || obj[i].value === undefined) {

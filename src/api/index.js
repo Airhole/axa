@@ -1,12 +1,13 @@
 let root = ''
 const pro = process.env.NODE_ENV === 'production'
 const mock = process.env.MOCK
-alert(mock)
+// alert(mock)
 
 if (pro) {
   root = '/api'
 } else {
-  root = '/testapi'
+  root = '192.168.26.16:9080'
+  // root = '/testapi'
   // root = '/devapi'
 }
 let path = (inf = null, n) => {
@@ -48,3 +49,7 @@ export const ENROLL_SUBMMIT = path(demo)
 
 // xnApp api 如果需要针对个别API开启mock,可以传入第二个参数为true
 export const MAKE_PLAN = path('/plan/createPlan')
+//在线投保-读取投保人信息
+export const READ_APPLICANT_INFO = path('/insure/customer/loadApplicant')
+//在线投保-读取投保人信息
+export const READ_INSURED_INFO = path('/insure/customer/loadApplicant')

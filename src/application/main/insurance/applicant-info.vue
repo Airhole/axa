@@ -33,8 +33,8 @@
 
 <script>
   import formUnit from '@/components/unit/form-unit'
-  import epMixin from '@/components/mixins/enroll-page-mixin'
-//  import {ENROLL_SUBMMIT, ENROLL_INTERSET, QUERY_DICT} from '@/api'
+//  import epMixin from '@/components/mixins/enroll-page-mixin'
+  import { READ_APPLICANT_INFO } from '@/api'
   import defaultBtn from '@/components/base/default-btn.vue'
 
   // models
@@ -50,7 +50,7 @@
       formUnit,
       defaultBtn
     },
-    mixins: [epMixin],
+    // mixins: [epMixin],
     data () {
       window.info = this
       return {
@@ -62,6 +62,11 @@
       }
     },
     methods: {
+      init () {
+        this.axios.post(READ_APPLICANT_INFO, {insureId: '15090136403155300647296848601245'}).then(res => {
+          console.log(res.value)
+        })
+      },
       nextStep () {
         if (!this.isValid) {
           this.__toast(this.formErrors[0].msg)
@@ -80,7 +85,8 @@
             })
           }
         }
-      },
+      }
+      /**
       // 验证身份证和性别，身份证和出生日期是否符合
       validIdCardBirthdaySex () {
         let idCardVal = this.form.idCardNo.value
@@ -145,7 +151,9 @@
         this.formModels.sex.value = sexFlag
         // this.formRules.idCardNo.rules.disabled = true
       }
-    },
+       */
+    }
+    /**
     watch: {
       'form.idCardNo': {
         deep: true,
@@ -165,6 +173,7 @@
         }
       }
     }
+     */
   }
 </script>
 <style lang='scss' rel="stylesheet/scss" scoped>
