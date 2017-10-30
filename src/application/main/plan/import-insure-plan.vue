@@ -12,8 +12,8 @@
     <!-- 投被保人信息 -->
     <div class="btn-wrapper">
       <!--<default-btn class='next' val='下一步' @Click="nextStep"></default-btn>-->
-      <div class="pre-step">上一步</div>
-      <div class="next-step">下一步</div>
+      <div class="pre-step">首年保费合计：<span>666.00元</span></div>
+      <div class="next-step" @click="nextStep">生成计划书</div>
     </div>
   </div>
 </template>
@@ -59,7 +59,6 @@
         this.formGroup = val.value
       },
       nextStep () {
-        this.$router.push({name: 'insurance_choose_beneficiary'})
         let insureInfo = Object.values(this.formGroup).map(i => Object.values(i))
         if (this.formGroupStatus === 'dirty') {
           this.__toast(this.formGroupErrors)

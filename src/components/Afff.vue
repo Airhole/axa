@@ -18,7 +18,7 @@ export default {
   },
   methods: {
     ajaxDemo () {
-      this.axios.get(IDEMO(true)).then((response) => {
+      this.axios.get(IDEMO).then((response) => {
         console.log(response)
       }, (response) => {
       }).catch((err) => {
@@ -27,7 +27,7 @@ export default {
       })
     },
     ajaxDemo1 () {
-      this.axios.get(ILOGIN()).then((response) => {
+      this.axios.get(ILOGIN).then((response) => {
         console.log(response)
       }, (response) => {
       }).catch((err) => {
