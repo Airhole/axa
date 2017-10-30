@@ -88,13 +88,13 @@ export default new Router({
         param: {}
       }
     },
-    { //  计划书-请启书
+    { //  计划书-亲启书
       path: '/plan/product_letter',
       name: 'product_letter',
       component: () => import(/* webpackChunkName: "product_letter" */ '@/application/main/plan/product_letter.vue'),
       meta: {
         requireAuth: true,
-        title: '计划书',
+        title: '亲启书',
         rightMenu: null,
         leftMenu: {
           title: '返回',
@@ -105,7 +105,7 @@ export default new Router({
         }
       },
       Info: {
-        description: '计划书-请启书',
+        description: '计划书-亲启书',
         param: {}
       }
     },
