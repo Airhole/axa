@@ -6,18 +6,6 @@ if (!process.env.NODE_ENV) {
   process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV)
 }
 
-// 检查是否有mock flag
-var argv
-try {
-  argv = JSON.parse(process.env.npm_config_argv).original
-} catch (ex) {
-  argv = process.argv
-}
-const mock = argv.find(a => a === '--mock')
-if (mock) {
-  process.env.MOCK = JSON.parse(config.dev.env.MOCK)
-}
-
 const opn = require('opn')
 const path = require('path')
 const express = require('express')

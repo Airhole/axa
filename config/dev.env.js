@@ -2,7 +2,14 @@
 const merge = require('webpack-merge')
 const prodEnv = require('./prod.env')
 
-module.exports = merge(prodEnv, {
-  NODE_ENV: '"development"',
-  MOCK: '"mock"'
-})
+let config = {
+  NODE_ENV: '"development"'
+}
+const argv = JSON.parse(process.env.npm_config_argv).original
+const mock = argv.find(a => a === '--mock')
+
+if (mock) {
+  config.MOCK = '"mock"'
+}
+
+module.exports = merge(prodEnv, config)
