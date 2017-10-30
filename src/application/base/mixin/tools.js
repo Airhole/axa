@@ -89,6 +89,16 @@ export default {
       }
       return target
     },
+    __plan(obj) {
+      let newobj = {}
+      for (let i in obj) {
+        if (obj[i].name === undefined || obj[i].value === undefined) {
+          alert('参数不符合要求，必须为{name: {name: "name",value:"value"}形式')
+          return
+        }
+        newobj[obj[i].name] = obj[i].value
+      }
+    },
     // __keyValue 的ob版，生成能被vue监听的对象
     __obkv (target, obj) {
       for (let i in obj) {
