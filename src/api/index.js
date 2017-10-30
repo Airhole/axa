@@ -1,7 +1,10 @@
 let root = ''
 const pro = process.env.NODE_ENV === 'production'
 const mock = process.env.MOCK
+<<<<<<< HEAD
 // alert(mock)
+=======
+>>>>>>> 60b28599d612946b91b9b395c71a0abe33b1a128
 
 if (pro) {
   root = '/api'
