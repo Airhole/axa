@@ -1,5 +1,6 @@
 let targetRoot = 'http://localhost'
 let port = '8101'
+
 module.exports = {
   '/devapi/**': {
     target: targetRoot + ':' + port,

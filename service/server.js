@@ -78,7 +78,7 @@ module.exports = function (app) {
   //     res.json({name:'aaa',pwd:'123'});
   // })
   app.use('/local', function (req, res, next){
-    console.log('ffffff')
+    console.log('start local mock')
     let path = filter(req, res)
     path = './mock' + path + '.json'
     console.log(path)
@@ -87,6 +87,7 @@ module.exports = function (app) {
   // snap 快照
   app.use('/cross', expressproxy('hq-jdt-dev.zhongan.io', {
     proxyReqPathResolver: function(req, res) {
+      console.log('start local mock')
       return require('url').parse(req.url).path;
     },
     userResDecorator: function(proxyRes, proxyResData, userReq, userRes) {

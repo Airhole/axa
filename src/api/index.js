@@ -1,31 +1,34 @@
 let root = ''
 const pro = process.env.NODE_ENV === 'production'
 const mock = process.env.MOCK
-
 if (pro) {
   root = '/api'
 } else {
-  root = '192.168.26.16:9080'
-  // root = '/testapi'
+  // root = '192.168.26.16:9080'
+  root = '/testapi'
   // root = '/devapi'
 }
 let path = (inf = null, n) => {
   let result = ''
-  if (!n) {
-    n = false
-  }
-  if (mock) {
-    n = true
-    console.warn('接口：' + inf + ' 正在从本地mock数据')
-  }
   if (pro) {
     result = root + inf
   } else {
-    if (n) {
+    switch (mock) {
+    case 'local':
+      console.warn('本地mock数据模式')
       result = root + '/local' + inf
-    } else {
-      // result = root + '/corss' + inf
+      break
+    case 'cross':
+      console.warn('远程mock数据模式')
       result = root + '/cross' + inf
+      break
+    case 'mixin':
+      if (n) {
+        result = root + '/local' + inf
+      } else {
+        result = root + '/cross' + inf
+      }
+      break
     }
   }
   return result
@@ -40,7 +43,7 @@ export const ILOGIN = root + login
 let login = '/jdt-web/wx/configdata.do'
 let demo = '/demo'
 export const ILOGIN = path(login)
-export const IDEMO = path(demo)
+export const IDEMO = path(demo, true)
 
 export const ENROLL_INTERSET = path(demo)
 export const QUERY_DICT = path(demo)
