@@ -77,6 +77,7 @@
           this.showLoading = false
         }, (response) => {
         }).catch((err) => {
+          this.showLoading = false
           console.log(err)
           throw new Error(err)
         })
