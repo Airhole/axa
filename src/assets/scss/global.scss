@@ -235,3 +235,44 @@ body .weui-toast__content{
   padding-top: 4px;
   padding-bottom: 4px;
 }
+/***弹性盒模型***/
+.w-box {
+  width: 100%;
+  display: -webkit-box;
+  display: -moz-box;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+}
+.flex-1 {
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+}
+.flex-2 {
+  -webkit-box-flex: 2;
+  -moz-box-flex: 2;
+}
+.flex-3 {
+  -webkit-box-flex: 3;
+  -moz-box-flex: 3;
+}
+/*width style*/
+.box-cm,.box-ce,.pack-e {
+  display: -moz-box;
+  display: -webkit-box;
+}
+.box-cm {
+  -moz-box-align: center;
+  -webkit-box-align: center;
+}
+.box-ce {
+  -moz-box-align: end;
+  -webkit-box-align: end;
+}
+.pack-c {
+  -moz-box-pack: center;
+  -webkit-box-pack: center;
+}
+.pack-e {
+  -moz-box-pack: end;
+  -webkit-box-pack: end;
+}
