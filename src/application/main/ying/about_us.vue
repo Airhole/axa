@@ -20,19 +20,15 @@
 
 <script>
   export default {
-    name: 'ying',
+    name: 'about_us',
     components: {},
     data () {
       return {
       }
     },
     methods: {
-      initYing () {
-        console.log(this)
-      }
     },
     mounted () {
-      this.initYing()
     }
   }
 </script>
