@@ -3,7 +3,7 @@
     <div class="order-inquiry-top arrow_icon" @click="dataSelectHandler">2017年10月</div>
     <div class="order-inquiry-list" v-for="order in orders">
       <div class="inquiry-list-item">
-        <h3>訂單號：{{ order.oderNumber }}</h3>
+        <h3>訂單號：{{ order.orderNumber }}</h3>
         <ul>
           <li>保單號：{{ order.policyNumber }}</li>
           <li>產品名稱：{{ order.productName }}</li>
@@ -58,6 +58,7 @@
         border-bottom: .5px solid #e8e8e8;
         h3 {
           color: #333;
+          font-weight: 400;
           font-size: rem-calc(15);
           padding: rem-calc(15) rem-calc(15) rem-calc(15) 0;
           border-bottom: .5px solid #e8e8e8;
