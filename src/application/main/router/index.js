@@ -456,6 +456,23 @@ export default new Router({
         description: '投保进度-主页',
         param: {}
       }
+    },
+    { //  公司简介
+      path: '/mian/company',
+      name: 'company_profile',
+      component: () => import('@/application/main/progress/company-profile.vue'),
+      meta: {
+        requireAuth: true,
+        title: '公司简介',
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '公司简介',
+        param: {}
+      }
     }
   ]
 })
