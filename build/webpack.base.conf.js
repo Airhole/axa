@@ -5,6 +5,7 @@ const config = require('../config')
 const vueLoaderConfig = require('./vue-loader.conf')
 const vuxLoader = require('vux-loader')
 const entry = require('../config/entry')
+const argv = require('yargs').argv
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
