@@ -24,8 +24,7 @@ npm run unit
 npm run e2e
 
 # run createEntry
-npm run createEntry target
-require target enter name
+npm run createEntry target  require target enter name
 
 # run mdev    run dev & mock
 npm run mdev
