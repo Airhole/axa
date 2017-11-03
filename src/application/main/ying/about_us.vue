@@ -1,6 +1,6 @@
 <template>
   <div class="about-us">
-    <div class="about-us-banner">企业简介banner</div>
+    <div class="about-us-banner"><img src="~@/assets/image/about_us.png"></div>
     <div class="about-us-item">
       <h3>企業概覽</h3>
       <div class="survey-main">
@@ -35,31 +35,46 @@
 
 <style lang="scss" scoped>
   .about-us {
-    width: 100vw;
-    height: 100vh;
     overflow: hidden;
-    background-color: #f4f4f4;
     display: flex;
     flex-direction: column;
     position: relative;
+    font-family: 'PingFang SC';
+    .about-us-banner {
+      width: 100%;
+      height: auto;
+      font-size: 0;
+      img {
+        width: 100%;
+        height: auto;
+        border: 0;
+      }
+    }
     .about-us-item {
       background-color: #fff;
-      margin-top: rem-calc(10);
       h3 {
-        padding: rem-calc(15);
-        border-bottom: .5px solid #e8e8e8;
+        padding: rem-calc(20);
+        font-size: rem-calc(20);
+        border-bottom: .5px solid #e5e5e5;
       }
       p {
         padding: rem-calc(15) rem-calc(15) 0 rem-calc(15);
-        font-size: rem-calc(12);
-        line-height: rem-calc(18);
-        color: #666;
+        font-size: rem-calc(15);
+        line-height: rem-calc(25);
+        color: #333;
         word-wrap: break-word;
         word-break: normal;
       }
       p:last-child {
-        padding-bottom: rem-calc(15);
+        padding-bottom: rem-calc(20);
       }
+    }
+    .about-us-item:last-child:before {
+      content: "";
+      display: block;
+      height: rem-calc(10);
+      width: 100%;
+      background-color: #f0f0f0;
     }
   }
 </style>
