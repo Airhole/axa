@@ -1,3 +1,10 @@
+<!--********************************************************************
+ * Author        : lisanmei
+ * Filename      : card.vue
+ * Description   : 名片页面
+ * Time          : 2017/11/3
+ *
+********************************************************************-->
 <template>
   <div v-show="!showLoading">
     <div class="profile-card">
