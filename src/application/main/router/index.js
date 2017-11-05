@@ -475,6 +475,24 @@ export default new Router({
         param: {}
       }
     },
-    ...xinNen
+    { //  名片
+      path: '/main/card',
+      name: 'card',
+      component: () => import(/* webpackChunkName: "progress" */ '@/application/main/profile/card.vue'),
+      meta: {
+        requireAuth: true,
+        title: '名片',
+        rightMenu: null,
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '名片',
+        param: {}
+      }
+    }
+    // ...xinNen
   ]
 })
