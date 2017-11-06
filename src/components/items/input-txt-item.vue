@@ -25,7 +25,6 @@ export default {
   name: 'input-txt-item',
   data () {
     return {
-      innerValue: this.value,
       innerErrors: null,
       innerValid: null
     }

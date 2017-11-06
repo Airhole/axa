@@ -119,6 +119,18 @@
             :name="name">
           </yesorno-item>
           <!-- yesorno 类型 -->
+
+          <!-- input-btn 类型 -->
+          <input-btn-item
+            v-if="$formRule.type=='input-btn'"
+            @formChange="onChange"
+            @formPassed="onVlid"
+            @emission="onEmission"
+            :rules="$formRule.rules"
+            :value="$formModel.value"
+            :name="name">
+          </input-btn-item>
+          <!-- input-btn 类型 -->
         </template>
       </template>
     </root-item>
@@ -135,6 +147,7 @@
 //  import inputCameraItem from './input-camera-item'
   import yesornoItem from "./yesorno-item"
   import inputTxtItem from './input-txt-item'
+  import inputBtnItem from './input-btn-item'
 
   export default {
     name: 'form-row',
@@ -145,6 +158,7 @@
       sexItem,
       // inputCameraItem,
       inputTxtItem,
+      inputBtnItem,
       timeItem,
       webSelectItem,
       yesornoItem
@@ -190,6 +204,9 @@
     methods: {
       onChange (val) {
         this.$emit('formChange', val)
+      },
+      onEmission (val) {
+        this.$emit('emission', val)
       },
       onVlid (val) {
         this.$emit('formValid', val)

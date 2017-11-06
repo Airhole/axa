@@ -1,4 +1,4 @@
-import errorMsg from '@/components/items/error-msg/error-msg.js'
+import errorMsg from '@/components/items/error-msg/error-msg'
 import dict from '@/application/base/dict-from-core'
 let date = new Date()
 let stime = `${date.getFullYear() - 65}-${date.getMonth() + 1}-${date.getDate()}`
