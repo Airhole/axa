@@ -96,6 +96,7 @@
   @import '~@/assets/scss/_variables';
   .profile-card{
     position: relative;
+    margin-bottom: rem-calc(50);
     background: #f0f0f0;
     .card-item{
       margin-bottom: rem-calc(10);
