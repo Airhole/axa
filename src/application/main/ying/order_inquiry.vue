@@ -22,7 +22,7 @@
 </template>
 
 <script>
-  import { Cell, Group, Picker, Datetime, XButton } from 'vux'
+  import { Datetime, XButton } from 'vux'
   var years = []
   for (var i = 2000; i <= 2030; i++) {
     years.push({
@@ -43,9 +43,6 @@
       }
     },
     components: {
-      Picker,
-      Cell,
-      Group,
       Datetime,
       XButton
     },
