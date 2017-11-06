@@ -494,7 +494,7 @@ export default new Router({
       }
     },
     { //  公司简介
-      path: '/mian/company',
+      path: '/main/company',
       name: 'company_profile',
       component: () => import('@/application/main/progress/company-profile.vue'),
       meta: {
@@ -507,6 +507,40 @@ export default new Router({
       },
       Info: {
         description: '公司简介',
+        param: {}
+      }
+    },
+    { //  投保成功
+      path: '/main/success',
+      name: 'insure_success',
+      component: () => import('@/application/main/insurance/insure-success.vue'),
+      meta: {
+        requireAuth: true,
+        title: '投保成功',
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '投保成功',
+        param: {}
+      }
+    },
+    { //  我的积分
+      path: '/main/myscore',
+      name: 'myScore',
+      component: () => import('@/application/main/insurance/my-score.vue'),
+      meta: {
+        requireAuth: true,
+        title: '我的积分',
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '我的积分',
         param: {}
       }
     }
