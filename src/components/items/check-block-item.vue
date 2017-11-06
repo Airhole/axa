@@ -20,7 +20,19 @@
     </div>
     <ul class="check-list" v-if="showOptions">
       <li v-for="(item, key, index) in rules.options" :key="index">
-        <label :for="key" class="labels">
+        <label :for="key" class="input-labels" v-if="item.rules && item.type">
+          <!-- input 类型 -->
+          {{item.label}}:
+          <root-input
+            @formChange="onChange"
+            :rules="item.rules"
+            :value="getVal(key)"
+            :name="key">
+          </root-input>
+          {{item.rules.txt}}
+          <!-- input 类型 -->
+        </label>
+        <label :for="key" class="labels" v-else>
           <input class="checkbox" type="checkbox" :id="key" :name="key" :checked="isChecked(key)" :value="key" v-model="innerValue.selected" />
           {{item.label}}
         </label>
@@ -31,8 +43,10 @@
 </template>
 
 <script>
+  import rootInput from '../root-items/root-input'
   export default {
     name: 'check-block-item',
+    components: {rootInput},
     data () {
       return {
         innerValue: this.modValue,
@@ -61,7 +75,7 @@
     },
     computed: {
       showOptions () {
-        return this.rules.options && (this.innerValue.yesorno === 'yes' || !this.innerValue.yesorno)
+        return (this.rules.options && this.innerValue.yesorno === 'yes') || !this.innerValue.yesorno
       },
       modValue: {
         set (v) {
@@ -88,6 +102,9 @@
     },
     methods: {
       init () {
+        if (this.name === 'q1') {
+          window.cc = this
+        }
         this.innerValue = this.modValue
       },
       check (val) {
@@ -106,6 +123,24 @@
           return !!this.innerValue.selected.find(i => i == key)
         }
         return false
+      },
+      getVal (key) {
+        if (this.innerValue.selected.find) {
+          let obj = this.innerValue.selected.find(i => i[key])
+          if (obj) {
+            return obj[key]
+          }
+        }
+        return null
+      },
+      onChange (v) {
+        this.isValid = v.isValid
+        let obj = this.innerValue.selected.find(i => i[v.name] !== undefined)
+        let index
+        if (obj) {
+          obj[v.name] = v.value
+        }
+        console.log(v, JSON.stringify(this.innerValue.selected), this.__str(obj))
       },
       innerModel () {
         return {
@@ -146,6 +181,13 @@
         padding-left:rem-calc(25);
         padding-top:rem-calc(5);
         padding-bottom:rem-calc(5);
+      }
+      .input-labels{
+        display:block;
+        position:relative;
+        padding-top:rem-calc(5);
+        padding-bottom:rem-calc(5);
+        display: flex;
       }
       .checkbox{position:absolute;top:rem-calc(5);left:0;}
     }

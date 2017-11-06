@@ -5,7 +5,7 @@
         example:
 -->
 <template>
-    <group class="time-item-box" :class="{isempty: isEmpty}">
+    <group class="time-item-box" :class="{isempty: isEmpty, showext: rules.showExtBtn}">
       <datetime
       @on-change="onChange"
       clear-text=""
@@ -20,6 +20,12 @@
       :title="''"
       :name="name">
     </datetime>
+    <div class="txt" v-if="rules.showExtBtn">
+      <div class="selectIcon" @click="emission">
+        <span class="icon-cricle" :class="{'active': isLong}"></span>
+        <span class="icon-text" :class="{'icon-text-active': isLong}">{{rules.txt}}</span>
+      </div>
+    </div>
   </group>
 </template>
 <script>
@@ -30,6 +36,7 @@ export default {
   data () {
     return {
       isEmpty: true,
+      isLong: false,
       innerValue: this.modValue
     }
   },
@@ -80,6 +87,13 @@ export default {
       this.modValue = val
       this.$emit('formChange', this.innerModel())
     },
+    emission () {
+      this.isLong = !this.isLong
+      if (this.isLong) {
+        this.innerValue = '9999'
+      }
+      // this.$emit('emission', {target: this.rules.emitTarget, value: this.isLong})
+    },
     innerModel () {
       this.isEmpty = !this.innerValue
       return {
@@ -113,6 +127,7 @@ export default {
 <style lang='scss' rel="stylesheet/scss">
   @import '~@/assets/scss/function';
   .time-item-box {
+    display:flex;
     .weui-cells:before, .weui-cells:after, .vux-cell-box:before, .vux-cell-box:after {
       display: none;
     }
@@ -130,10 +145,54 @@ export default {
     .vux-datetime-value {
       color:#333 !important;
     }
+    .txt {
+      padding-right: rem-calc(15);
+      font-size: rem-calc(15);
+      display:flex;
+      position: relative;
+        .selectIcon {
+        display: flex;
+        align-items: center;
+        .icon-cricle {
+          display: inline-block;
+          width: rem-calc(18);
+          height: rem-calc(18);
+          line-height: rem-calc(18);
+          border-radius: 50%;
+          background-color: #cccccc;
+          &:before {
+            content: ' ';
+            display: block;
+            border-bottom: rem-calc(2) solid #ffffff;
+            border-left: rem-calc(2) solid #ffffff;
+            width: rem-calc(16);
+            height: rem-calc(8);
+            transform: rotate(-45deg) scale(.8);
+            margin-top: rem-calc(1);
+          }
+        }
+        .active {
+          background-color: #00aeff;
+        }
+        .icon-text {
+          font-size: rem-calc(13);
+          color: #a5a5a5;
+          margin-left: rem-calc(4);
+        }
+        .icon-text-active {
+          color: #00aeff;
+        }
+      }
+    }
   }
   .time-item-box.isempty{
     .vux-datetime-value {
       color:#ccc !important;
+    }
+  }
+  .time-item-box.showext{
+    .vux-no-group-title {
+      display:flex;
     }
   }
 </style>

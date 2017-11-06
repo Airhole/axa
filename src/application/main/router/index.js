@@ -526,7 +526,24 @@ export default new Router({
         description: '健康告知',
         param: {}
       }
-    }
+    },
     // ...xinNen
+    { //  公司简介
+      path: '/applicant_info',
+      name: 'applicant_info',
+      component: () => import('@/application/main/profile/applicant-info'),
+      meta: {
+        requireAuth: true,
+        title: '健康告知',
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '健康告知',
+        param: {}
+      }
+    }
   ]
 })
