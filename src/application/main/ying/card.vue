@@ -18,11 +18,11 @@
       <div class="card-list-box">
         <div class="card-item w-box">
           <div class="flex-1">手機號碼</div>
-          <div class="flex-1 pack-e">{{ lists.phone }}</div>
+          <div class="flex-1 pack-e phone">{{ lists.phone }}</div>
         </div>
         <div class="card-item w-box">
           <div class="flex-1">微信號</div>
-          <div class="flex-1 pack-e">{{ lists.weixin }}</div>
+          <div class="flex-1 pack-e weixin">{{ lists.weixin }}</div>
         </div>
       </div>
       <div class="card-list-box">
@@ -102,6 +102,22 @@
             width: rem-calc(220);
             color: #666;
             padding-right: rem-calc(15);
+          }
+          .phone:after, .weixin:after {
+            content: '';
+            display: inline-block;
+            width: rem-calc(20);
+            height: rem-calc(20);
+            vertical-align: middle;
+            background-size: 100%;
+            background-repeat: no-repeat;
+            margin-left: rem-calc(10);
+          }
+          .phone:after {
+            background-image: url('~@/assets/image/phone.png');
+          }
+          .weixin:after {
+            background-image: url('~@/assets/image/wx.png');
           }
         }
         .card-item:last-child {
