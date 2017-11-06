@@ -1,24 +1,8 @@
 <!--
 gallery用于在开发中汇总单个页面列表
-
 -->
 <template>
   <div class="page-gallery">
-<!--     <input type="tel" v-maxLength="'8'" value="12313" maxlength="10"/>
-    <input type="text" v-maxLength="'8'" value="12313" maxlength="10"/>
-    <input type="text" v-maxLength="'8'" value="12313" maxlength="10"/>
-    <input type="text" v-maxLength="'8'" value="12313" maxlength="10"/>
- <!--&ndash;&gt;    <details>-->
-      <!--<summary>Gallery</summary>-->
-      <!--<ol>-->
-        <!--<li v-for="item in items">-->
-          <!--<router-link :to="item.link" key="item.link" tag="div">-->
-            <!--<p>{{item.descript}}</p>-->
-            <!--link:{{ item.link }}-->
-          <!--</router-link>-->
-        <!--</li>-->
-      <!--</ol>-->
-    <!--</details>-->
     <details open>
       <summary>Main Link</summary>
       <ol>
