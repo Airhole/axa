@@ -8,7 +8,7 @@
     "dev": "node build/dev-server.js",
     "mock": "node service/app.js",
     "createEntry": "node config/createEntry.js",
-    "mdev": "concurrently \"npm run dev --mock\" \"npm run mock\"",
+    "mdev": "concurrently \"npm run dev\" \"npm run mock\"",
     "start": "npm run dev",
     "dll": "webpack --config build/webpack.dll.conf.js -p  --progress && cp -r -f dist/static/js/vendor.dll.js static/js/vendor.dll.js",
     "build": "node build/build.js",
