@@ -27,11 +27,14 @@
 </template>
 
 <script>
-  import { Loading } from 'vux'
+  import { Loading, TransferDomDirective as TransferDom } from 'vux'
   export default {
     name: 'company-profile',
     components: {
       Loading
+    },
+    directives: {
+      TransferDom
     },
     data: () => {
       return {
