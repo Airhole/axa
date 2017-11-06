@@ -1,20 +1,4 @@
 export default {
-  "customerId": {
-    "value": "15090136516446698295326249659901",
-    "name": "customerId"
-  },
-  "insureId": {
-    "value": "15090136403155300647296848601245",
-    "name": "insureId"
-  },
-  "planId": {
-    "value": null,
-    "name": "planId"
-  },
-  "customerType": {
-    "value": "1",
-    "name": "customerType"
-  },
   "name": {
     "value": "旧人",
     "name": "name"
@@ -39,130 +23,64 @@ export default {
     "value": "",
     "name": "certValidate"
   },
-  "entryMarriage": {
-    "value": {},
-    "name": "entryMarriage"
-  },
-  "mobile": {
+  "mainlandIdNo": {
     "value": "",
-    "name": "mobile"
-  },
-  "wechatNo": {
-    "value": "",
-    "name": "wechatNo"
-  },
-  "email": {
-    "value": "",
-    "name": "email"
-  },
-  "height": {
-    "value": "",
-    "name": "height"
-  },
-  "weight": {
-    "value": "",
-    "name": "weight"
-  },
-  "entryRelation": {
-    "value": "",
-    "name": "entryRelation"
+    "name": "mainlandIdNo"
   },
   "entryCitizenship": {
     "value": "",
     "name": "entryCitizenship"
   },
-  "entryDegree": {
+  "mobile": {
     "value": "",
-    "name": "entryDegree"
+    "name": "mobile"
   },
-  "entryOccupation": {
+  "email": {
     "value": "",
-    "name": "entryOccupation"
+    "name": "email"
   },
-  "jobContent": {
+  "addressApplicant": {
     "value": "",
-    "name": "jobContent"
+    "name": "addressApplicant"
   },
-  "partTimeJob": {
+  "country": {
     "value": "",
-    "name": "partTimeJob"
+    "name": "country"
   },
-  "income": {
+  "entryRelation": {
     "value": "",
-    "name": "income"
+    "name": "entryRelation"
   },
-  "incomeSource": {
+  "insuredName": {
     "value": "",
-    "name": "incomeSource"
+    "name": "insuredName"
   },
-  "domicile": {
-    "value": {
-      entry_province: {
-        value: '',
-        name: ''
-      },
-      entry_city: {
-        value: '',
-        name: ''
-      },
-      entry_district: {
-        value: '',
-        name: ''
-      },
-      detail: ''
-    },
-    "name": "domicile"
-  },
-  "domicileDetail": {
+  "insuredGender": {
     "value": "",
-    "name": "domicileDetail"
+    "name": "insuredGender"
   },
-  "address": {
+  "insuredBirthday": {
     "value": "",
-    "name": "address"
+    "name": "insuredBirthday"
   },
-  "addressDetail": {
+  "insuredEntryCertType": {
     "value": "",
-    "name": "addressDetail"
+    "name": "insuredEntryCertType"
   },
-  "postcode": {
+  "insuredCertNo": {
     "value": "",
-    "name": "postcode"
+    "name": "insuredCertNo"
   },
-  "unitOrSchoolName": {
+  "insuredCertValidate": {
     "value": "",
-    "name": "unitOrSchoolName"
+    "name": "insuredCertValidate"
   },
-  "unitOrSchoolMobile": {
+  "insuredMainlandIdNo": {
     "value": "",
-    "name": "unitOrSchoolMobile"
+    "name": "insuredMainlandIdNo"
   },
-  "unitOrSchoolAddress": {
-    "value": "",
-    "name": "unitOrSchoolAddress"
-  },
-  "unitOrSchoolAddressDetail": {
-    "value": "",
-    "name": "unitOrSchoolAddressDetail"
-  },
-  "unitOrSchoolZipcode": {
-    "value": "",
-    "name": "unitOrSchoolZipcode"
-  },
-  "entryUnitType": {
-    "value": "",
-    "name": "entryUnitType"
-  },
-  "postalAddress": {
-    "value": "",
-    "name": "postalAddress"
-  },
-  "postalAddressDetail": {
-    "value": "",
-    "name": "postalAddressDetail"
-  },
-  "postalAddressZipcode": {
-    "value": "",
-    "name": "postalAddressZipcode"
+  "beneficiary": {
+    "value": "法定受益人",
+    "name": "beneficiary"
   }
 }

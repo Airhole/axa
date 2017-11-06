@@ -22,11 +22,43 @@
         @formChange="onChange"
         @emission="onEmission">
       </form-unit>
+      <div class="tips-bg">
+        <div class="tips-wrapper">
+          <div class="tips">
+            <span class="icon" :class="{active: selected}" @click="changeAgreement"></span>
+            <span class="view">本人已閱讀並同意
+            <a href="#">『使用條款』</a>、
+            <a href="#">『聲明』</a>、
+            <a href="#">『保單條款』</a>、
+            <a href="#">『條件和不保事項』</a>
+            <a href="#">『私隱政策聲明』</a>
+            以及
+            <a href="#">『收集個人資料』</a>
+          </span>
+            <input class="hiddenInput" type="hidden" name="clause" v-validate
+                   data-vv-as="请同意营销员声明" data-vv-rules="required">
+          </div>
+          <div class="tips">
+            <span class="icon" :class="{active: selected}" @click="changeAgreement"></span>
+            <span class="view">
+            本人／我們不同意貴公司根據
+            <a href="#">『收集個人資料的聲明』</a>
+            使用和轉移本人／我們的個人資料作直接促銷用途（參閱「在直接促銷中使用及將其個人資料提供予其他人士」部份）及並不願意接收任何貴公司的推廣及直接促銷的材料。
+          </span>
+            <input class="hiddenInput" type="hidden" name="clause" v-validate
+                   data-vv-as="请同意营销员声明" data-vv-rules="required">
+          </div>
+        </div>
+      </div>
     </div>
+
     <div class="btn-wrapper">
       <!--<default-btn class='next' val='下一步' @Click="nextStep"></default-btn>-->
-      <div class="pre-step">上一步</div>
-      <div class="next-step" @click="nextStep">下一步</div>
+      <div class="btn-wrapper">
+        <!--<default-btn class='next' val='下一步' @Click="nextStep"></default-btn>-->
+        <div class="pre-step">需支付：<span>0.00&nbsp;</span>港元<label>（首月免費）</label></div>
+        <div class="next-step" @click="nextStep">立即投保</div>
+      </div>
     </div>
   </div>
 </template>
@@ -258,7 +290,63 @@
       }
     }
     .form {
-      margin: rem-calc(50) 0 rem-calc(50) 0;
+      margin: 0 0 rem-calc(50) 0;
+    }
+    .tips-bg {
+      background: #F7F7F7;
+      padding: rem-calc(15) 0 rem-calc(30) 0;
+    }
+    .tips-wrapper {
+      height: auto;
+      background: #fff;
+      padding: rem-calc(15) rem-calc(15) rem-calc(20) rem-calc(15);
+    }
+    .tips {
+      /*padding: rem-calc(15) rem-calc(15) rem-calc(15) 0;*/
+      padding-bottom: rem-calc(15);
+      display: flex;
+      span {
+        font-size: rem-calc(14);
+        color: #666666;
+        line-height: 1.5;
+        a, a:visited {
+          text-decoration: none;
+          color: #485BBA;
+        }
+      }
+      .icon {
+        display: inline-block;
+        background-color: #fff;
+        min-width: rem-calc(16);
+        height: rem-calc(15);
+        line-height: rem-calc(15);
+        text-align: center;
+        border-radius: rem-calc(2);
+        margin-top: rem-calc(2);
+        margin-right: rem-calc(10);
+        border: 1px solid #ddd;
+        box-sizing: border-box;
+        &:before {
+          content: ' ';
+          display: block;
+          width: rem-calc(16);
+          height: rem-calc(8);
+          transform: rotate(-45deg) scale(.8);
+        }
+        &.active {
+          background-color: #485BBA;
+          border: 0;
+          &:before {
+            content: ' ';
+            display: block;
+            border-bottom: 2px solid #ffffff;
+            border-left: 2px solid #ffffff;
+            width: rem-calc(15);
+            height: rem-calc(8);
+            transform: rotate(-45deg) scale(.8);
+          }
+        }
+      }
     }
     .btn-wrapper {
       position: fixed;
@@ -271,15 +359,23 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      font-size: rem-calc(18);
+      font-size: rem-calc(15);
+      border-top: 1px solid #e9e9e9;
       .pre-step {
-        flex: 1;
-        color: #20aee5;
+        flex: 3;
+        color: #666;
         background: #fff;
+        span {
+          color: #FE1641;
+        }
+        label {
+          font-size: rem-calc(12);
+          color: #FE1641;
+        }
       }
       .next-step {
-        flex: 1;
-        background: #20aee5;
+        flex: 2;
+        background: #485BBA;
         color: #fff;
       }
     }
