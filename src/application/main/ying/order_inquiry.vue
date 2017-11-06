@@ -1,6 +1,6 @@
 <template>
   <div class="order-inquiry">
-    <div class="order-inquiry-top arrow_icon" @click="dataSelectHandler">2017年10月</div>
+    <div class="order-inquiry-top" @click="dataSelectHandler">2017年10月</div>
     <div class="order-inquiry-list" v-for="order in orders">
       <div class="inquiry-list-item">
         <h3>訂單號：{{ order.orderNumber }}</h3>
@@ -44,10 +44,22 @@
     overflow: hidden;
     background-color: #f7f7f7;
     .order-inquiry-top {
+      color: #666;
       background-color: #fff;
       text-align: center;
       padding: rem-calc(15);
       border-bottom: .5px solid #e8e8e8;
+    }
+    .order-inquiry-top:after {
+      content: "";
+      height: 0;
+      width: 0;
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 5px;
+      border-color: #999999 transparent transparent;
+      border-style: solid solid none;
+      border-width: 4px 4px 0px;
     }
     .order-inquiry-list {
       .inquiry-list-item {
