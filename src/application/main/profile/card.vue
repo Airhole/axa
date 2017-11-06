@@ -110,6 +110,7 @@
       line-height: rem-calc(24);
       box-sizing: border-box;
       align-items: center;
+      overflow: hidden;
       & > span{
         width: 30%;
         color: #1a1a1a;
