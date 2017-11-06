@@ -63,7 +63,7 @@ export const app = new Vue({
       this.axios.get(IAPP_INIT).then(response => {
         Object.assign(translationsFan, response.data.fan)
         Object.assign(translationsEn, response.data.en)
-        console.log(response)
+        console.dir(translationsFan)
       }).catch(err => {
         console.log(err)
         throw new Error(err)

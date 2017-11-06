@@ -509,6 +509,23 @@ export default new Router({
         description: '公司简介',
         param: {}
       }
+    },
+    { //  公司简介
+      path: '/announcement',
+      name: 'announcement',
+      component: () => import('@/application/main/announcement'),
+      meta: {
+        requireAuth: true,
+        title: '健康告知',
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '健康告知',
+        param: {}
+      }
     }
     // ...xinNen
   ]

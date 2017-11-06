@@ -13,7 +13,6 @@
       <div class="img-wrapper">
         <img src="~@/assets/image/company-banner.jpg" alt="">
       </div>
-      <div>{{ 'title1' | translate }}</div>
       <div class="profile-text">
         <div class="item" v-for="item in textData">
           <h2>{{item.title}}</h2>
