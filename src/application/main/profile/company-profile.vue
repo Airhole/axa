@@ -13,6 +13,7 @@
       <div class="img-wrapper">
         <img src="~@/assets/image/company-banner.jpg" alt="">
       </div>
+      <div>{{ 'title1' | translate }}</div>
       <div class="profile-text">
         <div class="item" v-for="item in textData">
           <h2>{{item.title}}</h2>
@@ -27,11 +28,14 @@
 </template>
 
 <script>
-  import {Loading, TransferDomDirective as TransferDom} from 'vux'
+  import { Loading, TransferDomDirective as TransferDom } from 'vux'
   export default {
     name: 'company-profile',
     components: {
       Loading, TransferDom
+    },
+    directives: {
+      TransferDom
     },
     data: () => {
       return {

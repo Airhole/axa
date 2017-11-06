@@ -457,8 +457,8 @@ export default new Router({
       }
     },
     {
-      path: '/company',
-      name: 'company',
+      path: '/store',
+      name: 'store',
       component: () => import(/* webpackChunkName: "company" */ '@/application/main/company'),
       meta: {
         requireAuth: true,
@@ -476,7 +476,7 @@ export default new Router({
       }
     },
     { //  名片
-      path: '/main/card',
+      path: '/card',
       name: 'card',
       component: () => import(/* webpackChunkName: "progress" */ '@/application/main/profile/card.vue'),
       meta: {
@@ -494,9 +494,9 @@ export default new Router({
       }
     },
     { //  公司简介
-      path: '/mian/company',
+      path: '/company',
       name: 'company_profile',
-      component: () => import('@/application/main/progress/company-profile.vue'),
+      component: () => import('@/application/main/profile/company-profile.vue'),
       meta: {
         requireAuth: true,
         title: '公司简介',

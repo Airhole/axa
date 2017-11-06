@@ -9,9 +9,12 @@ import { ToastPlugin, AlertPlugin, ConfirmPlugin } from 'vux'
 import VeeValidate from 'vee-validate'
 import messagesCN from '@/widget/validate/zh_CN'
 import * as VeeValidateExtends from '@/widget/validate/extends'
+import vuexI18n from 'vuex-i18n'
 // 全局mixin
 import baseMixin from '../base/mixin'
 import eventMixin from '../base/mixin/events'
+import {translationsFan, translationsEn} from './language'
+import {IAPP_INIT} from '@/api'
 
 Vue.use(Vuex)
 Vue.use(ToastPlugin)
@@ -38,6 +41,12 @@ const veeConfig = {
 }
 Vue.use(VeeValidate, veeConfig)
 
+Vue.use(vuexI18n.plugin, store)
+
+Vue.i18n.add('FAN', translationsFan)
+Vue.i18n.add('EN', translationsEn)
+
+Vue.i18n.set('FAN')
 /* eslint-disable no-new */
 export const app = new Vue({
   el: '#app',
@@ -45,7 +54,22 @@ export const app = new Vue({
   store,
   mixins: [eventMixin],
   template: '<App/>',
-  components: { App }
+  components: { App },
+  created () {
+    this.getData()
+  },
+  methods: {
+    getData () {
+      this.axios.get(IAPP_INIT).then(response => {
+        Object.assign(translationsFan, response.data.fan)
+        Object.assign(translationsEn, response.data.en)
+        console.log(response)
+      }).catch(err => {
+        console.log(err)
+        throw new Error(err)
+      })
+    }
+  }
 })
 
 axioshttp(app)

@@ -1,0 +1,12 @@
+{
+  "data": {
+    "fan": {
+      "title1": "这是繁体"
+    },
+    "en": {
+      "title1": "这是ENGLISH"
+    }
+  },
+  "status": "true",
+  "errorMsg": "错误信息"
+}
