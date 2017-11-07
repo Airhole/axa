@@ -588,7 +588,7 @@ export default new Router({
       component: resolve => require(['@/application/main/user/user'], resolve),
       meta: {
         requireAuth: true,
-        title: '用户中心',
+        title: '公司简介',
         leftMenu: {
           title: '返回',
           javascript: 'gobackbtn'
@@ -651,7 +651,7 @@ export default new Router({
       }
     },
     // ...xinNen
-    { //  公司简介
+    { //  投保單錄入
       path: '/applicant_info',
       name: 'applicant_info',
       component: () => import('@/application/main/profile/applicant-info'),
@@ -665,6 +665,23 @@ export default new Router({
       },
       Info: {
         description: '投保單錄入',
+        param: {}
+      }
+    },
+    { //  產品詳情
+      path: '/product_detail',
+      name: 'product_detail',
+      component: () => import('@/application/main/profile/product-detail'),
+      meta: {
+        requireAuth: true,
+        title: '產品詳情',
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '產品詳情',
         param: {}
       }
     },
