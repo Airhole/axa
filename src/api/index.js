@@ -50,6 +50,9 @@ export const IDEMO = path(demo, true)
 export const IAPP_INIT = path('/init', true)
 // 公司介绍
 export const ICOMPANY_INTRODUCTION = path('/company', true)
+// 投保结果
+let insure = '/result'
+export const INSURE_RESULT = path(insure, true)
 
 export const ENROLL_INTERSET = path(demo)
 export const QUERY_DICT = path(demo)
