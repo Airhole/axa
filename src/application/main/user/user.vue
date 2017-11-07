@@ -10,7 +10,8 @@
   <div class="user">
     <div class="user-bg">
       <p>近七天數據</p>
-      <p>{{ number }}</p>
+      <!-- <p>{{ $t('turnover') }}</p> -->
+      <p>{{ turnover }}</p>
       <p>微店成交額(元）</p>
     </div>
     <div class="user-list">
@@ -21,19 +22,19 @@
 </template>
 
 <script>
-  import { INSURE_RESULT } from '@/api'
+  import { USER_INDEX } from '@/api'
   export default {
     name: 'user',
     data () {
       return {
-        number: '37280.00'
+        turnover: ''
       }
     },
     created: function () {
-      this.axios.get(INSURE_RESULT).then(response => {
-        debugger
-        this.result = response.data.data
-        this.status = response.data.status
+      this.axios.get(USER_INDEX).then(response => {
+        // debugger
+        console.log(response.data)
+        this.turnover = response.data.data.turnover.toFixed(2)
         this.isLoading = false
       }).catch(err => {
         console.log(err)

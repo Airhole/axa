@@ -11,6 +11,9 @@ export default {
   "org": "机构",
   "position": "职位",
   "introduce": "自我介绍",
-  "share": "分享名片"
+  "share": "分享名片",
   // card end
+  // user start
+  "turnover": "微店成交额"
+  // user end
 }
