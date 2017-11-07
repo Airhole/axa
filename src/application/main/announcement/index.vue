@@ -62,7 +62,7 @@
         }
     }
      .footer{
-          height:rem-calc(65);
+          height:rem-calc(70);
           width:100%;
           display: flex;
           box-sizing: border-box;
@@ -90,6 +90,7 @@
             background-color: #485bba;
             font-size:rem-calc(15);
             box-sizing: border-box;
+            
           }
       }
 
