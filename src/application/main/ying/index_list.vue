@@ -4,7 +4,7 @@
       <div class="index-top">
         <div class="w-box">
           <div class="flex-1"><strong>眾小安的微店</strong></div>
-          <div class="pack-e" @click="LanguageSwitch"><span>A</span><span class="active">中</span></div>
+          <div class="pack-e language" @click="LanguageSwitch"><span>A</span><span class="active">中</span></div>
         </div>
         <div class="w-box">
           <img src="~@/assets/image/user.png" class="img flex-1">
@@ -77,13 +77,15 @@
             font-size: rem-calc(27);
             font-weight: 500;
           }
-          .pack-e {
+          .language {
             width: rem-calc(30);
             > span {
               border: 1px solid #999;
               color: #999;
+              font-size: rem-calc(11);
               width: rem-calc(15);
               height: rem-calc(15);
+              line-height: rem-calc(15);
               text-align: center;
               background-color: inherit;
               border-radius: rem-calc(3);
@@ -130,7 +132,7 @@
           p:nth-child(3):before {
             content: "";
             display: inline-block;
-            vertical-align: middle;
+            vertical-align: rem-calc(-1);
             margin-right: rem-calc(5);
             width: rem-calc(15);
             height: rem-calc(15);
@@ -141,6 +143,7 @@
         }
         .w-box:first-child {
           border-bottom: .5px solid #e8e8e8;
+          padding: rem-calc(25);
         }
         .img {
           width: rem-calc(90);
