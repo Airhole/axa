@@ -510,6 +510,101 @@ export default new Router({
         param: {}
       }
     },
+    { //  企业简介
+      path: '/about_us',
+      name: 'about_us',
+      component: resolve => require(['@/application/main/ying/about_us'], resolve),
+      meta: {
+        requireAuth: true,
+        title: '企业简介',
+        rightMenu: null,
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn',
+          params: 'go:recommend'
+        },
+        Info: {
+          description: '企业简介',
+          params: {}
+        }
+      }
+    },
+    { //  微店个人信息
+      path: '/card',
+      name: 'card',
+      component: resolve => require(['@/application/main/ying/card'], resolve),
+      meta: {
+        requireAuth: true,
+        title: '名片',
+        rightMenu: null,
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn',
+          params: 'go:recommend'
+        },
+        Info: {
+          description: '名片',
+          params: {}
+        }
+      }
+    },
+    { //  保单查询
+      path: '/order_inquiry',
+      name: 'order_inquiry',
+      component: resolve => require(['@/application/main/ying/order_inquiry'], resolve),
+      meta: {
+        requireAuth: true,
+        title: '订单查询',
+        rightMenu: null,
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn',
+          params: 'go:recommend'
+        },
+        Info: {
+          description: '订单查询',
+          params: {}
+        }
+      }
+    },
+    { //  微店首页
+      path: '/index_list',
+      name: 'index_list',
+      component: resolve => require(['@/application/main/ying/index_list'], resolve),
+      meta: {
+        requireAuth: true,
+        title: '罗小安的微店',
+        rightMenu: null,
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn',
+          params: 'go:recommend'
+        },
+        Info: {
+          description: '罗小安的微店',
+          params: {}
+        }
+      }
+    },
+    { //  我的相关信息
+      path: '/user',
+      name: 'user',
+      component: resolve => require(['@/application/main/ying/user'], resolve),
+      meta: {
+        requireAuth: true,
+        title: '我的',
+        rightMenu: null,
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn',
+          params: 'go:recommend'
+        },
+        Info: {
+          description: '我的',
+          params: {}
+        }
+      }
+    },
     { //  投保成功
       path: '/success',
       name: 'insure_success',
