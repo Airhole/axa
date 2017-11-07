@@ -27,4 +27,5 @@ export default {
   "firstPay": "首期保費：",
   "insureWarn": "溫馨提示：",
   "insureEmail": "電子保單將發送到投保人郵箱：{email}"
+  // insure end
 }
