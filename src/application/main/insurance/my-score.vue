@@ -11,12 +11,12 @@
 <template>
   <div class="my-score">
     <div class="score-head">
-      <p>積分賬戶餘額</p>
+      <p>{{ $t('scoreAccountBalance') }}</p>
       <p>{{ scoreAccountBalance }}</p>
-      <p>本月積分 {{ monthScore }}</p>
+      <p>{{ $t('monthScore') }} {{ monthScore }}</p>
     </div>
     <div class="score-btn">
-      <x-button class="primary-blue" @click.native="handleDetails">查看明細</x-button>
+      <x-button class="primary-blue" @click.native="handleDetails">{{ $t('viewDetails') }}</x-button>
     </div>
   </div>
 </template>

@@ -9,14 +9,14 @@
 <template>
   <div class="user">
     <div class="user-bg">
-      <p>近七天數據</p>
+      <p>{{ $t('oneWeekData') }}</p>
       <!-- <p>{{ $t('turnover') }}</p> -->
       <p>{{ turnover }}</p>
-      <p>微店成交額(元）</p>
+      <p>{{ $t('shopTurnover') }}</p>
     </div>
     <div class="user-list">
-      <router-link to="order_inquiry" class="user-list-item">訂單查詢</router-link>
-      <router-link to="myscore" class="user-list-item">我的積分</router-link>
+      <router-link to="order_inquiry" class="user-list-item">{{ $t('orderInquiry') }}</router-link>
+      <router-link to="myscore" class="user-list-item">{{ $t('myScore') }}</router-link>
     </div>
   </div>
 </template>
