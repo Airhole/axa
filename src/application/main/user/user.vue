@@ -1,3 +1,11 @@
+<!--********************************************************************
+ * Author     : ying
+ * Email      :
+ * Last modified  : 2017-11-07
+ * Filename     : user.vue
+ * Description    :  用户中心
+
+********************************************************************-->
 <template>
   <div class="user">
     <div class="user-bg">
@@ -13,12 +21,24 @@
 </template>
 
 <script>
+  import { INSURE_RESULT } from '@/api'
   export default {
     name: 'user',
     data () {
       return {
         number: '37280.00'
       }
+    },
+    created: function () {
+      this.axios.get(INSURE_RESULT).then(response => {
+        debugger
+        this.result = response.data.data
+        this.status = response.data.status
+        this.isLoading = false
+      }).catch(err => {
+        console.log(err)
+        throw new Error(err)
+      })
     },
     methods: {
     }

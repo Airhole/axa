@@ -588,7 +588,7 @@ export default new Router({
       component: resolve => require(['@/application/main/user/user'], resolve),
       meta: {
         requireAuth: true,
-        title: '公司简介',
+        title: '用户中心',
         leftMenu: {
           title: '返回',
           javascript: 'gobackbtn'
@@ -665,6 +665,23 @@ export default new Router({
       },
       Info: {
         description: '投保單錄入',
+        param: {}
+      }
+    },
+    { //  我的相关信息
+      path: '/integral_detail',
+      name: 'integral_detail',
+      component: () => import('@/application/main/user/integral_detail'),
+      meta: {
+        requireAuth: true,
+        title: '积分明细',
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '积分明细',
         param: {}
       }
     }
