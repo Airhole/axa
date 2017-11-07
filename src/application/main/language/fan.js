@@ -29,6 +29,9 @@ export default {
   "insureEmail": "電子保單將發送到投保人郵箱：{email}",
   // insure end
   // user start
-  "turnover": "微店成交額"
+  "oneWeekData": "近七天數據",
+  "shopTurnover": "微店成交額(元)",
+  "orderInquiry": "訂單查詢",
+  "myScore": "我的積分"
   // user end
 }
