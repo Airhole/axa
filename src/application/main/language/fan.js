@@ -12,6 +12,20 @@ export default {
   "org": "机构",
   "position": "职位",
   "introduce": "自我介绍",
-  "share": "分享名片"
+  "share": "分享名片",
   // card end
+  // insure start
+  "insureSuccess": "投保成功",
+  "insureFail": "投保失败",
+  "insureTips": "您已成功購買：{type}",
+  "insureNum": "保單號",
+  "insurant": "被保險人：",
+  "brithday": "生效日期：",
+  "insureTime": "保單期間：",
+  "payTime": "繳費期間：",
+  "insureMoney": "保單金額：",
+  "firstPay": "首期保費：",
+  "insureWarn": "溫馨提示：",
+  "insureEmail": "電子保單將發送到投保人郵箱：{email}"
+  // insure end
 }

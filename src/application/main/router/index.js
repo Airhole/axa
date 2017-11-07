@@ -510,6 +510,95 @@ export default new Router({
         param: {}
       }
     },
+    // { //  企业简介
+    //   path: '/about_us',
+    //   name: 'about_us',
+    //   component: resolve => require(['@/application/main/user/about_us'], resolve),
+    //   meta: {
+    //     requireAuth: true,
+    //     title: '企业简介',
+    //     rightMenu: null,
+    //     leftMenu: {
+    //       title: '返回',
+    //       javascript: 'gobackbtn',
+    //       params: 'go:recommend'
+    //     },
+    //     Info: {
+    //       description: '企业简介',
+    //       params: {}
+    //     }
+    //   }
+    // },
+    // { //  微店个人信息
+    //   path: '/card',
+    //   name: 'card',
+    //   component: resolve => require(['@/application/main/user/card'], resolve),
+    //   meta: {
+    //     requireAuth: true,
+    //     title: '名片',
+    //     rightMenu: null,
+    //     leftMenu: {
+    //       title: '返回',
+    //       javascript: 'gobackbtn',
+    //       params: 'go:recommend'
+    //     },
+    //     Info: {
+    //       description: '名片',
+    //       params: {}
+    //     }
+    //   }
+    // },
+    { //  保单查询
+      path: '/order_inquiry',
+      name: 'order_inquiry',
+      component: resolve => require(['@/application/main/user/order_inquiry'], resolve),
+      meta: {
+        requireAuth: true,
+        title: '公司简介',
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '订单查询',
+        param: {}
+      }
+    },
+    { //  微店首页
+      path: '/index_list',
+      name: 'index_list',
+      component: resolve => require(['@/application/main/user/index_list'], resolve),
+      meta: {
+        requireAuth: true,
+        title: '公司简介',
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '首页',
+        param: {}
+      }
+    },
+    { //  我的相关信息
+      path: '/user',
+      name: 'user',
+      component: resolve => require(['@/application/main/user/user'], resolve),
+      meta: {
+        requireAuth: true,
+        title: '公司简介',
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '用户中心',
+        param: {}
+      }
+    },
     { //  投保成功
       path: '/success',
       name: 'insure_success',
@@ -541,6 +630,23 @@ export default new Router({
       },
       Info: {
         description: '我的积分',
+        param: {}
+      }
+    },
+    { //  健康告知
+      path: '/announcement',
+      name: 'announcement',
+      component: () => import('@/application/main/announcement'),
+      meta: {
+        requireAuth: true,
+        title: '健康告知',
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '健康告知',
         param: {}
       }
     },
