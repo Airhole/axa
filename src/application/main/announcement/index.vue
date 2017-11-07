@@ -123,6 +123,7 @@
 <script>
 import {IDEMO, ILOGIN, HEALTHINFORM} from '@/api'
 import {Loading, TransferDomDirective as TransferDom, AlertPlugin} from 'vux'
+// switch : 中英文的切换
 export default {
   name: 'announcement',
   components: {Loading},
@@ -134,39 +135,16 @@ export default {
     }
   },
   methods: {
-    // ajaxDemo () {
-    //   this.axios.get(IDEMO).then((response) => {
-    //     console.log(response)
-    //   }, (response) => {
-    //   }).catch((err) => {
-    //     console.log(err)
-    //     throw new Error(err)
-    //   })
-    // },
-    // ajaxDemo1 () {
-    //   this.axios.get(ILOGIN).then((response) => {
-    //     console.log(response)
-    //   }, (response) => {
-    //   }).catch((err) => {
-    //     console.log(err)
-    //     throw new Error(err)
-    //   })
-    // },
+    //num:1 部分为是 2 以上皆否
     subClick (num) {
-      console.log(222)
       if (num == 1) {
         this.$vux.alert.show({
           title: this.switch ? '提示' : 'Remind',
           content: this.switch ? '您的健康不符合投保要求，不能承保' : 'sdfkajklsdfafd;akf',
-          buttonText: this.switch ? '确定' : 'OK',
-          onShow () {
-            console.log('Plugin: I\'m showing')
-          },
-          onHide () {
-            console.log('Plugin: I\'m hiding')
-          }
+          buttonText: this.switch ? '确定' : 'OK'
         })
       } else {
+        //跳到下一页
         this.$router.push('/success')
       }
     },
