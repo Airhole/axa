@@ -6,11 +6,11 @@
 -->
 <template>
   <group class="web-select-box">
-    <x-address :title="''" raw-value :list="list" placeholder="省 / 市 / 县" v-model="innerValue"></x-address>
+    <x-address :title="''" :list="list" placeholder="省 / 市 / 县" v-model="innerValue"></x-address>
   </group>
 </template>
 <script>
-  import { Group, XAddress, Value2nameFilter as value2name } from 'vux'
+  import { Group, XAddress } from 'vux'
 
   export default {
     name: 'web-select-item',
@@ -22,22 +22,24 @@
         innerValue: this.modelValue,
         innerErrors: null,
         innerValid: null,
+        originValue: [],
+        originName: [],
         rawText: '',
         list: []
       }
     },
     created () {
-      window.v2n = value2name
-      let datas = require('./types/area')
-      this.list = JSON.parse(datas.areaData.data)
+      if (!window.__select_area_data) {
+        let datas = require('./types/area')
+        window.__select_area_data = JSON.parse(datas.areaData.data)
+      }
+      this.list = window.__select_area_data
     },
     props: ['rules', 'value', 'name'],
     watch: {
       value (v) {
-        if (!v || !v.length) {
-          return
-        }
         this.modelValue = v
+        // console.warn('select:::', v)
       },
       innerValue (v) {
         this.$nextTick(() => {
@@ -45,9 +47,11 @@
           if (this.rawText) {
             this.rawText = this.rawText.innerText.split(' ').join('/')
             setTimeout(() => {
-              this.$el.querySelector('.vux-popup-picker-value').innerText = this.rawText
+              let _dom = this.$el.querySelector('.vux-popup-picker-value')
+              _dom && (_dom.innerText = this.rawText)
             })
           }
+          // console.warn('innerValue:::', this.__str(this.innerModel))
           this.$emit('formChange', this.innerModel)
         })
       }
@@ -66,27 +70,68 @@
           let v
           if (!this.value) {
             v = []
-          } else if (typeof this.value === 'string' && this.value !== '') {
-            v = this.value.split('/')
-          } else {
+          } else if (typeof this.value === 'string') {
+            v = v.split('/')
+          } else if (Array.isArray(this.value)) {
             v = this.value
+          } else {
+            if (this.value && this.value.entry_province && this.value.entry_province.value) {
+              v = [this.value.entry_province.value, this.value.entry_city.value, this.value.entry_district.value]
+            } else {
+              v = []
+            }
           }
           return v
         },
         set (val) {
           let v = val
           if (!v) {
-            v = []
+            return
           } else if (typeof v === 'string') {
             v = v.split('/')
+          } else if (Array.isArray(v)) {
+          } else {
+            if (v && v.entry_province && v.entry_province.value) {
+              v = [v.entry_province.value, v.entry_city.value, v.entry_district.value]
+            } else {
+              return
+            }
           }
-          this.innerValue = this.__obj(v)
+          this.innerValue = v
         }
       },
       innerModel () {
+        let _address = {
+          entry_province: {
+            value: '',
+            name: ''
+          },
+          entry_city: {
+            value: '',
+            name: ''
+          },
+          entry_district: {
+            value: '',
+            name: ''
+          },
+          detail: ''
+        }
+        let _value = this.innerValue
+        if (_value.length && this.list.length) {
+          let p = this.list.find(i => i.value == _value[0])
+          _address.entry_province.name = p ? p.name : ''
+          _address.entry_province.value = _value[0]
+          let c = this.list.find(i => i.value == _value[1])
+          _address.entry_city.name = c ? c.name : ''
+          _address.entry_city.value = _value[1]
+          let d = this.list.find(i => i.value == _value[2])
+          _address.entry_district.name = d ? d.name : ''
+          _address.entry_district.value = _value[2]
+        }
+        // console.error(this.__str(_value), this.__str(_address))
         return {
           name: this.name,
-          value: this.innerValue ? this.rawText : '',
+          value: this.__clone(_address),
           msg: this.errorMsg,
           isValid: !!(this.innerValue && this.innerValue.length)
         }
@@ -98,6 +143,7 @@
     methods: {
       init () {
         this.innerValue = this.modelValue
+        // window['s' + this.name] = this
       },
       onShow (e) {
         // console.log('show::', e)

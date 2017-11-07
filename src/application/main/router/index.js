@@ -457,8 +457,8 @@ export default new Router({
       }
     },
     {
-      path: '/company',
-      name: 'company',
+      path: '/store',
+      name: 'store',
       component: () => import(/* webpackChunkName: "company" */ '@/application/main/company'),
       meta: {
         requireAuth: true,
@@ -476,7 +476,7 @@ export default new Router({
       }
     },
     { //  名片
-      path: '/main/card',
+      path: '/card',
       name: 'card',
       component: () => import(/* webpackChunkName: "progress" */ '@/application/main/profile/card.vue'),
       meta: {
@@ -494,9 +494,9 @@ export default new Router({
       }
     },
     { //  公司简介
-      path: '/mian/company',
+      path: '/company',
       name: 'company_profile',
-      component: () => import('@/application/main/progress/company-profile.vue'),
+      component: () => import('@/application/main/profile/company-profile.vue'),
       meta: {
         requireAuth: true,
         title: '公司简介',
@@ -604,7 +604,58 @@ export default new Router({
           params: {}
         }
       }
-    }
+    },
+    { //  投保成功
+      path: '/success',
+      name: 'insure_success',
+      component: () => import('@/application/main/insurance/insure-success.vue'),
+      meta: {
+        requireAuth: true,
+        title: '投保成功',
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '投保成功',
+        param: {}
+      }
+    },
+    { //  我的积分
+      path: '/myscore',
+      name: 'myScore',
+      component: () => import('@/application/main/insurance/my-score.vue'),
+      meta: {
+        requireAuth: true,
+        title: '我的积分',
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '我的积分',
+        param: {}
+      }
+    },
     // ...xinNen
+    { //  公司简介
+      path: '/applicant_info',
+      name: 'applicant_info',
+      component: () => import('@/application/main/profile/applicant-info'),
+      meta: {
+        requireAuth: true,
+        title: '投保單錄入',
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '投保單錄入',
+        param: {}
+      }
+    }
   ]
 })

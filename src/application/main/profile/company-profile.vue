@@ -16,7 +16,7 @@
       <div class="profile-text">
         <div class="item" v-for="item in textData">
           <h2>{{item.title}}</h2>
-          <div>{{item.text}}</div>
+          <div v-html="item.text"></div>
         </div>
       </div>
     </div>
@@ -27,11 +27,15 @@
 </template>
 
 <script>
-  import {Loading, TransferDomDirective as TransferDom} from 'vux'
+  import { Loading, TransferDomDirective as TransferDom } from 'vux'
+  import { ICOMPANY_INTRODUCTION } from '@/api'
   export default {
     name: 'company-profile',
     components: {
       Loading, TransferDom
+    },
+    directives: {
+      TransferDom
     },
     data: () => {
       return {
@@ -41,16 +45,22 @@
     },
     created () {
       this.getData()
+      // this.setDate()
     },
     methods: {
       getData () {
-        this.axios.get('http://easy-mock.com/mock/59f066041bd72e7a88898a61/xninsurance/companyProfile').then(response => {
-          this.textData = response.data.textData
+        // 'http://easy-mock.com/mock/59f066041bd72e7a88898a61/xninsurance/companyProfile'
+        this.axios.get(ICOMPANY_INTRODUCTION).then(response => {
+          this.textData = response.data.data
           this.isLoading = false
         }).catch(err => {
           console.log(err)
           throw new Error(err)
         })
+      },
+      setDate () {
+        this.$i18n.add('FAN', {name: "fan 123123"})
+        this.$i18n.add('EN', {name: "en 123123"})
       }
     }
   }

@@ -28,8 +28,8 @@ export default {
             clearTimeout(counter)
           }
           counter = setTimeout(function () {
-            fun()
             counter = null
+            fun(counter)
           }, timer)
         },
         // 固定时间内触发，忽略后续输入
@@ -74,6 +74,35 @@ export default {
         }
       }
     },
+    // 修改api返回的数据以适应组件需要
+    // {name: {value:000, name:'123'}} ==> {name: {value:000, name:'name'}}
+    __fixInputName (data) {
+      let obj = this.__keyValue({}, data)
+      this.__fixInputNames__ = {}
+      for (let i in obj) {
+        // if (!/^\d+$/.test(i)) {
+        // }
+        if (obj[i].name && obj[i].value) {
+          this.__fixInputNames__[i] = obj[i]
+          obj[i].name = i
+        }
+      }
+      return obj
+    },
+    // 修改组件输出结果，按api要求重组数据结构, 与__fixInputName过程相反
+    // {name: {value:000, name:'name'}} ==> {name: {value:000, name:'123'}}
+    __recapOutputName (data) {
+      let obj = this.__clone(data)
+      for (let i in this.__fixInputNames__) {
+        if (obj[i] !== undefined) {
+          let __v = obj[i]
+          obj[i] = this.__fixInputNames__[i]
+          obj[i].value = __v
+          __v = null
+        }
+      }
+      return obj
+    },
     __values (obj) {
       return Object.values(obj)
     },
@@ -91,6 +120,7 @@ export default {
     },
     __plan (obj) {
       let newobj = {}
+      // debugger
       for (let i in obj) {
         if (obj[i].name === undefined || obj[i].value === undefined) {
           alert('参数不符合要求，必须为{name: {name: "name",value:"value"}形式')
@@ -98,6 +128,7 @@ export default {
         }
         newobj[obj[i].name] = obj[i].value
       }
+      return newobj
     },
     // __keyValue 的ob版，生成能被vue监听的对象
     __obkv (target, obj) {
@@ -132,6 +163,9 @@ export default {
         alert(e)
       }
       return o
+    },
+    __clone (obj) {
+      return this.__obj(obj)
     },
     __obj (obj) {
       let o = this.__str(obj)

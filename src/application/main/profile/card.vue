@@ -10,49 +10,49 @@
     <div class="profile-card">
       <div class="card-item">
         <div class="card-info">
-          <span>头像</span>
+          <span>{{ $t('ava') }}</span>
           <div><img :src="userInfo.headImg" class="head-img" /></div>
         </div>
       </div>
       <div class="card-item">
         <div class="card-info">
-          <span>微店名称</span>
+          <span>{{ $t('storeName') }}</span>
           <div>{{userInfo.storeName}}</div>
         </div>
         <div class="card-info">
-          <span>店主名称</span>
+          <span>{{ $t('shopkeeperName')}}</span>
           <div>{{userInfo.shopkeeperName}}</div>
         </div>
       </div>
       <div class="card-item">
         <div class="card-info">
-          <span>手机号码</span>
+          <span>{{ $t('telephone') }}</span>
           <div><a :href="'tel:' + userInfo.telephone">{{userInfo.telephone}}</a> <i class="phone-icon"></i></div>
         </div>
         <div class="card-info">
-          <span>微信号</span>
+          <span>{{ $t('wechat') }}</span>
           <div>{{userInfo.wechat}} <i class="wechat-icon"></i></div>
         </div>
       </div>
       <div class="card-item">
         <div class="card-info">
-          <span>公司</span>
+          <span>{{ $t('companyName') }}</span>
           <div>{{userInfo.companyName}}</div>
         </div>
         <div class="card-info">
-          <span>机构</span>
+          <span>{{ $t('org') }}</span>
           <div>{{userInfo.org}}</div>
         </div>
         <div class="card-info">
-          <span>职位</span>
+          <span>{{ $t('position') }}</span>
           <div>{{userInfo.position}}</div>
         </div>
         <div class="card-info">
-          <span>自我介绍</span>
+          <span>{{$t('introduce')}}</span>
           <div class="self-introduce">{{userInfo.introduce}}</div>
         </div>
       </div>
-      <a class="share-card">分享名片</a>
+      <a class="share-card">{{$t('share')}}</a>
     </div>
     <div v-transfer-dom>
       <loading :show="showLoading"></loading>
@@ -96,6 +96,7 @@
   @import '~@/assets/scss/_variables';
   .profile-card{
     position: relative;
+    margin-bottom: rem-calc(50);
     background: #f0f0f0;
     .card-item{
       margin-bottom: rem-calc(10);
