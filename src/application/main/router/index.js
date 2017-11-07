@@ -534,14 +534,14 @@ export default new Router({
       component: () => import('@/application/main/profile/applicant-info'),
       meta: {
         requireAuth: true,
-        title: '健康告知',
+        title: '投保單錄入',
         leftMenu: {
           title: '返回',
           javascript: 'gobackbtn'
         }
       },
       Info: {
-        description: '健康告知',
+        description: '投保單錄入',
         param: {}
       }
     }

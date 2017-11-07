@@ -1,6 +1,6 @@
 export default {
   "name": {
-    "value": "旧人",
+    "value": "投保人",
     "name": "name"
   },
   "gender": {

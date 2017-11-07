@@ -87,7 +87,8 @@
         options: {
           editStep: '1'
         },
-        baseInfo: {}
+        baseInfo: {},
+        selected: false
       }
     },
     methods: {
@@ -106,6 +107,8 @@
           })
         }
          */
+      },
+      changeAgreement () {
       },
       loadApplicant (insureId) {
         this.axios.post(READ_APPLICANT_INFO, {insureId: insureId}).then(res => {
