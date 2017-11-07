@@ -45,8 +45,7 @@
             box-sizing: border-box;
             padding:rem-calc(14) rem-calc(14) rem-calc(14) 0;
             margin-left:rem-calc(14);
-            width:100%;
-            border-bottom:rem-calc(1) solid #e6e6e6;
+            border-bottom:1px solid #e6e6e6;
             &:last-child{
                 border-bottom:0;
               }
@@ -66,15 +65,20 @@
           height:rem-calc(50);
           width:100%;
           display: flex;
+          box-sizing: border-box;
+          background-color:#FFF;
+          box-shadow:-15px -18px -33px #292929;
           .left{
             width:50%;
             height: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: #ffffff;
+            background-color: #FFF;
             color:#485bba;
             font-size:rem-calc(15);
+            box-sizing: border-box;
+            border-top:1px solid #e6e6e6;
           }
           .right{
             width:50%;
@@ -85,6 +89,7 @@
             color:#fff;
             background-color: #485bba;
             font-size:rem-calc(15);
+            box-sizing: border-box;
           }
       }
 
@@ -94,18 +99,18 @@
 
   <article class="main">
     <section class="mainC">
-      <section v-for= 'item in this.healthDate' class="content">
+      <section v-for= '(item,index) in this.healthDate' class="content">
           <div class="title">{{item.title}}</div>
-          <div class="contentMain" v-for="i in item.data">
-            <p class="contentItem">{{i}}</p>
+          <div class="contentMain" v-for="(i,n) in item.data">
+            <p class="contentItem">{{n+1}}.{{i}}</p>
           </div>
       </section>
     </section>
     <footer class="footer">
-      <p class="left" @click="this.subClick(1)">
+      <p class="left" @click="subClick(1)">
           {{this.switch ? '部分为是' : 'ldskfalsdfa'}}
       </p>
-      <p class="right" @click="this.subClick(2)">
+      <p class="right" @click="subClick(2)">
           {{this.switch ? '以上皆否' : 'ldskfalsdfa'}}
       </p>
     </footer>
@@ -117,7 +122,7 @@
 </template>
 <script>
 import {IDEMO, ILOGIN, HEALTHINFORM} from '@/api'
-import {Loading, TransferDomDirective as TransferDom} from 'vux'
+import {Loading, TransferDomDirective as TransferDom, AlertPlugin} from 'vux'
 export default {
   name: 'announcement',
   components: {Loading},
@@ -148,8 +153,19 @@ export default {
     //   })
     // },
     subClick (num) {
+      console.log(222)
       if (num == 1) {
-        alert('buxing ')
+        this.$vux.alert.show({
+          title: this.switch ? '提示' : 'Remind',
+          content: this.switch ? '您的健康不符合投保要求，不能承保' : 'sdfkajklsdfafd;akf',
+          buttonText: this.switch ? '确定' : 'OK',
+          onShow () {
+            console.log('Plugin: I\'m showing')
+          },
+          onHide () {
+            console.log('Plugin: I\'m hiding')
+          }
+        })
       } else {
         this.$router.push('/success')
       }
@@ -168,6 +184,7 @@ export default {
   },
   mounted () {
     this.isLoading = true
+    console.log(3333)
     this.getDate()
   }
 }
