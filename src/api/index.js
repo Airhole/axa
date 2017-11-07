@@ -41,9 +41,13 @@ export const ILOGIN = root + login
 */
 let login = '/jdt-web/wx/configdata.do'
 let demo = '/demo'
+
+//健康告知
+let healthInform = '/healthInform'
+
 export const ILOGIN = path(login)
 export const IDEMO = path(demo, true)
-
+export const HEALTHINFORM = path(healthInform, true)
 /*
   app初始化
 */
