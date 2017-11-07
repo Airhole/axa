@@ -62,7 +62,7 @@
         }
     }
      .footer{
-          height:rem-calc(50);
+          height:rem-calc(65);
           width:100%;
           display: flex;
           box-sizing: border-box;
@@ -78,7 +78,7 @@
             color:#485bba;
             font-size:rem-calc(15);
             box-sizing: border-box;
-            border-top:1px solid #e6e6e6;
+            border-top:1px solid #f0f0f0;
           }
           .right{
             width:50%;
@@ -123,7 +123,7 @@
 <script>
 import {IDEMO, ILOGIN, HEALTHINFORM} from '@/api'
 import {Loading, TransferDomDirective as TransferDom, AlertPlugin} from 'vux'
-// switch : 中英文的切换
+// switch : 中英文的切换从
 export default {
   name: 'announcement',
   components: {Loading},
