@@ -43,7 +43,7 @@
 <script>
   import supplies from '@/data/suppliers'
   import products from '@/data/products'
-  import { INSURE_RESULT } from '@/api'
+  import { INTERGRAL_DETAIL } from '@/api'
   export default {
     name: 'integral_detail',
     data () {
@@ -60,7 +60,6 @@
           list: [...products]
         }],
         orders: [{
-          orderNumber: '21920392817',
           policyNumber: '192039281729',
           productName: '健康一生全名醫療保險',
           policyHolder: '安小盛',
@@ -68,7 +67,7 @@
           downPremium: '1000.00',
           underwritingDate: '2017-10-09',
           generalizedIntegral: '100'
-        }, {orderNumber: '21920392817',
+        }, {
           policyNumber: '192039281729',
           productName: '健康一生全名醫療保險',
           policyHolder: '安小盛',
@@ -80,10 +79,9 @@
       }
     },
     created: function () {
-      this.axios.get(INSURE_RESULT).then(response => {
-        debugger
-        this.result = response.data.data
-        this.status = response.data.status
+      this.axios.get(INTERGRAL_DETAIL).then(response => {
+        // this.result = response.data.data
+        // this.status = response.data.status
         this.isLoading = false
       }).catch(err => {
         console.log(err)
