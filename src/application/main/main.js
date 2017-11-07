@@ -42,10 +42,8 @@ const veeConfig = {
 Vue.use(VeeValidate, veeConfig)
 
 Vue.use(vuexI18n.plugin, store)
-
 Vue.i18n.add('FAN', translationsFan)
 Vue.i18n.add('EN', translationsEn)
-
 Vue.i18n.set('FAN')
 /* eslint-disable no-new */
 export const app = new Vue({
@@ -61,9 +59,12 @@ export const app = new Vue({
   methods: {
     getData () {
       this.axios.get(IAPP_INIT).then(response => {
-        Object.assign(translationsFan, response.data.fan)
-        Object.assign(translationsEn, response.data.en)
-        console.dir(translationsFan)
+        // this.$i18n.add('FAN', response.data.fan)
+        // this.$i18n.add('EN', response.data.en)
+        // Object.assign(translationsFan, response.data.fan)
+        // Object.assign(translationsEn, response.data.en)
+        Vue.i18n.add('FAN', response.data.data.en)
+        Vue.i18n.add('EN', response.data.data.fan)
       }).catch(err => {
         console.log(err)
         throw new Error(err)

@@ -510,20 +510,37 @@ export default new Router({
         param: {}
       }
     },
-    { //  公司简介
-      path: '/announcement',
-      name: 'announcement',
-      component: () => import('@/application/main/announcement'),
+    { //  投保成功
+      path: '/success',
+      name: 'insure_success',
+      component: () => import('@/application/main/insurance/insure-success.vue'),
       meta: {
         requireAuth: true,
-        title: '健康告知',
+        title: '投保成功',
         leftMenu: {
           title: '返回',
           javascript: 'gobackbtn'
         }
       },
       Info: {
-        description: '健康告知',
+        description: '投保成功',
+        param: {}
+      }
+    },
+    { //  我的积分
+      path: '/myscore',
+      name: 'myScore',
+      component: () => import('@/application/main/insurance/my-score.vue'),
+      meta: {
+        requireAuth: true,
+        title: '我的积分',
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '我的积分',
         param: {}
       }
     },

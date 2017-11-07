@@ -48,6 +48,8 @@ export const IDEMO = path(demo, true)
   app初始化
 */
 export const IAPP_INIT = path('/init', true)
+// 公司介绍
+export const ICOMPANY_INTRODUCTION = path('/company', true)
 
 export const ENROLL_INTERSET = path(demo)
 export const QUERY_DICT = path(demo)

@@ -1,0 +1,117 @@
+{
+    "errorMsg": "",
+    "errorCode": "",
+    "value": {
+        "insureId": "15096025985857025389836231686904",
+        "customerId": "15096033641455703945273545644406",
+        "customerType": "1",
+        "name": "旧人",
+        "gender": "M",
+        "birthday": "1995-11-02",
+        "entryRelation": {
+            "value": "01",
+            "name": "亲属"
+        },
+        "entryOccupation": {
+            "value": "01",
+            "name": "国家机关、党群组织、企业、事业单位负责人"
+        },
+        "entryCertType": {
+            "value": "03",
+            "name": "军官证"
+        },
+        "certNo": "",
+        "certValidate": "",
+        "entryCitizenship": {
+            "value": "004",
+            "name": "阿富汗"
+        },
+        "entryMarriage": {
+            "value": "10",
+            "name": "未婚"
+        },
+        "entryDegree": {
+            "value": "01",
+            "name": "博士后"
+        },
+        "mobile": "",
+        "wechatNo": "",
+        "email": "",
+        "height": "",
+        "weight": "",
+        "partTimeJob": "",
+        "jobContent": "",
+        "income": "",
+        "incomeSource": "",
+        "domicile": {
+            "entry_province": {
+                "value": "",
+                "name": ""
+            },
+            "entry_city": {
+                "value": "",
+                "name": ""
+            },
+            "entry_district": {
+                "value": "",
+                "name": ""
+            },
+            "detail": ""
+        },
+        "address": {
+            "entry_province": {
+                "value": "",
+                "name": ""
+            },
+            "entry_city": {
+                "value": "",
+                "name": ""
+            },
+            "entry_district": {
+                "value": "",
+                "name": ""
+            },
+            "detail": ""
+        },
+        "postcode": "",
+        "unitOrSchoolName": "",
+        "unitOrSchoolMobile": "",
+        "unitOrSchoolAddress": {
+            "entry_province": {
+                "value": "",
+                "name": ""
+            },
+            "entry_city": {
+                "value": "",
+                "name": ""
+            },
+            "entry_district": {
+                "value": "",
+                "name": ""
+            },
+            "detail": ""
+        },
+        "unitOrSchoolZipcode": "",
+        "entryUnitType": {
+            "value": null,
+            "name": null
+        },
+        "postalAddress": {
+            "entry_province": {
+                "value": "",
+                "name": ""
+            },
+            "entry_city": {
+                "value": "",
+                "name": ""
+            },
+            "entry_district": {
+                "value": "",
+                "name": ""
+            },
+            "detail": ""
+        },
+        "postalAddressZipcode": ""
+    },
+    "success": true
+}
