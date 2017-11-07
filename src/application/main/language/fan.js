@@ -32,6 +32,11 @@ export default {
   "oneWeekData": "近七天數據",
   "shopTurnover": "微店成交額(元)",
   "orderInquiry": "訂單查詢",
-  "myScore": "我的積分"
+  "myScore": "我的積分",
   // user end
+  // myscore start
+  "scoreAccountBalance": "積分賬戶餘額",
+  "monthScore": "本月積分",
+  "viewDetails": "查看明細"
+  // myscore end
 }

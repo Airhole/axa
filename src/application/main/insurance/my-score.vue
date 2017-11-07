@@ -12,8 +12,8 @@
   <div class="my-score">
     <div class="score-head">
       <p>積分賬戶餘額</p>
-      <p>37280</p>
-      <p>本月積分 +3000</p>
+      <p>{{ scoreAccountBalance }}</p>
+      <p>本月積分 {{ monthScore }}</p>
     </div>
     <div class="score-btn">
       <x-button class="primary-blue" @click.native="handleDetails">查看明細</x-button>
@@ -23,6 +23,7 @@
 
 <script>
   import { XButton } from 'vux'
+  import { MY_SCORE } from '@/api'
   export default {
     name: 'my-score',
     components: {
@@ -30,8 +31,22 @@
     },
     data: () => {
       return {
-
+        scoreAccountBalance: '',
+        monthScore: ''
       }
+    },
+    created: function () {
+      this.axios.get(MY_SCORE).then(response => {
+        this.data = response.data.data
+        if (this.data) {
+          this.scoreAccountBalance = this.data.scoreAccountBalance
+          this.monthScore = this.data.monthScore
+        }
+        this.isLoading = false
+      }).catch(err => {
+        console.log(err)
+        throw new Error(err)
+      })
     },
     methods: {
       handleDetails () {

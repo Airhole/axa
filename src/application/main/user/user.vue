@@ -16,7 +16,7 @@
     </div>
     <div class="user-list">
       <router-link to="order_inquiry" class="user-list-item">訂單查詢</router-link>
-      <router-link to="my_points" class="user-list-item">我的積分</router-link>
+      <router-link to="myscore" class="user-list-item">我的積分</router-link>
     </div>
   </div>
 </template>

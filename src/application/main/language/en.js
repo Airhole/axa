@@ -17,6 +17,11 @@ export default {
   "oneWeekData": "近七天数据",
   "shopTurnover": "微店成交額(元)",
   "orderInquiry": "订单查询",
-  "myScore": "我的积分"
+  "myScore": "我的积分",
   // user end
+  // myscore start
+  "scoreAccountBalance": "积分账户余额",
+  "monthScore": "本月积分",
+  "viewDetails": "查看明细"
+  // myscore end
 }
