@@ -145,6 +145,7 @@
       text-align: center;
       padding: rem-calc(15);
       border-bottom: .5px solid #e8e8e8;
+      line-height: rem-calc(30);
       .time-select {
         position: relative;
       }
@@ -158,10 +159,12 @@
         border-color: #999999 transparent transparent;
         border-style: solid solid none;
         border-width: 4px 4px 0px;
-        // position: absolute;
-        // left: 50%;
-        // top: 50%;
         margin-top: -2px;
+      }
+      .search {
+        background-color: #495dbc;
+        color: #fff;
+        border-radius: rem-calc(5);
       }
       > a {
         color: #666;
