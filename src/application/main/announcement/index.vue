@@ -54,8 +54,7 @@ export default {
     getDate () {
       this.axios.post(HEALTHINFORM, {switch: this.switch}).then((response) => {
         this.isLoading = false
-        console.log(response.data.healthDate)
-        this.healthDate = response.data.healthDate
+        this.healthDate = response.data.date
       }, (response) => {
       }).catch((err) => {
         console.log(err)

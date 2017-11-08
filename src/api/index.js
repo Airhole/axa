@@ -56,7 +56,7 @@ export const IAPP_INIT = path('/init', true)
 export const ICOMPANY_INTRODUCTION = path('/company', true)
 // 投保结果
 let insure = '/insure/approval'// /result'
-export const INSURE_RESULT = path(insure)
+export const INSURE_RESULT = path(insure, true)
 
 let order = '/order'
 export const IORDER_QUERY = path(order, true)

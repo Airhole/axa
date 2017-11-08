@@ -581,9 +581,9 @@ export default new Router({
       }
     },
     { //  投保成功
-      path: '/success',
-      name: 'insure_success',
-      component: () => import('@/application/main/insurance/insure-success.vue'),
+      path: '/result',
+      name: 'insure_result',
+      component: () => import('@/application/main/insurance/insure-result.vue'),
       meta: {
         requireAuth: true,
         title: '投保成功',
