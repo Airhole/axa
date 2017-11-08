@@ -99,7 +99,7 @@
        * 时间插件展示
        * @param time 页面当前选择时间
        */
-      showTimePlugin () { // 时间插件展示
+      showTimePlugin () {
         let _self = this
         this.$vux.datetime.show({
           cancelText: '取消',

@@ -1,13 +1,15 @@
 <template>
   <div class="order-inquiry">
-    <div class="order-inquiry-top" @click="showTimePlugin">
-    <!-- <datetime v-model="defaultValue" @on-change="change" :show.sync="visibility" format="YYYY-MM" :start-date="startDate" :end-date="endDate"></datetime> -->
-    <i></i>
-  </div>
+    <div class="order-inquiry-top w-box" @click="showTimePlugin">
+     <div class="flex-1 time-select" @click="timeClick(startTime)">{{ initStartTime }}</div>——
+     <div class="flex-1 time-select" @click="timeClick(endTime)">{{ initEndTime }}</div>
+     <div class="flex-1 search">檢索</div>
+    </div>
     <div class="order-inquiry-list" v-for="order in orders">
       <div class="inquiry-list-item">
-        <h3>保單號：{{ order.policyNumber }}</h3>
+        <h3>訂單號：{{ order.policyNumber }}</h3>
         <ul>
+          <li>保單號：{{ order.policyNumber }}</li>
           <li>產品名稱：{{ order.productName }}</li>
           <li>投保人：{{ order.policyHolder }}</li>
           <li>被保险人：{{ order.assured }}</li>
@@ -56,32 +58,59 @@
         startDate: '2015-11-11',
         endDate: '2017-10-11',
         defaultValue: '2017-10',
-        visibility: false
+        visibility: false,
+        startTime: '2015-10',
+        endTime: '2017-19',
+        initStartTime: '',
+        initEndTime: ''
       }
     },
     components: {
       Datetime,
       XButton
     },
+    created: function () {
+      this.initDefaultTime(this.startTime, "start")
+      this.initDefaultTime(this.endTime, "end")
+
+      // this.axios.get(INTERGRAL_DETAIL).then(response => {
+      //   // this.result = response.data.data
+      //   // this.status = response.data.status
+      //   this.isLoading = false
+      // }).catch(err => {
+      //   console.log(err)
+      //   throw new Error(err)
+      // })
+    },
     methods: {
       change (value) {
         console.log('change', value)
       },
-      showTimePlugin () { // 时间插件展示
+      /**
+       * 初始化默认时间
+       * @param time 页面当前选择时间
+       */
+      initDefaultTime (val, type) {
+        let valArr = []
+        valArr = val.split('-')
+        if (type == "start") this.initStartTime = valArr[0] + '年' + parseInt(valArr[1]) + '月'
+        else if (type == "end") this.initEndTime = valArr[0] + '年' + parseInt(valArr[1]) + '月'
+      },
+      /**
+       * 时间插件展示
+       * @param time 页面当前选择时间
+       */
+      showTimePlugin (time, type) {
         let _self = this
         this.$vux.datetime.show({
           cancelText: '取消',
           confirmText: '确定',
           format: 'YYYY-MM',
-          value: '2017-09',
+          value: time,
           minYear: 2013,
           maxYear: 2018,
           onConfirm (val) {
-            let valArr = []
-            valArr = val.split('-')
-            _self.filters[1].title = valArr[0] + '年' + valArr[1] + '月'
-            console.log(_self.filters[1].title)
-            console.log('plugin confirm', val)
+            _self.initDefaultTime(val, type)
           },
           onShow () {
             console.log('plugin show')
@@ -90,6 +119,13 @@
             console.log('plugin hide')
           }
         })
+      },
+      /**
+       * 时间插件展示
+       * @param time 页面当前选择时间,开始时间或结束时间
+       */
+      timeClick (time) {
+        time == this.startTime ? this.showTimePlugin(time, "start") : this.showTimePlugin(time, "end")
       }
     }
   }
@@ -109,20 +145,22 @@
       text-align: center;
       padding: rem-calc(15);
       border-bottom: .5px solid #e8e8e8;
-      position: relative;
-      i {
+      .time-select {
+        position: relative;
+      }
+      .time-select:after {
+        content: "";
         height: 0;
         width: 0;
         display: inline-block;
         vertical-align: middle;
-        margin-left: 5px;
+        margin-left: rem-calc(5);
         border-color: #999999 transparent transparent;
         border-style: solid solid none;
         border-width: 4px 4px 0px;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        margin-left: rem-calc(30);
+        // position: absolute;
+        // left: 50%;
+        // top: 50%;
         margin-top: -2px;
       }
       > a {
