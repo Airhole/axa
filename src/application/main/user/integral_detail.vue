@@ -92,6 +92,7 @@
        */
       initDefaultTime (val) {
         let valArr = []
+        this.checkedTime = val
         valArr = val.split('-')
         this.filters[1].title = valArr[0] + '年' + parseInt(valArr[1]) + '月'
       },

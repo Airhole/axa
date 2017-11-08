@@ -25,44 +25,11 @@
 <script>
   import { Datetime, XButton } from 'vux'
   import { IORDER_QUERY } from '@/api'
-  // var years = []
-  // for (var i = 2000; i <= 2030; i++) {
-  //   years.push({
-  //     name: i + '年',
-  //     value: i + ''
-  //   })
-  // }
-  // console.log(years)
 
   export default {
     name: 'order_inquiry',
     data () {
       return {
-        // orders: [{
-        //   orderNumber: '21920392817',
-        //   policyNumber: '192039281729',
-        //   productName: '健康一生全名醫療保險',
-        //   policyHolder: '安小盛',
-        //   assured: '安大盛',
-        //   downPremium: '1000.00',
-        //   underwritingDate: '2017-10-09',
-        //   generalizedIntegral: '100'
-        // }, {
-        //   orderNumber: '21920392817',
-        //   policyNumber: '192039281729',
-        //   productName: '健康一生全名醫療保險',
-        //   policyHolder: '安小盛',
-        //   assured: '安大盛',
-        //   downPremium: '1000.00',
-        //   underwritingDate: '2017-10-09',
-        //   generalizedIntegral: '100'
-        // }],
-        // startDate: '2015-11-11',
-        // endDate: '2017-10-11',
-        // defaultValue: '2017-10',
-        // visibility: false,
-        // startTime: '2015-10',
-        // endTime: '2017-19',
         initStartTime: '',
         initEndTime: '',
         orders: [],
