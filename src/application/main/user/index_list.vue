@@ -7,11 +7,12 @@
           <div class="pack-e language" @click="LanguageSwitch"><span>A</span><span class="active">中</span></div>
         </div>
         <div class="w-box">
-          <img src="~@/assets/image/user.png" class="img flex-1">
+          <div :style="{backgroundImage: 'url(' + iconUrl + ')'}" class="img flex-1" @click="gotoCard">
+          </div>
           <div class="flex-1">
             <p>眾小安<em>AXA安盛</em></p>
             <p>中環營業部  高級銷售經歷</p>
-            <p>電話服務</p>
+            <a href="tel:130123123123" class="tel_box">電話服務</a>
           </div>
         </div>
       </div>
@@ -19,12 +20,14 @@
         <div class="list-sign">熱賣推薦</div>
         <ul class="list-product">
           <li>
-            <img src="~@/resource/insurance-1.png">
-            <h2>健康一生重大疾病保障</h2>
-            <h3>每天不到4元，疾病癌症均可保</h3>
-            <div class="bar">
-              <label>健康險</label>
-              <strong>$2000<small>起</small></strong>
+            <div @click="gotoProduct">
+              <img src="~@/resource/insurance-1.png">
+              <h2>健康一生重大疾病保障</h2>
+              <h3>每天不到4元，疾病癌症均可保</h3>
+              <div class="bar">
+                <label>健康險</label>
+                <strong>$2000<small>起</small></strong>
+              </div>
             </div>
           </li>
           <li>
@@ -39,20 +42,47 @@
         </ul>
       </div>
     </div>
-    <div class="share-btn">分享店鋪</div>
+    <div class="share-btn" @click="shareStore">分享店鋪</div>
   </div>
 </template>
 
 <script>
+  import { IACCOUNT_AGENT } from '@/api'
   export default {
     name: 'index_list',
     data () {
       return {
+        iconUrl: '',
+        userId: ''
       }
     },
+    created: function () {
+      this.init()
+    },
     methods: {
+      init () {
+        console.log('init')
+      },
+      getAgentInfo () {
+        this.axios.post(IACCOUNT_AGENT).then(response => {
+          this.orders = response.data.data
+          this.isLoading = false
+        }).catch(err => {
+          console.log(err)
+          throw new Error(err)
+        })
+      },
       LanguageSwitch () {
         console.log('1111')
+      },
+      gotoCard () {
+        this.$router.push({path: "/card", query: {userId: this.userId}})
+      },
+      gotoProduct () {
+        this.$router.push({path: "/announcement", query: {userId: this.userId}})
+      },
+      shareStore () {
+        console.log('shareStore')
       }
     }
   }
@@ -102,6 +132,7 @@
               right: rem-calc(3);
             }
           }
+          
           p {
             margin-left: rem-calc(20);
             margin-bottom: rem-calc(10);
@@ -120,16 +151,19 @@
           p:nth-child(2) {
             color: #666;
           }
-          p:nth-child(3) {
+          .tel_box {
             color: #fff;
             text-align: center;
             background-color: #485bba;
-            padding: rem-calc(5) rem-calc(5);
+            padding: rem-calc(5) rem-calc(20) rem-calc(5) rem-calc(5);
             max-width: rem-calc(98);
             border-radius: rem-calc(15);
             margin-bottom: 0;
+            text-decoration: none;
+            margin-left: rem-calc(20);
+            margin-bottom: rem-calc(10);
           }
-          p:nth-child(3):before {
+          .tel_box:before {
             content: "";
             display: inline-block;
             vertical-align: rem-calc(-1);
@@ -139,6 +173,7 @@
             background-size: 100%;
             background-repeat: no-repeat;
             background-image: url("~@/assets/image/index_phone.png");
+            margin-left: rem-calc(10);
           }
         }
         .w-box:first-child {

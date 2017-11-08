@@ -7,7 +7,8 @@
     "payTime": "一筆過繳付保費",
     "insureMoney": "123",
     "firstPay": "0",
-    "email": "wangxiaoming@163.com"
+    "email": "wangxiaoming@163.com",
+    "insureStatus": "true"
   },
   "status": "true",
   "errorMsg": "错误信息"

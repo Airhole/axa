@@ -1,26 +1,52 @@
 <template>
   <div class="user">
-    <div class="user-bg">
-      <p>近七天數據</p>
-      <p>{{ number }}</p>
-      <p>微店成交額(元）</p>
+    <div  v-show="!showLoading">
+      <div class="user-bg">
+        <p>{{ $t('userCenterTime') }}</p>
+        <p>{{ total }}</p>
+        <p>{{ $t('userTrading') }}</p>
+      </div>
+      <div class="user-list">
+        <router-link to="order_inquiry" class="user-list-item">{{ $t('bookingSearch') }}</router-link>
+        <router-link to="my_points" class="user-list-item">{{ $t('bookingScore') }}</router-link>
+      </div>
     </div>
-    <div class="user-list">
-      <router-link to="order_inquiry" class="user-list-item">訂單查詢</router-link>
-      <router-link to="my_points" class="user-list-item">我的積分</router-link>
+    <div v-transfer-dom>
+      <loading :show="showLoading"></loading>
     </div>
   </div>
 </template>
 
 <script>
+  import { Loading, TransferDomDirective as TransferDom } from 'vux'
+  import { IACCOUNT_SCORE } from '@/api'
   export default {
     name: 'user',
     data () {
       return {
-        number: '37280.00'
+        total: '0',
+        showLoading: true
       }
     },
+    created: function () {
+      this.change()
+    },
+    components: {
+      Loading, TransferDom
+    },
+    directives: {
+      TransferDom
+    },
     methods: {
+      change (value) {
+        this.axios.post(IACCOUNT_SCORE).then(response => {
+          this.total = response.data.data.total
+          this.showLoading = false
+        }).catch(err => {
+          console.log(err)
+          throw new Error(err)
+        })
+      }
     }
   }
 </script>

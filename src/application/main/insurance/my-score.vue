@@ -9,33 +9,55 @@
 ********************************************************************-->
 
 <template>
-  <div class="my-score">
-    <div class="score-head">
-      <p>積分賬戶餘額</p>
-      <p>37280</p>
-      <p>本月積分 +3000</p>
+  <div>
+    <div class="my-score"  v-show="!showLoading">
+      <div class="score-head">
+        <p>{{ $t('scoreNum')}}</p>
+        <p>{{ total }}</p>
+        <p>{{ $t('scorePrice', {"price": total})}}</p>
+      </div>
+      <div class="score-btn">
+        <x-button class="primary-blue" @click.native="handleDetails">{{ $t('scoreView') }}</x-button>
+      </div>
     </div>
-    <div class="score-btn">
-      <x-button class="primary-blue" @click.native="handleDetails">查看明細</x-button>
+    <div v-transfer-dom>
+      <loading :show="showLoading"></loading>
     </div>
   </div>
 </template>
 
 <script>
-  import { XButton } from 'vux'
+  import { XButton, Loading, TransferDomDirective as TransferDom } from 'vux'
+  import { IMY_SCORE } from '@/api'
   export default {
     name: 'my-score',
     components: {
-      XButton
+      XButton, Loading, TransferDom
     },
     data: () => {
       return {
-
+        total: 0,
+        showLoading: true
       }
+    },
+    created: function () {
+      this.change()
+    },
+    directives: {
+      TransferDom
     },
     methods: {
       handleDetails () {
-        console.log('点击 查看明细')
+        // console.log('点击 查看明细')
+      },
+      change (value) {
+        this.axios.post(IMY_SCORE).then(response => {
+          this.total = response.data.data.total
+          this.showLoading = false
+        }).catch(err => {
+          console.log(err)
+          throw new Error(err)
+        })
       }
     }
     // created () {

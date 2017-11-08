@@ -26,6 +26,33 @@ export default {
   "insureMoney": "保單金額：",
   "firstPay": "首期保費：",
   "insureWarn": "溫馨提示：",
-  "insureEmail": "電子保單將發送到投保人郵箱：{email}"
+  "insureEmail": "電子保單將發送到投保人郵箱：{email}",
   // insure end
+  // order start
+  "orderNumber": "訂單號：",
+  "policyNumber": "保單號：",
+  "productName": "產品名稱：",
+  "policyHolder": "投保人：",
+  "assured": "被保险人：",
+  "downPremium": "首期保費：",
+  "underwritingDate": "承保日期：",
+  "scorePoint": "推廣積分：",
+  "orderCancel": "取消",
+  "orderDone": "确定",
+  // order end
+  // user start
+  "userCenterTime": "近七天數據",
+  "userTrading": "微店成交額(元）",
+  "bookingSearch": "訂單查詢",
+  "bookingScore": "我的積分",
+  // user end
+  // myscore start
+  "scoreNum": "積分賬戶餘額",
+  "scorePrice": "本月積分 +{price}",
+  "scoreView": "查看明細",
+  // myscore end
+  // announcement start
+  "announcement_agree": "部分为是",
+  "announcement_unagree": "以上皆否"
+  // announcement end
 }

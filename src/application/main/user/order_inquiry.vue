@@ -1,20 +1,30 @@
 <template>
   <div class="order-inquiry">
     <div class="order-inquiry-top" @click="visibility = true">
-    <datetime v-model="defaultValue" @on-change="change" :show.sync="visibility" format="YYYY-MM" :start-date="startDate" :end-date="endDate"></datetime>
+    <datetime 
+    v-model="defaultValue" 
+    @on-change="change" 
+    :show.sync="visibility" 
+    format="YYYY-MM" 
+    :start-date="startDate" 
+    :end-date="endDate"
+    :cancelText= "cancel"
+    :confirmText = "confirm"
+    >
+    </datetime>
     <i></i>
   </div>
     <div class="order-inquiry-list" v-for="order in orders">
       <div class="inquiry-list-item">
-        <h3>訂單號：{{ order.orderNumber }}</h3>
+        <h3>{{ $t('orderNumber') }}{{ order.orderNumber }}</h3>
         <ul>
-          <li>保單號：{{ order.policyNumber }}</li>
-          <li>產品名稱：{{ order.productName }}</li>
-          <li>投保人：{{ order.policyHolder }}</li>
-          <li>被保险人：{{ order.assured }}</li>
-          <li>首期保費：{{ order.downPremium }}</li>
-          <li>承保日期：{{ order.underwritingDate }}</li>
-          <li>推廣積分：{{ order.generalizedIntegral }}</li>
+          <li>{{ $t('policyNumber') }}{{ order.policyNumber }}</li>
+          <li>{{ $t('productName') }}{{ order.productName }}</li>
+          <li>{{ $t('policyHolder') }}{{ order.policyHolder }}</li>
+          <li>{{ $t('assured') }}{{ order.assured }}</li>
+          <li>{{ $t('downPremium') }}{{ order.downPremium }}</li>
+          <li>{{ $t('underwritingDate') }}{{ order.underwritingDate }}</li>
+          <li>{{ $t('generalizedIntegral') }}{{ order.generalizedIntegral }}</li>
         </ul>
       </div>
     </div>
@@ -23,24 +33,31 @@
 
 <script>
   import { Datetime, XButton } from 'vux'
-  var years = []
-  for (var i = 2000; i <= 2030; i++) {
-    years.push({
-      name: i + '年',
-      value: i + ''
-    })
-  }
-  console.log(years)
+  import { IORDER_QUERY } from '@/api'
+  // var years = []
+  // for (var i = 2000; i <= 2030; i++) {
+  //   years.push({
+  //     name: i + '年',
+  //     value: i + ''
+  //   })
+  // }
+  // console.log(years)
+  
   export default {
     name: 'order_inquiry',
     data () {
       return {
-        orders: [{orderNumber: '21920392817', policyNumber: '192039281729', productName: '健康一生全名醫療保險', policyHolder: '安小盛', assured: '安大盛', downPremium: '1000.00', underwritingDate: '2017-10-09', generalizedIntegral: '100'}, {orderNumber: '21920392817', policyNumber: '192039281729', productName: '健康一生全名醫療保險', policyHolder: '安小盛', assured: '安大盛', downPremium: '1000.00', underwritingDate: '2017-10-09', generalizedIntegral: '100'}],
-        startDate: '2015-11-11',
-        endDate: '2017-10-11',
-        defaultValue: '2017-10',
-        visibility: false
+        orders: [],
+        startDate: (new Date().getFullYear() - 10) + '-' + ((new Date().getMonth() + 1) > 9 ? (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + '-' + (new Date().getDate() > 9 ? new Date().getDate() : ('0' + new Date().getDate())),
+        endDate: (new Date().getFullYear() + 10) + '-' + ((new Date().getMonth() + 1) > 9 ? (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + '-' + (new Date().getDate() > 9 ? new Date().getDate() : ('0' + new Date().getDate())),
+        defaultValue: (new Date().getFullYear() + 0) + '-' + ((new Date().getMonth() + 1) > 9 ? (new Date().getMonth() + 1) : (new Date().getMonth() + 1)),
+        visibility: false,
+        cancel: this.$i18n.locale() === "FAN" ? "取消" : "cancel",
+        confirm: this.$i18n.locale() === "EN" ? "确定" : "done"
       }
+    },
+    created: function () {
+      this.change()
     },
     components: {
       Datetime,
@@ -48,7 +65,13 @@
     },
     methods: {
       change (value) {
-        console.log('change', value)
+        this.axios.post(IORDER_QUERY).then(response => {
+          this.orders = response.data.data
+          this.isLoading = false
+        }).catch(err => {
+          console.log(err)
+          throw new Error(err)
+        })
       }
     }
   }

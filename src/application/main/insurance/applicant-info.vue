@@ -26,7 +26,7 @@
     <div class="btn-wrapper">
       <!--<default-btn class='next' val='下一步' @Click="nextStep"></default-btn>-->
       <div class="pre-step">上一步</div>
-      <div class="next-step">下一步</div>
+      <div class="next-step" @click="gotoPay">下一步</div>
     </div>
   </div>
 </template>
@@ -85,6 +85,9 @@
             })
           }
         }
+      },
+      gotoPay () {
+        console.log('applicant')
       }
       /**
       // 验证身份证和性别，身份证和出生日期是否符合
