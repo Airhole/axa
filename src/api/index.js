@@ -83,3 +83,6 @@ export const READ_INSURED_INFO = path('/insure/customer/loadApplicant')
 // 用户中心
 let user = '/user'
 export const USER_INDEX = path(user, true)
+// 产品列表
+let product = '/product'
+export const HOT_PRODUCT = path(product, true)

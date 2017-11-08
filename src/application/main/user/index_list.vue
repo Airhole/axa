@@ -22,18 +22,21 @@
       <div class="panel-main">
         <div class="list-sign">{{ $t('hot_tips') }}</div>
         <ul class="list-product">
-          <li>
-            <div @click="gotoProduct">
-              <img src="~@/resource/insurance-1.png">
-              <h2>健康一生重大疾病保障</h2>
-              <h3>每天不到4元，疾病癌症均可保</h3>
-              <div class="bar">
-                <label>健康險</label>
-                <strong>$2000<small>起</small></strong>
+          <li  v-for="(item, index) in orders" keys="index">
+            <div @click="gotoProduct(item.id)" class="productTable">
+              <b class="productImg" :style="{backgroundImage: 'url(' + item.src + ')'}">
+              </b>
+              <div class="productInfo">
+                <h2>{{ item.name }}</h2>
+                <h3>{{ item.dep }}</h3>
+                <div class="bar">
+                  <label>{{ item.type }}</label>
+                  <strong>{{ item.price }}<small>{{ item.rate }}</small></strong>
+                </div>
               </div>
             </div>
           </li>
-          <li>
+          <!-- <li>
             <img src="~@/resource/insurance-2.png">
             <h2>安享人生健康保障</h2>
             <h3>每天不到4元，疾病癌症均可保</h3>
@@ -41,7 +44,7 @@
               <label>健康險</label>
               <strong>$2000<small>起</small></strong>
             </div>
-          </li>
+          </li> -->
         </ul>
       </div>
     </div>
@@ -50,7 +53,7 @@
 </template>
 
 <script>
-  import { IACCOUNT_AGENT } from '@/api'
+  import { IACCOUNT_AGENT, HOT_PRODUCT } from '@/api'
   export default {
     name: 'index_list',
     data () {
@@ -58,7 +61,8 @@
         iconUrl: '',
         userId: '',
         language: '中',
-        language1: 'A'
+        language1: 'A',
+        orders: []
       }
     },
     created: function () {
@@ -67,9 +71,19 @@
     methods: {
       init () {
         console.log('init')
+        this.getOrderInfo()
       },
       getAgentInfo () {
         this.axios.post(IACCOUNT_AGENT).then(response => {
+          this.orders = response.data.data
+          this.isLoading = false
+        }).catch(err => {
+          console.log(err)
+          throw new Error(err)
+        })
+      },
+      getOrderInfo () {
+        this.axios.post(HOT_PRODUCT).then(response => {
           this.orders = response.data.data
           this.isLoading = false
         }).catch(err => {
@@ -92,7 +106,7 @@
       gotoCard () {
         this.$router.push({path: "/card", query: {userId: this.userId}})
       },
-      gotoProduct () {
+      gotoProduct (n) {
         this.$router.push({path: "/product_detail", query: {userId: this.userId}})
       },
       shareStore () {
@@ -236,6 +250,21 @@
         position: relative;
         overflow: hidden;
         padding: rem-calc(15) rem-calc(15) rem-calc(15) 0;
+        .productTable{
+          display: table;
+          width: 100%;
+          & .productImg {
+            display: table-cell;
+            width: 40%;
+            height: 100px;
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+          }
+          & .productInfo {
+            display: table-cell;
+            padding-left: rem-calc(10);
+          }
+        }
       }
       > li + li::before{
         position: absolute;
