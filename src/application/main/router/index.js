@@ -665,6 +665,23 @@ export default new Router({
         description: '產品詳情',
         param: {}
       }
+    },
+    { //  我的相关信息
+      path: '/integral_detail',
+      name: 'integral_detail',
+      component: () => import('@/application/main/user/integral_detail'),
+      meta: {
+        requireAuth: true,
+        title: '积分明细',
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '积分明细',
+        param: {}
+      }
     }
   ]
 })

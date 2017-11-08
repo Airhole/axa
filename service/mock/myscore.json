@@ -1,6 +1,11 @@
 {
   "data": {
+<<<<<<< HEAD
+    "scoreAccountBalance": 37280.00,
+    "monthScore": "+3000"
+=======
     "total": "12313"
+>>>>>>> br_stanley
   },
   "status": "true",
   "errorMsg": "错误信息"
