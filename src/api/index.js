@@ -55,8 +55,20 @@ export const IAPP_INIT = path('/init', true)
 // 公司介绍
 export const ICOMPANY_INTRODUCTION = path('/company', true)
 // 投保结果
-let insure = '/result'
-export const INSURE_RESULT = path(insure, true)
+let insure = '/insure/approval'// /result'
+export const INSURE_RESULT = path(insure)
+
+let order = '/order'
+export const IORDER_QUERY = path(order, true)
+
+let accoutScore = '/accountscore'
+export const IACCOUNT_SCORE = path(accoutScore, true)
+
+let myScore = '/myscore'
+export const IMY_SCORE = path(myScore, true)
+
+let agentAccount = '/agent'
+export const IACCOUNT_AGENT = path(agentAccount, true)
 
 export const ENROLL_INTERSET = path(demo)
 export const QUERY_DICT = path(demo)

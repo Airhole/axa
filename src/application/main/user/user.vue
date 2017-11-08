@@ -8,6 +8,7 @@
 ********************************************************************-->
 <template>
   <div class="user">
+<<<<<<< HEAD
     <div class="user-bg">
       <p>{{ $t('oneWeekData') }}</p>
       <!-- <p>{{ $t('turnover') }}</p> -->
@@ -17,16 +18,37 @@
     <div class="user-list">
       <router-link to="order_inquiry" class="user-list-item">{{ $t('orderInquiry') }}</router-link>
       <router-link to="myscore" class="user-list-item">{{ $t('myScore') }}</router-link>
+=======
+    <div  v-show="!showLoading">
+      <div class="user-bg">
+        <p>{{ $t('userCenterTime') }}</p>
+        <p>{{ total }}</p>
+        <p>{{ $t('userTrading') }}</p>
+      </div>
+      <div class="user-list">
+        <router-link to="order_inquiry" class="user-list-item">{{ $t('bookingSearch') }}</router-link>
+        <router-link to="my_points" class="user-list-item">{{ $t('bookingScore') }}</router-link>
+      </div>
+    </div>
+    <div v-transfer-dom>
+      <loading :show="showLoading"></loading>
+>>>>>>> br_stanley
     </div>
   </div>
 </template>
 
 <script>
+<<<<<<< HEAD
   import { USER_INDEX } from '@/api'
+=======
+  import { Loading, TransferDomDirective as TransferDom } from 'vux'
+  import { IACCOUNT_SCORE } from '@/api'
+>>>>>>> br_stanley
   export default {
     name: 'user',
     data () {
       return {
+<<<<<<< HEAD
         turnover: ''
       }
     },
@@ -40,8 +62,31 @@
         console.log(err)
         throw new Error(err)
       })
+=======
+        total: '0',
+        showLoading: true
+      }
+    },
+    created: function () {
+      this.change()
+    },
+    components: {
+      Loading, TransferDom
+    },
+    directives: {
+      TransferDom
+>>>>>>> br_stanley
     },
     methods: {
+      change (value) {
+        this.axios.post(IACCOUNT_SCORE).then(response => {
+          this.total = response.data.data.total
+          this.showLoading = false
+        }).catch(err => {
+          console.log(err)
+          throw new Error(err)
+        })
+      }
     }
   }
 </script>

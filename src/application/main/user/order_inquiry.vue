@@ -1,5 +1,6 @@
 <template>
   <div class="order-inquiry">
+<<<<<<< HEAD
     <div class="order-inquiry-top w-box" @click="showTimePlugin">
      <div class="flex-1 time-select" @click="timeClick(startTime)">{{ initStartTime }}</div>——
      <div class="flex-1 time-select" @click="timeClick(endTime)">{{ initEndTime }}</div>
@@ -8,14 +9,33 @@
     <div class="order-inquiry-list" v-for="order in orders">
       <div class="inquiry-list-item">
         <h3>訂單號：{{ order.policyNumber }}</h3>
+=======
+    <div class="order-inquiry-top" @click="visibility = true">
+    <datetime 
+    v-model="defaultValue" 
+    @on-change="change" 
+    :show.sync="visibility" 
+    format="YYYY-MM" 
+    :start-date="startDate" 
+    :end-date="endDate"
+    :cancelText= "cancel"
+    :confirmText = "confirm"
+    >
+    </datetime>
+    <i></i>
+  </div>
+    <div class="order-inquiry-list" v-for="order in orders">
+      <div class="inquiry-list-item">
+        <h3>{{ $t('orderNumber') }}{{ order.orderNumber }}</h3>
+>>>>>>> br_stanley
         <ul>
-          <li>保單號：{{ order.policyNumber }}</li>
-          <li>產品名稱：{{ order.productName }}</li>
-          <li>投保人：{{ order.policyHolder }}</li>
-          <li>被保险人：{{ order.assured }}</li>
-          <li>首期保費：{{ order.downPremium }}</li>
-          <li>承保日期：{{ order.underwritingDate }}</li>
-          <li>推廣積分：{{ order.generalizedIntegral }}</li>
+          <li>{{ $t('policyNumber') }}{{ order.policyNumber }}</li>
+          <li>{{ $t('productName') }}{{ order.productName }}</li>
+          <li>{{ $t('policyHolder') }}{{ order.policyHolder }}</li>
+          <li>{{ $t('assured') }}{{ order.assured }}</li>
+          <li>{{ $t('downPremium') }}{{ order.downPremium }}</li>
+          <li>{{ $t('underwritingDate') }}{{ order.underwritingDate }}</li>
+          <li>{{ $t('generalizedIntegral') }}{{ order.generalizedIntegral }}</li>
         </ul>
       </div>
     </div>
@@ -24,18 +44,21 @@
 
 <script>
   import { Datetime, XButton } from 'vux'
-  var years = []
-  for (var i = 2000; i <= 2030; i++) {
-    years.push({
-      name: i + '年',
-      value: i + ''
-    })
-  }
-  console.log(years)
+  import { IORDER_QUERY } from '@/api'
+  // var years = []
+  // for (var i = 2000; i <= 2030; i++) {
+  //   years.push({
+  //     name: i + '年',
+  //     value: i + ''
+  //   })
+  // }
+  // console.log(years)
+  
   export default {
     name: 'order_inquiry',
     data () {
       return {
+<<<<<<< HEAD
         orders: [{
           orderNumber: '21920392817',
           policyNumber: '192039281729',
@@ -63,7 +86,19 @@
         endTime: '2017-19',
         initStartTime: '',
         initEndTime: ''
+=======
+        orders: [],
+        startDate: (new Date().getFullYear() - 10) + '-' + ((new Date().getMonth() + 1) > 9 ? (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + '-' + (new Date().getDate() > 9 ? new Date().getDate() : ('0' + new Date().getDate())),
+        endDate: (new Date().getFullYear() + 10) + '-' + ((new Date().getMonth() + 1) > 9 ? (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + '-' + (new Date().getDate() > 9 ? new Date().getDate() : ('0' + new Date().getDate())),
+        defaultValue: (new Date().getFullYear() + 0) + '-' + ((new Date().getMonth() + 1) > 9 ? (new Date().getMonth() + 1) : (new Date().getMonth() + 1)),
+        visibility: false,
+        cancel: this.$i18n.locale() === "FAN" ? "取消" : "cancel",
+        confirm: this.$i18n.locale() === "EN" ? "确定" : "done"
+>>>>>>> br_stanley
       }
+    },
+    created: function () {
+      this.change()
     },
     components: {
       Datetime,
@@ -84,6 +119,7 @@
     },
     methods: {
       change (value) {
+<<<<<<< HEAD
         console.log('change', value)
       },
       /**
@@ -126,6 +162,15 @@
        */
       timeClick (time) {
         time == this.startTime ? this.showTimePlugin(time, "start") : this.showTimePlugin(time, "end")
+=======
+        this.axios.post(IORDER_QUERY).then(response => {
+          this.orders = response.data.data
+          this.isLoading = false
+        }).catch(err => {
+          console.log(err)
+          throw new Error(err)
+        })
+>>>>>>> br_stanley
       }
     }
   }

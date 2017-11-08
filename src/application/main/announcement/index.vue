@@ -1,3 +1,74 @@
+<template>
+
+  <article class="main">
+    <section class="mainC">
+      <section v-for= '(item,index) in this.healthDate' class="content">
+          <div class="title">{{item.title}}</div>
+          <div class="contentMain" v-for="(i,n) in item.data">
+            <p class="contentItem">{{n+1}}.{{i}}</p>
+          </div>
+      </section>
+    </section>
+    <footer class="footer">
+      <p class="left" @click="subClick(1)">
+          {{ $t('announcement_agree')}}
+      </p>
+      <p class="right" @click="subClick(2)">
+         {{ $t('announcement_unagree')}}
+      </p>
+    </footer>
+    <section >
+      <loading :show="isLoading"></loading>
+    </section>
+  </article>
+   
+</template>
+<script>
+import {HEALTHINFORM} from '@/api'
+import {Loading, TransferDomDirective as TransferDom, AlertPlugin} from 'vux'
+// switch : 中英文的切换从
+export default {
+  name: 'announcement',
+  components: {Loading},
+  data () {
+    return {
+      healthDate: [],
+      isLoading: true,
+      switch: this.$i18n.locale()
+    }
+  },
+  methods: {
+    //num:1 部分为是 2 以上皆否
+    subClick (num) {
+      if (num == 1) {
+        this.$vux.alert.show({
+          title: this.switch === "FAN" ? '提示' : 'Remind',
+          content: this.switch === "FAN" ? '您的健康不符合投保要求，不能承保' : 'Cannot underwrite',
+          buttonText: this.switch === "FAN" ? '确定' : 'Done'
+        })
+      } else {
+        //跳到下一页
+        this.$router.push({path: "/applicant", query: {userId: this.userId}})
+      }
+    },
+    getDate () {
+      this.axios.post(HEALTHINFORM, {switch: this.switch}).then((response) => {
+        this.isLoading = false
+        console.log(response.data.healthDate)
+        this.healthDate = response.data.healthDate
+      }, (response) => {
+      }).catch((err) => {
+        console.log(err)
+        throw new Error(err)
+      })
+    }
+  },
+  mounted () {
+    this.isLoading = true
+    this.getDate()
+  }
+}
+</script>
 
 <style lang='scss' rel="stylesheet/scss" scoped>
   .main{
@@ -96,75 +167,3 @@
 
   }
 </style>
-<template>
-
-  <article class="main">
-    <section class="mainC">
-      <section v-for= '(item,index) in this.healthDate' class="content">
-          <div class="title">{{item.title}}</div>
-          <div class="contentMain" v-for="(i,n) in item.data">
-            <p class="contentItem">{{n+1}}.{{i}}</p>
-          </div>
-      </section>
-    </section>
-    <footer class="footer">
-      <p class="left" @click="subClick(1)">
-          {{this.switch ? '部分为是' : 'ldskfalsdfa'}}
-      </p>
-      <p class="right" @click="subClick(2)">
-          {{this.switch ? '以上皆否' : 'ldskfalsdfa'}}
-      </p>
-    </footer>
-    <section >
-      <loading :show="isLoading"></loading>
-    </section>
-  </article>
-   
-</template>
-<script>
-import {IDEMO, ILOGIN, HEALTHINFORM} from '@/api'
-import {Loading, TransferDomDirective as TransferDom, AlertPlugin} from 'vux'
-// switch : 中英文的切换从
-export default {
-  name: 'announcement',
-  components: {Loading},
-  data () {
-    return {
-      healthDate: [],
-      isLoading: true,
-      switch: 0
-    }
-  },
-  methods: {
-    //num:1 部分为是 2 以上皆否
-    subClick (num) {
-      if (num == 1) {
-        this.$vux.alert.show({
-          title: this.switch ? '提示' : 'Remind',
-          content: this.switch ? '您的健康不符合投保要求，不能承保' : 'sdfkajklsdfafd;akf',
-          buttonText: this.switch ? '确定' : 'OK'
-        })
-      } else {
-        //跳到下一页
-        this.$router.push('/success')
-      }
-    },
-    getDate () {
-      this.axios.post(HEALTHINFORM, {switch: this.switch}).then((response) => {
-        this.isLoading = false
-        console.log(response.data.healthDate)
-        this.healthDate = response.data.healthDate
-      }, (response) => {
-      }).catch((err) => {
-        console.log(err)
-        throw new Error(err)
-      })
-    }
-  },
-  mounted () {
-    this.isLoading = true
-    console.log(3333)
-    this.getDate()
-  }
-}
-</script>

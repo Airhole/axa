@@ -7,6 +7,7 @@ var expressTemplate = require('./express')
 var express = require('express')
 var log4js = require('./logger')
 var fs = require('fs')
+var crosshost = '172.16.10.34:8080' // 'hq-jdt-dev.zhongan.io'
 
 function mkdirs(dirname, callback) {
   fs.exists(dirname, function (exists) {
@@ -85,7 +86,7 @@ module.exports = function (app) {
     res.send(require(path))
   })
   // snap 快照
-  app.use('/cross', expressproxy('hq-jdt-dev.zhongan.io', {
+  app.use('/cross', expressproxy(crosshost, {
     proxyReqPathResolver: function(req, res) {
       console.log('start local mock')
       return require('url').parse(req.url).path;

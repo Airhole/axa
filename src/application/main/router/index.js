@@ -456,25 +456,6 @@ export default new Router({
         param: {}
       }
     },
-    {
-      path: '/store',
-      name: 'store',
-      component: () => import(/* webpackChunkName: "company" */ '@/application/main/company'),
-      meta: {
-        requireAuth: true,
-        title: 'hello',
-        rightMenu: null,
-        leftMenu: {
-          title: '返回',
-          javascript: 'gobackbtn',
-          params: 'go:recommend'
-        }
-      },
-      Info: {
-        description: '公司介绍',
-        param: {}
-      }
-    },
     { //  名片
       path: '/card',
       name: 'card',
@@ -651,9 +632,9 @@ export default new Router({
       }
     },
     // ...xinNen
-    { //  投保單錄入
-      path: '/applicant_info',
-      name: 'applicant_info',
+    { //  公司简介
+      path: '/applicant',
+      name: 'applicant',
       component: () => import('@/application/main/profile/applicant-info'),
       meta: {
         requireAuth: true,
