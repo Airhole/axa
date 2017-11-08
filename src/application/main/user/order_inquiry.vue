@@ -15,7 +15,7 @@
           <li>{{ $t('assured') }}{{ order.assured }}</li>
           <li>{{ $t('downPremium') }}{{ order.downPremium }}</li>
           <li>{{ $t('underwritingDate') }}{{ order.underwritingDate }}</li>
-          <li>{{ $t('generalizedIntegral') }}{{ order.generalizedIntegral }}</li>
+          <li>{{ $t('scorePoint') }}{{ order.generalizedIntegral }}</li>
         </ul>
       </div>
     </div>
@@ -36,9 +36,8 @@
         startTime: (new Date().getFullYear() - 10) + '-' + ((new Date().getMonth() + 1) > 9 ? (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + '-' + (new Date().getDate() > 9 ? new Date().getDate() : ('0' + new Date().getDate())),
         endTime: (new Date().getFullYear() + 10) + '-' + ((new Date().getMonth() + 1) > 9 ? (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + '-' + (new Date().getDate() > 9 ? new Date().getDate() : ('0' + new Date().getDate())),
         defaultValue: (new Date().getFullYear() + 0) + '-' + ((new Date().getMonth() + 1) > 9 ? (new Date().getMonth() + 1) : (new Date().getMonth() + 1)),
-        // visibility: false,
         cancel: this.$i18n.locale() === "FAN" ? "取消" : "cancel",
-        confirm: this.$i18n.locale() === "EN" ? "确定" : "done"
+        confirm: this.$i18n.locale() === "FAN" ? "確定" : "done"
 
       }
     },
