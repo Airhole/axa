@@ -281,6 +281,7 @@
           font-size: rem-calc(14);
           color: #666666;
           padding: rem-calc(7) 0;
+          list-style: none;
         }
       }
     }

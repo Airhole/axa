@@ -19,8 +19,8 @@
           </div>
         </div>
       </div>
+      <div class="list-sign">{{ $t('hot_tips') }}</div>
       <div class="panel-main">
-        <div class="list-sign">{{ $t('hot_tips') }}</div>
         <ul class="list-product">
           <li  v-for="(item, index) in orders" keys="index">
             <div @click="gotoProduct(item.id)" class="productTable">
@@ -221,6 +221,7 @@
       > .panel-main{
         color: #999;
         flex: 1;
+        margin-bottom: rem-calc(50);
         overflow-y: auto;
         max-height: calc(100vh - #{rem-calc(44)});
       }
@@ -230,6 +231,7 @@
       text-align: center;
       background-color: #ecebeb;
       padding: rem-calc(15) 0;
+      color: #999;
     }
     .list-sign:before, .list-sign:after {
       content: "";
@@ -335,7 +337,6 @@
       bottom: 0;
       left: 0;
       right: 0;
-      margin: rem-calc(25) 0 0 0;
       display: flex;
       line-height: rem-calc(50);
       align-items: center;
