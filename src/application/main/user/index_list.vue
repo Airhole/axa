@@ -144,9 +144,9 @@
               border: 1px solid #999;
               color: #999;
               font-size: rem-calc(11);
-              width: rem-calc(15);
-              height: rem-calc(15);
-              line-height: rem-calc(15);
+              width: rem-calc(16);
+              height: rem-calc(16);
+              line-height: rem-calc(17);
               text-align: center;
               background-color: inherit;
               border-radius: rem-calc(3);
@@ -163,7 +163,6 @@
               right: rem-calc(3);
             }
           }
-          
           p {
             margin-left: rem-calc(20);
             margin-bottom: rem-calc(10);
@@ -174,7 +173,7 @@
               border-radius: rem-calc(3);
               display: inline-block;
               padding: rem-calc(3) rem-calc(5);
-              margin-left: rem-calc(3);
+              margin-left: rem-calc(5);
               font-style: normal;
               font-size: rem-calc(12);
             }
@@ -193,14 +192,17 @@
             text-decoration: none;
             margin-left: rem-calc(20);
             margin-bottom: rem-calc(10);
+            display: block;
+            line-height: rem-calc(15);
           }
           .tel_box:before {
             content: "";
             display: inline-block;
             vertical-align: rem-calc(-1);
             margin-right: rem-calc(5);
-            width: rem-calc(15);
-            height: rem-calc(15);
+            width: rem-calc(16);
+            height: rem-calc(16);
+            line-height:  rem-calc(17);
             background-size: 100%;
             background-repeat: no-repeat;
             background-image: url("~@/assets/image/index_phone.png");

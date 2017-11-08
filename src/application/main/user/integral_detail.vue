@@ -38,8 +38,8 @@
 </template>
 
 <script>
-  import supplies from '@/data/integral'
-  import { IORDER_QUERY } from '@/api'
+  // import supplies from '@/data/integral'
+  import { SCORE_DETAIL } from '@/api'
   export default {
     name: 'integral_detail',
     data () {
@@ -71,7 +71,7 @@
     created: function () {
       this.initDefaultTime(this.filters[1].title)
 
-      this.axios.post(IORDER_QUERY).then(response => {
+      this.axios.post(SCORE_DETAIL).then(response => {
         this.orders = response.data.data
         this.isLoading = false
       }).catch(err => {
