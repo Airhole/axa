@@ -25,12 +25,12 @@
     </header>
     <div class="integral-detail-list" v-for="order in orders">
       <div class="integral-detail-item">
-        <h3>保單號：{{ order.policyNumber }}</h3>
+        <h3>{{ $t('policyNumber') }}{{ order.policyNumber }}</h3>
         <ul>
-          <li>產品名稱：{{ order.productName }}</li>
-          <li>首期保費：{{ order.downPremium }}</li>
-          <li>承保日期：{{ order.underwritingDate }}</li>
-          <li>推廣積分：{{ order.generalizedIntegral }}</li>
+          <li>{{ $t('productName') }}{{ order.productName }}</li>
+          <li>{{ $t('downPremium') }}{{ order.downPremium }}</li>
+          <li>{{ $t('underwritingDate') }}{{ order.underwritingDate }}</li>
+          <li>{{ $t('scorePoint') }}{{ order.generalizedIntegral }}</li>
         </ul>
       </div>
     </div>
@@ -39,46 +39,31 @@
 
 <script>
   import supplies from '@/data/integral'
-  import { INTERGRAL_DETAIL } from '@/api'
+  import { IORDER_QUERY } from '@/api'
   export default {
     name: 'integral_detail',
     data () {
       return {
-        checkedTime: '2017-09',
+        checkedTime: (new Date().getFullYear() - 10) + '-' + ((new Date().getMonth() + 1) > 9 ? (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + '-' + (new Date().getDate() > 9 ? new Date().getDate() : ('0' + new Date().getDate())),
         filters: [{
           title: '销售积分',
           active: false,
           selected: null,
           list: [...supplies]
         }, {
-          title: '2017-09',
+          title: (new Date().getFullYear() - 10) + '-' + ((new Date().getMonth() + 1) > 9 ? (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + '-' + (new Date().getDate() > 9 ? new Date().getDate() : ('0' + new Date().getDate())),
           time: true
         }],
-        orders: [{
-          policyNumber: '192039281729',
-          productName: '健康一生全名醫療保險',
-          policyHolder: '安小盛',
-          assured: '安大盛',
-          downPremium: '1000.00',
-          underwritingDate: '2017-10-09',
-          generalizedIntegral: '100'
-        }, {
-          policyNumber: '192039281729',
-          productName: '健康一生全名醫療保險',
-          policyHolder: '安小盛',
-          assured: '安大盛',
-          downPremium: '1000.00',
-          underwritingDate: '2017-10-09',
-          generalizedIntegral: '100'
-        }]
+        orders: [],
+        cancel: this.$i18n.locale() === "FAN" ? "取消" : "cancel",
+        confirm: this.$i18n.locale() === "EN" ? "确定" : "done"
       }
     },
     created: function () {
       this.initDefaultTime(this.filters[1].title)
 
-      this.axios.get(INTERGRAL_DETAIL).then(response => {
-        // this.result = response.data.data
-        // this.status = response.data.status
+      this.axios.post(IORDER_QUERY).then(response => {
+        this.orders = response.data.data
         this.isLoading = false
       }).catch(err => {
         console.log(err)
@@ -94,7 +79,7 @@
         let valArr = []
         this.checkedTime = val
         valArr = val.split('-')
-        this.filters[1].title = valArr[0] + '年' + parseInt(valArr[1]) + '月'
+        this.filters[1].title = valArr[0] + '年' + parseInt(valArr[1]) + '月' + parseInt(valArr[2]) + '日'
       },
       /**
        * 时间插件展示
@@ -103,12 +88,12 @@
       showTimePlugin () {
         let _self = this
         this.$vux.datetime.show({
-          cancelText: '取消',
-          confirmText: '确定',
-          format: 'YYYY-MM',
+          cancelText: _self.cancel,
+          confirmText: _self.confirm,
+          format: 'YYYY-MM-DD',
           value: _self.checkedTime,
-          minYear: 2013,
-          maxYear: 2018,
+          minYear: new Date().getFullYear() - 10,
+          maxYear: new Date().getFullYear() + 10,
           onConfirm (val) {
             _self.initDefaultTime(val)
           },

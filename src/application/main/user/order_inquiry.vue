@@ -15,7 +15,7 @@
           <li>{{ $t('assured') }}{{ order.assured }}</li>
           <li>{{ $t('downPremium') }}{{ order.downPremium }}</li>
           <li>{{ $t('underwritingDate') }}{{ order.underwritingDate }}</li>
-          <li>{{ $t('generalizedIntegral') }}{{ order.generalizedIntegral }}</li>
+          <li>{{ $t('scorePoint') }}{{ order.generalizedIntegral }}</li>
         </ul>
       </div>
     </div>
