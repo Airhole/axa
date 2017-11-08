@@ -10,7 +10,7 @@
           <div :style="{backgroundImage: 'url(' + iconUrl + ')'}" class="img flex-1" @click="gotoCard">
           </div>
           <div class="flex-1">
-            <p>眾小安<em>AXA安盛</em></p>
+            <p>眾小安<em @click="gotoCompany">AXA安盛</em></p>
             <p>中環營業部  高級銷售經歷</p>
             <a href="tel:130123123123" class="tel_box">電話服務</a>
           </div>
@@ -73,7 +73,8 @@
         })
       },
       LanguageSwitch () {
-        console.log('1111')
+        this.$i18n.locale() === "FAN" ? this.$i18n.set('EN') : this.$i18n.set('FAN')
+        alert('当前语言版本' + this.$i18n.locale())
       },
       gotoCard () {
         this.$router.push({path: "/card", query: {userId: this.userId}})
@@ -83,6 +84,9 @@
       },
       shareStore () {
         console.log('shareStore')
+      },
+      gotoCompany () {
+        this.$router.push({path: "/company", query: {userId: this.userId}})
       }
     }
   }

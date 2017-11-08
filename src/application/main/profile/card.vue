@@ -52,7 +52,7 @@
           <div class="self-introduce">{{userInfo.introduce}}</div>
         </div>
       </div>
-      <a class="share-card">{{$t('share')}}</a>
+      <!-- <a class="share-card">{{$t('share')}}</a> -->
     </div>
     <div v-transfer-dom>
       <loading :show="showLoading"></loading>
