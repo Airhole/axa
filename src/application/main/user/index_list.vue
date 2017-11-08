@@ -4,7 +4,10 @@
       <div class="index-top">
         <div class="w-box">
           <div class="flex-1"><strong>眾小安的微店</strong></div>
-          <div class="pack-e language" @click="LanguageSwitch"><span>A</span><span class="active">中</span></div>
+          <div class="pack-e language" @click="LanguageSwitch">
+            <span>{{language1}}</span>
+            <span class="active">{{language}}</span>
+          </div>
         </div>
         <div class="w-box">
           <div :style="{backgroundImage: 'url(' + iconUrl + ')'}" class="img flex-1" @click="gotoCard">
@@ -12,12 +15,12 @@
           <div class="flex-1">
             <p>眾小安<em @click="gotoCompany">AXA安盛</em></p>
             <p>中環營業部  高級銷售經歷</p>
-            <a href="tel:130123123123" class="tel_box">電話服務</a>
+            <a href="tel:130123123123" class="tel_box">{{ $t('tel_support') }}</a>
           </div>
         </div>
       </div>
       <div class="panel-main">
-        <div class="list-sign">熱賣推薦</div>
+        <div class="list-sign">{{ $t('hot_tips') }}</div>
         <ul class="list-product">
           <li>
             <div @click="gotoProduct">
@@ -53,7 +56,9 @@
     data () {
       return {
         iconUrl: '',
-        userId: ''
+        userId: '',
+        language: '中',
+        language1: 'A'
       }
     },
     created: function () {
@@ -73,8 +78,16 @@
         })
       },
       LanguageSwitch () {
-        this.$i18n.locale() === "FAN" ? this.$i18n.set('EN') : this.$i18n.set('FAN')
-        alert('当前语言版本' + this.$i18n.locale())
+        if (this.$i18n.locale() === "FAN") {
+          this.$i18n.set('EN')
+          this.language = 'A'
+          this.language1 = '中'
+        } else {
+          this.$i18n.set('FAN')
+          this.language = '中'
+          this.language1 = 'A'
+        }
+        // alert('当前语言版本' + this.$i18n.locale())
       },
       gotoCard () {
         this.$router.push({path: "/card", query: {userId: this.userId}})
