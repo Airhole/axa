@@ -54,6 +54,10 @@ export default {
   // announcement start
   "announcement_agree": "部分为是",
   "announcement_unagree": "以上皆否",
-  "announcement_tips": "您的健康不符合投保要求，不能承保"
+  "announcement_tips": "您的健康不符合投保要求，不能承保",
   // announcement end
+  // index start
+  "hot_tips": "熱賣推薦",
+  "tel_support": "電話服務"
+  // index end
 }

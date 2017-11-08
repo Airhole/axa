@@ -54,6 +54,10 @@ export default {
   // announcement start
   "announcement_agree": "part of it is",
   "announcement_unagree": "none of these",
-  "announcement_tips": "can not be insured"
+  "announcement_tips": "can not be insured",
   // announcement end
+  // index start
+  "hot_tips": "hot product",
+  "tel_support": "Tel support"
+  // index end
 }
