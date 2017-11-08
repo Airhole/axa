@@ -1,19 +1,10 @@
 <template>
   <div class="order-inquiry">
-    <div class="order-inquiry-top" @click="visibility = true">
-    <datetime 
-    v-model="defaultValue" 
-    @on-change="change" 
-    :show.sync="visibility" 
-    format="YYYY-MM" 
-    :start-date="startDate" 
-    :end-date="endDate"
-    :cancelText= "cancel"
-    :confirmText = "confirm"
-    >
-    </datetime>
-    <i></i>
-  </div>
+    <div class="order-inquiry-top w-box" @click="showTimePlugin">
+      <div class="flex-1 time-select" @click="timeClick(startTime)">{{ initStartTime }}</div>——
+      <div class="flex-1 time-select" @click="timeClick(endTime)">{{ initEndTime }}</div>
+      <div class="flex-1 search">檢索</div>
+    </div>
     <div class="order-inquiry-list" v-for="order in orders">
       <div class="inquiry-list-item">
         <h3>{{ $t('orderNumber') }}{{ order.orderNumber }}</h3>
@@ -34,30 +25,27 @@
 <script>
   import { Datetime, XButton } from 'vux'
   import { IORDER_QUERY } from '@/api'
-  // var years = []
-  // for (var i = 2000; i <= 2030; i++) {
-  //   years.push({
-  //     name: i + '年',
-  //     value: i + ''
-  //   })
-  // }
-  // console.log(years)
-  
+
   export default {
     name: 'order_inquiry',
     data () {
       return {
+        initStartTime: '',
+        initEndTime: '',
         orders: [],
-        startDate: (new Date().getFullYear() - 10) + '-' + ((new Date().getMonth() + 1) > 9 ? (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + '-' + (new Date().getDate() > 9 ? new Date().getDate() : ('0' + new Date().getDate())),
-        endDate: (new Date().getFullYear() + 10) + '-' + ((new Date().getMonth() + 1) > 9 ? (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + '-' + (new Date().getDate() > 9 ? new Date().getDate() : ('0' + new Date().getDate())),
+        startTime: (new Date().getFullYear() - 10) + '-' + ((new Date().getMonth() + 1) > 9 ? (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + '-' + (new Date().getDate() > 9 ? new Date().getDate() : ('0' + new Date().getDate())),
+        endTime: (new Date().getFullYear() + 10) + '-' + ((new Date().getMonth() + 1) > 9 ? (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + '-' + (new Date().getDate() > 9 ? new Date().getDate() : ('0' + new Date().getDate())),
         defaultValue: (new Date().getFullYear() + 0) + '-' + ((new Date().getMonth() + 1) > 9 ? (new Date().getMonth() + 1) : (new Date().getMonth() + 1)),
-        visibility: false,
+        // visibility: false,
         cancel: this.$i18n.locale() === "FAN" ? "取消" : "cancel",
         confirm: this.$i18n.locale() === "EN" ? "确定" : "done"
+
       }
     },
     created: function () {
       this.change()
+      this.initDefaultTime(this.startTime, "start")
+      this.initDefaultTime(this.endTime, "end")
     },
     components: {
       Datetime,
@@ -72,6 +60,52 @@
           console.log(err)
           throw new Error(err)
         })
+      },
+      /**
+       * 初始化默认时间
+       * @param time 页面当前选择时间
+       */
+      initDefaultTime (val, type) {
+        let valArr = []
+        valArr = val.split('-')
+        if (type == "start") {
+          this.startTime = val
+          this.initStartTime = valArr[0] + '年' + parseInt(valArr[1]) + '月' + parseInt(valArr[2]) + '日'
+        } else if (type == "end") {
+          this.endTime = val
+          this.initEndTime = valArr[0] + '年' + parseInt(valArr[1]) + '月' + parseInt(valArr[2]) + '日'
+        }
+      },
+      /**
+       * 时间插件展示
+       * @param time 页面当前选择时间
+       */
+      showTimePlugin (time, type) {
+        let _self = this
+        this.$vux.datetime.show({
+          cancelText: _self.cancel,
+          confirmText: _self.confirm,
+          format: 'YYYY-MM-DD',
+          value: time,
+          minYear: new Date().getFullYear() - 10,
+          maxYear: new Date().getFullYear() + 10,
+          onConfirm (val) {
+            _self.initDefaultTime(val, type)
+          },
+          onShow () {
+            console.log('plugin show')
+          },
+          onHide () {
+            console.log('plugin hide')
+          }
+        })
+      },
+      /**
+       * 时间插件展示
+       * @param time 页面当前选择时间,开始时间或结束时间
+       */
+      timeClick (time) {
+        time == this.startTime ? this.showTimePlugin(time, "start") : this.showTimePlugin(time, "end")
       }
     }
   }
@@ -91,21 +125,26 @@
       text-align: center;
       padding: rem-calc(15);
       border-bottom: .5px solid #e8e8e8;
-      position: relative;
-      i {
+      line-height: rem-calc(30);
+      .time-select {
+        position: relative;
+      }
+      .time-select:after {
+        content: "";
         height: 0;
         width: 0;
         display: inline-block;
         vertical-align: middle;
-        margin-left: 5px;
+        margin-left: rem-calc(5);
         border-color: #999999 transparent transparent;
         border-style: solid solid none;
         border-width: 4px 4px 0px;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        margin-left: rem-calc(30);
         margin-top: -2px;
+      }
+      .search {
+        background-color: #495dbc;
+        color: #fff;
+        border-radius: rem-calc(5);
       }
       > a {
         color: #666;
