@@ -25,12 +25,9 @@
     </header>
     <div class="integral-detail-list" v-for="order in orders">
       <div class="integral-detail-item">
-        <h3>訂單號：{{ order.orderNumber }}</h3>
+        <h3>保單號：{{ order.policyNumber }}</h3>
         <ul>
-          <li>保單號：{{ order.policyNumber }}</li>
           <li>產品名稱：{{ order.productName }}</li>
-          <li>投保人：{{ order.policyHolder }}</li>
-          <li>被保险人：{{ order.assured }}</li>
           <li>首期保費：{{ order.downPremium }}</li>
           <li>承保日期：{{ order.underwritingDate }}</li>
           <li>推廣積分：{{ order.generalizedIntegral }}</li>
@@ -41,23 +38,21 @@
 </template>
 
 <script>
-  import supplies from '@/data/suppliers'
-  import products from '@/data/products'
+  import supplies from '@/data/integral'
   import { INTERGRAL_DETAIL } from '@/api'
   export default {
     name: 'integral_detail',
     data () {
       return {
+        checkedTime: '',
         filters: [{
-          title: '保险公司',
+          title: '销售积分',
           active: false,
           selected: null,
           list: [...supplies]
         }, {
-          title: '产品类型',
-          active: false,
-          selected: null,
-          list: [...products]
+          title: '2017年9月',
+          time: true
         }],
         orders: [{
           policyNumber: '192039281729',
@@ -79,6 +74,7 @@
       }
     },
     created: function () {
+      // this.showPlugin()
       this.axios.get(INTERGRAL_DETAIL).then(response => {
         // this.result = response.data.data
         // this.status = response.data.status
@@ -89,6 +85,30 @@
       })
     },
     methods: {
+      showTimePlugin () { // 时间插件展示
+        let _self = this
+        this.$vux.datetime.show({
+          cancelText: '取消',
+          confirmText: '确定',
+          format: 'YYYY-MM',
+          value: '2017-09',
+          minYear: 2013,
+          maxYear: 2018,
+          onConfirm (val) {
+            let valArr = []
+            valArr = val.split('-')
+            _self.filters[1].title = valArr[0] + '年' + valArr[1] + '月'
+            console.log(_self.filters[1].title)
+            console.log('plugin confirm', val)
+          },
+          onShow () {
+            console.log('plugin show')
+          },
+          onHide () {
+            console.log('plugin hide')
+          }
+        })
+      },
       /**
        * 打开过滤面板
        * 有多个过滤列表，但是一次只能打开一个
@@ -102,7 +122,12 @@
       },
       toggleFilter ({filters, index}) {
         let filter = filters[index]
-        filter.active ? this.hide({filter}) : this.open({filters, index})
+        // filter.active ? this.hide({filter}) : this.open({filters, index})
+        if (filter.time) {
+          this.showTimePlugin()
+        } else {
+          filter.active ? this.hide({filter}) : this.open({filters, index})
+        }
       },
       /**
        * 隐藏过滤面板
