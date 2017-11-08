@@ -67,7 +67,8 @@ export default {
   // myscore end
   // announcement start
   "announcement_agree": "部分为是",
-  "announcement_unagree": "以上皆否"
+  "announcement_unagree": "以上皆否",
+  "announcement_tips": "您的健康不符合投保要求，不能承保"
   // announcement end
 }
 >>>>>>> br_stanley

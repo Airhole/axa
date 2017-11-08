@@ -192,7 +192,8 @@
         }
       },
       nextStep () {
-        this.$emit('nextStep', this.baseInfo)
+        // this.$emit('nextStep', this.baseInfo)
+        this.$router.push({path: "/announcement", query: {userId: this.userId}})
         /**
          let params = this.__plan(this.formModels)
          console.log('params', this.formModels, params)

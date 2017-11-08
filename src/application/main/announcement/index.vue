@@ -3,7 +3,7 @@
   <article class="main">
     <section class="mainC">
       <section v-for= '(item,index) in this.healthDate' class="content">
-          <div class="title">{{item.title}}</div>
+          <div class="title"><span>{{item.title}}</span></div>
           <div class="contentMain" v-for="(i,n) in item.data">
             <p class="contentItem">{{n+1}}.{{i}}</p>
           </div>
@@ -89,7 +89,7 @@ export default {
           background-color: #fff;
           font-size:rem-calc(14);
           .title{
-            padding: 0 rem-calc(14) 0 rem-calc(29);
+            padding: 0 rem-calc(14) 0 0;
             background-color:#f0f0f0;
             color:#666;
             font-size:rem-calc(14);
@@ -99,6 +99,9 @@ export default {
             align-items: center;
             position: relative;
             box-sizing: border-box;
+            & > span{
+              margin-left: rem-calc(30px);
+            }
           }
           .title:before{
             box-sizing: border-box;

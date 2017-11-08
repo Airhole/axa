@@ -79,7 +79,7 @@
         this.$router.push({path: "/card", query: {userId: this.userId}})
       },
       gotoProduct () {
-        this.$router.push({path: "/announcement", query: {userId: this.userId}})
+        this.$router.push({path: "/product_detail", query: {userId: this.userId}})
       },
       shareStore () {
         console.log('shareStore')
