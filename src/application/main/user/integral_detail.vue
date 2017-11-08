@@ -46,10 +46,19 @@
       return {
         checkedTime: (new Date().getFullYear() - 10) + '-' + ((new Date().getMonth() + 1) > 9 ? (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + '-' + (new Date().getDate() > 9 ? new Date().getDate() : ('0' + new Date().getDate())),
         filters: [{
-          title: this.$i18n.locale() === "FAN" ? '銷售積分' : "",
+          title: this.$i18n.locale() === "FAN" ? '銷售積分' : "sales points",
           active: false,
           selected: null,
-          list: [...supplies]
+          list: [{
+            name: this.$i18n.locale() === "FAN" ? '銷售積分' : "sales points",
+            value: 'saleIntegral',
+            id: 123
+          }, {
+            name: this.$i18n.locale() === "FAN" ? '獎勵積分' : "bonus points",
+            value: 'rewardIntegral',
+            id: 58
+          }]
+          // list: [...supplies]
         }, {
           title: (new Date().getFullYear() - 10) + '-' + ((new Date().getMonth() + 1) > 9 ? (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + '-' + (new Date().getDate() > 9 ? new Date().getDate() : ('0' + new Date().getDate())),
           time: true
@@ -61,7 +70,6 @@
     },
     created: function () {
       this.initDefaultTime(this.filters[1].title)
-      console.log(this.$i18n.locale())
 
       this.axios.post(IORDER_QUERY).then(response => {
         this.orders = response.data.data
