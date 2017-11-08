@@ -44,14 +44,14 @@
     name: 'integral_detail',
     data () {
       return {
-        checkedTime: '',
+        checkedTime: '2017-09',
         filters: [{
           title: '销售积分',
           active: false,
           selected: null,
           list: [...supplies]
         }, {
-          title: '2017年9月',
+          title: '2017-09',
           time: true
         }],
         orders: [{
@@ -74,7 +74,8 @@
       }
     },
     created: function () {
-      // this.showPlugin()
+      this.initDefaultTime(this.filters[1].title)
+
       this.axios.get(INTERGRAL_DETAIL).then(response => {
         // this.result = response.data.data
         // this.status = response.data.status
@@ -85,21 +86,30 @@
       })
     },
     methods: {
+      /**
+       * 初始化默认时间
+       * @param time 页面当前选择时间
+       */
+      initDefaultTime (val) {
+        let valArr = []
+        valArr = val.split('-')
+        this.filters[1].title = valArr[0] + '年' + parseInt(valArr[1]) + '月'
+      },
+      /**
+       * 时间插件展示
+       * @param time 页面当前选择时间
+       */
       showTimePlugin () { // 时间插件展示
         let _self = this
         this.$vux.datetime.show({
           cancelText: '取消',
           confirmText: '确定',
           format: 'YYYY-MM',
-          value: '2017-09',
+          value: _self.checkedTime,
           minYear: 2013,
           maxYear: 2018,
           onConfirm (val) {
-            let valArr = []
-            valArr = val.split('-')
-            _self.filters[1].title = valArr[0] + '年' + valArr[1] + '月'
-            console.log(_self.filters[1].title)
-            console.log('plugin confirm', val)
+            _self.initDefaultTime(val)
           },
           onShow () {
             console.log('plugin show')

@@ -1,7 +1,7 @@
 <template>
   <div class="order-inquiry">
-    <div class="order-inquiry-top" @click="visibility = true">
-    <datetime v-model="defaultValue" @on-change="change" :show.sync="visibility" format="YYYY-MM" :start-date="startDate" :end-date="endDate"></datetime>
+    <div class="order-inquiry-top" @click="showTimePlugin">
+    <!-- <datetime v-model="defaultValue" @on-change="change" :show.sync="visibility" format="YYYY-MM" :start-date="startDate" :end-date="endDate"></datetime> -->
     <i></i>
   </div>
     <div class="order-inquiry-list" v-for="order in orders">
@@ -66,6 +66,30 @@
     methods: {
       change (value) {
         console.log('change', value)
+      },
+      showTimePlugin () { // 时间插件展示
+        let _self = this
+        this.$vux.datetime.show({
+          cancelText: '取消',
+          confirmText: '确定',
+          format: 'YYYY-MM',
+          value: '2017-09',
+          minYear: 2013,
+          maxYear: 2018,
+          onConfirm (val) {
+            let valArr = []
+            valArr = val.split('-')
+            _self.filters[1].title = valArr[0] + '年' + valArr[1] + '月'
+            console.log(_self.filters[1].title)
+            console.log('plugin confirm', val)
+          },
+          onShow () {
+            console.log('plugin show')
+          },
+          onHide () {
+            console.log('plugin hide')
+          }
+        })
       }
     }
   }
