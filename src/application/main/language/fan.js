@@ -28,20 +28,6 @@ export default {
   "insureWarn": "溫馨提示：",
   "insureEmail": "電子保單將發送到投保人郵箱：{email}",
   // insure end
-<<<<<<< HEAD
-  // user start
-  "oneWeekData": "近七天數據",
-  "shopTurnover": "微店成交額(元)",
-  "orderInquiry": "訂單查詢",
-  "myScore": "我的積分",
-  // user end
-  // myscore start
-  "scoreAccountBalance": "積分賬戶餘額",
-  "monthScore": "本月積分",
-  "viewDetails": "查看明細"
-  // myscore end
-}
-=======
   // order start
   "orderNumber": "訂單號：",
   "policyNumber": "保單號：",
@@ -71,4 +57,3 @@ export default {
   "announcement_tips": "您的健康不符合投保要求，不能承保"
   // announcement end
 }
->>>>>>> br_stanley

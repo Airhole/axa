@@ -9,16 +9,6 @@
 ********************************************************************-->
 
 <template>
-<<<<<<< HEAD
-  <div class="my-score">
-    <div class="score-head">
-      <p>{{ $t('scoreAccountBalance') }}</p>
-      <p>{{ scoreAccountBalance }}</p>
-      <p>{{ $t('monthScore') }} {{ monthScore }}</p>
-    </div>
-    <div class="score-btn">
-      <x-button class="primary-blue" @click.native="handleDetails">{{ $t('viewDetails') }}</x-button>
-=======
   <div>
     <div class="my-score"  v-show="!showLoading">
       <div class="score-head">
@@ -32,19 +22,13 @@
     </div>
     <div v-transfer-dom>
       <loading :show="showLoading"></loading>
->>>>>>> br_stanley
     </div>
   </div>
 </template>
 
 <script>
-<<<<<<< HEAD
-  import { XButton } from 'vux'
-  import { MY_SCORE } from '@/api'
-=======
   import { XButton, Loading, TransferDomDirective as TransferDom } from 'vux'
   import { IMY_SCORE } from '@/api'
->>>>>>> br_stanley
   export default {
     name: 'my-score',
     components: {
@@ -52,24 +36,6 @@
     },
     data: () => {
       return {
-<<<<<<< HEAD
-        scoreAccountBalance: '',
-        monthScore: ''
-      }
-    },
-    created: function () {
-      this.axios.get(MY_SCORE).then(response => {
-        this.data = response.data.data
-        if (this.data) {
-          this.scoreAccountBalance = this.data.scoreAccountBalance
-          this.monthScore = this.data.monthScore
-        }
-        this.isLoading = false
-      }).catch(err => {
-        console.log(err)
-        throw new Error(err)
-      })
-=======
         total: 0,
         showLoading: true
       }
@@ -79,7 +45,6 @@
     },
     directives: {
       TransferDom
->>>>>>> br_stanley
     },
     methods: {
       handleDetails () {

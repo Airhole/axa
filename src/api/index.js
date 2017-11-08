@@ -83,6 +83,3 @@ export const READ_INSURED_INFO = path('/insure/customer/loadApplicant')
 // 用户中心
 let user = '/user'
 export const USER_INDEX = path(user, true)
-//用户中心-我的积分
-let myScore = '/myscore'
-export const MY_SCORE = path(myScore, true)
