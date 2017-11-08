@@ -46,7 +46,7 @@
       return {
         checkedTime: (new Date().getFullYear() - 10) + '-' + ((new Date().getMonth() + 1) > 9 ? (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + '-' + (new Date().getDate() > 9 ? new Date().getDate() : ('0' + new Date().getDate())),
         filters: [{
-          title: '销售积分',
+          title: this.$i18n.locale() === "FAN" ? '銷售積分' : "",
           active: false,
           selected: null,
           list: [...supplies]
@@ -56,11 +56,12 @@
         }],
         orders: [],
         cancel: this.$i18n.locale() === "FAN" ? "取消" : "cancel",
-        confirm: this.$i18n.locale() === "EN" ? "确定" : "done"
+        confirm: this.$i18n.locale() === "FAN" ? "確定" : "done"
       }
     },
     created: function () {
       this.initDefaultTime(this.filters[1].title)
+      console.log(this.$i18n.locale())
 
       this.axios.post(IORDER_QUERY).then(response => {
         this.orders = response.data.data
