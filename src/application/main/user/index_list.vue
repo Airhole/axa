@@ -223,6 +223,7 @@
         flex: 1;
         margin-bottom: rem-calc(50);
         overflow-y: auto;
+        -webkit-overflow-scrolling : touch;
         max-height: calc(100vh - #{rem-calc(44)});
       }
     }
