@@ -185,7 +185,7 @@
             color: #fff;
             text-align: center;
             background-color: #485bba;
-            padding: rem-calc(5) rem-calc(20) rem-calc(5) rem-calc(5);
+            padding: rem-calc(4) rem-calc(20) rem-calc(5) rem-calc(5);
             max-width: rem-calc(98);
             border-radius: rem-calc(15);
             margin-bottom: 0;
@@ -194,6 +194,7 @@
             margin-bottom: rem-calc(10);
             display: block;
             line-height: rem-calc(15);
+            white-space:nowrap;
           }
           .tel_box:before {
             content: "";
@@ -202,7 +203,7 @@
             margin-right: rem-calc(5);
             width: rem-calc(16);
             height: rem-calc(16);
-            line-height:  rem-calc(17);
+            line-height:  rem-calc(16);
             background-size: 100%;
             background-repeat: no-repeat;
             background-image: url("~@/assets/image/index_phone.png");
