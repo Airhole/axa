@@ -26,27 +26,27 @@
         <div class="tips-wrapper">
           <div class="tips">
             <span class="icon" :class="{active: selected}" @click="changeAgreement"></span>
-            <span class="view">本人已閱讀並同意
-            <a href="#">『使用條款』</a>、
-            <a href="#">『聲明』</a>、
-            <a href="#">『保單條款』</a>、
-            <a href="#">『條件和不保事項』</a>
-            <a href="#">『私隱政策聲明』</a>
-            以及
-            <a href="#">『收集個人資料』</a>
+            <span class="view">{{ $t('view1') }}
+            <a href="#">{{ $t('termsOfUse') }}</a>、
+            <a href="#">{{ $t('declaration') }}</a>、
+            <a href="#">{{ $t('policyWording') }}</a>、
+            <a href="#">{{ $t('condition') }}</a>
+            <a href="#">{{ $t('privacyPolicy') }}</a>
+            {{ $t('view2') }}
+            <a href="#">{{ $t('personalInformation1') }}</a>
           </span>
             <input class="hiddenInput" type="hidden" name="clause" v-validate
-                   data-vv-as="请同意营销员声明" data-vv-rules="required">
+                   :data-vv-as="$t('view3')" data-vv-rules="required">
           </div>
           <div class="tips">
             <span class="icon" :class="{active: selected}" @click="changeAgreement"></span>
             <span class="view">
-            本人／我們不同意貴公司根據
-            <a href="#">『收集個人資料的聲明』</a>
-            使用和轉移本人／我們的個人資料作直接促銷用途（參閱「在直接促銷中使用及將其個人資料提供予其他人士」部份）及並不願意接收任何貴公司的推廣及直接促銷的材料。
+            {{ $t('view4') }}
+            <a href="#">{{ $t('personalInformation2') }}</a>
+            {{ $t('view5') }}。
           </span>
             <input class="hiddenInput" type="hidden" name="clause" v-validate
-                   data-vv-as="请同意营销员声明" data-vv-rules="required">
+                   :data-vv-as="$t('view6')" data-vv-rules="required">
           </div>
         </div>
       </div>
@@ -56,8 +56,8 @@
       <!--<default-btn class='next' val='下一步' @Click="nextStep"></default-btn>-->
       <div class="btn-wrapper">
         <!--<default-btn class='next' val='下一步' @Click="nextStep"></default-btn>-->
-        <div class="pre-step">需支付：<span>0.00&nbsp;</span>港元<label>（首月免費）</label></div>
-        <div class="next-step" @click.self="nextStep">立即投保</div>
+        <div class="pre-step">{{ $t('payText1') }}<span>0.00&nbsp;</span>{{ $t('payText2') }}<label>{{ $t('payText3') }}</label></div>
+        <div class="next-step" @click="nextStep">{{ $t('immediateInsure') }}</div>
       </div>
     </div>
   </div>

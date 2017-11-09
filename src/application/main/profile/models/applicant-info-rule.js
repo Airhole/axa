@@ -1,5 +1,7 @@
 import errorMsg from '@/components/items/error-msg/error-msg.js'
 import dict from '@/application/base/dict-from-core'
+import Vue from 'vue'
+let translate = Vue.i18n.translate
 let date = new Date()
 let stime = `${date.getFullYear() - 65}-${date.getMonth() + 1}-${date.getDate()}`
 let etime = `${date.getFullYear() - 16}-${date.getMonth() + 1}-${date.getDate()}`
@@ -10,129 +12,129 @@ let etime = `${date.getFullYear() - 16}-${date.getMonth() + 1}-${date.getDate()}
 
 export default {
   applicantInfo: {
-    label: '投保人信息',
+    label: translate('applicantInfo'),
     name: 'applicantInfo',
     type: 'title',
     extraClass: 'title'
   },
   name: {
-    label: '姓名',
+    label: translate('name'),
     type: 'input',
     rules: {
       // maxlength: 6,
       vRules: 'required|username|checkUser|usernameLength',
-      placeholder: '請輸入姓名',
+      placeholder: translate('nameTips'),
       errorMsg: errorMsg.name
     }
   },
   gender: {
-    label: '性别',
+    label: translate('gender'),
     type: 'sex',
     rules: {
       disabled: false
     }
   },
   birthday: {
-    label: '出生日期',
+    label: translate('birthday'),
     type: 'time',
     rules: {
       vRules: 'required',
       // stime: stime,
       // etime: etime,
-      placeholder: '請輸入出生日期',
+      placeholder: translate('birthdayTips'),
       errorMsg: errorMsg.birthday
     }
   },
   entryCertType: {
-    label: '證件類型',
+    label: translate('entryCertType'),
     type: 'select',
     rules: {
       vRules: 'required',
-      placeholder: '請選擇證件類型',
+      placeholder: translate('entryCertTypeTips'),
       backendKey: {companyId: '', key: 'permitType'},
       options: [{name: "", value: ""}],
       errorMsg: errorMsg.nationality
     }
   },
   certNo: {
-    label: '證件號碼',
+    label: translate('certNo'),
     type: "input",
     rules: {
       vRules: 'required|idcard',
       maxlength: '18',
-      placeholder: '請輸入身份證號碼',
+      placeholder: translate('certNoTips'),
       errorMsg: errorMsg.idCardNo
     }
   },
   certValidate: {
-    label: '證件有效期至',
+    label: translate('certValidate'),
     type: 'time',
     rules: {
       vRules: 'required',
       // stime: stime,
       // etime: etime,
       showExtBtn: true,
-      placeholder: '請輸入有效期至',
-      txt: '长期',
+      placeholder: translate('certValidateTips'),
+      txt: translate('certValidateText'),
       errorMsg: errorMsg.birthday
     }
   },
   mainlandIdNo: {
-    label: '大陸身份證',
+    label: translate('mainlandIdNo'),
     type: "input",
     rules: {
       vRules: 'required|idcard',
       maxlength: '18',
-      placeholder: '請輸入大陸身份證號碼',
+      placeholder: translate('mainlandIdNoTips'),
       errorMsg: errorMsg.idCardNo
     }
   },
   entryCitizenship: {
-    label: '國籍',
+    label: translate('entryCitizenship'),
     type: 'select',
     rules: {
       vRules: 'required',
-      placeholder: '請選擇國籍',
+      placeholder: translate('entryCitizenshipTips'),
       options: [dict.nation],
       backendKey: {companyId: '', key: 'country'},
       errorMsg: errorMsg.nationality
     }
   },
   mobile: {
-    label: '手機號碼',
+    label: translate('mobile'),
     type: "input",
     rules: {
       vRules: 'required|mobile|checkmobile',
       maxlength: 11,
-      placeholder: '請輸入手機號碼',
+      placeholder: translate('mobileTips'),
       errorMsg: errorMsg.mobilePhone
     }
   },
   email: {
-    label: '電子郵箱',
+    label: translate('email'),
     type: "input",
     rules: {
       vRules: 'required|mobile|checkmobile',
       maxlength: 11,
-      placeholder: '請輸入電子郵箱',
+      placeholder: translate('emailTips'),
       errorMsg: errorMsg.mobilePhone
     }
   },
   addressApplicant: {
-    label: '地址',
+    label: translate('address'),
     type: 'address',
     display: 'block',
     rules: {
       vRules: 'required',
-      placeholder: '请选择户籍所在地',
+      placeholder: translate('addressTips'),
       options: [['广东']],
       errorMsg: errorMsg.registeredBylaw,
       detail: {
-        label: '詳細地址',
+        label: translate('addressDetails'),
         type: 'input',
         rules: {
           vRules: 'required|min:5|max:30',
-          placeholder: '请输入户口详细地址',
+          placeholder: translate('addressDetailsTips'),
           showExtBtn: false,
           errorMsg: errorMsg.registeredBylawDetailAdress
         }
@@ -140,113 +142,113 @@ export default {
     }
   },
   country: {
-    label: '國家',
+    label: translate('country'),
     type: 'select',
     rules: {
       vRules: 'required',
-      placeholder: '請選擇國家',
+      placeholder: translate('countryTips'),
       options: [dict.nation],
       backendKey: {companyId: '', key: 'country'},
       errorMsg: errorMsg.nationality
     }
   },
   entryRelation: {
-    label: '與被保人關係',
+    label: translate('entryRelation'),
     type: 'select',
     rules: {
       vRules: 'required',
-      placeholder: '请选择與被保人關係',
+      placeholder: translate('entryRelationTips'),
       backendKey: {companyId: '', key: 'relationships'},
       options: [dict.relationshipWithInsured],
       errorMsg: errorMsg.education
     }
   },
   insuredInfo: {
-    label: '被保人信息',
+    label: translate('insuredInfo'),
     name: 'insuredInfo',
     type: 'title',
     extraClass: 'title'
   },
   insuredName: {
-    label: '姓名',
+    label: translate('name'),
     type: 'input',
     rules: {
       // maxlength: 6,
       vRules: 'required|username|checkUser|usernameLength',
-      placeholder: '請輸入姓名',
+      placeholder: translate('nameTips'),
       errorMsg: errorMsg.name
     }
   },
   insuredGender: {
-    label: '性别',
+    label: translate('gender'),
     type: 'sex',
     rules: {
       disabled: false
     }
   },
   insuredBirthday: {
-    label: '出生日期',
+    label: translate('birthday'),
     type: 'time',
     rules: {
       vRules: 'required',
       // stime: stime,
       // etime: etime,
-      placeholder: '請輸入出生日期',
+      placeholder: translate('birthdayTips'),
       errorMsg: errorMsg.birthday
     }
   },
   insuredEntryCertType: {
-    label: '證件類型',
+    label: translate('entryCertType'),
     type: 'select',
     rules: {
       vRules: 'required',
-      placeholder: '請選擇證件類型',
+      placeholder: translate('entryCertTypeTips'),
       backendKey: {companyId: '', key: 'permitType'},
       options: [{name: "", value: ""}],
       errorMsg: errorMsg.nationality
     }
   },
   insuredCertNo: {
-    label: '證件號碼',
+    label: translate('certNo'),
     type: "input",
     rules: {
       vRules: 'required|idcard',
       maxlength: '18',
-      placeholder: '請輸入身份證號碼',
+      placeholder: translate('certNoTips'),
       errorMsg: errorMsg.idCardNo
     }
   },
   insuredCertValidate: {
-    label: '證件有效期至',
+    label: translate('certValidate'),
     type: 'time',
     rules: {
       vRules: 'required',
       // stime: stime,
       // etime: etime,
       showExtBtn: true,
-      placeholder: '請輸入有效期至',
-      txt: '长期',
+      placeholder: translate('certValidateTips'),
+      txt: translate('certValidateText'),
       errorMsg: errorMsg.birthday
     }
   },
   insuredMainlandIdNo: {
-    label: '大陸身份證',
+    label: translate('mainlandIdNo'),
     type: "input",
     rules: {
       vRules: 'required|idcard',
       maxlength: '18',
-      placeholder: '請輸入大陸身份證號碼',
+      placeholder: translate('mainlandIdNoTips'),
       errorMsg: errorMsg.idCardNo
     }
   },
   beneficiaryInfo: {
-    label: '受益人',
+    label: translate('beneficiary'),
     name: 'beneficiaryInfo',
     type: 'title',
     extraClass: 'title'
   },
   beneficiary: {
-    label: '受益人',
+    label: translate('beneficiary'),
     type: "input",
     rules: {
       vRules: 'required|mobile|checkmobile',
@@ -257,7 +259,7 @@ export default {
     }
   },
   insuredPlan: {
-    label: '保障計劃',
+    label: translate('insuredPlan'),
     name: 'insuredPlan',
     type: 'title',
     extraClass: 'title'
