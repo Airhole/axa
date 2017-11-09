@@ -81,12 +81,15 @@
         <!--<default-btn class='next' val='下一步' @Click="nextStep"></default-btn>-->
         <div class="pre-step">
           <span>
+            <i :style="{backgroundImage: 'url(' + iconUrl + ')'}"></i>
             眾安
           </span>
           <span>
+            <i></i>
             微店
           </span>
           <span>
+            <i></i>
             電話
           </span>
         </div>
@@ -124,7 +127,8 @@
         },
         baseInfo: {},
         selected: false,
-        tabIndex: 0
+        tabIndex: 0,
+        iconUrl: ''
       }
     },
     methods: {
@@ -325,7 +329,7 @@
     @include fullpage;
     overflow: hidden;
     overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+    // -webkit-overflow-scrolling: touch;
     nav {
       height: rem-calc(200);
       display: flex;
@@ -409,27 +413,61 @@
       right: 0;
       margin: rem-calc(25) 0 0 0;
       display: flex;
-      line-height: rem-calc(50);
+      line-height: rem-calc(30);
       align-items: center;
       justify-content: center;
       text-align: center;
       font-size: rem-calc(15);
-      border-top: 1px solid #e9e9e9;
+      // border-top: 1px solid #e9e9e9;
+      background-color: #fff;
       .pre-step {
         flex: 1;
         display: flex;
+        border-top: 1px solid #e9e9e9;
         span {
           flex: 1;
           border-right: 1px solid #e6e6e6;
+          font-size: rem-calc(10);
+          position: relative;
+          padding-top: rem-calc(20);
+          i {
+            position: absolute;
+            left: 50%;
+            top: rem-calc(8);
+            background-size: 100%;
+            background-repeat: no-repeat;
+            margin-left: rem-calc(-10);
+          }
+        }
+        span:nth-child(1) {
+          i {
+            width: rem-calc(20);
+            height: rem-calc(20);
+            background-image: url("~@/assets/image/shop_03.png");
+          }
+        }
+        span:nth-child(2) {
+          i {
+            width: rem-calc(21);
+            height: rem-calc(18);
+            background-image: url("~@/assets/image/shop_03.png");
+          }
         }
         span:last-child {
           border: none;
+          i {
+            width: rem-calc(20);
+            height: rem-calc(20);
+            background-image: url("~@/assets/image/phone_06.png");
+          }
         }
       }
       .next-step {
+        padding: rem-calc(10) 0;
         flex: 1;
         background: #485BBA;
         color: #fff;
+        border-top: 1px solid #485BBA;
       }
     }
   }
