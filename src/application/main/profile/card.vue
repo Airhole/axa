@@ -62,7 +62,7 @@
 <script>
   import {Loading, TransferDomDirective as TransferDom} from 'vux'
   export default {
-    name: 'planShow',
+    name: 'card',
     directives: {
       TransferDom
     },

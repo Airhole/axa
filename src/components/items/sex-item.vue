@@ -9,8 +9,8 @@
 <template>
   <div class="choose_gender">
     <div class="choose_gender_content" :class="{dis: rules && rules.disabled === true}">
-      <div class="male" :class="{seled: seled === true}" @click="onChange('M')">男</div>
-      <div class="famale" :class="{seled: seled === false}" @click="onChange('F')">女</div>
+      <div class="male" :class="{seled: seled === true}" @click="onChange('M')">{{ $t('genderMale') }}</div>
+      <div class="famale" :class="{seled: seled === false}" @click="onChange('F')">{{ $t('genderFemale') }}</div>
     </div>
   </div>
 </template>
