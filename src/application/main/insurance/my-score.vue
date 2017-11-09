@@ -48,7 +48,7 @@
     },
     methods: {
       handleDetails () {
-        // console.log('点击 查看明细')
+        this.$router.push({ path: 'integral_detail', query: { userId: 123 } })
       },
       change (value) {
         this.axios.post(IMY_SCORE).then(response => {

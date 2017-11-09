@@ -67,6 +67,9 @@ export const IACCOUNT_SCORE = path(accoutScore, true)
 let myScore = '/myscore'
 export const IMY_SCORE = path(myScore, true)
 
+let scoreDetail = '/scoredetail'
+export const SCORE_DETAIL = path(scoreDetail, true)
+
 let agentAccount = '/agent'
 export const IACCOUNT_AGENT = path(agentAccount, true)
 

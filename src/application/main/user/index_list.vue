@@ -19,8 +19,8 @@
           </div>
         </div>
       </div>
+      <div class="list-sign">{{ $t('hot_tips') }}</div>
       <div class="panel-main">
-        <div class="list-sign">{{ $t('hot_tips') }}</div>
         <ul class="list-product">
           <li  v-for="(item, index) in orders" keys="index">
             <div @click="gotoProduct(item.id)" class="productTable">
@@ -144,9 +144,9 @@
               border: 1px solid #999;
               color: #999;
               font-size: rem-calc(11);
-              width: rem-calc(15);
-              height: rem-calc(15);
-              line-height: rem-calc(15);
+              width: rem-calc(16);
+              height: rem-calc(16);
+              line-height: rem-calc(17);
               text-align: center;
               background-color: inherit;
               border-radius: rem-calc(3);
@@ -163,7 +163,6 @@
               right: rem-calc(3);
             }
           }
-          
           p {
             margin-left: rem-calc(20);
             margin-bottom: rem-calc(10);
@@ -174,7 +173,7 @@
               border-radius: rem-calc(3);
               display: inline-block;
               padding: rem-calc(3) rem-calc(5);
-              margin-left: rem-calc(3);
+              margin-left: rem-calc(5);
               font-style: normal;
               font-size: rem-calc(12);
             }
@@ -186,21 +185,25 @@
             color: #fff;
             text-align: center;
             background-color: #485bba;
-            padding: rem-calc(5) rem-calc(20) rem-calc(5) rem-calc(5);
+            padding: rem-calc(4) rem-calc(20) rem-calc(5) rem-calc(5);
             max-width: rem-calc(98);
             border-radius: rem-calc(15);
             margin-bottom: 0;
             text-decoration: none;
             margin-left: rem-calc(20);
             margin-bottom: rem-calc(10);
+            display: block;
+            line-height: rem-calc(15);
+            white-space:nowrap;
           }
           .tel_box:before {
             content: "";
             display: inline-block;
             vertical-align: rem-calc(-1);
             margin-right: rem-calc(5);
-            width: rem-calc(15);
-            height: rem-calc(15);
+            width: rem-calc(16);
+            height: rem-calc(16);
+            line-height:  rem-calc(16);
             background-size: 100%;
             background-repeat: no-repeat;
             background-image: url("~@/assets/image/index_phone.png");
@@ -219,7 +222,9 @@
       > .panel-main{
         color: #999;
         flex: 1;
+        margin-bottom: rem-calc(50);
         overflow-y: auto;
+        -webkit-overflow-scrolling : touch;
         max-height: calc(100vh - #{rem-calc(44)});
       }
     }
@@ -228,6 +233,7 @@
       text-align: center;
       background-color: #ecebeb;
       padding: rem-calc(15) 0;
+      color: #999;
     }
     .list-sign:before, .list-sign:after {
       content: "";
@@ -333,7 +339,6 @@
       bottom: 0;
       left: 0;
       right: 0;
-      margin: rem-calc(25) 0 0 0;
       display: flex;
       line-height: rem-calc(50);
       align-items: center;

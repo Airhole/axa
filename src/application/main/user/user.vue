@@ -8,7 +8,7 @@
       </div>
       <div class="user-list">
         <router-link to="order_inquiry" class="user-list-item">{{ $t('bookingSearch') }}</router-link>
-        <router-link to="my_points" class="user-list-item">{{ $t('bookingScore') }}</router-link>
+        <router-link to="myscore" class="user-list-item">{{ $t('bookingScore') }}</router-link>
       </div>
     </div>
     <div v-transfer-dom>
