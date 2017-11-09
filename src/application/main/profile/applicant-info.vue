@@ -297,7 +297,7 @@
       overflow: hidden;
       overflow-y: auto;
       -webkit-overflow-scrolling: touch;
-      margin: 0 0 rem-calc(50) 0;
+      margin: 0 0 rem-calc(60) 0;
     }
     .tips-bg {
       background: #F7F7F7;
