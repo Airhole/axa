@@ -4,7 +4,7 @@
       <div class="index-top">
         <div class="w-box">
           <div class="flex-1"><strong>眾小安的微店</strong></div>
-          <div class="pack-e language" @click="LanguageSwitch">
+          <div class="pack-e language" @click.self="LanguageSwitch">
             <span>{{language1}}</span>
             <span class="active">{{language}}</span>
           </div>
@@ -72,8 +72,9 @@
       init () {
         console.log('init')
         this.getOrderInfo()
+        this.LanguageSwitch()
       },
-      getAgentInfo () {
+      getAgentInfo () { // 获取代理人信息
         this.axios.post(IACCOUNT_AGENT).then(response => {
           this.orders = response.data.data
           this.isLoading = false
@@ -82,7 +83,7 @@
           throw new Error(err)
         })
       },
-      getOrderInfo () {
+      getOrderInfo () { // 获取产品信息
         this.axios.post(HOT_PRODUCT).then(response => {
           this.orders = response.data.data
           this.isLoading = false
@@ -91,7 +92,7 @@
           throw new Error(err)
         })
       },
-      LanguageSwitch () {
+      LanguageSwitch () { // 切换当前语言环境
         if (this.$i18n.locale() === "FAN") {
           this.$i18n.set('EN')
           this.language = 'A'
@@ -256,7 +257,7 @@
           & .productImg {
             display: table-cell;
             width: 40%;
-            height: 100px;
+            height: rem-calc(45);
             background-size: 100% 100%;
             background-repeat: no-repeat;
           }

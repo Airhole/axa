@@ -27,6 +27,9 @@ Vue.config.devtools = true
 
 Vue.mixin(baseMixin)
 
+const FastClick = require('fastclick')
+FastClick.attach(document.body)
+
 // validator
 const veeConfig = {
   errorBagName: '__errors', // change if property conflicts.

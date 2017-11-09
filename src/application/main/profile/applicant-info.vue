@@ -57,7 +57,7 @@
       <div class="btn-wrapper">
         <!--<default-btn class='next' val='下一步' @Click="nextStep"></default-btn>-->
         <div class="pre-step">需支付：<span>0.00&nbsp;</span>港元<label>（首月免費）</label></div>
-        <div class="next-step" @click="nextStep">立即投保</div>
+        <div class="next-step" @click.self="nextStep">立即投保</div>
       </div>
     </div>
   </div>
@@ -135,6 +135,7 @@
         }
       },
       nextStep () {
+        alert('ffff')
         // this.$emit('nextStep', this.baseInfo)
         this.$router.push({path: "/result", query: {userId: this.userId}})
         /**

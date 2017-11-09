@@ -123,7 +123,7 @@ const xinNen = [{ // 产品列表
 { //  在线投保-投保人信息
   path: '/insurance/applicant_info',
   name: 'insurance_applicant_info',
-  component: () => import(/* webpackChunkName: "applicant-info" */ '@/application/main/insurance/applicant-info.vue'),
+  component: () => import(/* webpackChunkName: "applicant-info" */ '@/application/main/insurance/applicant-enter.vue'),
   meta: {
     requireAuth: true,
     title: '投保人信息',
