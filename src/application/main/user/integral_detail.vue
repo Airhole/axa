@@ -38,18 +38,27 @@
 </template>
 
 <script>
-  import supplies from '@/data/integral'
-  import { IORDER_QUERY } from '@/api'
+  // import supplies from '@/data/integral'
+  import { SCORE_DETAIL } from '@/api'
   export default {
     name: 'integral_detail',
     data () {
       return {
         checkedTime: (new Date().getFullYear() - 10) + '-' + ((new Date().getMonth() + 1) > 9 ? (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + '-' + (new Date().getDate() > 9 ? new Date().getDate() : ('0' + new Date().getDate())),
         filters: [{
-          title: this.$i18n.locale() === "FAN" ? '銷售積分' : "",
+          title: this.$i18n.locale() === "FAN" ? '銷售積分' : "sales points",
           active: false,
           selected: null,
-          list: [...supplies]
+          list: [{
+            name: this.$i18n.locale() === "FAN" ? '銷售積分' : "sales points",
+            value: 'saleIntegral',
+            id: 123
+          }, {
+            name: this.$i18n.locale() === "FAN" ? '獎勵積分' : "bonus points",
+            value: 'rewardIntegral',
+            id: 58
+          }]
+          // list: [...supplies]
         }, {
           title: (new Date().getFullYear() - 10) + '-' + ((new Date().getMonth() + 1) > 9 ? (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + '-' + (new Date().getDate() > 9 ? new Date().getDate() : ('0' + new Date().getDate())),
           time: true
@@ -61,9 +70,8 @@
     },
     created: function () {
       this.initDefaultTime(this.filters[1].title)
-      console.log(this.$i18n.locale())
 
-      this.axios.post(IORDER_QUERY).then(response => {
+      this.axios.post(SCORE_DETAIL).then(response => {
         this.orders = response.data.data
         this.isLoading = false
       }).catch(err => {
@@ -273,6 +281,7 @@
           font-size: rem-calc(14);
           color: #666666;
           padding: rem-calc(7) 0;
+          list-style: none;
         }
       }
     }
