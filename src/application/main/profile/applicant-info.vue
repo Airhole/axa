@@ -266,9 +266,9 @@
 
   .page_insurance-applicant-info {
     @include fullpage;
-    overflow: hidden;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+    // overflow: hidden;
+    // overflow-y: auto;
+    // -webkit-overflow-scrolling: touch;
     .tab {
       background: #fff;
       position: fixed;
@@ -294,6 +294,9 @@
       }
     }
     .form {
+      overflow: hidden;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
       margin: 0 0 rem-calc(50) 0;
     }
     .tips-bg {
@@ -360,15 +363,17 @@
       margin: rem-calc(25) 0 0 0;
       display: flex;
       line-height: rem-calc(50);
+      height: rem-calc(50);
       align-items: center;
       justify-content: center;
       text-align: center;
       font-size: rem-calc(15);
-      border-top: 1px solid #e9e9e9;
+      // border-top: 1px solid #e9e9e9;
       .pre-step {
         flex: 3;
         color: #666;
         background: #fff;
+        border-top: 1px solid #e9e9e9;
         span {
           color: #FE1641;
         }
@@ -381,6 +386,8 @@
         flex: 2;
         background: #485BBA;
         color: #fff;
+        border-top: 1px solid #485BBA;
+        box-sizing: border-box;
       }
     }
   }
