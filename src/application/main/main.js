@@ -27,6 +27,7 @@ Vue.config.devtools = true
 
 Vue.mixin(baseMixin)
 
+// 点击延迟
 const FastClick = require('fastclick')
 FastClick.attach(document.body)
 

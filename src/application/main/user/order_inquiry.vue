@@ -1,9 +1,18 @@
+<!--********************************************************************
+ * Author     : ying
+ * Email      :
+ * Last modified  : 2017-11-09
+ * Filename     : order_inquiry.vue
+ * Description    : 订单列表查询
+
+********************************************************************-->
 <template>
   <div class="order-inquiry">
     <div class="order-inquiry-top w-box" @click="showTimePlugin">
-      <div class="flex-1 time-select" @click="timeClick(startTime)">{{ initStartTime }}</div>——
+      <div class="flex-1 time-select" @click="timeClick(startTime)">{{ initStartTime }}</div>
+      <div class="flex-1 line box-cm"></div>
       <div class="flex-1 time-select" @click="timeClick(endTime)">{{ initEndTime }}</div>
-      <div class="flex-1 search">檢索</div>
+      <div class="flex-1 search" @click="searchResult">{{ search }}</div>
     </div>
     <div class="order-inquiry-list" v-for="order in orders">
       <div class="inquiry-list-item">
@@ -36,6 +45,7 @@
         startTime: (new Date().getFullYear() - 10) + '-' + ((new Date().getMonth() + 1) > 9 ? (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + '-' + (new Date().getDate() > 9 ? new Date().getDate() : ('0' + new Date().getDate())),
         endTime: (new Date().getFullYear() + 10) + '-' + ((new Date().getMonth() + 1) > 9 ? (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + '-' + (new Date().getDate() > 9 ? new Date().getDate() : ('0' + new Date().getDate())),
         defaultValue: (new Date().getFullYear() + 0) + '-' + ((new Date().getMonth() + 1) > 9 ? (new Date().getMonth() + 1) : (new Date().getMonth() + 1)),
+        search: this.$i18n.locale() === "FAN" ? "檢索" : "search",
         cancel: this.$i18n.locale() === "FAN" ? "取消" : "cancel",
         confirm: this.$i18n.locale() === "FAN" ? "確定" : "done"
 
@@ -105,6 +115,20 @@
        */
       timeClick (time) {
         time == this.startTime ? this.showTimePlugin(time, "start") : this.showTimePlugin(time, "end")
+      },
+      /**
+       * 检索事件触发
+       */
+      searchResult () {
+        console.log(this.startTime)
+        console.log(this.endTime)
+        this.axios.post(IORDER_QUERY).then(response => {
+          this.orders = response.data.data
+          this.isLoading = false
+        }).catch(err => {
+          console.log(err)
+          throw new Error(err)
+        })
       }
     }
   }
@@ -121,10 +145,10 @@
     background-color: #f7f7f7;
     .order-inquiry-top {
       background-color: #fff;
-      text-align: center;
       padding: rem-calc(15);
       border-bottom: .5px solid #e8e8e8;
       line-height: rem-calc(30);
+      position: relative;
       .time-select {
         position: relative;
       }
@@ -144,6 +168,7 @@
         background-color: #495dbc;
         color: #fff;
         border-radius: rem-calc(5);
+        text-align: center;
       }
       > a {
         color: #666;
@@ -151,6 +176,19 @@
         span {
           padding-right: rem-calc(20);
         }
+      }
+      .line {
+        position: relative;
+        width: rem-calc(20);
+      }
+      .line:after {
+        content: "";
+        height: rem-calc(2);
+        width: rem-calc(30);
+        background-color: #999;
+        position: absolute;
+        top: 50%;
+        left: rem-calc(-5);
       }
     }
     .order-inquiry-list {
