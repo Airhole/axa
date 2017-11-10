@@ -16,6 +16,10 @@ import eventMixin from '../base/mixin/events'
 import {translationsFan, translationsEn} from './language'
 import {IAPP_INIT} from '@/api'
 
+// 点击延迟
+const FastClick = require('fastclick')
+FastClick.attach(document.body)
+
 Vue.use(Vuex)
 Vue.use(ToastPlugin)
 Vue.use(AlertPlugin)
