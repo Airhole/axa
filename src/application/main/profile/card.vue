@@ -63,7 +63,7 @@
 </template>
 <script>
   import {Loading, TransferDomDirective as TransferDom} from 'vux'
-  import { BUSINESS_CARD } from '@/api'
+  import { IBUSINESS_CARD } from '@/api'
   export default {
     name: 'card',
     directives: {
@@ -72,7 +72,17 @@
     components: {Loading},
     data () {
       return {
-        userInfo: {},
+        userInfo: {
+          imgHeader: '',
+          weixinShopName: '',
+          userName: '',
+          mobile: '',
+          weiXinNumber: '',
+          companyName: '',
+          comcode: '',
+          jobLevel: '',
+          introduction: ''
+        },
         showLoading: true
       }
     },
@@ -84,7 +94,7 @@
         // http://easy-mock.com/mock/59f066041bd72e7a88898a61/xninsurance/userInfo#!method=get
         // BUSINESS_CARD
         // http://192.168.26.61:8080/user/getAgentUserInformation
-        this.axios.post(BUSINESS_CARD, {"staffNo": "1440000165"}).then((response) => {
+        this.axios.post(IBUSINESS_CARD, {"staffNo": "1440000165"}).then((response) => {
           this.userInfo = response.data.data
           this.showLoading = false
         }, (response) => {
