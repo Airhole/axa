@@ -88,9 +88,9 @@
           this.agent = response.data.data
           this.iconUrl = this.agent.imgHeader
           this.userName = this.agent.userName
-          this.org = this.agent.org
-          this.position = this.agent.position
-          this.mobile = this.agent.mobile
+          this.org = this.agent.comcode
+          this.position = this.agent.jobLevel
+          this.mobile = 'tel:' + this.agent.mobile
           this.weixinShopName = this.agent.weixinShopName
           this.isLoading = false
         }).catch(err => {
