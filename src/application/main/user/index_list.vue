@@ -3,7 +3,7 @@
     <div class="panel-bg">
       <div class="index-top">
         <div class="w-box">
-          <div class="flex-1"><strong>眾小安的微店</strong></div>
+          <div class="flex-1"><strong>{{weixinShopName}}</strong></div>
           <div class="pack-e language" @click="LanguageSwitch">
             <span>{{language1}}</span>
             <span class="active">{{language}}</span>
@@ -11,13 +11,13 @@
         </div>
         <div class="w-box">
           <div :style="{backgroundImage: 'url(' + iconUrl + ')'}" 
-          class="img flex-1" 
+          class="img" 
           @click="gotoCard">
           </div>
           <div class="flex-1">
-            <p>眾小安<em @click="gotoCompany">AXA安盛</em></p>
-            <p>中環營業部  高級銷售經歷</p>
-            <a href="tel:130123123123" class="tel_box">{{ $t('tel_support') }}</a>
+            <p>{{ userName }}<em @click="gotoCompany">AXA安盛</em></p>
+            <p>{{org}}  {{position}}</p>
+            <a :href="mobile" class="tel_box">{{ $t('tel_support') }}</a>
           </div>
         </div>
       </div>
@@ -55,16 +55,21 @@
 </template>
 
 <script>
-  import { IACCOUNT_AGENT, HOT_PRODUCT } from '@/api'
+  import { IBUSINESS_CARD, HOT_PRODUCT } from '@/api'
   export default {
     name: 'index_list',
     data () {
       return {
         iconUrl: '',
+        userName: '',
         userId: '',
+        org: '',
+        position: '',
+        mobile: '',
+        weixinShopName: '',
         language: '中',
         language1: 'A',
-        orders: []
+        orders: {}
       }
     },
     created: function () {
@@ -75,10 +80,18 @@
         console.log('init')
         this.getOrderInfo()
         this.LanguageSwitch()
+        this.getAgentInfo()
       },
       getAgentInfo () { // 获取代理人信息
-        this.axios.post(IACCOUNT_AGENT).then(response => {
-          this.orders = response.data.data
+        this.axios.post(IBUSINESS_CARD, {"staffNo": "1440000165"}).then(response => {
+          debugger
+          this.agent = response.data.data
+          this.iconUrl = this.agent.imgHeader
+          this.userName = this.agent.userName
+          this.org = this.agent.comcode
+          this.position = this.agent.jobLevel
+          this.mobile = 'tel:' + this.agent.mobile
+          this.weixinShopName = this.agent.weixinShopName
           this.isLoading = false
         }).catch(err => {
           console.log(err)
@@ -220,6 +233,10 @@
         .img {
           width: rem-calc(90);
           height: rem-calc(90);
+          background-size: 100% 100%;
+          display: block;
+          overflow: hidden;
+          border-radius: rem-calc(1000);
         }
       }
       > .panel-main{

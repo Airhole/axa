@@ -44,7 +44,7 @@ let demo = '/demo'
 
 //健康告知
 let healthInform = '/product/healthinfo'
-export const HEALTHINFORM = path(healthInform, true)
+export const HEALTHINFORM = path(healthInform)
 
 export const ILOGIN = path(login)
 export const IDEMO = path(demo, true)
@@ -93,4 +93,4 @@ export const HOT_PRODUCT = path(product, true)
 
 // 名片
 let card = '/user/getAgentUserInformation' // /product'
-export const BUSINESS_CARD = path(card)
+export const IBUSINESS_CARD = path(card, true)

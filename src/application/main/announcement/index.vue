@@ -56,6 +56,7 @@ export default {
     },
     getDate () {
       this.axios.post(HEALTHINFORM, {"productId": "22332", "language": "EN"}).then((response) => {
+        debugger
         this.isLoading = false
         this.healthDate = response.data.data
       }, (response) => {
