@@ -38,18 +38,39 @@
     },
     data () {
       return {
-        welcome: this.$i18n.locale() === "FAN" ? "歡迎登錄AXA IYunBao" : "Welcome to login Axa Iyunbao",
-        userName: this.$i18n.locale() == "FAN" ? "用護名" : "user name",
-        namePlaceholder: this.$i18n.locale() == "FAN" ? "請輸入用護名" : "Please enter the name of the nurse",
-        password: this.$i18n.locale() == "FAN" ? "密碼" : "password",
-        passwordPlaceholder: this.$i18n.locale() == "FAN" ? "請輸入密碼" : "Please enter the password",
-        login: this.$i18n.locale() == "FAN" ? "登錄" : "Log in",
+        welcome: '',
+        userName: '',
+        namePlaceholder: '',
+        password: '',
+        passwordPlaceholder: '',
+        login: '',
         a: 1
       }
+    },
+    created: function () {
+      this.languageShow()
     },
     methods: {
       handleLogin () {
         console.log('登陸')
+      },
+      languageShow () {
+        let language = this.$i18n.locale()
+        if (language == "FAN") {
+          this.welcome = "歡迎登錄AXA IYunBao"
+          this.userName = "用護名"
+          this.namePlaceholder = "請輸入用護名"
+          this.password = "密碼"
+          this.passwordPlaceholder = "請輸入密碼"
+          this.login = "登錄"
+        } else {
+          this.welcome = "Welcome to login Axa Iyunbao"
+          this.userName = "user name"
+          this.namePlaceholder = "Please enter the name of the nurse"
+          this.password = "password"
+          this.passwordPlaceholder = "Please enter the password"
+          this.login = "Log in"
+        }
       }
     }
   }
