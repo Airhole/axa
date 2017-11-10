@@ -8,20 +8,20 @@
 <template>
   <div class="login">
     <div class="login-header">
-      <h2>{{ welcome }}</h2>
+      <h2>{{ $t('welcome') }}</h2>
     </div>
     <div class="login-content">
       <Group class="grop">
-        <p>{{ userName }}</p>
-        <x-input type="text" :placeholder="namePlaceholder" :show-clear="false"></x-input>
+        <p>{{ $t('userName') }}</p>
+        <x-input type="text" :placeholder="$t('namePlaceholder')" :show-clear="false"></x-input>
       </Group>
       <Group class="grop">
-        <p>{{ password }}</p>
-        <x-input type="password" :placeholder="passwordPlaceholder" :show-clear="false"></x-input>
+        <p>{{ $t('password') }}</p>
+        <x-input type="password" :placeholder="$t('passwordPlaceholder')" :show-clear="false"></x-input>
       </Group>
     </div>
     <div class="login-footer">
-      <x-button class="primary-blue" @click.native="handleLogin">{{ login }}</x-button>
+      <x-button class="primary-blue" @click.native="handleLogin">{{ $t('login') }}</x-button>
     </div>
   </div>
 </template>
@@ -47,30 +47,9 @@
         a: 1
       }
     },
-    created: function () {
-      this.languageShow()
-    },
     methods: {
       handleLogin () {
         console.log('登陸')
-      },
-      languageShow () {
-        let language = this.$i18n.locale()
-        if (language == "FAN") {
-          this.welcome = "歡迎登錄AXA IYunBao"
-          this.userName = "用護名"
-          this.namePlaceholder = "請輸入用護名"
-          this.password = "密碼"
-          this.passwordPlaceholder = "請輸入密碼"
-          this.login = "登錄"
-        } else {
-          this.welcome = "Welcome to login Axa Iyunbao"
-          this.userName = "user name"
-          this.namePlaceholder = "Please enter the name of the nurse"
-          this.password = "password"
-          this.passwordPlaceholder = "Please enter the password"
-          this.login = "Log in"
-        }
       }
     }
   }

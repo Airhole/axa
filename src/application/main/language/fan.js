@@ -116,6 +116,14 @@ export default {
   "payText1": "需支付：",
   "payText2": "港元：",
   "payText3": "（首月免費）：",
-  "immediateInsure": "立即投保"
+  "immediateInsure": "立即投保",
   // insure info end
+  // login start
+  "welcome": "歡迎登錄AXA IYunBao",
+  "userName": "用護名",
+  "namePlaceholder": "請輸入用護名",
+  "password": "密碼",
+  "passwordPlaceholder": "請輸入密碼",
+  "login": "登錄"
+  // login end
 }
