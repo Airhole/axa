@@ -116,6 +116,14 @@ export default {
   "payText1": "需支付：",
   "payText2": "港元：",
   "payText3": "(首月免费):",
-  "immediateInsure": "immediate Insure"
+  "immediateInsure": "immediate Insure",
   // insure info end
+  // login start
+  "welcome": "Welcome to login Axa Iyunbao",
+  "userName": "user name",
+  "namePlaceholder": "Please enter the name of the nurse",
+  "password": "password",
+  "passwordPlaceholder": "Please enter the password",
+  "login": "Log in"
+  // login end
 }

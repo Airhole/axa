@@ -8,20 +8,20 @@
 <template>
   <div class="login">
     <div class="login-header">
-      <h2>歡迎登錄AXA IYunBao</h2>
+      <h2>{{ $t('welcome') }}</h2>
     </div>
     <div class="login-content">
       <Group class="grop">
-        <p>用戶名</p>
-        <x-input type="text" placeholder="請輸入用戶名" :show-clear="false"></x-input>
+        <p>{{ $t('userName') }}</p>
+        <x-input type="text" :placeholder="$t('namePlaceholder')" :show-clear="false"></x-input>
       </Group>
       <Group class="grop">
-        <p>密碼</p>
-        <x-input type="password" placeholder="請輸入密碼" :show-clear="false"></x-input>
+        <p>{{ $t('password') }}</p>
+        <x-input type="password" :placeholder="$t('passwordPlaceholder')" :show-clear="false"></x-input>
       </Group>
     </div>
     <div class="login-footer">
-      <x-button class="primary-blue" @click.native="handleLogin">登錄</x-button>
+      <x-button class="primary-blue" @click.native="handleLogin">{{ $t('login') }}</x-button>
     </div>
   </div>
 </template>
@@ -38,6 +38,12 @@
     },
     data () {
       return {
+        welcome: '',
+        userName: '',
+        namePlaceholder: '',
+        password: '',
+        passwordPlaceholder: '',
+        login: '',
         a: 1
       }
     },

@@ -56,7 +56,7 @@
       <!--<default-btn class='next' val='下一步' @Click="nextStep"></default-btn>-->
       <div class="btn-wrapper">
         <!--<default-btn class='next' val='下一步' @Click="nextStep"></default-btn>-->
-        <div class="pre-step">{{ $t('payText1') }}<span>0.00&nbsp;</span>{{ $t('payText2') }}<label>{{ $t('payText3') }}</label></div>
+        <div class="pre-step">{{ $t('payText1') }}<span>222222.00&nbsp;</span><em>{{ $t('payText2') }}</em><label>{{ $t('payText3') }}</label></div>
         <div class="next-step" @click="nextStep">{{ $t('immediateInsure') }}</div>
       </div>
     </div>
@@ -371,16 +371,24 @@
       font-size: rem-calc(15);
       // border-top: 1px solid #e9e9e9;
       .pre-step {
-        flex: 3;
+        padding-left: rem-calc(15);
+        text-align: left;
+        flex: 4;
         color: #666;
         background: #fff;
         border-top: 1px solid #e9e9e9;
         span {
           color: #FE1641;
+          padding: 0 rem-calc(5);
+        }
+        em {
+          font-style: normal;
+          font-size: rem-calc(14);
         }
         label {
           font-size: rem-calc(12);
-          color: #FE1641;
+          color: #999;
+          padding-left: rem-calc(3);
         }
       }
       .next-step {

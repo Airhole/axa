@@ -113,9 +113,17 @@ export default {
   "personalInformation2": "收集個人資料的聲明",
   "view5": "使用和轉移本人／我們的個人資料作直接促銷用途（參閱「在直接促銷中使用及將其個人資料提供予其他人士」部份）及並不願意接收任何貴公司的推廣及直接促銷的材料",
   "view6": "请同意营销员声明",
-  "payText1": "需支付：",
-  "payText2": "港元：",
-  "payText3": "（首月免費）：",
-  "immediateInsure": "立即投保"
+  "payText1": "需支付:",
+  "payText2": "港元",
+  "payText3": "(首月免費)",
+  "immediateInsure": "立即投保",
   // insure info end
+  // login start
+  "welcome": "歡迎登錄AXA IYunBao",
+  "userName": "用護名",
+  "namePlaceholder": "請輸入用護名",
+  "password": "密碼",
+  "passwordPlaceholder": "請輸入密碼",
+  "login": "登錄"
+  // login end
 }
