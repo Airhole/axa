@@ -4,13 +4,15 @@
       <div class="index-top">
         <div class="w-box">
           <div class="flex-1"><strong>眾小安的微店</strong></div>
-          <div class="pack-e language" @click.self="LanguageSwitch">
+          <div class="pack-e language" @click="LanguageSwitch">
             <span>{{language1}}</span>
             <span class="active">{{language}}</span>
           </div>
         </div>
         <div class="w-box">
-          <div :style="{backgroundImage: 'url(' + iconUrl + ')'}" class="img flex-1" @click="gotoCard">
+          <div :style="{backgroundImage: 'url(' + iconUrl + ')'}" 
+          class="img flex-1" 
+          @click="gotoCard">
           </div>
           <div class="flex-1">
             <p>眾小安<em @click="gotoCompany">AXA安盛</em></p>

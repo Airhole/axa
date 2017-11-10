@@ -11,27 +11,29 @@
       <div class="card-item">
         <div class="card-info">
           <span>{{ $t('ava') }}</span>
-          <div><img :src="userInfo.headImg" class="head-img" /></div>
+          <div>
+            <b class="head-img" :style="{backgroundImage: 'url(' + userInfo.imgHeader + ')'}"></b>
+          </div>
         </div>
       </div>
       <div class="card-item">
         <div class="card-info">
           <span>{{ $t('storeName') }}</span>
-          <div>{{userInfo.storeName}}</div>
+          <div>{{userInfo.weixinShopName}}{{ $t('shopend') }}</div>
         </div>
         <div class="card-info">
           <span>{{ $t('shopkeeperName')}}</span>
-          <div>{{userInfo.shopkeeperName}}</div>
+          <div>{{userInfo.userName}}</div>
         </div>
       </div>
       <div class="card-item">
         <div class="card-info">
           <span>{{ $t('telephone') }}</span>
-          <div><a :href="'tel:' + userInfo.telephone">{{userInfo.telephone}}</a> <i class="phone-icon"></i></div>
+          <div><a :href="'tel:' + userInfo.mobile">{{userInfo.mobile}}</a> <i class="phone-icon"></i></div>
         </div>
         <div class="card-info">
           <span>{{ $t('wechat') }}</span>
-          <div>{{userInfo.wechat}} <i class="wechat-icon"></i></div>
+          <div>{{userInfo.weiXinNumber}} <i class="wechat-icon"></i></div>
         </div>
       </div>
       <div class="card-item">
@@ -41,15 +43,15 @@
         </div>
         <div class="card-info">
           <span>{{ $t('org') }}</span>
-          <div>{{userInfo.org}}</div>
+          <div>{{userInfo.comcode}}</div>
         </div>
         <div class="card-info">
           <span>{{ $t('position') }}</span>
-          <div>{{userInfo.position}}</div>
+          <div>{{userInfo.jobLevel}}</div>
         </div>
         <div class="card-info">
           <span>{{$t('introduce')}}</span>
-          <div class="self-introduce">{{userInfo.introduce}}</div>
+          <div class="self-introduce">{{userInfo.introduction}}</div>
         </div>
       </div>
       <!-- <a class="share-card">{{$t('share')}}</a> -->
@@ -61,6 +63,7 @@
 </template>
 <script>
   import {Loading, TransferDomDirective as TransferDom} from 'vux'
+  import { BUSINESS_CARD } from '@/api'
   export default {
     name: 'card',
     directives: {
@@ -78,9 +81,11 @@
     },
     methods: {
       getData () {
-        this.axios.get('http://easy-mock.com/mock/59f066041bd72e7a88898a61/xninsurance/userInfo#!method=get').then((response) => {
-          console.log(response)
-          this.userInfo = response.data.userInfo
+        // http://easy-mock.com/mock/59f066041bd72e7a88898a61/xninsurance/userInfo#!method=get
+        // BUSINESS_CARD
+        // http://192.168.26.61:8080/user/getAgentUserInformation
+        this.axios.post(BUSINESS_CARD, {"staffNo": "1440000165"}).then((response) => {
+          this.userInfo = response.data.data
           this.showLoading = false
         }, (response) => {
         }).catch((err) => {
@@ -143,6 +148,10 @@
         height: rem-calc(60);
         border-radius: 50%;
         vertical-align: middle;
+        display: block;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        float:right;
       }
       .self-introduce{
         text-align: left;

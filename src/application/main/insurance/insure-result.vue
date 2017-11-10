@@ -65,8 +65,7 @@ export default {
     }
   },
   created: function () {
-    this.axios.get(INSURE_RESULT).then(response => {
-      debugger
+    this.axios.post(INSURE_RESULT).then(response => {
       this.result = response.data.data
       this.status = response.data.data.insureStatus
       this.isLoading = false

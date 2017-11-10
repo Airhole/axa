@@ -27,6 +27,7 @@ export default {
   "firstPay": "first premium",
   "insureWarn": "tips",
   "insureEmail": "the electronic insurance policy will be sent to the policyholder's mailbox：{email}",
+  "shopend": "的微店",
   // insure end
   // order start
   "orderNumber": "order number",
@@ -55,10 +56,14 @@ export default {
   "announcement_agree": "part of it is",
   "announcement_unagree": "none of these",
   "announcement_tips": "can not be insured",
+  "remind": "Remind",
+  "announcement_done": "done",
   // announcement end
   // index start
   "hot_tips": "hot product",
   "tel_support": "Tel support",
+  "sales_points": "sales points",
+  "bonus_points": "bonus points",
   // index end
   // insure info start
   "applicantInfo": "Applicant Info",

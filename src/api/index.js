@@ -43,11 +43,12 @@ let login = '/jdt-web/wx/configdata.do'
 let demo = '/demo'
 
 //健康告知
-let healthInform = '/healthInform'
+let healthInform = '/product/healthinfo'
+export const HEALTHINFORM = path(healthInform, true)
 
 export const ILOGIN = path(login)
 export const IDEMO = path(demo, true)
-export const HEALTHINFORM = path(healthInform, true)
+
 /*
   app初始化
 */
@@ -78,14 +79,18 @@ export const QUERY_DICT = path(demo)
 export const ENROLL_SUBMMIT = path(demo)
 
 // xnApp api 如果需要针对个别API开启mock,可以传入第二个参数为true
-export const MAKE_PLAN = path('/plan/createPlan')
+export const MAKE_PLAN = path('/plan/createPlan', true)
 //在线投保-读取投保人信息
-export const READ_APPLICANT_INFO = path('/insure/customer/loadApplicant')
+export const READ_APPLICANT_INFO = path('/insure/customer/loadApplicant', true)
 //在线投保-读取投保人信息
-export const READ_INSURED_INFO = path('/insure/customer/loadApplicant')
+export const READ_INSURED_INFO = path('/insure/customer/loadApplicant', true)
 // 用户中心
 let user = '/user'
 export const USER_INDEX = path(user, true)
 // 产品列表
 let product = '/product'
 export const HOT_PRODUCT = path(product, true)
+
+// 名片
+let card = '/user/getAgentUserInformation' // /product'
+export const BUSINESS_CARD = path(card)

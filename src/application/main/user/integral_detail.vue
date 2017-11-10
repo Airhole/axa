@@ -46,15 +46,15 @@
       return {
         checkedTime: (new Date().getFullYear() - 10) + '-' + ((new Date().getMonth() + 1) > 9 ? (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + '-' + (new Date().getDate() > 9 ? new Date().getDate() : ('0' + new Date().getDate())),
         filters: [{
-          title: this.$i18n.locale() === "FAN" ? '銷售積分' : "sales points",
+          title: this.$i18n.translate('sales_points'),
           active: false,
           selected: null,
           list: [{
-            name: this.$i18n.locale() === "FAN" ? '銷售積分' : "sales points",
+            name: this.$i18n.translate('sales_points'),
             value: 'saleIntegral',
             id: 123
           }, {
-            name: this.$i18n.locale() === "FAN" ? '獎勵積分' : "bonus points",
+            name: this.$i18n.translate('bonus_points'),
             value: 'rewardIntegral',
             id: 58
           }]
@@ -64,8 +64,8 @@
           time: true
         }],
         orders: [],
-        cancel: this.$i18n.locale() === "FAN" ? "取消" : "cancel",
-        confirm: this.$i18n.locale() === "FAN" ? "確定" : "done"
+        cancel: this.$i18n.translate('orderCancel'),
+        confirm: this.$i18n.translate('orderDone')
       }
     },
     created: function () {

@@ -2,10 +2,13 @@
 
   <article class="main">
     <section class="mainC">
-      <section v-for= '(item,index) in this.healthDate' class="content">
+      <section v-for= '(item, index) in this.healthDate' class="content" :keys="index">
           <div class="title"><span>{{item.title}}</span></div>
-          <div class="contentMain" v-for="(i,n) in item.data">
-            <p class="contentItem">{{n+1}}.{{i}}</p>
+          <div class="contentMain" v-for="(i,n) in item.data" :keys="n">
+            <p class="contentItem">{{n+1}}.{{i.title}}</p>
+            <div class="label" v-for="(z, index) in i.label" :keys="index">
+              {{z}}
+            </div>
           </div>
       </section>
     </section>
@@ -24,6 +27,7 @@
 </template>
 <script>
 import {HEALTHINFORM} from '@/api'
+import Vue from 'vue'
 import {Loading, TransferDomDirective as TransferDom, AlertPlugin} from 'vux'
 // switch : 中英文的切换从
 export default {
@@ -41,9 +45,9 @@ export default {
     subClick (num) {
       if (num == 1) {
         this.$vux.alert.show({
-          title: this.switch === "FAN" ? '提示' : 'Remind',
-          content: this.switch === "FAN" ? '您的健康不符合投保要求，不能承保' : 'Cannot underwrite',
-          buttonText: this.switch === "FAN" ? '确定' : 'Done'
+          title: Vue.i18n.translate('remind'),
+          content: Vue.i18n.translate('announcement_tips'),
+          buttonText: Vue.i18n.translate('announcement_done')
         })
       } else {
         //跳到下一页
@@ -51,9 +55,9 @@ export default {
       }
     },
     getDate () {
-      this.axios.post(HEALTHINFORM, {switch: this.switch}).then((response) => {
+      this.axios.post(HEALTHINFORM, {"productId": "22332", "language": "EN"}).then((response) => {
         this.isLoading = false
-        this.healthDate = response.data.date
+        this.healthDate = response.data.data
       }, (response) => {
       }).catch((err) => {
         console.log(err)
@@ -121,15 +125,20 @@ export default {
           padding:rem-calc(14) rem-calc(14) rem-calc(14) 0;
           margin-left:rem-calc(14);
           border-bottom:1px solid #e6e6e6;
+          & > .label{
+            line-height: rem-calc(25);
+            font-size:rem-calc(14);
+          }
           &:last-child{
               border-bottom:0;
             }
           .contentItem{
             box-sizing: border-box;
             width:100%;
-            font-size:rem-calc(14);
+            font-size:rem-calc(16);
             line-height: rem-calc(23);
             color:#333;
+            margin-bottom: rem-calc(3);
           }
         }
       }

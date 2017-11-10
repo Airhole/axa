@@ -27,6 +27,7 @@ export default {
   "firstPay": "首期保費：",
   "insureWarn": "溫馨提示：",
   "insureEmail": "電子保單將發送到投保人郵箱：{email}",
+  "shopend": "的微店",
   // insure end
   // order start
   "orderNumber": "訂單號：",
@@ -55,10 +56,14 @@ export default {
   "announcement_agree": "部分为是",
   "announcement_unagree": "以上皆否",
   "announcement_tips": "您的健康不符合投保要求，不能承保",
+  "remind": "提示",
+  "announcement_done": "确定",
   // announcement end
   // index start
   "hot_tips": "熱賣推薦",
   "tel_support": "電話服務",
+  "sales_points": "銷售積分",
+  "bonus_points": "獎勵積分",
   // index end
   // insure info start
   "applicantInfo": "投保人信息",
