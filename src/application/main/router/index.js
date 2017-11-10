@@ -682,6 +682,23 @@ export default new Router({
         description: '积分明细',
         param: {}
       }
+    },
+    { //  登录
+      path: '/login',
+      name: 'login',
+      component: () => import('@/application/main/login'),
+      meta: {
+        requireAuth: true,
+        title: '登录',
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '登录',
+        param: {}
+      }
     }
   ]
 })
