@@ -28,6 +28,7 @@
 
 <script>
   import { XInput, Group, XButton, Cell } from 'vux'
+  import { ILOGIN } from '@/api'
   export default {
     name: 'Login',
     components: {
@@ -39,9 +40,9 @@
     data () {
       return {
         welcome: '',
-        userName: '',
+        userName: '1440000165',
         namePlaceholder: '',
-        password: '',
+        password: '20170631',
         passwordPlaceholder: '',
         login: '',
         a: 1
@@ -49,7 +50,12 @@
     },
     methods: {
       handleLogin () {
-        console.log('登陸')
+        // this.axios.post('http://192.168.26.61:8080/login/user', {loginName: this.userName, passWord: this.password}).then(res => {
+        //   console.log(res)
+        // })
+        this.axios.post(ILOGIN, {loginName: this.userName, passWord: this.password}).then(res => {
+          console.log(res)
+        })
       }
     }
   }
