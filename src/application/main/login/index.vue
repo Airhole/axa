@@ -8,20 +8,20 @@
 <template>
   <div class="login">
     <div class="login-header">
-      <h2>歡迎登錄AXA IYunBao</h2>
+      <h2>{{ welcome }}</h2>
     </div>
     <div class="login-content">
       <Group class="grop">
-        <p>用戶名</p>
-        <x-input type="text" placeholder="請輸入用戶名" :show-clear="false"></x-input>
+        <p>{{ userName }}</p>
+        <x-input type="text" :placeholder="namePlaceholder" :show-clear="false"></x-input>
       </Group>
       <Group class="grop">
-        <p>密碼</p>
-        <x-input type="password" placeholder="請輸入密碼" :show-clear="false"></x-input>
+        <p>{{ password }}</p>
+        <x-input type="password" :placeholder="passwordPlaceholder" :show-clear="false"></x-input>
       </Group>
     </div>
     <div class="login-footer">
-      <x-button class="primary-blue" @click.native="handleLogin">登錄</x-button>
+      <x-button class="primary-blue" @click.native="handleLogin">{{ login }}</x-button>
     </div>
   </div>
 </template>
@@ -38,6 +38,12 @@
     },
     data () {
       return {
+        welcome: this.$i18n.locale() === "FAN" ? "歡迎登錄AXA IYunBao" : "Welcome to login Axa Iyunbao",
+        userName: this.$i18n.locale() == "FAN" ? "用護名" : "user name",
+        namePlaceholder: this.$i18n.locale() == "FAN" ? "請輸入用護名" : "Please enter the name of the nurse",
+        password: this.$i18n.locale() == "FAN" ? "密碼" : "password",
+        passwordPlaceholder: this.$i18n.locale() == "FAN" ? "請輸入密碼" : "Please enter the password",
+        login: this.$i18n.locale() == "FAN" ? "登錄" : "Log in",
         a: 1
       }
     },
