@@ -12,7 +12,10 @@
 <template>
   <input
     class="rootInput"
-    @input="onInput"
+    @input="eventHandler($event,'input')"
+    @change="eventHandler($event,'change')"
+    @blur="eventHandler($event,'blur')"
+    @focus="eventHandler($event,'focus')"
     :placeholder="rules.placeholder"
     :maxlength="rules.maxlength"
     :value="innerValue"

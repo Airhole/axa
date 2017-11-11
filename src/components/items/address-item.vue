@@ -22,7 +22,7 @@
     </div>
     <!-- input 详细地址 -->
     <div class="baseBox">
-      <div class="main">
+      <div class="main" style="background:none">
         <div class="baseBoxLeft"> <label class="input-label">{{rules.detail.label}}</label></div>
         <div class="baseBoxright">
           <input-btn-item
@@ -58,9 +58,6 @@ export default {
   props: ['rules', 'value', 'name', 'configs'],
   watch: {
     value (v) {
-      if (v === null || v === undefined) {
-        return
-      }
       this.innerValue = v
     }
   },
@@ -83,6 +80,15 @@ export default {
     }
   },
   methods: {
+    init () {
+      this.selected = this.innerValue
+      this.detail = this.innerValue ? this.innerValue.detail : ''
+      if (this.rules.detail && this.rules.detail.rules.showExtBtn) {
+        if (this.rules.detail.type !== 'input-btn') {
+          alert('type 类型应为 input-btn')
+        }
+      }
+    },
     onChange (e) {
       this.sResult = e.value
       this.sError = e.msg
@@ -101,13 +107,12 @@ export default {
     emit () {
       this.$nextTick(() => {
         let im = this.innerModel()
-        // console.log('address::::::::::', im)
         this.$emit('formChange', im)
       })
     },
-    onEmission () {
+    onEmission (v) {
       // missionTarget: 通知父组件需要更新哪个字段
-      this.$emit('emission', {target: this.rules.missionTarget})
+      this.$emit('emission', v)
     },
     innerModel () {
       let _v = this.__clone(this.sResult || {})

@@ -122,7 +122,6 @@ export default {
       let newobj = {}
       // debugger
       for (let i in obj) {
-        console.log('iiiiiiiiiii', i)
         if (obj[i].name === undefined || obj[i].value === undefined) {
           alert('参数不符合要求，必须为{name: {name: "name",value:"value"}形式')
           return

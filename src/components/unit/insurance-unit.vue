@@ -9,12 +9,13 @@
         :formModel="$formModels[key]"
         :formRule="value"
         :name="key"
+        @emission="onEmission"
         @formChange="onChange">
       </form-row>
     </template>
 
     <slot name="unit-foot" :order="order">
-      <div class="pre-step">首年保费：<span>666.00元</span></div>
+      <div class="pre-step">首年保费：<span>{{insItem.premium}}</span></div>
     </slot>
   </div>
 </template>
@@ -22,48 +23,61 @@
 <script>
 import formRow from '../items/form-row'
 import formUnitMixin from '../mixins/form-unit-mixin'
-
+import clone from '@/utils/clone.js'
 export default {
   name: 'insurance-unit',
   mixins: [formUnitMixin],
   data () {
     return {
       Models: null,
-      Rules: null
+      Rules: null,
+      $formModels: this.modModels,
+      $formRules: this.modRules
     }
   },
   props: ["insItem", "order"],
   methods: {
     init () {
       if (this.insItem && this.insItem.paramList) {
-        // 创建rules,modles
-        let _rules = {}
-        let _modles = {}
+        // 创建rules,models
+        let rules = {}
+        let models = {}
 
         this.insItem.paramList.forEach(item => {
           try {
-            _rules[item.key] = {
+            rules[item.key] = {
               label: item.label,
               type: item.inputType,
               rules: {
+                ...item.rules,
                 vRules: 'required',
                 disabled: !item.canEdit,
                 showName: true
               }
             }
-            // 如果是select
+            // 如果是select, 使用 itemList 重塑 options
             if (item.inputType === 'select') {
               let lst = item.itemList.map(i => {
-                return {name: i.value, value: i.key}
+                return {name: i.name, value: i.value}
               })
-              _rules[item.key].rules.options = [lst]
+              rules[item.key].rules.options = [lst]
+              rules[item.key].rules.static = true
+              // 这里是手动添加关联规则：一次付清
+              if (item.key === 'pay_freq') {
+                rules[item.key].rules.update = [{
+                  when: "single",
+                  target: 'pay',
+                  value: "single"
+                }]
+              }
             }
             // 如果是input
             if (item.inputType === 'input') {
-              _rules[item.key].rules.placeholder = '请填写' + item.label
+              rules[item.key].rules.placeholder = '请填写' + item.label
+              rules[item.key].rules.maxlength = 11
             }
             // 构造 models
-            _modles[item.key] = {
+            models[item.key] = {
               name: item.key,
               value: item.value || ''
             }
@@ -72,17 +86,37 @@ export default {
           }
         })
 
-        this.Rules = _rules
-        this.Models = _modles
+        this.Rules = rules
+        this.Models = models
       }
+    },
+    submit () {
+      if (this.timer) {
+        clearTimeout(this.timer)
+      }
+      let mod = this.__obj(this.innerModel())
+      this.timer = setTimeout(() => {
+        this.$emit('formChange', mod)
+        this.timer = null
+      }, 200)
     }
   },
   computed: {
-    $formModels () {
-      return this.Models
+    modModels: {
+      get () {
+        return this.Models
+      },
+      set (v) {
+        this.$formModels = v
+      }
     },
-    $formRules () {
-      return this.Rules
+    modRules: {
+      get () {
+        return this.Rules
+      },
+      set (v) {
+        this.$formRules = v
+      }
     }
   },
   watch: {

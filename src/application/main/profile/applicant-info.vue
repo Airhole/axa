@@ -28,6 +28,10 @@
         @formChange="onInsurantChange"
         @emission="onInsurantEmission">
       </form-unit>
+      <insurance-info
+        :insureList="insureList"
+        @formChange="onUnitChange">
+      </insurance-info>
 
       <div class="tips-bg">
         <div class="tips-wrapper">
@@ -71,6 +75,7 @@
 </template>
 
 <script>
+  import insuranceInfo from './import-client-insure-info'
   import formUnit from '@/components/unit/form-unit'
   //  import epMixin from '@/components/mixins/enroll-page-mixin'
   import { READ_APPLICANT_INFO, SAVE_APPLICANT_INFO, INSURE_LOAD_OR_CREATE_PLAN, CREATE_INSURE } from '@/api'
@@ -86,7 +91,8 @@
     name: 'baseInfo',
     components: {
       formUnit,
-      defaultBtn
+      defaultBtn,
+      insuranceInfo
     },
     // mixins: [epMixin],
     data () {
@@ -96,27 +102,26 @@
         insurantFormModels: this.__clone(insurantFormModels),
         insurantFormRules: this.__clone(insurantFormRules),
         baseInfo: {},
-        selected: false
+        selected: false,
+        insureList: []
       }
     },
     methods: {
       init () {
-      },
-      ready () {
-        /**
-        if (window.name) {
-          this.loadApplicant(window.name)
-        } else {
-          this.axios.post(CREATE_INSURE, {engineProductId: "HQL00100", companyId: "hengqin"}).then(resp => {
-            if (resp.data.success) {
-              window.name = resp.data.value
-              this.loadApplicant(resp.data.value)
-            }
-          })
-        }
-         */
+        this.axios.post(READ_APPLICANT_INFO, {'a': 'test'}).then(res => {
+          console.log('res', res)
+          if (res.data.status) {
+            let result = res.data.data
+            this.applicantFormModels = this.__fixInputName(result.applicant)
+            console.log('res.data.data', result.commodityList)
+            this.insurantFormModels = this.__fixInputName(result.insurant)
+            this.insureList = result.commodityList
+          }
+        })
       },
       changeAgreement () {
+      },
+      onUnitChange () {
       },
 //      loadApplicant (insureId) {
 //        this.axios.post(READ_APPLICANT_INFO, {insureId: insureId}).then(res => {
@@ -131,23 +136,23 @@
 //        })
 //      },
       onApplicantChange (v) {
-        console.log('this.formModels++++', v, this.__str(this.__recapOutputName(this.__plan(v.value))))
+//        console.log('this.formModels++++', v, this.__str(this.__recapOutputName(this.__plan(v.value))))
 //        this.__recapOutputName(this.__plan(v.value))
 //        this.$emit('onChange', v)
       },
       onInsurantChange (v) {
-        console.log('this.insurantFormModels++++', v, JSON.stringify(this.__plan(v.value)))
+//        console.log('this.insurantFormModels++++', v, JSON.stringify(this.__plan(v.value)))
         this.__recapOutputName(this.__plan(v.value))
 //        this.$emit('onChange', v)
       },
-//      onApplicantEmission (v) {
-//        // console.log('eeeeeee', v)
-//        if (v.value === true) {
-//          this.formModels.wechatNo.value = '123413413134134xxx'
-//        } else {
-//          this.formModels.wechatNo.value = ''
-//        }
-//      },
+      onApplicantEmission (v) {
+        // console.log('eeeeeee', v)
+        if (v.value === true) {
+          this.formModels.wechatNo.value = '123413413134134xxx'
+        } else {
+          this.formModels.wechatNo.value = ''
+        }
+      },
       onInsurantEmission (v) {
         // console.log('eeeeeee', v)
         if (v.value === true) {

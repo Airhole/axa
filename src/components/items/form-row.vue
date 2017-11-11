@@ -42,6 +42,7 @@
             v-if="$formRule.type=='input'"
             @formChange="onChange"
             @formPassed="onVlid"
+            @coordinate="coordinate"
             :rules="$formRule.rules"
             :value="$formModel.value"
             :name="name">
@@ -52,7 +53,9 @@
           <root-select
             v-if="$formRule.type=='select'"
             @formChange="onChange"
+            @coordinate="coordinate"
             @formPassed="onVlid"
+            @emission="onEmission"
             :rules="$formRule.rules"
             :value="$formModel.value"
             :name="name">
@@ -61,6 +64,7 @@
             v-if="$formRule.type=='web-select'"
             @formChange="onChange"
             @formPassed="onVlid"
+            @emission="onEmission"
             :rules="$formRule.rules"
             :value="$formModel.value"
             :name="name">
@@ -71,6 +75,7 @@
           <sex-item
             v-if="$formRule.type=='sex'"
             @formChange="onChange"
+            @emission="onEmission"
             :rules="$formRule.rules"
             :value="$formModel.value"
             :name="name">
@@ -81,6 +86,7 @@
           <time-item
             v-if="$formRule.type=='time'"
             @formChange="onChange"
+            @emission="onEmission"
             :rules="$formRule.rules"
             :value="$formModel.value"
             :name="name">
@@ -103,6 +109,7 @@
             v-if="$formRule.type=='input-txt'"
             @formChange="onChange"
             @formPassed="onVlid"
+            @emission="onEmission"
             :rules="$formRule.rules"
             :value="$formModel.value"
             :name="name">
@@ -114,6 +121,7 @@
             v-if="$formRule.type=='yesorno'"
             @formChange="onChange"
             @formPassed="onVlid"
+            @emission="onEmission"
             :rules="$formRule.rules"
             :value="$formModel.value"
             :name="name">
@@ -202,11 +210,16 @@
       }
     },
     methods: {
-      onChange (val) {
-        this.$emit('formChange', val)
+      // 将子组件传递的参数全部往父组件传递
+      onChange (...args) {
+        this.$emit('formChange', ...args)
       },
       onEmission (val) {
         this.$emit('emission', val)
+      },
+      // 兄弟组件（在同一个unit内）间的协同
+      coordinate (info) {
+        //
       },
       onVlid (val) {
         this.$emit('formValid', val)

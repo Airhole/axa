@@ -70,6 +70,7 @@
         :formModel="$formModels[key]"
         :formRule="value"
         :name="key"
+        @emission="onEmission"
         @formChange="onChange">
       </form-block>
       <form-row
@@ -79,6 +80,7 @@
         :formModel="$formModels[key]"
         :formRule="value"
         :name="key"
+        @emission="onEmission"
         @formChange="onChange">
       </form-row>
 
@@ -90,18 +92,20 @@
           v-if="subvalue.display=='block'"
           :key="subkey"
           :index="index+''+subindex"
-          :formModel="{name:subkey,value:$formModels[key].value[subkey]}"
+          :formModel="{name:subkey,value:$formModels[key]?$formModels[key].value[subkey]:''}"
           :formRule="subvalue"
           :name="subkey"
+          @emission="onEmission"
           @formChange="onChange">
         </form-block>
         <form-row
           v-else
           :key="subkey"
           :index="index+''+subindex"
-          :formModel="{name:subkey,value:$formModels[key].value[subkey]}"
+          :formModel="{name:subkey,value:$formModels[key]?$formModels[key].value[subkey]:''}"
           :formRule="subvalue"
           :name="subkey"
+          @emission="onEmission"
           @formChange="onChange">
         </form-row>
       </template>

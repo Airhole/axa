@@ -5,8 +5,7 @@ if (pro) {
   root = '/api'
 } else {
   // root = '/testapi'
-  root = 'http://192.168.26.91:8080'
-  // root = '/devapi'
+  root = '/devapi'
 }
 let path = (inf = null, n) => {
   let result = ''
@@ -82,7 +81,7 @@ export const ENROLL_SUBMMIT = path(demo)
 // xnApp api 如果需要针对个别API开启mock,可以传入第二个参数为true
 export const MAKE_PLAN = path('/plan/createPlan', true)
 //在线投保-读取投保人信息
-export const READ_APPLICANT_INFO = path('/insure/customer/loadApplicant', true)
+export const READ_APPLICANT_INFO = path('/insure/underwriting')
 //在线投保-读取投保人信息
 export const READ_INSURED_INFO = path('/insure/customer/loadApplicant', true)
 // 用户中心

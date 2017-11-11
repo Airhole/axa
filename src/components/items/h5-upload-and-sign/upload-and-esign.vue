@@ -3,15 +3,18 @@
     <ul class="item-wrapper" v-show="true">
       <li v-for="(item, index) in form.caInfoList" :key="index">
         <div class="item-block">
-          <div v-if="!item.slot">{{item.desc}}</div>
-          <div v-if="item.slot">
-            <slot :name="item.slot"></slot>
+          <div v-if="!item.certType">{{item.name}}</div>
+          <div v-if="item.certType">
+            <div>
+              <div>{{item.name}}<span class="relation">{{item.customerType}}</span></div>
+              <div class="id_card">{{item.certType}}&nbsp;&nbsp;{{item.certNo}}</div>
+            </div>
           </div>
           <div class="upload-img" @click="uploadPic(item)">
             <!--<div :class="[item.cType != 1 ? 'camera' : 'sign']"></div>-->
             <div class="sign" v-if="item.cType == 1"></div>
             <div class="camera" v-else>
-              <input :id="item.title" class="file-input" type="file" @change="inputChange(item)" accept="image/*" >
+              <input :id="item.code" class="file-input" type="file" @change="inputChange(item)" accept="image/*" >
             </div>
           </div>
         </div>
@@ -55,7 +58,10 @@
         form: {},
         eSignStatus: false,
         currentImg: null,
-        currentList: null
+        currentList: null,
+        outputModels: {
+          isValid: true
+        }
       }
     },
     mounted () {
@@ -75,37 +81,49 @@
         }
       }
     },
-    created () {
-      window.es = this
-      this.init()
+    watch: {
+      $eSignModel: {
+        deep: true,
+        handler (v) {
+          this.init()
+        }
+      }
     },
     methods: {
       init () {
-        this.form = this.$eSignModel.value
+        this.form = this.$eSignModel
         this.initInnerModel(this.form.caInfoList)
         this.onValidate(this.form.caInfoList)
       },
       initInnerModel (list) {
         list.map(el => {
           if (el.cType == '1') {
-            this.innerModel[el.title] = {
-              name: el.title,
+            this.innerModel[el.key] = {
+              name: el.name,
               value: el.signImgPath,
               msg: '',
               isValid: false
             }
           }
           if (el.cType == '2' || el.cType == '3') {
-            this.innerModel[el.title] = {
-              name: el.title,
+            this.innerModel[el.key] = {
+              name: el.name,
               value: el.signImgPath,
               msg: '',
               isValid: false
             }
           }
           if (el.cType == '4') {
-            this.innerModel[el.title] = {
-              name: el.title,
+            this.innerModel[el.key] = {
+              name: el.name,
+              value: el.imagePathList,
+              msg: '',
+              isValid: false
+            }
+          }
+          if (el.key) {
+            this.innerModel[el.code] = {
+              name: el.name,
               value: el.imagePathList,
               msg: '',
               isValid: false
@@ -116,10 +134,10 @@
       onValidate (list) {
         if (list) {
           list.map(el => {
-            let model = this.innerModel[el.title]
+            let model = this.innerModel[el.code]
             if (el.cType == '1') {
               if (!el.signImgPath) {
-                model.msg = this.errorMsg(el.desc)
+                model.msg = this.errorMsg(el.name)
                 model.isValid = false
                 model.value = ''
               } else {
@@ -130,7 +148,7 @@
             }
             if (el.cType == '2' || el.cType == '3') {
               if (!el.photoPath) {
-                model.msg = this.errorMsg(el.desc)
+                model.msg = this.errorMsg(el.name)
                 model.isValid = false
                 model.value = ''
               } else {
@@ -141,12 +159,34 @@
             }
             if (el.cType == '4') {
               if (!(el.imagePathList && el.imagePathList[0])) {
-                model.msg = this.errorMsg(el.desc)
+                model.msg = this.errorMsg(el.name)
                 model.isValid = false
                 model.value = ''
               } else {
-                if (el.imagePathList.length < el.minLength) {
-                  model.msg = el.errMsgForMin
+                if (el.imagePathList.length < el.minNum) {
+                  debugger
+                  model.msg = '照片最少不能少于' + el.minNum
+                  model.isValid = false
+                  model.value = ''
+                } else {
+                  model.msg = ''
+                  model.isValid = true
+                  let arr = []
+                  el.imagePathList.map((obj) => {
+                    arr.push(obj)
+                  })
+                  model.value = arr
+                }
+              }
+            }
+            if (el.key) {
+              if (!(el.imagePathList && el.imagePathList[0])) {
+                model.msg = this.errorMsg(el.name + '身份证')
+                model.isValid = false
+                model.value = ''
+              } else {
+                if (el.imagePathList.length < el.minNum) {
+                  model.msg = el.name + el.certType + '照片最少不能少于' + el.minNum
                   model.isValid = false
                   model.value = ''
                 } else {
@@ -162,25 +202,28 @@
             }
           })
         }
-        let models = {
-          isValid: true
-        }
         for (let key in this.innerModel) {
           if (this.innerModel[key].isValid) {
-            models[key] = this.innerModel[key].value
+            this.outputModels[key] = this.innerModel[key].value
+            this.outputModels.isValid = true
           } else {
-            models.isValid = false
+            this.outputModels.isValid = false
           }
         }
-        if (!models.isValid) {
+        if (!this.outputModels.isValid) {
           let obj = Object.values(this.innerModel).find(item => {
             return item.isValid === false
           })
-          models.msg = obj.msg
+          if (obj) {
+            this.outputModels.msg = obj.msg
+          } else {
+            this.outputModels.msg = ''
+          }
         } else {
-          models.msg = ''
+          this.outputModels.msg = ''
         }
-        this.$emit('on', {info: models, innerModel: this.innerModel, form: this.form.caInfoList})
+        console.log('innerMOdel', this.innerModel)
+        this.$emit('on', {info: this.outputModels, innerModel: this.innerModel, form: this.form.caInfoList})
       },
       errorMsg (_msg) {
         return _msg + '不能为空'
@@ -194,13 +237,13 @@
         item.imagePathList = []
         this.$nextTick(() => {
         })
-        this.innerModel[item.title].isValid = false
-        this.innerModel[item.title].msg = this.errorMsg(item.desc)
+        this.innerModel[item.code].isValid = false
+        this.innerModel[item.code].msg = this.errorMsg(item.name)
       },
       dImg (item, index) {
         item.imagePathList.splice(index, 1)
         // item.imgShowList.splice(index, 1)
-        let inputPics = document.getElementById(item.title)
+        let inputPics = document.getElementById(item.code)
         inputPics.value = ''
         this.onValidate(this.form.caInfoList)
         this.$nextTick(() => {
@@ -217,7 +260,7 @@
       inputChange (item) {
         // begin loading
         //this.$store.dispatch('toggleLoadingStatus', true)
-        let inputPics = document.getElementById(item.title)
+        let inputPics = document.getElementById(item.code)
         let firstImg = inputPics.files[0]
         let imgUpload = ''
         // zip image
@@ -231,7 +274,10 @@
             console.log('resd', res)
             // imgUpload = res.data.value.url[0]
             imgUpload = 'https://images2.alphacoders.com/545/54542.jpg'
-            if (item.imagePathList.length < item.maxLength) {
+            if (!item.imagePathList || item.imagePathList === null) {
+              item.imagePathList = []
+            }
+            if (item.imagePathList.length < item.maxNum) {
               item.imagePathList.push(imgUpload)
               // item.imgShowList.push(imgUpload)
             } else {
@@ -243,7 +289,7 @@
               })
             }
             this.onValidate(this.form.caInfoList)
-            this.$emit('signChange', {info: this.innerModel, form: this.form.caInfoList})
+            this.$emit('signChange', {info: this.outputModels, innerModel: this.innerModel, form: this.form.caInfoList})
           })
         }, fail => {
           console.log(fail)
@@ -308,6 +354,20 @@
           align-items: center;
           & > :first-child {
             flex: 1;
+          }
+          .relation {
+            display: inline-block;
+            padding: rem-calc(5);
+            background-color: #00b0ff;
+            color: #fff;
+            font-size: rem-calc(13);
+            margin-left: rem-calc(8);
+            border-radius: rem-calc(5);
+          }
+          .id_card {
+            font-size: rem-calc(12);
+            padding-top: rem-calc(5);
+            color: #ccc;
           }
           .upload-img {
             position: relative;

@@ -42,6 +42,7 @@
           <root-checker
           v-if="$formRule.type=='checker'"
           @formChange="onChange"
+          @emission="onEmission"
           :rules="$formRule.rules"
           :value="$formModel.value"
           :name="$formModel.name"
@@ -52,6 +53,7 @@
           <textarea-item
           v-if="$formRule.type=='textarea'"
           @formChange="onChange"
+          @emission="onEmission"
           :rules="$formRule.rules"
           :value="$formModel.value"
           :name="$formModel.name"
@@ -62,6 +64,7 @@
           <check-block-item
           v-if="$formRule.type=='check-block'"
           @formChange="onChange"
+          @emission="onEmission"
           :rules="$formRule"
           :value="$formModel.value"
           :name="$formModel.name"

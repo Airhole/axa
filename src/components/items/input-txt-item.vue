@@ -47,8 +47,11 @@ export default {
         return val
       }
     },
-    innerValue () {
-      return this.value
+    innerValue: {
+      get () {
+        return this.value
+      },
+      set () {}
     }
   },
   methods: {

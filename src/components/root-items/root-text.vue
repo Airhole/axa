@@ -13,11 +13,11 @@
         <div class="main" >
           <div class="baseBoxLeft">
             <!--<slot name="label"></slot>-->
-            <label>{{item.key}}</label>
+            <label>{{item.value}}</label>
           </div>
           <div class="baseBoxright">
             <!--<slot name="val"></slot>-->
-            <label>{{item.value}}</label>
+            <label>{{item.name}}</label>
           </div>
         </div>
       </div>
