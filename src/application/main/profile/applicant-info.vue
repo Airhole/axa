@@ -118,36 +118,36 @@
       },
       changeAgreement () {
       },
-//      loadApplicant (insureId) {
-//        this.axios.post(READ_APPLICANT_INFO, {insureId: insureId}).then(res => {
-//          let result = res.data.value
-//          this.formModels = this.__fixInputName(res.data.value)
-//          this.baseInfo = {
-//            insureId: result.insureId,
-//            customerId: result.customerId,
-//            customerType: result.customerType,
-//            planId: result.planId
-//          }s
-//        })
-//      },
+      // loadApplicant (insureId) {
+      //   this.axios.post(READ_APPLICANT_INFO, {insureId: insureId}).then(res => {
+      //     let result = res.data.value
+      //     this.formModels = this.__fixInputName(res.data.value)
+      //     this.baseInfo = {
+      //       insureId: result.insureId,
+      //       customerId: result.customerId,
+      //       customerType: result.customerType,
+      //       planId: result.planId
+      //     }
+      //   })
+      // },
       onApplicantChange (v) {
         console.log('this.formModels++++', v, this.__str(this.__recapOutputName(this.__plan(v.value))))
-//        this.__recapOutputName(this.__plan(v.value))
-//        this.$emit('onChange', v)
+        // this.__recapOutputName(this.__plan(v.value))
+        // this.$emit('onChange', v)
       },
       onInsurantChange (v) {
         console.log('this.insurantFormModels++++', v, JSON.stringify(this.__plan(v.value)))
         this.__recapOutputName(this.__plan(v.value))
-//        this.$emit('onChange', v)
+        // this.$emit('onChange', v)
       },
-//      onApplicantEmission (v) {
-//        // console.log('eeeeeee', v)
-//        if (v.value === true) {
-//          this.formModels.wechatNo.value = '123413413134134xxx'
-//        } else {
-//          this.formModels.wechatNo.value = ''
-//        }
-//      },
+      onApplicantEmission (v) {
+      // console.log('eeeeeee', v)
+        // if (v.value === true) {
+        //   this.formModels.wechatNo.value = '123413413134134xxx'
+        // } else {
+        //   this.formModels.wechatNo.value = ''
+        // }
+      },
       onInsurantEmission (v) {
         // console.log('eeeeeee', v)
         if (v.value === true) {
