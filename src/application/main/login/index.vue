@@ -28,6 +28,7 @@
 
 <script>
   import { XInput, Group, XButton, Cell } from 'vux'
+  import { LOGIN_INFO } from '@/api'
   export default {
     name: 'Login',
     components: {
@@ -39,9 +40,9 @@
     data () {
       return {
         welcome: '',
-        userName: '',
+        userName: '1440000165',
         namePlaceholder: '',
-        password: '',
+        password: '20170631',
         passwordPlaceholder: '',
         login: '',
         a: 1
@@ -49,7 +50,9 @@
     },
     methods: {
       handleLogin () {
-        console.log('登陸')
+        this.axios.post(LOGIN_INFO, {loginName: this.userName, passWord: this.password}).then(res => {
+          console.log(res)
+        })
       }
     }
   }
