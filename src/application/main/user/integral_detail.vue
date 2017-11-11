@@ -25,12 +25,12 @@
     </header>
     <div class="integral-detail-list" v-for="order in orders">
       <div class="integral-detail-item">
-        <h3>{{ $t('policyNumber') }}{{ order.policyNumber }}</h3>
+        <h3>{{ $t('policyNumber') }}{{ order.contNo }}</h3>
         <ul>
-          <li>{{ $t('productName') }}{{ order.productName }}</li>
-          <li>{{ $t('downPremium') }}{{ order.downPremium }}</li>
-          <li>{{ $t('underwritingDate') }}{{ order.underwritingDate }}</li>
-          <li>{{ $t('scorePoint') }}{{ order.generalizedIntegral }}</li>
+          <li>{{ $t('productName') }}{{ order.riskName }}</li>
+          <li>{{ $t('downPremium') }}{{ order.yearPrem }}</li>
+          <li>{{ $t('underwritingDate') }}{{ order.insureDate }}</li>
+          <li>{{ type ? $t('sales_points') : $t('bonus_points') }}：{{ order.points }}</li>
         </ul>
       </div>
     </div>
@@ -38,48 +38,65 @@
 </template>
 
 <script>
-  // import supplies from '@/data/integral'
   import { SCORE_DETAIL } from '@/api'
+  import Vue from 'vue'
+  import {Loading, TransferDomDirective as TransferDom, AlertPlugin} from 'vux'
   export default {
     name: 'integral_detail',
+    components: {Loading},
     data () {
       return {
         checkedTime: (new Date().getFullYear() - 10) + '-' + ((new Date().getMonth() + 1) > 9 ? (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + '-' + (new Date().getDate() > 9 ? new Date().getDate() : ('0' + new Date().getDate())),
         filters: [{
-          title: this.$i18n.translate('sales_points'),
+          title: Vue.i18n.translate('sales_points'),
           active: false,
           selected: null,
           list: [{
-            name: this.$i18n.translate('sales_points'),
+            name: Vue.i18n.translate('sales_points'),
             value: 'saleIntegral',
-            id: 123
+            id: 1
           }, {
-            name: this.$i18n.translate('bonus_points'),
+            name: Vue.i18n.translate('bonus_points'),
             value: 'rewardIntegral',
-            id: 58
+            id: 2
           }]
-          // list: [...supplies]
         }, {
           title: (new Date().getFullYear() - 10) + '-' + ((new Date().getMonth() + 1) > 9 ? (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + '-' + (new Date().getDate() > 9 ? new Date().getDate() : ('0' + new Date().getDate())),
           time: true
         }],
         orders: [],
-        cancel: this.$i18n.translate('orderCancel'),
-        confirm: this.$i18n.translate('orderDone')
+        underwritingDate: '',
+        type: true,
+        cancel: Vue.i18n.translate('orderCancel'),
+        confirm: Vue.i18n.translate('orderDone')
       }
     },
     created: function () {
       this.initDefaultTime(this.filters[1].title)
-
-      this.axios.post(SCORE_DETAIL).then(response => {
-        this.orders = response.data.data
-        this.isLoading = false
-      }).catch(err => {
-        console.log(err)
-        throw new Error(err)
-      })
+      this.params = {staffNo: '1440000165', pointsType: '1', date: '2017-09'}
+      this.axiosGetData(this.params)
     },
+    // watch:{
+    //   firstName: function(val) { //此处不要使用箭头函数
+    //     console.log(val)
+    //   }
+    // },
     methods: {
+      /**
+       * 获取列表数据
+       * @params staffNo 代理人工号,登录时提供
+       * @params pointsType 类型选择：销售积分，奖励积分
+       * @params date 选择查询的时间
+       */
+      axiosGetData (params) {
+        this.axios.post(SCORE_DETAIL, params).then(response => {
+          this.orders = response.data.data
+          this.isLoading = false
+        }).catch(err => {
+          console.log(err)
+          throw new Error(err)
+        })
+      },
       /**
        * 初始化默认时间
        * @param time 页面当前选择时间
@@ -88,7 +105,7 @@
         let valArr = []
         this.checkedTime = val
         valArr = val.split('-')
-        this.filters[1].title = valArr[0] + '年' + parseInt(valArr[1]) + '月' + parseInt(valArr[2]) + '日'
+        this.filters[1].title = valArr[0] + '年' + parseInt(valArr[1]) + '月'
       },
       /**
        * 时间插件展示
@@ -99,12 +116,15 @@
         this.$vux.datetime.show({
           cancelText: _self.cancel,
           confirmText: _self.confirm,
-          format: 'YYYY-MM-DD',
+          format: 'YYYY-MM',
           value: _self.checkedTime,
           minYear: new Date().getFullYear() - 10,
           maxYear: new Date().getFullYear() + 10,
           onConfirm (val) {
             _self.initDefaultTime(val)
+            _self.params.date = val
+            console.log(_self.params)
+            _self.axiosGetData(_self.params)
           },
           onShow () {
             console.log('plugin show')
@@ -153,6 +173,22 @@
         })
         filter.selected = options[optionId].name
         filter.active = false
+
+        this.pointsTypeParams(optionId)
+      },
+      /**
+       * 根据选择的类型确定参数
+       * @param filter 当前过滤类型
+       * @param optionId 当前过滤项的索引
+       */
+      pointsTypeParams (id) {
+        if (id == '0') { // 销售积分
+          this.params.pointsType = '1'
+        } else {
+          this.params.pointsType = '2'
+        }
+        console.log(this.params)
+        this.axiosGetData(this.params)
       }
     }
   }

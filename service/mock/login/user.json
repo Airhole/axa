@@ -1,0 +1,19 @@
+{
+  "data":{
+    "weiXinNumber": "zhongan",
+    "staffNo": "1440000165",
+    "weixinShopName": "安盛天平",
+    "companyName": "横琴保险有限公司珠海中心支公司横琴支公司第一营销服务部",
+    "mobile": "18711111111",
+    "weixinAuthId": "123123",
+    "userName": "十七",
+    "imgHeader": "https://hq-app-dev.zhongan.io/api/data/downloadImage?url=2897466026208613.jpg",
+    "jobLevel": "A03",
+    "introduction": "傻吊",
+    "comcode": "8644030101"
+  },
+  "errorCode": "00",
+  "status": true,
+  "errorMsg": "success",
+  "newProperty": "exciting data"
+}

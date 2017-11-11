@@ -14,7 +14,7 @@
       <div class="score-head">
         <p>{{ $t('scoreNum')}}</p>
         <p>{{ total }}</p>
-        <p>{{ $t('scorePrice', {"price": total})}}</p>
+        <p>{{ $t('scorePrice', {"price": pointsMonth})}}</p>
       </div>
       <div class="score-btn">
         <x-button class="primary-blue" @click.native="handleDetails">{{ $t('scoreView') }}</x-button>
@@ -37,11 +37,13 @@
     data: () => {
       return {
         total: 0,
+        pointsMonth: 0,
         showLoading: true
       }
     },
     created: function () {
-      this.change()
+      let staffNo = '1440000165'
+      this.change(staffNo)
     },
     directives: {
       TransferDom
@@ -50,9 +52,10 @@
       handleDetails () {
         this.$router.push({ path: 'integral_detail', query: { userId: 123 } })
       },
-      change (value) {
-        this.axios.post(IMY_SCORE).then(response => {
-          this.total = response.data.data.total
+      change (value) { // staffNo: 代理人工号,登录时提供
+        this.axios.post(IMY_SCORE, {staffNo: value}).then(response => {
+          this.total = response.data.data.pointsCount // 当前余额
+          this.pointsMonth = response.data.data.pointsMonth // 本月积分
           this.showLoading = false
         }).catch(err => {
           console.log(err)
