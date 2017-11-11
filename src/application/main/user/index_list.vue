@@ -3,31 +3,42 @@
     <div class="panel-bg">
       <div class="index-top">
         <div class="w-box">
-          <div class="flex-1"><strong>眾小安的微店</strong></div>
-          <div class="pack-e language" @click="LanguageSwitch"><span>A</span><span class="active">中</span></div>
+          <div class="flex-1"><strong>{{weixinShopName}}</strong></div>
+          <div class="pack-e language" @click="LanguageSwitch">
+            <span>{{language1}}</span>
+            <span class="active">{{language}}</span>
+          </div>
         </div>
         <div class="w-box">
-          <img src="~@/assets/image/user.png" class="img flex-1">
+          <div :style="{backgroundImage: 'url(' + iconUrl + ')'}" 
+          class="img" 
+          @click="gotoCard">
+          </div>
           <div class="flex-1">
-            <p>眾小安<em>AXA安盛</em></p>
-            <p>中環營業部  高級銷售經歷</p>
-            <p>電話服務</p>
+            <p>{{ userName }}<em @click="gotoCompany">AXA安盛</em></p>
+            <p>{{org}}  {{position}}</p>
+            <a :href="mobile" class="tel_box">{{ $t('tel_support') }}</a>
           </div>
         </div>
       </div>
+      <div class="list-sign">{{ $t('hot_tips') }}</div>
       <div class="panel-main">
-        <div class="list-sign">熱賣推薦</div>
         <ul class="list-product">
-          <li>
-            <img src="~@/resource/insurance-1.png">
-            <h2>健康一生重大疾病保障</h2>
-            <h3>每天不到4元，疾病癌症均可保</h3>
-            <div class="bar">
-              <label>健康險</label>
-              <strong>$2000<small>起</small></strong>
+          <li  v-for="(item, index) in orders" keys="index">
+            <div @click="gotoProduct(item.id)" class="productTable">
+              <b class="productImg" :style="{backgroundImage: 'url(' + item.src + ')'}">
+              </b>
+              <div class="productInfo">
+                <h2>{{ item.name }}</h2>
+                <h3>{{ item.dep }}</h3>
+                <div class="bar">
+                  <label>{{ item.type }}</label>
+                  <strong>{{ item.price }}<small>{{ item.rate }}</small></strong>
+                </div>
+              </div>
             </div>
           </li>
-          <li>
+          <!-- <li>
             <img src="~@/resource/insurance-2.png">
             <h2>安享人生健康保障</h2>
             <h3>每天不到4元，疾病癌症均可保</h3>
@@ -35,24 +46,90 @@
               <label>健康險</label>
               <strong>$2000<small>起</small></strong>
             </div>
-          </li>
+          </li> -->
         </ul>
       </div>
     </div>
-    <div class="share-btn">分享店鋪</div>
+    <div class="share-btn" @click="shareStore">分享店鋪</div>
   </div>
 </template>
 
 <script>
+  import { IBUSINESS_CARD, HOT_PRODUCT } from '@/api'
   export default {
     name: 'index_list',
     data () {
       return {
+        iconUrl: '',
+        userName: '',
+        userId: '',
+        org: '',
+        position: '',
+        mobile: '',
+        weixinShopName: '',
+        language: '中',
+        language1: 'A',
+        orders: {}
       }
     },
+    created: function () {
+      this.init()
+    },
     methods: {
-      LanguageSwitch () {
-        console.log('1111')
+      init () {
+        console.log('init')
+        this.getOrderInfo()
+        this.LanguageSwitch()
+        this.getAgentInfo()
+      },
+      getAgentInfo () { // 获取代理人信息
+        this.axios.post(IBUSINESS_CARD, {"staffNo": "1440000165"}).then(response => {
+          debugger
+          this.agent = response.data.data
+          this.iconUrl = this.agent.imgHeader
+          this.userName = this.agent.userName
+          this.org = this.agent.comcode
+          this.position = this.agent.jobLevel
+          this.mobile = 'tel:' + this.agent.mobile
+          this.weixinShopName = this.agent.weixinShopName
+          this.isLoading = false
+        }).catch(err => {
+          console.log(err)
+          throw new Error(err)
+        })
+      },
+      getOrderInfo () { // 获取产品信息
+        this.axios.post(HOT_PRODUCT).then(response => {
+          this.orders = response.data.data
+          this.isLoading = false
+        }).catch(err => {
+          console.log(err)
+          throw new Error(err)
+        })
+      },
+      LanguageSwitch () { // 切换当前语言环境
+        if (this.$i18n.locale() === "FAN") {
+          this.$i18n.set('EN')
+          this.language = 'A'
+          this.language1 = '中'
+        } else {
+          this.$i18n.set('FAN')
+          this.language = '中'
+          this.language1 = 'A'
+        }
+        // alert('当前语言版本' + this.$i18n.locale())
+      },
+      gotoCard () {
+        this.$router.push({path: "/card", query: {userId: this.userId}})
+      },
+      gotoProduct (n) {
+        this.$router.push({path: "/product_detail", query: {userId: this.userId}})
+      },
+      shareStore () {
+        console.log('shareStore')
+      },
+      gotoCompany () {
+        this.$router.push({path: "/company", query: {userId: this.userId}})
       }
     }
   }
@@ -83,9 +160,9 @@
               border: 1px solid #999;
               color: #999;
               font-size: rem-calc(11);
-              width: rem-calc(15);
-              height: rem-calc(15);
-              line-height: rem-calc(15);
+              width: rem-calc(16);
+              height: rem-calc(16);
+              line-height: rem-calc(17);
               text-align: center;
               background-color: inherit;
               border-radius: rem-calc(3);
@@ -112,7 +189,7 @@
               border-radius: rem-calc(3);
               display: inline-block;
               padding: rem-calc(3) rem-calc(5);
-              margin-left: rem-calc(3);
+              margin-left: rem-calc(5);
               font-style: normal;
               font-size: rem-calc(12);
             }
@@ -120,25 +197,33 @@
           p:nth-child(2) {
             color: #666;
           }
-          p:nth-child(3) {
+          .tel_box {
             color: #fff;
             text-align: center;
             background-color: #485bba;
-            padding: rem-calc(5) rem-calc(5);
+            padding: rem-calc(4) rem-calc(20) rem-calc(5) rem-calc(5);
             max-width: rem-calc(98);
             border-radius: rem-calc(15);
             margin-bottom: 0;
+            text-decoration: none;
+            margin-left: rem-calc(20);
+            margin-bottom: rem-calc(10);
+            display: block;
+            line-height: rem-calc(15);
+            white-space:nowrap;
           }
-          p:nth-child(3):before {
+          .tel_box:before {
             content: "";
             display: inline-block;
             vertical-align: rem-calc(-1);
             margin-right: rem-calc(5);
-            width: rem-calc(15);
-            height: rem-calc(15);
+            width: rem-calc(16);
+            height: rem-calc(16);
+            line-height:  rem-calc(16);
             background-size: 100%;
             background-repeat: no-repeat;
             background-image: url("~@/assets/image/index_phone.png");
+            margin-left: rem-calc(10);
           }
         }
         .w-box:first-child {
@@ -148,12 +233,18 @@
         .img {
           width: rem-calc(90);
           height: rem-calc(90);
+          background-size: 100% 100%;
+          display: block;
+          overflow: hidden;
+          border-radius: rem-calc(1000);
         }
       }
       > .panel-main{
         color: #999;
         flex: 1;
+        margin-bottom: rem-calc(50);
         overflow-y: auto;
+        -webkit-overflow-scrolling : touch;
         max-height: calc(100vh - #{rem-calc(44)});
       }
     }
@@ -162,6 +253,7 @@
       text-align: center;
       background-color: #ecebeb;
       padding: rem-calc(15) 0;
+      color: #999;
     }
     .list-sign:before, .list-sign:after {
       content: "";
@@ -184,6 +276,21 @@
         position: relative;
         overflow: hidden;
         padding: rem-calc(15) rem-calc(15) rem-calc(15) 0;
+        .productTable{
+          display: table;
+          width: 100%;
+          & .productImg {
+            display: table-cell;
+            width: 40%;
+            height: rem-calc(45);
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+          }
+          & .productInfo {
+            display: table-cell;
+            padding-left: rem-calc(10);
+          }
+        }
       }
       > li + li::before{
         position: absolute;
@@ -252,7 +359,6 @@
       bottom: 0;
       left: 0;
       right: 0;
-      margin: rem-calc(25) 0 0 0;
       display: flex;
       line-height: rem-calc(50);
       align-items: center;

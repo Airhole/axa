@@ -1,0 +1,16 @@
+{
+  "data": {
+    "insureNum": "22331",
+    "insurant": "43242342",
+    "insureTime": "2017/10/20 - 2017/11/26",
+    "firstPay": "0",
+    "insureMoney": "222",
+    "payTime": "一筆過繳付保費",
+    "brithday": "2017/01/02",
+    "email": "sdadada",
+    "insureSuccess": "true"
+    },
+    "errorCode": "00",
+    "status": true,
+    "errorMsg": "success"
+}

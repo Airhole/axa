@@ -33,27 +33,27 @@
         <div class="tips-wrapper">
           <div class="tips">
             <span class="icon" :class="{active: selected}" @click="changeAgreement"></span>
-            <span class="view">本人已閱讀並同意
-            <a href="#">『使用條款』</a>、
-            <a href="#">『聲明』</a>、
-            <a href="#">『保單條款』</a>、
-            <a href="#">『條件和不保事項』</a>
-            <a href="#">『私隱政策聲明』</a>
-            以及
-            <a href="#">『收集個人資料』</a>
+            <span class="view">{{ $t('view1') }}
+            <a href="#">{{ $t('termsOfUse') }}</a>、
+            <a href="#">{{ $t('declaration') }}</a>、
+            <a href="#">{{ $t('policyWording') }}</a>、
+            <a href="#">{{ $t('condition') }}</a>
+            <a href="#">{{ $t('privacyPolicy') }}</a>
+            {{ $t('view2') }}
+            <a href="#">{{ $t('personalInformation1') }}</a>
           </span>
             <input class="hiddenInput" type="hidden" name="clause" v-validate
-                   data-vv-as="请同意营销员声明" data-vv-rules="required">
+                   :data-vv-as="$t('view3')" data-vv-rules="required">
           </div>
           <div class="tips">
             <span class="icon" :class="{active: selected}" @click="changeAgreement"></span>
             <span class="view">
-            本人／我們不同意貴公司根據
-            <a href="#">『收集個人資料的聲明』</a>
-            使用和轉移本人／我們的個人資料作直接促銷用途（參閱「在直接促銷中使用及將其個人資料提供予其他人士」部份）及並不願意接收任何貴公司的推廣及直接促銷的材料。
+            {{ $t('view4') }}
+            <a href="#">{{ $t('personalInformation2') }}</a>
+            {{ $t('view5') }}。
           </span>
             <input class="hiddenInput" type="hidden" name="clause" v-validate
-                   data-vv-as="请同意营销员声明" data-vv-rules="required">
+                   :data-vv-as="$t('view6')" data-vv-rules="required">
           </div>
         </div>
       </div>
@@ -63,8 +63,8 @@
       <!--<default-btn class='next' val='下一步' @Click="nextStep"></default-btn>-->
       <div class="btn-wrapper">
         <!--<default-btn class='next' val='下一步' @Click="nextStep"></default-btn>-->
-        <div class="pre-step">需支付：<span>0.00&nbsp;</span>港元<label>（首月免費）</label></div>
-        <div class="next-step" @click="nextStep">立即投保</div>
+        <div class="pre-step">{{ $t('payText1') }}<span>222222.00&nbsp;</span><em>{{ $t('payText2') }}</em><label>{{ $t('payText3') }}</label></div>
+        <div class="next-step" @click="nextStep">{{ $t('immediateInsure') }}</div>
       </div>
     </div>
   </div>
@@ -157,7 +157,9 @@
         }
       },
       nextStep () {
-        this.$emit('nextStep', this.baseInfo)
+        alert('ffff')
+        // this.$emit('nextStep', this.baseInfo)
+        this.$router.push({path: "/result", query: {userId: this.userId}})
         /**
          let params = this.__plan(this.formModels)
          console.log('params', this.formModels, params)
@@ -287,9 +289,9 @@
 
   .page_insurance-applicant-info {
     @include fullpage;
-    overflow: hidden;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+    // overflow: hidden;
+    // overflow-y: auto;
+    // -webkit-overflow-scrolling: touch;
     .tab {
       background: #fff;
       position: fixed;
@@ -315,7 +317,10 @@
       }
     }
     .form {
-      margin: 0 0 rem-calc(50) 0;
+      overflow: hidden;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 0 0 rem-calc(60) 0;
     }
     .tips-bg {
       background: #F7F7F7;
@@ -381,27 +386,39 @@
       margin: rem-calc(25) 0 0 0;
       display: flex;
       line-height: rem-calc(50);
+      height: rem-calc(50);
       align-items: center;
       justify-content: center;
       text-align: center;
       font-size: rem-calc(15);
-      border-top: 1px solid #e9e9e9;
+      // border-top: 1px solid #e9e9e9;
       .pre-step {
-        flex: 3;
+        padding-left: rem-calc(15);
+        text-align: left;
+        flex: 4;
         color: #666;
         background: #fff;
+        border-top: 1px solid #e9e9e9;
         span {
           color: #FE1641;
+          padding: 0 rem-calc(5);
+        }
+        em {
+          font-style: normal;
+          font-size: rem-calc(14);
         }
         label {
           font-size: rem-calc(12);
-          color: #FE1641;
+          color: #999;
+          padding-left: rem-calc(3);
         }
       }
       .next-step {
         flex: 2;
         background: #485BBA;
         color: #fff;
+        border-top: 1px solid #485BBA;
+        box-sizing: border-box;
       }
     }
   }

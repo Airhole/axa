@@ -5,7 +5,7 @@ import router from './router'
 import store from '@/store'
 import {axioshttp} from '@/widget'
 import Vuex from 'vuex'
-import { ToastPlugin, AlertPlugin, ConfirmPlugin } from 'vux'
+import { ToastPlugin, AlertPlugin, ConfirmPlugin, DatetimePlugin } from 'vux'
 import VeeValidate from 'vee-validate'
 import messagesCN from '@/widget/validate/zh_CN'
 import * as VeeValidateExtends from '@/widget/validate/extends'
@@ -20,11 +20,16 @@ Vue.use(Vuex)
 Vue.use(ToastPlugin)
 Vue.use(AlertPlugin)
 Vue.use(ConfirmPlugin)
+Vue.use(DatetimePlugin)
 
 Vue.config.productionTip = false
 Vue.config.devtools = true
 
 Vue.mixin(baseMixin)
+
+// 点击延迟
+const FastClick = require('fastclick')
+FastClick.attach(document.body)
 
 // validator
 const veeConfig = {

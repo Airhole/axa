@@ -123,7 +123,7 @@ const xinNen = [{ // 产品列表
 { //  在线投保-投保人信息
   path: '/insurance/applicant_info',
   name: 'insurance_applicant_info',
-  component: () => import(/* webpackChunkName: "applicant-info" */ '@/application/main/insurance/applicant-info.vue'),
+  component: () => import(/* webpackChunkName: "applicant-info" */ '@/application/main/insurance/applicant-enter.vue'),
   meta: {
     requireAuth: true,
     title: '投保人信息',
@@ -456,25 +456,6 @@ export default new Router({
         param: {}
       }
     },
-    {
-      path: '/store',
-      name: 'store',
-      component: () => import(/* webpackChunkName: "company" */ '@/application/main/company'),
-      meta: {
-        requireAuth: true,
-        title: 'hello',
-        rightMenu: null,
-        leftMenu: {
-          title: '返回',
-          javascript: 'gobackbtn',
-          params: 'go:recommend'
-        }
-      },
-      Info: {
-        description: '公司介绍',
-        param: {}
-      }
-    },
     { //  名片
       path: '/card',
       name: 'card',
@@ -600,9 +581,9 @@ export default new Router({
       }
     },
     { //  投保成功
-      path: '/success',
-      name: 'insure_success',
-      component: () => import('@/application/main/insurance/insure-success.vue'),
+      path: '/result',
+      name: 'insure_result',
+      component: () => import('@/application/main/insurance/insure-result.vue'),
       meta: {
         requireAuth: true,
         title: '投保成功',
@@ -651,9 +632,9 @@ export default new Router({
       }
     },
     // ...xinNen
-    { //  投保單錄入
-      path: '/applicant_info',
-      name: 'applicant_info',
+    { //  公司简介
+      path: '/applicant',
+      name: 'applicant',
       component: () => import('@/application/main/profile/applicant-info'),
       meta: {
         requireAuth: true,
@@ -682,6 +663,40 @@ export default new Router({
       },
       Info: {
         description: '產品詳情',
+        param: {}
+      }
+    },
+    { //  我的相关信息
+      path: '/integral_detail',
+      name: 'integral_detail',
+      component: () => import('@/application/main/user/integral_detail'),
+      meta: {
+        requireAuth: true,
+        title: '积分明细',
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '积分明细',
+        param: {}
+      }
+    },
+    { //  登录
+      path: '/login',
+      name: 'login',
+      component: () => import('@/application/main/login'),
+      meta: {
+        requireAuth: true,
+        title: '登录',
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '登录',
         param: {}
       }
     }

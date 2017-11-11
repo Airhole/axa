@@ -1,0 +1,40 @@
+{
+  "data": [{
+    "id": "1",
+    "src": "/static/img/insurance-1.png",
+    "name": "健康一生重大疾病保障",
+    "dep": "每天不到4元，疾病癌症均可保",
+    "type": "健康险",
+    "price": "1323",
+    "rate": "起"
+  },
+  {
+    "id": "2",
+    "src": "/static/img/insurance-1.png",
+    "name": "健康一生重大疾病保障",
+    "dep": "每天不到4元，疾病癌症均可保",
+    "type": "健康险",
+    "price": "1323",
+    "rate": "起"
+  },
+  {
+    "id": "3",
+    "src": "/static/img/insurance-1.png",
+    "name": "健康一生重大疾病保障",
+    "dep": "每天不到4元，疾病癌症均可保",
+    "type": "健康险",
+    "price": "1323",
+    "rate": "起"
+  },
+  {
+    "id": "4",
+    "src": "/static/img/insurance-1.png",
+    "name": "健康一生重大疾病保障",
+    "dep": "每天不到4元，疾病癌症均可保",
+    "type": "健康险",
+    "price": "1323",
+    "rate": "起"
+  }],
+  "status": "true",
+  "errorMsg": "错误信息"
+}
