@@ -15,8 +15,18 @@ export default {
     type: 'title',
     extraClass: 'title'
   },
-  name: {
-    label: '姓名',
+  firstName: {
+    label: '姓',
+    type: 'input',
+    rules: {
+      // maxlength: 6,
+      vRules: 'required|username|checkUser|usernameLength',
+      placeholder: '請輸入姓名',
+      errorMsg: errorMsg.name
+    }
+  },
+  lastName: {
+    label: '名',
     type: 'input',
     rules: {
       // maxlength: 6,

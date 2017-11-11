@@ -1,5 +1,9 @@
 export default {
-  "name": {
+  "firstName": {
+    "value": "投保人",
+    "name": "name"
+  },
+  "lastName": {
     "value": "投保人",
     "name": "name"
   },

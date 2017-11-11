@@ -5,16 +5,16 @@
       <insurance-unit :order="index" :insItem="insItem" :index="index" :key="index" @formChange="onChange">
         <template slot="unit-title" slot-scope="unit">
           <div class="baseBox title">
-            <div class="main nonflex title">
-              <div class="main-insure">
-                <label>主</label>
-                <span class="msg">{{insItem.name}}</span>
+            <!--<div class="main nonflex title">-->
+              <!--<div class="main-insure">-->
+                <!--<label>主</label>-->
+                <!--<span class="msg">{{insItem.name}}</span>-->
 
-              </div>
+              <!--</div>-->
               <!-- 暂不放出附加险 -->
               <!-- <div class="act-btn add-unit" v-if="unit.order==0" @click="addOneForm">添加附加险</div> -->
               <!-- <div class="act-btn delete-unit" v-else @click="onDelted(insItem, index)">删除</div> -->
-            </div>
+            <!--</div>-->
           </div>
         </template>
       </insurance-unit>
