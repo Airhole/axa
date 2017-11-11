@@ -28,7 +28,7 @@
 
 <script>
   import { XInput, Group, XButton, Cell } from 'vux'
-  import { ILOGIN } from '@/api'
+  import { LOGIN_INFO } from '@/api'
   export default {
     name: 'Login',
     components: {
@@ -50,10 +50,7 @@
     },
     methods: {
       handleLogin () {
-        // this.axios.post('http://192.168.26.61:8080/login/user', {loginName: this.userName, passWord: this.password}).then(res => {
-        //   console.log(res)
-        // })
-        this.axios.post(ILOGIN, {loginName: this.userName, passWord: this.password}).then(res => {
+        this.axios.post(LOGIN_INFO, {loginName: this.userName, passWord: this.password}).then(res => {
           console.log(res)
         })
       }

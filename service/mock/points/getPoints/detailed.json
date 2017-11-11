@@ -1,0 +1,15 @@
+{
+    "data": [
+        {
+            "riskName": "步步保",
+            "yearPrem": 1,
+            "insureDate": 1510385055000,
+            "pointsType": "1",
+            "contNo": 100000,
+            "points": 10
+        }
+    ],
+    "errorCode": "00",
+    "status": true,
+    "errorMsg": "success"
+}

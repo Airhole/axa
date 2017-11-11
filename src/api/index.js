@@ -65,11 +65,15 @@ export const IORDER_QUERY = path(order, true)
 let accoutScore = '/accountscore'
 export const IACCOUNT_SCORE = path(accoutScore, true)
 
-let myScore = '/myscore'
+// let myScore = '/myscore'
+// export const IMY_SCORE = path(myScore, true)
+// 我的积分
+let myScore = '/points/getPoints'
 export const IMY_SCORE = path(myScore, true)
 
-let scoreDetail = '/scoredetail'
-export const SCORE_DETAIL = path(scoreDetail, true)
+// 我的积分-列表
+// export const SCORE_DETAIL = path('/scoredetail', true)
+export const SCORE_DETAIL = path('/points/getPoints/detailed', true)
 
 let agentAccount = '/agent'
 export const IACCOUNT_AGENT = path(agentAccount, true)
@@ -94,3 +98,6 @@ export const HOT_PRODUCT = path(product, true)
 // 名片
 let card = '/user/getAgentUserInformation' // /product'
 export const IBUSINESS_CARD = path(card, true)
+
+// 登录
+export const LOGIN_INFO = path('/login/user', true)
