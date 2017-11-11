@@ -4,7 +4,8 @@ const mock = process.env.MOCK
 if (pro) {
   root = '/api'
 } else {
-  root = '/testapi'
+  // root = '/testapi'
+  root = 'http://192.168.26.91:8080'
   // root = '/devapi'
 }
 let path = (inf = null, n) => {

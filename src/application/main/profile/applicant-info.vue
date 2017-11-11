@@ -17,11 +17,18 @@
     <!--</div>-->
     <div class="form">
       <form-unit
-        :formModels="formModels"
-        :formRules="formRules"
-        @formChange="onChange"
-        @emission="onEmission">
+        :formModels="applicantFormModels"
+        :formRules="applicantFormRules"
+        @formChange="onApplicantChange"
+        @emission="onApplicantEmission">
       </form-unit>
+      <form-unit
+        :formModels="insurantFormModels"
+        :formRules="insurantFormRules"
+        @formChange="onInsurantChange"
+        @emission="onInsurantEmission">
+      </form-unit>
+
       <div class="tips-bg">
         <div class="tips-wrapper">
           <div class="tips">
@@ -70,8 +77,10 @@
   import defaultBtn from '@/components/base/default-btn.vue'
 
   // models
-  import formModels from './models/applicant-info-model'
-  import formRules from './models/applicant-info-rule'
+  import applicantFormModels from './models/applicant-info-model'
+  import applicantFormRules from './models/applicant-info-rule'
+  import insurantFormModels from './models/insurant-info-model'
+  import insurantFormRules from './models/insurant-info-rule'
 
   export default {
     name: 'baseInfo',
@@ -82,11 +91,10 @@
     // mixins: [epMixin],
     data () {
       return {
-        formModels: this.__clone(formModels),
-        formRules: this.__clone(formRules),
-        options: {
-          editStep: '1'
-        },
+        applicantFormModels: this.__clone(applicantFormModels),
+        applicantFormRules: this.__clone(applicantFormRules),
+        insurantFormModels: this.__clone(insurantFormModels),
+        insurantFormRules: this.__clone(insurantFormRules),
         baseInfo: {},
         selected: false
       }
@@ -110,23 +118,37 @@
       },
       changeAgreement () {
       },
-      loadApplicant (insureId) {
-        this.axios.post(READ_APPLICANT_INFO, {insureId: insureId}).then(res => {
-          let result = res.data.value
-          this.formModels = this.__fixInputName(res.data.value)
-          this.baseInfo = {
-            insureId: result.insureId,
-            customerId: result.customerId,
-            customerType: result.customerType,
-            planId: result.planId
-          }
-        })
+//      loadApplicant (insureId) {
+//        this.axios.post(READ_APPLICANT_INFO, {insureId: insureId}).then(res => {
+//          let result = res.data.value
+//          this.formModels = this.__fixInputName(res.data.value)
+//          this.baseInfo = {
+//            insureId: result.insureId,
+//            customerId: result.customerId,
+//            customerType: result.customerType,
+//            planId: result.planId
+//          }s
+//        })
+//      },
+      onApplicantChange (v) {
+        console.log('this.formModels++++', v, this.__str(this.__recapOutputName(this.__plan(v.value))))
+//        this.__recapOutputName(this.__plan(v.value))
+//        this.$emit('onChange', v)
       },
-      onChange (v) {
-        // console.log('this.formModels++++', v)
-        this.$emit('onChange', v)
+      onInsurantChange (v) {
+        console.log('this.insurantFormModels++++', v, JSON.stringify(this.__plan(v.value)))
+        this.__recapOutputName(this.__plan(v.value))
+//        this.$emit('onChange', v)
       },
-      onEmission (v) {
+//      onApplicantEmission (v) {
+//        // console.log('eeeeeee', v)
+//        if (v.value === true) {
+//          this.formModels.wechatNo.value = '123413413134134xxx'
+//        } else {
+//          this.formModels.wechatNo.value = ''
+//        }
+//      },
+      onInsurantEmission (v) {
         // console.log('eeeeeee', v)
         if (v.value === true) {
           this.formModels.wechatNo.value = '123413413134134xxx'

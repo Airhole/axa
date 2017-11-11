@@ -115,7 +115,7 @@ export default {
       this.keys.forEach(i => {
         let err = this.formErrors[i]
         if (err && err.name && !err.isValid) {
-          console.log('eeeeeeeee', err)
+          // console.log('eeeeeeeee', err)
           this.errorBag.push(err)
         }
       })

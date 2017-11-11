@@ -1,6 +1,6 @@
 export default {
   "name": {
-    "value": "投保人",
+    "value": "",
     "name": "name"
   },
   "sex": {
@@ -27,28 +27,8 @@ export default {
     "value": "",
     "name": "mainlandIdNo"
   },
-  "entryCitizenship": {
-    "value": "",
-    "name": "entryCitizenship"
-  },
-  "mobile": {
-    "value": "",
-    "name": "mobile"
-  },
-  "mailAddress": {
-    "value": "",
-    "name": "mailAddress"
-  },
-  "addressApplicant": {
-    "value": "",
-    "name": "addressApplicant"
-  },
-  "country": {
-    "value": "",
-    "name": "country"
-  },
-  "entryRelation": {
-    "value": "",
-    "name": "entryRelation"
+  "beneficiary": {
+    "value": "法定受益人",
+    "name": "beneficiary"
   }
 }
