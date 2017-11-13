@@ -39,7 +39,7 @@ export default {
   "underwritingDate": "承保日期：",
   "scorePoint": "推廣積分：",
   "orderCancel": "取消",
-  "orderDone": "确定",
+  "orderDone": "確定",
   // order end
   // user start
   "userCenterTime": "近七天數據",
@@ -57,7 +57,7 @@ export default {
   "announcement_unagree": "以上皆否",
   "announcement_tips": "您的健康不符合投保要求，不能承保",
   "remind": "提示",
-  "announcement_done": "确定",
+  "announcement_done": "確定",
   // announcement end
   // index start
   "hot_tips": "熱賣推薦",
