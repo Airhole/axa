@@ -6,39 +6,39 @@
  *
 ********************************************************************-->
 <template>
-  <div class="find-password" v-bind:style="{height: H + 'px'}">
+  <div class="find-password">
     <div class="header">
-      <h2>密码找回</h2>
+      <h2>{{ $t("findpw") }}</h2>
     </div>
     <div class="item">
       <Group class="grop">
-        <span>用户名</span>
+        <span>{{ $t("username") }}</span>
         <x-input type="text" :placeholder="$t('namePlaceholder')" :show-clear="false"></x-input>
       </Group>
       <Group class="grop">
-        <span>手機號</span>
+        <span>{{ $t('pwmobile') }}</span>
         <x-input type="number" :placeholder="$t('namePlaceholder')" :show-clear="false"></x-input>
       </Group>
       <Group class="grop">
-        <span>短信驗證碼</span>
+        <span>{{ $t('sns') }}</span>
         <x-input type="number" :placeholder="$t('namePlaceholder')" :show-clear="false">
-          <x-button slot="right" class="getcode" mini :show-loading="false">獲取驗證碼</x-button>
+          <x-button slot="right" class="getcode" mini :show-loading="false">{{ $t('getsns') }}</x-button>
         </x-input>
       </Group>
     </div>
     <div class="item">
       <Group class="grop">
-        <span>密碼</span>
+        <span>{{ $t('pw') }}</span>
         <x-input type="password" :placeholder="$t('passwordPlaceholder')" :show-clear="false"></x-input>
       </Group>
       <Group class="grop">
-        <span>再次輸入密碼</span>
+        <span>{{ $t('againPw') }}</span>
         <x-input type="password" :placeholder="$t('passwordPlaceholder')" :show-clear="false"></x-input>
       </Group>
     </div>
-    <p class="prompt">溫馨提示：密碼不超過6-16位數字或字母，不能於用戶名相同</p>
+    <p class="prompt">{{ $t('pwtips') }}</p>
     <div class="confirm">
-      <x-button class="primary-blue" @click.native="handleConfirm">确认</x-button>
+      <x-button class="primary-blue" @click.native="handleConfirm">{{ $t('confirm') }}</x-button>
     </div>
   </div>
 </template>
@@ -61,7 +61,6 @@
     },
     methods: {
       handleConfirm () {
-        console.log('确认')
       }
     }
   }
@@ -69,6 +68,11 @@
 <style lang='scss' rel="stylesheet/scss">
   @import '~@/assets/scss/function';
   .find-password {
+    position: absolute;
+    top:0;
+    bottom:0;
+    left: 0;
+    right:0;
     background-color: #f7f7f7;
     .header {
       background-color: #fff;

@@ -126,6 +126,25 @@ export default {
   "passwordPlaceholder": "Please enter the password",
   "login": "Login",
   "handleAgent": "agent login",
-  "handleOrdinary": "user login"
+  "handleOrdinary": "user login",
   // login end
+  // order inquiry start
+  "search": "search",
+  "cancel": "cancel",
+  "confirm": "done",
+  // order end
+  // find password start
+  "findpw": "find password",
+  "username": "username",
+  "pwmobile": "tel",
+  "sns": "sns",
+  "getsns": "get sns",
+  "pw": "password",
+  "againPw": "again",
+  "pwtips": "tips：密碼不超過6-16位數字或字母，不能於用戶名相同",
+  // find password end
+  // regist start
+  "registTitle": "user regist",
+  "next": "next"
+  // regist end
 }
