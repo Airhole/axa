@@ -72,7 +72,7 @@ export default {
     },
     emit () {
       this.__bounce(200).do(() => {
-        this.$emit('formChange', this.innerModel())
+        this.$emit('formChange', this.innerModel(), this.formMods)
       })
     },
     innerModel () {

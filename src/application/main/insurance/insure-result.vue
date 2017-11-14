@@ -11,58 +11,70 @@
 <template>
   <div class="insure-success">
     <div class="success-header">
-      <div class="img-wrapper">
-        <img src="~@/assets/image/success-icon.png" />
+      <div class="img-wrapper" :class="{'success': status}">
+        <div class="img_icon"></div>
       </div>
-      <div>投保成功</div>
-      <div>您已成功購買：非步步保</div>
+      <div>{{ status? $t('insureSuccess') : $t('insureFail') }}</div>
+      <div>{{ $t('insureTips', {"type": '非步步保'}) }}</div>
     </div>
     <div class="success-content">
         <div class="item">
-          <span>保單號：</span>
-          <span>220084145758097</span>
+          <span>{{ $t('insureNum') }}</span>
+          <span>{{ result.insureNum }}</span>
         </div>
         <div class="item">
-          <span>被保險人：</span>
-          <span>220084145758097</span>
+          <span>{{ $t('insurant') }}</span>
+          <span>{{ result.insurant }}</span>
         </div>
         <div class="item">
-          <span>生效日期：</span>
-          <span>2017/12/20</span>
+          <span>{{ $t('brithday') }}</span>
+          <span>{{ result.brithday }}</span>
         </div>
         <div class="item">
-          <span>保單期間：</span>
-          <span>2017/10/20 - 2017/11/26</span>
+          <span>{{ $t('insureTime') }}</span>
+          <span>{{ result.insureTime }}</span>
         </div>
         <div class="item">
-          <span>繳費期間：</span>
-          <span>一筆過繳付保費</span>
+          <span>{{ $t('payTime') }}</span>
+          <span>{{ result.payTime }}</span>
         </div>
         <div class="item">
-          <span>保單金額：</span>
-          <span>10萬元</span>
+          <span>{{ $t('insureMoney')}}</span>
+          <span>{{ result.insureMoney }}</span>
         </div>
         <div class="item">
-          <span>首期保費：</span>
-          <span>0.00</span>
+          <span>{{ $t('firstPay') }}</span>
+          <span>{{ result.firstPay }}</span>
         </div>
     </div>
     <div class="footer">
-      <div>溫馨提示：</div>
-      <p>電子保單將發送到投保人郵箱：wangxiaoming@163.com</p>
+      <div>{{ $t('insureWarn') }}</div>
+      <p>{{ $t('insureEmail', {"email" : result.email})}}</p>
     </div>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'insure-success',
-    data: () => {
-      return {
-
-      }
+import { INSURE_RESULT } from '@/api'
+export default {
+  name: 'insure-success',
+  data: () => {
+    return {
+      status: false,
+      result: {}
     }
+  },
+  created: function () {
+    this.axios.post(INSURE_RESULT).then(response => {
+      this.result = response.data.data
+      this.status = response.data.data.insureStatus
+      this.isLoading = false
+    }).catch(err => {
+      console.log(err)
+      throw new Error(err)
+    })
   }
+}
 </script>
 
 <style lang="scss" rel="stylesheet/scss" scoped>
@@ -78,9 +90,17 @@
         width: rem-calc(57px);
         height: rem-calc(57px);
         display: inline-block;
-        img {
+        & > .img_icon {
           width: 100%;
           height: 100%;
+          background: url('~@/assets/image/fail-icon.png') no-repeat;
+          background-size:100% 100%;
+        }
+        &.success > .img_icon{
+          width: 100%;
+          height: 100%;
+          background: url('~@/assets/image/success-icon.png') no-repeat;
+          background-size:100% 100%;
         }
       }
       > div:nth-child(2) {

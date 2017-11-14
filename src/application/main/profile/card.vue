@@ -10,49 +10,51 @@
     <div class="profile-card">
       <div class="card-item">
         <div class="card-info">
-          <span>头像</span>
-          <div><img :src="userInfo.headImg" class="head-img" /></div>
+          <span>{{ $t('ava') }}</span>
+          <div>
+            <b class="head-img" :style="{backgroundImage: 'url(' + userInfo.imgHeader + ')'}"></b>
+          </div>
         </div>
       </div>
       <div class="card-item">
         <div class="card-info">
-          <span>微店名称</span>
-          <div>{{userInfo.storeName}}</div>
+          <span>{{ $t('storeName') }}</span>
+          <div>{{userInfo.weixinShopName}}{{ $t('shopend') }}</div>
         </div>
         <div class="card-info">
-          <span>店主名称</span>
-          <div>{{userInfo.shopkeeperName}}</div>
-        </div>
-      </div>
-      <div class="card-item">
-        <div class="card-info">
-          <span>手机号码</span>
-          <div><a :href="'tel:' + userInfo.telephone">{{userInfo.telephone}}</a> <i class="phone-icon"></i></div>
-        </div>
-        <div class="card-info">
-          <span>微信号</span>
-          <div>{{userInfo.wechat}} <i class="wechat-icon"></i></div>
+          <span>{{ $t('shopkeeperName')}}</span>
+          <div>{{userInfo.userName}}</div>
         </div>
       </div>
       <div class="card-item">
         <div class="card-info">
-          <span>公司</span>
+          <span>{{ $t('telephone') }}</span>
+          <div><a :href="'tel:' + userInfo.mobile">{{userInfo.mobile}}</a> <i class="phone-icon"></i></div>
+        </div>
+        <div class="card-info">
+          <span>{{ $t('wechat') }}</span>
+          <div>{{userInfo.weiXinNumber}} <i class="wechat-icon"></i></div>
+        </div>
+      </div>
+      <div class="card-item">
+        <div class="card-info">
+          <span>{{ $t('companyName') }}</span>
           <div>{{userInfo.companyName}}</div>
         </div>
         <div class="card-info">
-          <span>机构</span>
-          <div>{{userInfo.org}}</div>
+          <span>{{ $t('org') }}</span>
+          <div>{{userInfo.comcode}}</div>
         </div>
         <div class="card-info">
-          <span>职位</span>
-          <div>{{userInfo.position}}</div>
+          <span>{{ $t('position') }}</span>
+          <div>{{userInfo.jobLevel}}</div>
         </div>
         <div class="card-info">
-          <span>自我介绍</span>
-          <div class="self-introduce">{{userInfo.introduce}}</div>
+          <span>{{$t('introduce')}}</span>
+          <div class="self-introduce">{{userInfo.introduction}}</div>
         </div>
       </div>
-      <a class="share-card">分享名片</a>
+      <!-- <a class="share-card">{{$t('share')}}</a> -->
     </div>
     <div v-transfer-dom>
       <loading :show="showLoading"></loading>
@@ -61,15 +63,26 @@
 </template>
 <script>
   import {Loading, TransferDomDirective as TransferDom} from 'vux'
+  import { IBUSINESS_CARD } from '@/api'
   export default {
-    name: 'planShow',
+    name: 'card',
     directives: {
       TransferDom
     },
     components: {Loading},
     data () {
       return {
-        userInfo: {},
+        userInfo: {
+          imgHeader: '',
+          weixinShopName: '',
+          userName: '',
+          mobile: '',
+          weiXinNumber: '',
+          companyName: '',
+          comcode: '',
+          jobLevel: '',
+          introduction: ''
+        },
         showLoading: true
       }
     },
@@ -78,9 +91,11 @@
     },
     methods: {
       getData () {
-        this.axios.get('http://easy-mock.com/mock/59f066041bd72e7a88898a61/xninsurance/userInfo#!method=get').then((response) => {
-          console.log(response)
-          this.userInfo = response.data.userInfo
+        // http://easy-mock.com/mock/59f066041bd72e7a88898a61/xninsurance/userInfo#!method=get
+        // BUSINESS_CARD
+        // http://192.168.26.61:8080/user/getAgentUserInformation
+        this.axios.post(IBUSINESS_CARD, {"staffNo": "1440000165"}).then((response) => {
+          this.userInfo = response.data.data
           this.showLoading = false
         }, (response) => {
         }).catch((err) => {
@@ -96,6 +111,7 @@
   @import '~@/assets/scss/_variables';
   .profile-card{
     position: relative;
+    margin-bottom: rem-calc(50);
     background: #f0f0f0;
     .card-item{
       margin-bottom: rem-calc(10);
@@ -110,6 +126,7 @@
       line-height: rem-calc(24);
       box-sizing: border-box;
       align-items: center;
+      overflow: hidden;
       & > span{
         width: 30%;
         color: #1a1a1a;
@@ -141,6 +158,10 @@
         height: rem-calc(60);
         border-radius: 50%;
         vertical-align: middle;
+        display: block;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        float:right;
       }
       .self-introduce{
         text-align: left;

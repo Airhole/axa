@@ -3,6 +3,8 @@ export default {
     return {
       form: {},
       formErrors: {},
+      $formModels: this.modModels,
+      $formRules: this.modRules,
       errorBag: [],
       isValid: false
     }
@@ -31,18 +33,36 @@ export default {
       type: String
     }
   },
+  created () {
+    this.$formRules = this.modRules
+    this.$formModels = this.modModels
+  },
   computed: {
-    $formModels () {
-      if (typeof this.formModels === 'string') {
-        return JSON.parse(this.formModels)
+    modModels: {
+      get () {
+        if (typeof this.formModels === 'string') {
+          return JSON.parse(this.formModels)
+        }
+        return this.formModels
+      },
+      set (v) {
+        for (let i in this.$formModels) {
+          this.$formModels[i] = v[i]
+        }
       }
-      return this.formModels
     },
-    $formRules () {
-      if (typeof this.formRules === 'string') {
-        return JSON.parse(this.formRules)
+    modRules: {
+      get () {
+        if (typeof this.formRules === 'string') {
+          return JSON.parse(this.formRules)
+        }
+        return this.formRules
+      },
+      set (v) {
+        for (let i in this.$formRules) {
+          this.$formRules[i] = v[i]
+        }
       }
-      return this.formRules
     },
     // 用于排序
     keys () {
@@ -70,6 +90,19 @@ export default {
     },
     onChange (val) {
       this.updateForm(val)
+    },
+    onEmission (val) {
+      let tag = val.target || null
+      if (this.$formModels[tag]) {
+        val.__mission = '200' // 借用 http 状态符，此处表示已处理
+        // 注意：value不置空会导致二次更新失败 因为vue会判断值是否更新，有更新才会触发组件props更新
+        // 因此先置空
+        this.$formModels[tag].value = ""
+        this.$nextTick(() => {
+          this.$formModels[tag].value = val.value
+        })
+      }
+      this.$emit('emission', this.__clone(val))
     },
     updateForm (val) {
       // 缓存带有child的组件name
@@ -115,7 +148,7 @@ export default {
       this.keys.forEach(i => {
         let err = this.formErrors[i]
         if (err && err.name && !err.isValid) {
-          console.log('eeeeeeeee', err)
+          // console.log('eeeeeeeee', err)
           this.errorBag.push(err)
         }
       })
@@ -154,10 +187,16 @@ export default {
     }
   },
   watch: {
+    formModels: {
+      deep: true,
+      handler (v) {
+        this.modModels = v
+      }
+    },
     form: {
       deep: true,
       handler () {
-        console.log('formchange::::::', this.formErrors)
+        // console.log('formchange::::::', this.formErrors)
         this.isValid = this.__isValid(this.formErrors)
         this.$nextTick(() => {
           this.submit()

@@ -3,12 +3,14 @@ import {Validator} from 'vee-validate'
 export default {
   data () {
     return {
-      innerValue: this.value
+      innerValue: this.value,
+      timer: null
     }
   },
   props: {
     label: String,
     value: [String, Number],
+    index: [String, Number],
     name: String,
     rules: {
       type: Object,
@@ -34,14 +36,31 @@ export default {
   },
   methods: {
     init () {
+      // rules.event 定义数据变化事件
+      this.__eventType = (this.rules && this.rules.event) || 'input'
       this.onValidate()
     },
-    onInput (e) {
+    eventHandler (e, type) {
+      if (type === this.__eventType) {
+        typeof this[type] === 'function' && this[type](e)
+      }
+    },
+    // event 类型
+    input (e) {
       this.innerValue = e.target.value || ""
+    },
+    change (e) {
+      this.innerValue = e.target.value || ""
+    },
+    blur (e) {
+      this.innerValue = e.target.value || ""
+    },
+    focus (e) {
     },
     onValidate () {
       if (this.rules) {
         // rules 是表单规则，无规则则不触发验证
+        if (!this.innerValue) { return }
         this.validator.validate(this.name, this.innerValue).then(res => {
           if (res === true) {
             this.$emit('formValid', this.innerModel())
@@ -50,7 +69,12 @@ export default {
           // this.$emit('formError', this.innerModel)
         })
       }
-      this.$emit('formChange', this.innerModel())
+      if (this.timer) {
+        clearTimeout(this.timer)
+      }
+      this.timer = setTimeout(() => {
+        this.$emit('formChange', this.innerModel())
+      }, 350)
     },
     errorMsg () {
       let _msg = this.validator.errorBag.first(this.name)
@@ -63,6 +87,7 @@ export default {
       return {
         name: this.name,
         value: this.innerValue,
+        index: this.index,
         msg: this.rules.errorMsg || this.rules.placeholder || this.errorMsg(),
         isValid: !this.validator.errorBag.has(this.name)
       }
@@ -76,6 +101,7 @@ export default {
       this.innerValue = v
     },
     innerValue (val) {
+      console.log('innerValue change:::', val)
       this.onValidate()
     }
   }

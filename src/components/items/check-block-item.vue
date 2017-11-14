@@ -19,11 +19,44 @@
       </div>
     </div>
     <ul class="check-list" v-if="showOptions">
+      <!-- 遍历出options所有节点 -->
       <li v-for="(item, key, index) in rules.options" :key="index">
-        <label :for="key" class="labels">
-          <input class="checkbox" type="checkbox" :id="key" :name="key" :checked="isChecked(key)" :value="key" v-model="innerValue.selected" />
-          {{item.label}}
-        </label>
+          <!-- 遍历出子节点 -->
+          <template v-for="(subitem, subindex) in item">
+            <!-- 如果是多行，需要强制加换行 -->
+            <template v-if="subindex>0"><br/></template>
+            <label class="input-labels" v-if="subitem.type && subitem.rules">
+              {{subitem.label}}
+              <!-- input 类型 -->
+              <root-input
+                v-if="subitem.type=='input-txt'||subitem.type=='input'"
+                @formChange="onChange"
+                :rules="subitem.rules"
+                :value="getInptVal(key,subindex)"
+                :index="subindex"
+                :name="key">
+              </root-input>
+              <!-- input 类型 -->
+              <!-- textarea-类型 -->
+              <textarea-item
+                v-if="subitem.type=='textarea'"
+                @formChange="onChange"
+                :rules="subitem.rules"
+                :value="getInptVal(key,subindex)"
+                :index="subindex"
+                :name="key">
+              </textarea-item>
+              <!-- textarea-类型 -->
+              {{subitem.rules.txt}}
+            </label>
+
+            <!-- checkbox 类型 -->
+            <label :for="key" class="labels" v-else>
+              <input class="checkbox" type="checkbox" :id="key" :name="key" :checked="isChecked(key)" :value="key" @change="toggleChecked(key)" />
+              {{subitem.label}}
+            </label>
+            <!-- checkbox 类型 -->
+          </template>
       </li>
     </ul>
   </div>
@@ -31,31 +64,39 @@
 </template>
 
 <script>
+  import rootInput from '../root-items/root-input'
+  import textareaItem from '../items/textarea-item'
   export default {
     name: 'check-block-item',
+    components: {rootInput, textareaItem},
     data () {
       return {
         innerValue: this.modValue,
         isValid: false,
+        inputItems: {}, // 如果包含input、select子项
         errorMsg: this.rules.errorMsg || this.rules.placeholder || '您还有未完成的选项'
       }
     },
     props: ['rules', 'name', 'value'],
     watch: {
       value (v) {
-        if (this.__str(v) !== this.__str(this.innerValue)) {
-          this.modValue = v
-        }
+        // if (this.__str(v) !== this.__str(this.innerValue)) {
+        this.modValue = v
+        // }
       },
       innerValue: {
         deep: true,
         handler () {
-          if (this.innerValue.yesorno === 'yes') {
-            this.isValid = this.rules.options ? !!this.innerValue.selected.length : true
-          } else if (this.innerValue.yesorno === 'no') {
+          if (this.innerValue.yesorno === 'no') {
             this.isValid = true
+            if (this.innerValue.selected.length) {
+              this.innerValue.selected = []
+            }
           }
-          this.emit()
+          this.$nextTick(() => {
+            // console.error('emit', this.innerModel())
+            this.emit()
+          })
         }
       }
     },
@@ -88,6 +129,9 @@
     },
     methods: {
       init () {
+        if (this.name === 'q1') {
+          window.cc = this
+        }
         this.innerValue = this.modValue
       },
       check (val) {
@@ -97,15 +141,93 @@
           this.$set(this.innerValue, 'yesorno', 'no')
           this.$set(this.innerValue, 'selected', [])
         }
+        this.validSelect()
+      },
+      getInptVal (key, index) {
+        let val = this.innerValue.selected
+        if (!val || !val.length) {
+          return ''
+        }
+        let ob = val.find(i => i[key])
+        if (!ob) {
+          return ''
+        }
+        let list = ob[key]
+        return list[index] || ''
       },
       emit () {
-        this.$emit('formChange', this.innerModel())
+        let mod = this.innerModel()
+        this.$emit('formChange', mod)
       },
       isChecked (key) {
         if (this.innerValue.selected.find) {
-          return !!this.innerValue.selected.find(i => i == key)
+          let se = this.innerValue.selected.find(i => i[key])
+          return !!se
         }
         return false
+      },
+      toggleChecked (key) {
+        let se = this.innerValue.selected.find(i => i[key])
+        if (!se) {
+          let val = {}
+          val[key] = []
+          this.innerValue.selected.push(val)
+        } else {
+          let idx = this.innerValue.selected.indexOf(se)
+          this.innerValue.selected.splice(idx, 1)
+        }
+        this.validSelect(key, se)
+      },
+      onChange (v) {
+        let ob = this.innerValue.selected.find(i => i[v.name])
+        if (!ob) {
+          let val = {}
+          val[v.name] = []
+          this.innerValue.selected.push(val)
+        }
+        ob[v.name][v.index] = v.value
+        this.validChild(v, ob)
+      },
+      validChild (v, ob) {
+        let rule = this.rules.options[v.name]
+        let val = ob ? ob[v.name] : null
+        let valid = []
+        rule.forEach((i, index) => {
+          // 是否必填
+          // console.log('xxxxxxxxx', v.name, this.__str(val[v.index]), this.__str(val[index]))
+          if (i.rules && i.rules.vRules) {
+            if (!val) {
+              this.errorMsg = v.msg
+              valid.push(i)
+            } else if (!val[index]) {
+              this.errorMsg = v.msg
+              valid.push(i)
+            } else {
+            }
+          }
+        })
+        this.isValid = !valid.length
+        this.$nextTick(() => {
+          this.emit()
+        })
+      },
+      validSelect (key) {
+        if (!this.rules.options) {
+          this.isValid = true
+          return
+        }
+        if (!this.showOptions) {
+          this.isValid = true
+          return
+        }
+        if (!key) {
+          this.isValid = this.innerValue.selected.length
+          return
+        }
+        let isHasInput = this.rules.options[key].find(i => i.rules)
+        if (!isHasInput) {
+          this.isValid = this.innerValue.selected.length
+        }
       },
       innerModel () {
         return {
@@ -139,15 +261,34 @@
       list-style:none;
       display:block;
       clear:both;
-      & > li{line-height:1.4;}
+      & > li{
+        line-height:1.4;
+        font-size: rem-calc(14px);
+        list-style: lower-alpha;
+        list-style-position: outside;
+        margin-left: rem-calc(20);
+      }
       .labels{
         display:block;
         position:relative;
-        padding-left:rem-calc(25);
-        padding-top:rem-calc(5);
+        margin-top:rem-calc(-18);
+        padding-left:rem-calc(5);
         padding-bottom:rem-calc(5);
+        vertical-align: middle;
+        display: flex;
       }
-      .checkbox{position:absolute;top:rem-calc(5);left:0;}
+      .input-labels{
+        /*display:block;*/
+        position:relative;
+        padding-left:rem-calc(5);
+        margin-top:rem-calc(-18);
+        padding-bottom:rem-calc(5);
+        display: flex;
+      }
+      .input-labels >>> .rootInput{
+        height:rem-calc(15);
+      }
+      .checkbox{padding:0;vertical-align: middle;}
     }
     .radio {
       display: flex;

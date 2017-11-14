@@ -1,0 +1,15 @@
+{
+  "data": {
+    "insureNum": "113212311231",
+    "insurant": "13212313",
+    "brithday": "2017/12/12",
+    "insureTime": "2017/10/20 - 2017/11/26",
+    "payTime": "一筆過繳付保費",
+    "insureMoney": "123",
+    "firstPay": "0",
+    "email": "wangxiaoming@163.com",
+    "insureStatus": "true"
+  },
+  "status": "true",
+  "errorMsg": "错误信息"
+}

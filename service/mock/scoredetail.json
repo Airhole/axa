@@ -1,0 +1,17 @@
+{
+  "data": [{
+    "policyNumber": "192039281729",
+    "productName": "健康一生全名醫療保險",
+    "downPremium": "1000.00",
+    "underwritingDate": "2017-10-09",
+    "generalizedIntegral": "100"
+  }, {
+    "policyNumber": "192039281729",
+    "productName": "健康一生全名醫療保險",
+    "downPremium": "1000.00",
+    "underwritingDate": "2017-10-09",
+    "generalizedIntegral": "100"
+  }],
+  "status": "true",
+  "errorMsg": "错误信息"
+}

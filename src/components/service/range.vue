@@ -12,7 +12,7 @@
   <div class='range-container'>
     <div class='range-base'>
       <div class='range-left'></div>
-      <div class='range-slider' @touchstart.stop.prevent='startSlide'>
+      <div class='range-slider' @touchstart.stop.prevent='startSlide' ref="slider">
         <span v-if='follow' class='range-cur'>{{ curAge + unit }}</span>
       </div>
     </div>
@@ -58,17 +58,13 @@
       }
     },
     watch: {
-      curAge: function (val) {
-        console.log(val)
-        this.$emit('onChange', val)
+      curAge (age) {
+        this.$emit('onChange', age)
       },
       cur: function (val) {
-        console.log('cur=' + val)
         this.curAge = val
         !this.moving && this.updateLeftByAge()
       }
-    },
-    computed: {
     },
     methods: {
       startSlide (e) {
@@ -85,7 +81,6 @@
         const overlay = this.overlay
         let offset = parseInt(this.leftX) + curX - this.startX
         offset = offset < 0 ? 0 : (offset > this.totalX ? this.totalX : offset)
-        // console.log('offset : ' + offset)
         this.offsetX = offset
         slider.style.left = this.offsetX + 'px'
         overlay.style.width = this.offsetX + 'px'
@@ -98,11 +93,10 @@
         this.moving = false
         this.startX = 0
       },
-      init () {
+      update () {
         this.slider = this.$el.querySelector('.range-slider')
         this.overlay = this.$el.querySelector('.range-left')
         this.totalX = this.getCurCss(this.$el.querySelector('.range-base'), 'width').replace(/[a-zA-Z]/g, '')
-        console.log(this.totalX)
         this.initCur()
         this.updateLeftByAge()
       },
@@ -124,17 +118,17 @@
         }
       },
       initCur () {
-        this.curAge = this.cur < this.min ? this.min : (this.cur > this.max) ? this.max : this.cur
+        const {cur, min, max} = this
+        this.curAge = Math.max(min, Math.min(max, cur))
       }
     },
     mounted () {
-      this.init()
+      this.update()
     }
   }
 </script>
 
-<style lang='scss' rel='stylesheet/scss'>
-  @import '~@/assets/scss/function';
+<style lang='scss' scoped>
   .range-container {
     height:rem-calc(32px);
     position:relative;

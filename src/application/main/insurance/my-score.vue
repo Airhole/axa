@@ -9,33 +9,58 @@
 ********************************************************************-->
 
 <template>
-  <div class="my-score">
-    <div class="score-head">
-      <p>積分賬戶餘額</p>
-      <p>37280</p>
-      <p>本月積分 +3000</p>
+  <div>
+    <div class="my-score"  v-show="!showLoading">
+      <div class="score-head">
+        <p>{{ $t('scoreNum')}}</p>
+        <p>{{ total }}</p>
+        <p>{{ $t('scorePrice', {"price": pointsMonth})}}</p>
+      </div>
+      <div class="score-btn">
+        <x-button class="primary-blue" @click.native="handleDetails">{{ $t('scoreView') }}</x-button>
+      </div>
     </div>
-    <div class="score-btn">
-      <x-button class="primary-blue" @click.native="handleDetails">查看明細</x-button>
+    <div v-transfer-dom>
+      <loading :show="showLoading"></loading>
     </div>
   </div>
 </template>
 
 <script>
-  import { XButton } from 'vux'
+  import { XButton, Loading, TransferDomDirective as TransferDom } from 'vux'
+  import { IMY_SCORE } from '@/api'
   export default {
     name: 'my-score',
     components: {
-      XButton
+      XButton, Loading, TransferDom
     },
     data: () => {
       return {
-
+        total: 0,
+        pointsMonth: 0,
+        showLoading: true
       }
+    },
+    created: function () {
+      let staffNo = '1440000165'
+      this.change(staffNo)
+    },
+    directives: {
+      TransferDom
     },
     methods: {
       handleDetails () {
-        console.log('点击 查看明细')
+        this.$router.push({ path: 'integral_detail', query: { userId: 123 } })
+      },
+      change (value) { // staffNo: 代理人工号,登录时提供
+        this.axios.post(IMY_SCORE, {staffNo: value}).then(response => {
+          this.total = response.data.data.pointsCount // 当前余额
+          this.pointsMonth = response.data.data.pointsMonth // 本月积分
+          this.showLoading = false
+        }).catch(err => {
+          console.log(err)
+          throw new Error(err)
+        })
       }
     }
     // created () {

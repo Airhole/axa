@@ -25,7 +25,6 @@ export default {
   name: 'input-txt-item',
   data () {
     return {
-      innerValue: this.value,
       innerErrors: null,
       innerValid: null
     }
@@ -48,8 +47,11 @@ export default {
         return val
       }
     },
-    innerValue () {
-      return this.value
+    innerValue: {
+      get () {
+        return this.value
+      },
+      set () {}
     }
   },
   methods: {

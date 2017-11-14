@@ -123,7 +123,7 @@ const xinNen = [{ // 产品列表
 { //  在线投保-投保人信息
   path: '/insurance/applicant_info',
   name: 'insurance_applicant_info',
-  component: () => import(/* webpackChunkName: "applicant-info" */ '@/application/main/insurance/applicant-info.vue'),
+  component: () => import(/* webpackChunkName: "applicant-info" */ '@/application/main/insurance/applicant-enter.vue'),
   meta: {
     requireAuth: true,
     title: '投保人信息',
@@ -456,27 +456,8 @@ export default new Router({
         param: {}
       }
     },
-    {
-      path: '/company',
-      name: 'company',
-      component: () => import(/* webpackChunkName: "company" */ '@/application/main/company'),
-      meta: {
-        requireAuth: true,
-        title: 'hello',
-        rightMenu: null,
-        leftMenu: {
-          title: '返回',
-          javascript: 'gobackbtn',
-          params: 'go:recommend'
-        }
-      },
-      Info: {
-        description: '公司介绍',
-        param: {}
-      }
-    },
     { //  名片
-      path: '/main/card',
+      path: '/card',
       name: 'card',
       component: () => import(/* webpackChunkName: "progress" */ '@/application/main/profile/card.vue'),
       meta: {
@@ -494,9 +475,9 @@ export default new Router({
       }
     },
     { //  公司简介
-      path: '/main/company',
+      path: '/company',
       name: 'company_profile',
-      component: () => import('@/application/main/progress/company-profile.vue'),
+      component: () => import('@/application/main/profile/company-profile.vue'),
       meta: {
         requireAuth: true,
         title: '公司简介',
@@ -510,10 +491,99 @@ export default new Router({
         param: {}
       }
     },
+    // { //  企业简介
+    //   path: '/about_us',
+    //   name: 'about_us',
+    //   component: resolve => require(['@/application/main/user/about_us'], resolve),
+    //   meta: {
+    //     requireAuth: true,
+    //     title: '企业简介',
+    //     rightMenu: null,
+    //     leftMenu: {
+    //       title: '返回',
+    //       javascript: 'gobackbtn',
+    //       params: 'go:recommend'
+    //     },
+    //     Info: {
+    //       description: '企业简介',
+    //       params: {}
+    //     }
+    //   }
+    // },
+    // { //  微店个人信息
+    //   path: '/card',
+    //   name: 'card',
+    //   component: resolve => require(['@/application/main/user/card'], resolve),
+    //   meta: {
+    //     requireAuth: true,
+    //     title: '名片',
+    //     rightMenu: null,
+    //     leftMenu: {
+    //       title: '返回',
+    //       javascript: 'gobackbtn',
+    //       params: 'go:recommend'
+    //     },
+    //     Info: {
+    //       description: '名片',
+    //       params: {}
+    //     }
+    //   }
+    // },
+    { //  保单查询
+      path: '/order_inquiry',
+      name: 'order_inquiry',
+      component: resolve => require(['@/application/main/user/order_inquiry'], resolve),
+      meta: {
+        requireAuth: true,
+        title: '公司简介',
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '订单查询',
+        param: {}
+      }
+    },
+    { //  微店首页
+      path: '/index_list',
+      name: 'index_list',
+      component: resolve => require(['@/application/main/user/index_list'], resolve),
+      meta: {
+        requireAuth: true,
+        title: '公司简介',
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '首页',
+        param: {}
+      }
+    },
+    { //  我的相关信息
+      path: '/user',
+      name: 'user',
+      component: resolve => require(['@/application/main/user/user'], resolve),
+      meta: {
+        requireAuth: true,
+        title: '公司简介',
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '用户中心',
+        param: {}
+      }
+    },
     { //  投保成功
-      path: '/main/success',
-      name: 'insure_success',
-      component: () => import('@/application/main/insurance/insure-success.vue'),
+      path: '/result',
+      name: 'insure_result',
+      component: () => import('@/application/main/insurance/insure-result.vue'),
       meta: {
         requireAuth: true,
         title: '投保成功',
@@ -528,7 +598,7 @@ export default new Router({
       }
     },
     { //  我的积分
-      path: '/main/myscore',
+      path: '/myscore',
       name: 'myScore',
       component: () => import('@/application/main/insurance/my-score.vue'),
       meta: {
@@ -544,10 +614,79 @@ export default new Router({
         param: {}
       }
     },
+    { //  健康告知
+      path: '/announcement',
+      name: 'announcement',
+      component: () => import('@/application/main/announcement'),
+      meta: {
+        requireAuth: true,
+        title: '健康告知',
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '健康告知',
+        param: {}
+      }
+    },
+    // ...xinNen
+    { //  公司简介
+      path: '/applicant',
+      name: 'applicant',
+      component: () => import('@/application/main/profile/applicant-info'),
+      meta: {
+        requireAuth: true,
+        title: '投保單錄入',
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '投保單錄入',
+        param: {}
+      }
+    },
+    { //  產品詳情
+      path: '/product_detail',
+      name: 'product_detail',
+      component: () => import('@/application/main/profile/product-detail'),
+      meta: {
+        requireAuth: true,
+        title: '產品詳情',
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '產品詳情',
+        param: {}
+      }
+    },
+    { //  我的相关信息
+      path: '/integral_detail',
+      name: 'integral_detail',
+      component: () => import('@/application/main/user/integral_detail'),
+      meta: {
+        requireAuth: true,
+        title: '积分明细',
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '积分明细',
+        param: {}
+      }
+    },
     { //  登录
-      path: '/main/login',
-      name: 'Login',
-      component: () => import('@/application/main/login/login.vue'),
+      path: '/login',
+      name: 'login',
+      component: () => import('@/application/main/login'),
       meta: {
         requireAuth: true,
         title: '登录',
@@ -561,7 +700,5 @@ export default new Router({
         param: {}
       }
     }
-
-    // ...xinNen
   ]
 })

@@ -70,23 +70,28 @@
     }
   }
 </script>
-<style lang="scss" rel='stylesheet/scss' scoped>
-  @import '~@/assets/scss/function';
+<style lang=scss scoped>
   $color-primary: #00aeff;
   $color-reverse: white;
   $color-disabled: #c0c0c0;
+  $color-outline: #d2d2d2;
+
   button{
     border-radius: 4px;
-    border: 1px solid;
+    border: .5px solid;
     font-size:rem-calc(18px);
     text-align: center;
     box-sizing: border-box;
     height: rem-calc(45);
     padding-right: rem-calc(15);
     padding-left: rem-calc(15);
+    word-break: keep-all;
     &[disabled]{
       background-color: $color-disabled;
       border-color: $color-disabled;
+    }
+    &:focus{
+      outline: 0 none;
     }
   }
   .btn-primary{
@@ -99,8 +104,22 @@
     background-color: transparent;
     color: $color-primary;
   }
+  .btn-outline{
+    background-color: white;
+    border-color: $color-outline;
+    &.btn-primary{
+      background-color: white;
+      border-color: $color-primary;
+      color: $color-primary;
+    }
+  }
   .btn-block{
     display: block;
     width: 100%;
+  }
+  .btn-sm {
+    height: rem-calc(25);
+    font-size: rem-calc(14);
+    color: inherit;
   }
 </style>

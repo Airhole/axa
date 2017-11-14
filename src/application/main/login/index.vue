@@ -8,7 +8,7 @@
 <template>
   <div class="login">
     <div class="login-header">
-      <h2>歡迎登錄AXA IYunBao</h2>
+      <h2>{{ $t('welcome') }}</h2>
       <div class="login-type">
         <div v-on:click="handleAgent">代理人登錄</div>
         <div v-on:click="handleOrdinary">普通會員登錄</div>
@@ -17,22 +17,23 @@
     </div>
     <div class="login-content">
       <Group class="grop">
-        <p>用戶名</p>
-        <x-input type="text" placeholder="請輸入用戶名" :show-clear="false"></x-input>
+        <p>{{ $t('userName') }}</p>
+        <x-input type="text" :placeholder="$t('namePlaceholder')" :show-clear="false"></x-input>
       </Group>
       <Group class="grop">
-        <p>密碼</p>
-        <x-input type="password" placeholder="請輸入密碼" :show-clear="false"></x-input>
+        <p>{{ $t('password') }}</p>
+        <x-input type="password" :placeholder="$t('passwordPlaceholder')" :show-clear="false"></x-input>
       </Group>
     </div>
     <div class="login-footer">
-      <x-button class="primary-blue" @click.native="handleLogin">登錄</x-button>
+      <x-button class="primary-blue" @click.native="handleLogin">{{ $t('login') }}</x-button>
     </div>
   </div>
 </template>
 
 <script>
   import { XInput, Group, XButton, Cell } from 'vux'
+  import { LOGIN_INFO } from '@/api'
   export default {
     name: 'Login',
     components: {
@@ -43,12 +44,20 @@
     },
     data () {
       return {
+        welcome: '',
+        userName: '1440000165',
+        namePlaceholder: '',
+        password: '20170631',
+        passwordPlaceholder: '',
+        login: '',
         loginType: 1
       }
     },
     methods: {
       handleLogin () {
-        console.log('登陸')
+        this.axios.post(LOGIN_INFO, {loginName: this.userName, passWord: this.password}).then(res => {
+          console.log(res)
+        })
       },
       handleAgent () {
         this.loginType = 1

@@ -42,6 +42,7 @@
           <root-checker
           v-if="$formRule.type=='checker'"
           @formChange="onChange"
+          @emission="onEmission"
           :rules="$formRule.rules"
           :value="$formModel.value"
           :name="$formModel.name"
@@ -52,6 +53,7 @@
           <textarea-item
           v-if="$formRule.type=='textarea'"
           @formChange="onChange"
+          @emission="onEmission"
           :rules="$formRule.rules"
           :value="$formModel.value"
           :name="$formModel.name"
@@ -62,11 +64,24 @@
           <check-block-item
           v-if="$formRule.type=='check-block'"
           @formChange="onChange"
+          @emission="onEmission"
           :rules="$formRule"
           :value="$formModel.value"
           :name="$formModel.name"
           ></check-block-item>
           <!-- checker-block 类型 -->
+
+          <!-- address 类型 -->
+          <address-item
+            v-if="$formRule.type=='address'"
+            @formChange="onChange"
+            @emission="onEmission"
+            :configs="$formRule"
+            :rules="$formRule.rules"
+            :value="$formModel.value"
+            :name="name">
+          </address-item>
+          <!-- address 类型 -->
         </slot>
         </template>
     </template>
@@ -79,6 +94,7 @@
   import textareaItem from "./textarea-item"
   import titleItem from "./title-item"
   import checkBlockItem from "./check-block-item"
+  import addressItem from './address-item'
 
   export default {
     name: 'form-block',
@@ -86,7 +102,8 @@
       textareaItem,
       rootChecker,
       titleItem,
-      checkBlockItem
+      checkBlockItem,
+      addressItem
     },
     props: {
       formModel: {
@@ -128,6 +145,9 @@
     methods: {
       onChange (val) {
         this.$emit('formChange', val)
+      },
+      onEmission (val) {
+        this.$emit('emission', val)
       }
     }
   }

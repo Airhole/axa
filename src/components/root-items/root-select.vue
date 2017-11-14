@@ -5,39 +5,48 @@
 -->
 <template>
   <div class="root-select">
-    <group v-if="rules.showName">
-      <popup-picker
-        :title="title"
-        :data="rules.options"
-        v-model="innerValue"
-        show-name
-        @on-show="onShow"
-        @on-hide="onHide"
-        @on-change="onChange"
-        :readonly="readonly"
-        :placeholder="rules.placeholder"
-      ></popup-picker>
-    </group>
-    <group v-else>
-      <popup-picker
-        :title="title"
-        :data="rules.options"
-        v-model="innerValue"
-        @on-show="onShow"
-        @on-hide="onHide"
-        @on-change="onChange"
-        :readonly="readonly"
-        :placeholder="rules.placeholder"
-      ></popup-picker>
-    </group>
+    <template v-if="onload">
+      <group v-if="rules.showName==false">
+        <popup-picker
+          :title="title"
+          :data="$option"
+          v-model="innerValue"
+          @on-show="onShow"
+          @on-hide="onHide"
+          @on-change="onChange"
+          :readonly="readonly"
+          :placeholder="rules.placeholder"
+        ></popup-picker>
+      </group>
+      <group v-else>
+        <popup-picker
+          :title="title"
+          :data="$option"
+          show-name
+          v-model="innerValue"
+          @on-show="onShow"
+          @on-hide="onHide"
+          @on-change="onChange"
+          :readonly="readonly"
+          :placeholder="rules.placeholder"
+        ></popup-picker>
+      </group>
+    </template>
+    <template v-else>
+      加载中...
+    </template>
   </div>
 </template>
 <script>
   import {Group, PopupPicker, Picker} from 'vux'
+  import {GET_DICTITEMS} from '@/api'
 
   export default {
     data () {
       return {
+        onload: false,
+        isMiss: false,
+        $option: this.rules.options,
         innerValue: this.modelValue
       }
     },
@@ -45,7 +54,7 @@
       // 标题
       title: String,
       // 值
-      value: [Array, String],
+      value: [Array, String, Object],
       // 表单名
       name: String,
       // 是否可编辑
@@ -53,15 +62,29 @@
       rules: Object
     },
     watch: {
-      value (v) {
-        if (!v || !v.length) {
-          return
+      value: {
+        deep: true,
+        handler (v) {
+          this.modelValue = v
         }
-        this.modelValue = v
       },
       innerValue (v) {
+        if (this.rules.update && v) {
+          this.$nextTick(() => {
+            this.rules.update.forEach(item => {
+              if ((v[0] === item.when) && item.target) {
+                // console.log('im::::', this.__str(v), this.rules.update)
+                this.$emit('emission', {
+                  target: item.target,
+                  value: item.value
+                })
+              }
+            })
+          })
+        }
         this.$nextTick(() => {
-          this.$emit('formChange', this.innerModel)
+          let im = this.innerModel()
+          this.$emit('formChange', im)
         })
       }
     },
@@ -73,8 +96,10 @@
             v = []
           } else if (typeof this.value === 'string') {
             v = this.value.split('/')
-          } else {
+          } else if (Array.isArray(this.value)) {
             v = this.value
+          } else {
+            v = this.value.value ? [this.value.value] : []
           }
           return v
         },
@@ -83,6 +108,9 @@
             v = []
           } else if (typeof v === 'string') {
             v = v.split('/')
+          } else if (Array.isArray(v)) {
+          } else {
+            v = v.value ? [v.value] : []
           }
           this.innerValue = v
         }
@@ -91,23 +119,57 @@
         if (!this.rules.vRules || this.rules.vRules.indexOf('required') == -1) {
           return true
         }
-        return this.innerValue && !!this.innerValue.length && !!this.innerValue.join()
-      },
-      innerModel () {
-        return {
-          name: this.name,
-          value: this.innerValue.join('/'),
-          msg: this.isValid ? null : this.rules.errorMsg || this.rules.placeholder,
-          isValid: this.isValid
-        }
+        return !!this.innerValue.length
       }
     },
     methods: {
       init () {
-        this.innerValue = this.modelValue
+        this.onshow()
       },
-      onShow () { },
-      onHide (v) { },
+      onshow () {
+        if (this.rules.backendKey) {
+          if (window[this.rules.backendKey.key]) {
+            this.install([window[this.rules.backendKey.key]])
+          } else {
+            this.axios.post(GET_DICTITEMS, this.rules.backendKey).then(res => {
+              let result = res.data
+              let dictItems = []
+              if (result.success && result.value) {
+                res.data.value.items.map(item => {
+                  dictItems.push({
+                    name: item.name,
+                    value: item.code
+                  })
+                })
+                window[this.rules.backendKey.key] = dictItems
+              }
+              this.install(dictItems.length ? [dictItems] : this.rules.options)
+            })
+          }
+        } else {
+          this.install(this.rules.options)
+        }
+      },
+      install (options) {
+        this.$option = options
+        this.onload = true
+        // 一定要先置空，否则数据更新不了
+        this.innerValue = []
+        this.$nextTick(() => {
+          this.innerValue = this.modelValue
+        })
+      },
+      innerModel () {
+        let origin = this.$option ? this.$option[0].find(i => i.value && i.value === this.innerValue[0]) : null
+        return {
+          name: this.name,
+          value: origin ? this.__clone(origin) : '',
+          msg: this.isValid ? null : this.rules.errorMsg || this.rules.placeholder,
+          isValid: this.isValid
+        }
+      },
+      onShow () {},
+      onHide (v) {},
       onChange (v) {
         this.innerValue = v
       }
@@ -122,6 +184,12 @@
   .root-select {
     .weui-cells:before, .weui-cells:after, .vux-cell-box:before, .vux-cell-box:after {
       display: none;
+    }
+    .vux-popup-picker-value {
+      overflow:hidden;
+      text-overflow: ellipsis;
+      display:block;
+      max-width:rem-calc(175px);
     }
     .weui-cells {
       margin-top: rem-calc(-2px);
