@@ -699,6 +699,23 @@ export default new Router({
         description: '登录',
         param: {}
       }
+    },
+    { //  注册
+      path: '/regist',
+      name: 'regist',
+      component: () => import('@/application/main/regist'),
+      meta: {
+        requireAuth: true,
+        title: '注册',
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '注册',
+        param: {}
+      }
     }
   ]
 })
