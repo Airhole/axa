@@ -51,16 +51,16 @@ const webpackConfig = merge(baseWebpackConfig, {
         safe: true
       }
     }),
-    // generate dist index.html with correct asset hash for caching.
-    // you can customize output by editing /index.html
+    // generate dist login.vue with correct asset hash for caching.
+    // you can customize output by editing /login.vue
     // see https://github.com/ampedandwired/html-webpack-plugin
     ...prdPlug,
 
     // new HtmlWebpackPlugin({
     //   filename: process.env.NODE_ENV === 'testing'
-    //     ? 'index.html'
+    //     ? 'login.vue'
     //     : config.build.index,
-    //   template: 'index.html',
+    //   template: 'login.vue',
     //   inject: true,
     //   minify: {
     //     removeComments: true,
