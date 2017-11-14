@@ -34,6 +34,9 @@
 <script>
   import { XInput, Group, XButton, Cell } from 'vux'
   import { LOGIN_INFO } from '@/api'
+  import Vue from 'vue'
+  import wechat from '@/utils/wechat.js'
+  import cookie from '@/utils/cookie.js'
   export default {
     name: 'Login',
     components: {
@@ -50,13 +53,53 @@
         password: '20170631',
         passwordPlaceholder: '',
         login: '',
-        loginType: 1
+        loginType: 1,
+        cancel: Vue.i18n.translate('orderCancel'),
+        confirm: Vue.i18n.translate('orderDone')
       }
     },
     methods: {
       handleLogin () {
+        wechat.wxAuth('unionId')
+        let _self = this
         this.axios.post(LOGIN_INFO, {loginName: this.userName, passWord: this.password}).then(res => {
           console.log(res)
+          _self.confirmAlert(res.data.data)
+        }).catch(err => {
+          console.log(err)
+          throw new Error(err)
+        })
+      },
+      confirmAlert (data) {
+        let _self = this
+        // this.$vux.confirm.show({
+        //   title: '確認綁定微信',
+        //   content: '<ul class="confirm-list"><li>姓名：' + data.userName + '</li><li>手機號碼：' + data.mobile + '</li><li>機構：' + data.companyName + '</li><li>職位：' + data.jobLevel + '</li><li>上級：' + data.introduction + '</li></ul>',
+        //   confirmText: _self.confirm,
+        //   cancelText: _self.cancel,
+        //   onCancel () { // 停留在当前页面
+        //   },
+        //   onConfirm () {
+        //   }
+        // })
+        this.$vux.alert.show({
+          title: '確認綁定微信',
+          buttonText: _self.confirm,
+          content: '<ul class="confirm-list"><li>姓名：' + data.userName + '</li><li>手機號碼：' + data.mobile + '</li><li>機構：' + data.companyName + '</li><li>職位：' + data.jobLevel + '</li><li>上級：' + data.introduction + '</li></ul>',
+          onShow () {
+            console.log('Plugin: I\'m showing')
+          },
+          onHide () { // 确定隐藏
+            console.log('Plugin: I\'m hiding now')
+            // todo-接口暂无
+            // this.axios.post(LOGIN_INFO, {loginName: this.userName, passWord: this.password}).then(res => {
+            //   console.log(res)
+            //   _self.confirmAlert(res.data.data)
+            // }).catch(err => {
+            //   console.log(err)
+            //   throw new Error(err)
+            // })
+          }
         })
       },
       handleAgent () {
@@ -148,6 +191,16 @@
           color: #fff!important;
         }
       }
+    }
+  }
+  ul.confirm-list {
+    padding-top: rem-calc(10);
+    padding-bottom: rem-calc(10);
+    li {
+      list-style: none;
+      font-size: rem-calc(14);
+      line-height: rem-calc(23);
+      text-align: left;
     }
   }
 </style>

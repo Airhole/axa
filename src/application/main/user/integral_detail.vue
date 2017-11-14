@@ -23,8 +23,8 @@
         </ul>
       </div>
     </header>
-    <div class="integral-detail-list" v-for="order in orders">
-      <div class="integral-detail-item">
+    <div class="integral-detail-list">
+      <div class="integral-detail-item" v-for="order in orders">
         <h3>{{ $t('policyNumber') }}{{ order.contNo }}</h3>
         <ul>
           <li>{{ $t('productName') }}{{ order.riskName }}</li>
@@ -298,6 +298,8 @@
     }
   }
   .integral-detail-list {
+    overflow-y: auto;
+    -webkit-overflow-scrolling : touch;
     .integral-detail-item {
       margin-top: rem-calc(10);
       background-color: #fff;
@@ -320,6 +322,9 @@
           list-style: none;
         }
       }
+    }
+    .integral-detail-item:last-child {
+      margin-bottom: rem-calc(10);
     }
   }
 </style>

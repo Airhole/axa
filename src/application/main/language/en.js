@@ -124,6 +124,8 @@ export default {
   "namePlaceholder": "Please enter the name of the nurse",
   "password": "password",
   "passwordPlaceholder": "Please enter the password",
-  "login": "Log in"
+  "login": "Login",
+  "handleAgent": "agent login",
+  "handleOrdinary": "user login"
   // login end
 }
