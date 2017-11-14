@@ -543,7 +543,25 @@ export default new Router({
         description: '我的积分',
         param: {}
       }
+    },
+    { //  登录
+      path: '/main/login',
+      name: 'Login',
+      component: () => import('@/application/main/login/login.vue'),
+      meta: {
+        requireAuth: true,
+        title: '登录',
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '登录',
+        param: {}
+      }
     }
+
     // ...xinNen
   ]
 })

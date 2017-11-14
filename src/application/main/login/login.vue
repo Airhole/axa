@@ -9,6 +9,11 @@
   <div class="login">
     <div class="login-header">
       <h2>歡迎登錄AXA IYunBao</h2>
+      <div class="login-type">
+        <div v-on:click="handleAgent">代理人登錄</div>
+        <div v-on:click="handleOrdinary">普通會員登錄</div>
+      </div>
+      <div class="login-active" v-bind:style="{left: loginType == 1? '25%' : '75%'}"></div>
     </div>
     <div class="login-content">
       <Group class="grop">
@@ -38,12 +43,18 @@
     },
     data () {
       return {
-        a: 1
+        loginType: 1
       }
     },
     methods: {
       handleLogin () {
         console.log('登陸')
+      },
+      handleAgent () {
+        this.loginType = 1
+      },
+      handleOrdinary () {
+        this.loginType = 2
       }
     }
   }
@@ -53,7 +64,7 @@
   .login {
     .login-header {
       width: 100%;
-      height: rem-calc(92px);
+      height: rem-calc(143px);
       background: url("~@/assets/image/score-head.jpg") no-repeat;
       background-size: 100% 100%;
       background-position: bottom center;
@@ -64,8 +75,37 @@
         white-space: nowrap;
         position: absolute;
         left: 50%;
-        top: 50%;
+        top: rem-calc(52px);
         transform: translate(-50%, -50%);
+      }
+      .login-type {
+        width: 100%;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.3);
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        align-items: center;
+        text-align: center;
+        div {
+          flex: 1;
+          padding: rem-calc(13px) 0;
+        }
+      }
+      .login-active {
+        width: 0;
+        height: 0;
+        border-buttom: 8px solid #fff;
+        border-top: 8px solid #fff;
+        border-right: 8px solid transparent;
+        border-left: 8px solid transparent;
+        transform: rotate(180deg);
+        position: absolute;
+        bottom: -1px;
+        left: 25%;
+        margin-left: rem-calc(-8px);
+        transition: left 0.4s;
       }
     }
     .login-content {

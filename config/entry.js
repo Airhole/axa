@@ -6,17 +6,17 @@ let config = require('../config')
 //     {
 //         "key": "app",
 //         "entry": ['babel-polyfill', './src/application/main/main.js'],
-//         "filename": "index.html",
-//         "template": "index.html",
-//         "prdHtmlWebpackPlugin": "../dist/index.html",
+//         "filename": "login.vue",
+//         "template": "login.vue",
+//         "prdHtmlWebpackPlugin": "../dist/login.vue",
 //         "chunks": ['manifest','vendor', "app"]
 //     },
 //     {
 //         "key": "share",
 //         "entry": ['babel-polyfill', './src/application/share/main.js'],
 //         "filename": "share.html",
-//         "template": "index.html",
-//         "prdHtmlWebpackPlugin": "../dist/share/index.html",
+//         "template": "login.vue",
+//         "prdHtmlWebpackPlugin": "../dist/share/login.vue",
 //         "chunks": ['manifest','vendor', "share"]
 //     }
 // ]

@@ -9,7 +9,7 @@ const prdConf = require('./entry').prdConf
 
 let build = {
   env: require('./prod.env'),
-  // index: path.resolve(__dirname, '../dist/index.html'),
+  // index: path.resolve(__dirname, '../dist/login.vue'),
   assetsRoot: path.resolve(__dirname, '../dist'),
   assetsSubDirectory: 'static',
   assetsPublicPath: '/',
