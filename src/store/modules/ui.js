@@ -7,7 +7,6 @@ const state = {
     get (item) {
       let _obj = localStorage.getItem(item)
       let _dec
-
       try {
         _dec = JSON.parse(_obj)
       } catch (e) {

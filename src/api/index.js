@@ -101,3 +101,5 @@ export const IBUSINESS_CARD = path(card, true)
 
 // 登录
 export const LOGIN_INFO = path('/login/user', true)
+
+export const GET_DICTITEMS = path('/login/user', true)
