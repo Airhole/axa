@@ -59,7 +59,8 @@ export const ICOMPANY_INTRODUCTION = path('/company', true)
 let insure = '/insure/approval'// /result'
 export const INSURE_RESULT = path(insure, true)
 
-let order = '/order'
+// let order = '/order'
+let order = '/order/queryOrderLisy'
 export const IORDER_QUERY = path(order, true)
 
 let accoutScore = '/accountscore'
