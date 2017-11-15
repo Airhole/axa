@@ -61,8 +61,21 @@
       XButton
     },
     methods: {
-      change (value) {
-        this.axios.post(IORDER_QUERY).then(response => {
+      /**
+       * 获取列表数据
+       * @params staffNo 代理人工号,登录时提供
+       * @params startDate 查询条件:开始时间
+       * @params endDate 查询条件:结束时间
+       * @params language 默认显示语言
+       */
+      change () {
+        let params = {
+          staffNo: "1440000165",
+          startDate: this.startTime,
+          endDate: this.endTime,
+          language: "CN"
+        }
+        this.axios.post(IORDER_QUERY, params).then(response => {
           this.orders = response.data.data
           this.isLoading = false
         }).catch(err => {
