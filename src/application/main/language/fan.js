@@ -126,6 +126,25 @@ export default {
   "passwordPlaceholder": "請輸入密碼",
   "login": "登錄",
   "handleAgent": "代理人登錄",
-  "handleOrdinary": "普通會員登錄"
+  "handleOrdinary": "普通會員登錄",
   // login end
+  // order inquiry start
+  "search": "檢索",
+  "cancel": "取消",
+  "confirm": "確定",
+  // order end
+  // find password start
+  "findpw": "密码找回",
+  "username": "用户名",
+  "pwmobile": "手機號",
+  "sns": "短信驗證碼",
+  "getsns": "獲取驗證碼",
+  "pw": "密碼",
+  "againPw": "再次輸入密碼",
+  "pwtips": "溫馨提示：密碼不超過6-16位數字或字母，不能於用戶名相同",
+  // find password end
+  // regist start
+  "registTitle": "會員註冊",
+  "next": "下一步"
+  // regist end
 }

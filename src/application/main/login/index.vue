@@ -148,7 +148,7 @@
       .login-active {
         width: 0;
         height: 0;
-        border-buttom: 8px solid #fff;
+        border-bottom: 8px solid transparent;
         border-top: 8px solid #fff;
         border-right: 8px solid transparent;
         border-left: 8px solid transparent;

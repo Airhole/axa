@@ -45,10 +45,9 @@
         startTime: (new Date().getFullYear() - 10) + '-' + ((new Date().getMonth() + 1) > 9 ? (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + '-' + (new Date().getDate() > 9 ? new Date().getDate() : ('0' + new Date().getDate())),
         endTime: (new Date().getFullYear() + 10) + '-' + ((new Date().getMonth() + 1) > 9 ? (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + '-' + (new Date().getDate() > 9 ? new Date().getDate() : ('0' + new Date().getDate())),
         defaultValue: (new Date().getFullYear() + 0) + '-' + ((new Date().getMonth() + 1) > 9 ? (new Date().getMonth() + 1) : (new Date().getMonth() + 1)),
-        search: this.$i18n.locale() === "FAN" ? "檢索" : "search",
-        cancel: this.$i18n.locale() === "FAN" ? "取消" : "cancel",
-        confirm: this.$i18n.locale() === "FAN" ? "確定" : "done"
-
+        search: this.$i18n.translate('search'),
+        cancel: this.$i18n.translate('cancel'),
+        confirm: this.$i18n.translate('confirm')
       }
     },
     created: function () {
