@@ -7,6 +7,21 @@
 <template>
     <group class="time-item-box" :class="{isempty: isEmpty, showext: rules.showExtBtn}">
       <datetime
+      v-if="readOnly"
+      readonly
+      @on-change="onChange"
+      clear-text=""
+      :placeholder="rules.placeholder"
+      v-model.trim="innerValue"
+      :format="'YYYY-MM-DD'"
+      :start-date="rules.stime"
+      :end-date="rules.etime"
+      :min-year="1940"
+      :title="''"
+      :name="name">
+    </datetime>
+    <datetime
+      v-else
       @on-change="onChange"
       clear-text=""
       :placeholder="rules.placeholder"
@@ -36,6 +51,7 @@ export default {
   data () {
     return {
       isEmpty: true,
+      readOnly: this.rules.readOnly,
       isLong: false,
       innerValue: this.modValue
     }
@@ -89,6 +105,7 @@ export default {
     },
     emission () {
       this.isLong = !this.isLong
+      this.readOnly = this.isLong
       if (this.isLong) {
         this.innerValue = '9999'
       }

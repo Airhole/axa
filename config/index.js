@@ -35,7 +35,7 @@ module.exports = {
   build: {...build, ...prdConf},
   dev: {
     env: require('./dev.env'),
-    port: process.env.PORT || 8100,
+    port: process.env.PORT || 9100,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',

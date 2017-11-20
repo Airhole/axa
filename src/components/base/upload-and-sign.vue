@@ -1,6 +1,6 @@
 <!--********************************************************************
  * Author        : rickyshin
- * Filename      : insured-info.vue
+ * Filename      : upload-and-esign.vue
  * Description   : Native-上传图片-人脸识别-电子签名-组件，该组件由一个Model渲染页面：eSignModel，引用组件的时候使用:eSignModel语法
  * Time          : 2017/10/25
  *

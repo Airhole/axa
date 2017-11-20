@@ -9,15 +9,15 @@
 -->
 <template>
   <div class="baseBox">
-      <div v-for="item in list" >
-        <div class="main" >
+      <div v-for="(item ,index) in list" :key="index">
+        <div class="main">
           <div class="baseBoxLeft">
             <!--<slot name="label"></slot>-->
             <label>{{item.value}}</label>
           </div>
           <div class="baseBoxright">
             <!--<slot name="val"></slot>-->
-            <label>{{item.name}}</label>
+            <label v-html="item.name"></label>
           </div>
         </div>
       </div>
@@ -87,7 +87,7 @@
 //    }
   }
 </script>
-<style lang='scss' rel="stylesheet/scss" scope>
+<style lang='scss' rel="stylesheet/scss" scoped>
   @import '~@/assets/scss/function';
   .line{
     background-image: none !important;
@@ -118,6 +118,8 @@
       font-size: rem-calc(15px);
       label {
         color: #999999;
+        text-align: right;
+        max-width: 14.5rem;
       }
     }
     .baseBoxright.atop{

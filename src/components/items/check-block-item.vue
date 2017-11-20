@@ -230,9 +230,11 @@
         }
       },
       innerModel () {
+        let _val = this.__obj(this.innerValue)
+        _val.rules = this.rules
         return {
           name: this.name,
-          value: this.__obj(this.innerValue),
+          value: _val,
           msg: this.isValid ? null : this.errorMsg,
           isValid: this.isValid
         }

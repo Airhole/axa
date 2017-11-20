@@ -143,6 +143,9 @@ export default {
     deleteThis () {
       this.$emit('formDelete', {index: this.index, name: this.name})
     },
+    evtHandler (v) {
+      this.$emit('onEvent', v)
+    },
     mountErrors () {
       this.errorBag = []
       this.keys.forEach(i => {

@@ -3,7 +3,7 @@ var extend = require('util')._extend;
 
 module.exports = {
   dev:{
-    port: 8101,
+    port: 9101,
     root: '../dist'
   }
 }
