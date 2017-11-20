@@ -4,10 +4,11 @@
       <div class="index-top">
         <div class="w-box">
           <div class="flex-1"><strong>{{weixinShopName}}</strong></div>
-          <div class="pack-e language" @click="LanguageSwitch">
+          <!-- <div class="pack-e language" @click="LanguageSwitch">
             <span>{{language1}}</span>
             <span class="active">{{language}}</span>
-          </div>
+          </div> -->
+          <translate class="languageComp" @onChange="changeLanguage"></translate>
         </div>
         <div class="w-box">
           <div :style="{backgroundImage: 'url(' + iconUrl + ')'}" 
@@ -38,24 +39,17 @@
               </div>
             </div>
           </li>
-          <!-- <li>
-            <img src="~@/resource/insurance-2.png">
-            <h2>安享人生健康保障</h2>
-            <h3>每天不到4元，疾病癌症均可保</h3>
-            <div class="bar">
-              <label>健康險</label>
-              <strong>$2000<small>起</small></strong>
-            </div>
-          </li> -->
         </ul>
       </div>
     </div>
-    <div class="share-btn" @click="shareStore">分享店鋪</div>
+    <div class="share-btn" @click="shareStore">{{ $t('share')}}</div>
   </div>
 </template>
 
 <script>
   import { IBUSINESS_CARD, HOT_PRODUCT } from '@/api'
+  import translate from '@/components/translate'
+  import cookie from '@/utils/cookie'
   export default {
     name: 'index_list',
     data () {
@@ -73,18 +67,22 @@
       }
     },
     created: function () {
-      this.init()
+      this.format()
+    },
+    components: {
+      translate
     },
     methods: {
-      init () {
+      format () {
         console.log('init')
         this.getOrderInfo()
-        this.LanguageSwitch()
         this.getAgentInfo()
+      },
+      changeLanguage (n) {
+        this.format()
       },
       getAgentInfo () { // 获取代理人信息
         this.axios.post(IBUSINESS_CARD, {"staffNo": "1440000165"}).then(response => {
-          debugger
           this.agent = response.data.data
           this.iconUrl = this.agent.imgHeader
           this.userName = this.agent.userName
@@ -117,7 +115,7 @@
           this.language = '中'
           this.language1 = 'A'
         }
-        // alert('当前语言版本' + this.$i18n.locale())
+        this.format()
       },
       gotoCard () {
         this.$router.push({path: "/card", query: {userId: this.userId}})
@@ -150,6 +148,9 @@
         background-color: #fff;
         > .w-box {
           padding: rem-calc(20);
+          & > .languageComp{
+            margin-right: rem-calc(15);
+          }
           strong {
             font-size: rem-calc(27);
             font-weight: 500;

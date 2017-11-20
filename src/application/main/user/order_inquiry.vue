@@ -14,8 +14,8 @@
       <div class="flex-1 time-select" @click="timeClick(endTime)">{{ initEndTime }}</div>
       <div class="flex-1 search" @click="searchResult">{{ search }}</div>
     </div>
-    <div class="order-inquiry-list" v-for="order in orders">
-      <div class="inquiry-list-item">
+    <div class="order-inquiry-list">
+      <div class="inquiry-list-item" v-for="order in orders">
         <h3>{{ $t('orderNumber') }}{{ order.orderNumber }}</h3>
         <ul>
           <li>{{ $t('policyNumber') }}{{ order.policyNumber }}</li>
@@ -45,10 +45,9 @@
         startTime: (new Date().getFullYear() - 10) + '-' + ((new Date().getMonth() + 1) > 9 ? (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + '-' + (new Date().getDate() > 9 ? new Date().getDate() : ('0' + new Date().getDate())),
         endTime: (new Date().getFullYear() + 10) + '-' + ((new Date().getMonth() + 1) > 9 ? (new Date().getMonth() + 1) : (new Date().getMonth() + 1)) + '-' + (new Date().getDate() > 9 ? new Date().getDate() : ('0' + new Date().getDate())),
         defaultValue: (new Date().getFullYear() + 0) + '-' + ((new Date().getMonth() + 1) > 9 ? (new Date().getMonth() + 1) : (new Date().getMonth() + 1)),
-        search: this.$i18n.locale() === "FAN" ? "檢索" : "search",
-        cancel: this.$i18n.locale() === "FAN" ? "取消" : "cancel",
-        confirm: this.$i18n.locale() === "FAN" ? "確定" : "done"
-
+        search: this.$i18n.translate('search'),
+        cancel: this.$i18n.translate('cancel'),
+        confirm: this.$i18n.translate('confirm')
       }
     },
     created: function () {
@@ -136,13 +135,14 @@
 
 <style lang="scss" scoped>
   .order-inquiry {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    width: 100vw;
+    height: 100vh;
     overflow: hidden;
-    background-color: #f7f7f7;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    font-family: 'PingFang SC';
     .order-inquiry-top {
       background-color: #fff;
       padding: rem-calc(15);
@@ -192,6 +192,8 @@
       }
     }
     .order-inquiry-list {
+      overflow-y: auto;
+      -webkit-overflow-scrolling : touch;
       .inquiry-list-item {
         margin-top: rem-calc(10);
         background-color: #fff;
@@ -214,6 +216,9 @@
             list-style: none;
           }
         }
+      }
+      .inquiry-list-item:last-child {
+        margin-bottom: rem-calc(10);
       }
     }
   }

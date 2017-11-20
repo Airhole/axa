@@ -55,7 +55,7 @@ margin-top: 60px;
 </style>
 
 `
-const Main = 
+const Main =
 `
 import '@/application/base'
 import 'babel-polyfill'
@@ -90,35 +90,35 @@ const enty = {
   "entry": ["babel-polyfill", "./src/application/" + entryName + "/main.js"],
   "filename": entryName + ".html",
   "template": "index.html",
-  "prdHtmlWebpackPlugin": "../dist/" + entryName + "/index.html",
+  "prdHtmlWebpackPlugin": "../dist/" + entryName + "/login.vue",
   "chunks": ["manifest", "vendor", entryName]
 }
 
-function mkdirs(dirname, callback) {  
-  fs.exists(dirname, function (exists) {  
-      if (exists) {  
-          callback();  
-      } else {  
-          //console.log(path.dirname(dirname));  
-          mkdirs(path.dirname(dirname), function () {  
-              fs.mkdir(dirname, callback);  
-          });  
-      }  
-  });  
-}  
+function mkdirs(dirname, callback) {
+  fs.exists(dirname, function (exists) {
+      if (exists) {
+          callback();
+      } else {
+          //console.log(path.dirname(dirname));
+          mkdirs(path.dirname(dirname), function () {
+              fs.mkdir(dirname, callback);
+          });
+      }
+  });
+}
 
-//递归创建目录 同步方法  
-function mkdirsSync(dirname) {  
-  //console.log(dirname);  
-  if (fs.existsSync(dirname)) {  
-      return true;  
-  } else {  
-      if (mkdirsSync(path.dirname(dirname))) {  
-          fs.mkdirSync(dirname);  
-          return true;  
-      }  
-  }  
-}  
+//递归创建目录 同步方法
+function mkdirsSync(dirname) {
+  //console.log(dirname);
+  if (fs.existsSync(dirname)) {
+      return true;
+  } else {
+      if (mkdirsSync(path.dirname(dirname))) {
+          fs.mkdirSync(dirname);
+          return true;
+      }
+  }
+}
 
 mkdirs(target, function() {
   mkdirs(router, function () {

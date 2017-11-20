@@ -699,6 +699,43 @@ export default new Router({
         description: '登录',
         param: {}
       }
+    },
+    { //  注册
+      path: '/regist',
+      name: 'regist',
+      component: () => import('@/application/main/regist'),
+      meta: {
+        requireAuth: true,
+        title: '注册',
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '注册',
+        param: {}
+      }
+    },
+    { //  找回密码
+      path: '/findpassword',
+      name: 'findpassword',
+      component: () => import('@/application/main/login/findpassword'),
+      // {
+      //   default: resolve => require(['@/application/main/login/findpassword'], resolve)
+      // },
+      meta: {
+        requireAuth: true,
+        title: '找回密码',
+        leftMenu: {
+          title: '返回',
+          javascript: 'gobackbtn'
+        }
+      },
+      Info: {
+        description: '找回密码',
+        param: {}
+      }
     }
   ]
 })
