@@ -9,7 +9,7 @@
         :formModel="$formModels[key]"
         :formRule="value"
         :name="key"
-        @emission="onEmission"
+        @onEvent="evtHandler"
         @formChange="onChange">
       </form-row>
     </template>
@@ -35,7 +35,7 @@ export default {
       $formRules: this.modRules
     }
   },
-  props: ["insItem", "order"],
+  props: ["insItem", "order", "id"],
   methods: {
     init () {
       if (this.insItem && this.insItem.paramList) {
@@ -85,6 +85,9 @@ export default {
             alert(e)
           }
         })
+
+        console.log('rules:')
+        console.log(rules)
 
         this.Rules = rules
         this.Models = models

@@ -1,9 +1,17 @@
+/*
+* @Author: jankergg
+* @Date:   2017-09-13 15:41:02
+* @Last Modified by:   jankergg
+* @Last Modified time: 2017-11-15 11:11:45
+*/
+
 import {Validator} from 'vee-validate'
 
 export default {
   data () {
     return {
       innerValue: this.value,
+      __eventType: this.rules.event,
       timer: null
     }
   },
@@ -41,26 +49,29 @@ export default {
       this.onValidate()
     },
     eventHandler (e, type) {
-      if (type === this.__eventType) {
-        typeof this[type] === 'function' && this[type](e)
+      let eName = 'e_' + this.__eventType
+      if (this.__eventType === type) {
+        // 触发
+        typeof this[eName] === 'function' && this[eName](e)
+      } else {
+        this.$emit('onEvent', {event: e, type: type})
       }
     },
     // event 类型
-    input (e) {
-      this.innerValue = e.target.value || ""
+    e_input (e) {
+      this.innerValue = (e && e.target.value) || ""
     },
-    change (e) {
-      this.innerValue = e.target.value || ""
+    e_change (e) {
+      this.innerValue = (e && e.target.value) || ""
     },
-    blur (e) {
-      this.innerValue = e.target.value || ""
+    e_blur (e) {
+      this.innerValue = (e && e.target.value) || ""
     },
-    focus (e) {
+    e_focus (e) {
     },
     onValidate () {
       if (this.rules) {
         // rules 是表单规则，无规则则不触发验证
-        if (!this.innerValue) { return }
         this.validator.validate(this.name, this.innerValue).then(res => {
           if (res === true) {
             this.$emit('formValid', this.innerModel())
@@ -69,12 +80,17 @@ export default {
           // this.$emit('formError', this.innerModel)
         })
       }
-      if (this.timer) {
-        clearTimeout(this.timer)
-      }
-      this.timer = setTimeout(() => {
+      // 针对input事件做节流
+      if (this.__eventType === 'input') {
+        if (this.timer) {
+          clearTimeout(this.timer)
+        }
+        this.timer = setTimeout(() => {
+          this.$emit('formChange', this.innerModel())
+        }, 350)
+      } else {
         this.$emit('formChange', this.innerModel())
-      }, 350)
+      }
     },
     errorMsg () {
       let _msg = this.validator.errorBag.first(this.name)
@@ -101,7 +117,6 @@ export default {
       this.innerValue = v
     },
     innerValue (val) {
-      console.log('innerValue change:::', val)
       this.onValidate()
     }
   }

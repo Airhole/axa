@@ -67,7 +67,7 @@
       <!--<default-btn class='next' val='下一步' @Click="nextStep"></default-btn>-->
       <div class="btn-wrapper">
         <!--<default-btn class='next' val='下一步' @Click="nextStep"></default-btn>-->
-        <div class="pre-step">{{ $t('payText1') }}<span>222222.00&nbsp;</span><em>{{ $t('payText2') }}</em><label>{{ $t('payText3') }}</label></div>
+        <div class="pre-step">{{ $t('payText1') }}<span>{{firstPremium}}&nbsp;</span><em>{{ $t('payText2') }}</em><label>{{ $t('payText3') }}</label></div>
         <div class="next-step" @click="nextStep">{{ $t('immediateInsure') }}</div>
       </div>
     </div>
@@ -78,7 +78,7 @@
   import insuranceInfo from './import-client-insure-info'
   import formUnit from '@/components/unit/form-unit'
   //  import epMixin from '@/components/mixins/enroll-page-mixin'
-  import { READ_APPLICANT_INFO, SAVE_APPLICANT_INFO, INSURE_LOAD_OR_CREATE_PLAN, CREATE_INSURE } from '@/api'
+  import { READ_APPLICANT_INFO, SAVE_APPLICANT_INFO, INSURE_LOAD_OR_CREATE_PLAN, CREATE_INSURE, CALC_INSURANCE_FEE } from '@/api'
   import defaultBtn from '@/components/base/default-btn.vue'
 
   // models
@@ -103,6 +103,7 @@
         insurantFormRules: this.__clone(insurantFormRules),
         baseInfo: {},
         selected: false,
+        firstPremium: '',
         insureList: []
       }
     },
@@ -121,7 +122,26 @@
       },
       changeAgreement () {
       },
-      onUnitChange () {
+      onUnitChange (val) {
+        console.log('onUnitChange', val)
+        this.formGroupErrors = val.msg
+        this.formGroupStatus = val.status
+        this.formGroup = val.value
+        let outputData = this.__recapOutputName(this.__plan(val.value[0]))
+        console.log('outputData', outputData)
+        let editProperty = {
+          amount: outputData.amount,
+          insure: outputData.insure.value,
+          pay: outputData.pay.value,
+          pay_freq: outputData.pay_freq.value
+        }
+        console.log(JSON.stringify(editProperty))
+        let params = {
+          planId: this.planId,
+          editProperty: Object.assign(editProperty, {commodityId: this.commodityId})
+        }
+        this.calcInsuranceFee(params)
+        console.log('params', params)
       },
 //      loadApplicant (insureId) {
 //        this.axios.post(READ_APPLICANT_INFO, {insureId: insureId}).then(res => {
@@ -160,6 +180,20 @@
         } else {
           this.formModels.wechatNo.value = ''
         }
+      },
+      calcInsuranceFee (params) {
+        this.axios.post(CALC_INSURANCE_FEE, params).then((res) => {
+          console.log(res)
+          if (res.data.status) {
+            let result = res.data.data
+            this.insureList = result.commodityList
+            this.firstPremium = result.firstPremium
+          }
+        }, (response) => {
+        }).catch((err) => {
+          console.log(err)
+          throw new Error(err)
+        })
       },
       nextStep () {
         alert('ffff')

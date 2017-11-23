@@ -54,6 +54,7 @@
           v-if="$formRule.type=='textarea'"
           @formChange="onChange"
           @emission="onEmission"
+          @onEvent="evtHandler"
           :rules="$formRule.rules"
           :value="$formModel.value"
           :name="$formModel.name"
@@ -148,6 +149,9 @@
       },
       onEmission (val) {
         this.$emit('emission', val)
+      },
+      evtHandler (val) {
+        this.$emit('onEvent', val)
       }
     }
   }
@@ -174,6 +178,40 @@
     font-size: rem-calc(16px);
     overflow: hidden;
     clear: both;
+    /deep/
+    .baseBox {
+      box-sizing: border-box;
+      padding-left:rem-calc(15);
+      .line{
+        background-image: none !important;
+      }
+      .title{
+        padding-left:0 !important;
+      }
+      .main{
+        min-height: rem-calc(45);
+        line-height: rem-calc(45);
+        padding-top:1px;
+        padding-bottom:1px;
+        @include borderbottom-1px(#efefef);
+        display:flex;
+        .baseBoxLeft{
+          font-size: rem-calc(15px);
+        }
+        .baseBoxright{
+          flex:1;
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+        }
+        .baseBoxright.atop{
+          align-items: flex-start!important;
+        }
+      }
+      .nonflex{
+        display:block;
+      }
+    }
     .selectRelation {
       font-size: rem-calc(30/2px);
     }

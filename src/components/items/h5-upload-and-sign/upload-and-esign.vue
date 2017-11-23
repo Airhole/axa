@@ -14,7 +14,7 @@
             <!--<div :class="[item.cType != 1 ? 'camera' : 'sign']"></div>-->
             <div class="sign" v-if="item.cType == 1"></div>
             <div class="camera" v-else>
-              <input :id="item.code" class="file-input" type="file" @change="inputChange(item)" accept="image/*" >
+              <input :id="item.key" class="file-input" type="file" @change="inputChange(item)" accept="image/*" >
             </div>
           </div>
         </div>
@@ -122,7 +122,7 @@
             }
           }
           if (el.key) {
-            this.innerModel[el.code] = {
+            this.innerModel[el.key] = {
               name: el.name,
               value: el.imagePathList,
               msg: '',
@@ -134,7 +134,7 @@
       onValidate (list) {
         if (list) {
           list.map(el => {
-            let model = this.innerModel[el.code]
+            let model = this.innerModel[el.key]
             if (el.cType == '1') {
               if (!el.signImgPath) {
                 model.msg = this.errorMsg(el.name)
@@ -164,7 +164,6 @@
                 model.value = ''
               } else {
                 if (el.imagePathList.length < el.minNum) {
-                  debugger
                   model.msg = '照片最少不能少于' + el.minNum
                   model.isValid = false
                   model.value = ''
@@ -203,26 +202,19 @@
           })
         }
         for (let key in this.innerModel) {
-          if (this.innerModel[key].isValid) {
-            this.outputModels[key] = this.innerModel[key].value
-            this.outputModels.isValid = true
-          } else {
-            this.outputModels.isValid = false
-          }
+          this.outputModels[key] = this.innerModel[key].value
         }
-        if (!this.outputModels.isValid) {
-          let obj = Object.values(this.innerModel).find(item => {
-            return item.isValid === false
-          })
-          if (obj) {
-            this.outputModels.msg = obj.msg
-          } else {
-            this.outputModels.msg = ''
-          }
+        let obj = Object.values(this.innerModel).find(item => {
+          return item.isValid === false
+        })
+        if (obj) {
+          this.outputModels.isValid = false
+          this.outputModels.msg = obj.msg
         } else {
+          this.outputModels.isValid = true
           this.outputModels.msg = ''
         }
-        console.log('innerMOdel', this.innerModel)
+//        console.log('innerMOdel', this.innerModel)
         this.$emit('on', {info: this.outputModels, innerModel: this.innerModel, form: this.form.caInfoList})
       },
       errorMsg (_msg) {
@@ -237,17 +229,16 @@
         item.imagePathList = []
         this.$nextTick(() => {
         })
-        this.innerModel[item.code].isValid = false
-        this.innerModel[item.code].msg = this.errorMsg(item.name)
+        this.innerModel[item.key].isValid = false
+        this.innerModel[item.key].msg = this.errorMsg(item.name)
       },
       dImg (item, index) {
+        // debugger
         item.imagePathList.splice(index, 1)
         // item.imgShowList.splice(index, 1)
-        let inputPics = document.getElementById(item.code)
-        inputPics.value = ''
+//        let inputPics = document.getElementById(item.key)
+//        inputPics.value = ''
         this.onValidate(this.form.caInfoList)
-        this.$nextTick(() => {
-        })
       },
       uploadPic (item) {
         if (item.cType == '1') {
@@ -260,26 +251,21 @@
       inputChange (item) {
         // begin loading
         //this.$store.dispatch('toggleLoadingStatus', true)
-        let inputPics = document.getElementById(item.code)
+        let inputPics = document.getElementById(item.key)
         let firstImg = inputPics.files[0]
         let imgUpload = ''
         // zip image
         this.Vzip.run(firstImg).then(success => {
           this.nimg = {...success}
           let file = this.nimg.base64.split('base64,')
-          console.log('UPLOAD_IMG', UPLOAD_IMG)
           this.axios.post(UPLOAD_IMG, {file: file[1], useFullUrl: 'yes'}).then(res => {
             // hide loading
-            // this.$store.dispatch('toggleLoadingStatus', false)
-            console.log('resd', res)
-            // imgUpload = res.data.value.url[0]
-            imgUpload = 'https://images2.alphacoders.com/545/54542.jpg'
+            imgUpload = res.data.value.url[0]
             if (!item.imagePathList || item.imagePathList === null) {
               item.imagePathList = []
             }
             if (item.imagePathList.length < item.maxNum) {
               item.imagePathList.push(imgUpload)
-              // item.imgShowList.push(imgUpload)
             } else {
               this.$vux.toast.show({
                 text: '照片数目大于最大值',
@@ -305,7 +291,7 @@
         let imgUpload = ''
         this.eSignStatus = false
         // show loading
-        this.$store.dispatch('toggleLoadingStatus', true)
+        // this.$store.dispatch('toggleLoadingStatus', true)
         this.axios.post(UPLOAD_IMG, {file: file[1], useFullUrl: 'yes'}).then(res => {
           // hide loading
           imgUpload = res.data.value.url[0]
@@ -314,7 +300,7 @@
           this.currentImg.signImgLocal = imgUpload
           this.onValidate(this.form.caInfoList)
           this.$emit('signChange', {info: this.innerModel, form: this.form.caInfoList})
-          this.$store.dispatch('toggleLoadingStatus', false)
+          // this.$store.dispatch('toggleLoadingStatus', false)
         })
       }
     }

@@ -43,8 +43,7 @@ export default {
 }
 </script>
 
-<style lang='scss' rel='stylesheet/scss'>
-@import '~@/assets/scss/function';
+<style lang=scss>
 .table_content_sty {
     width: rem-calc(344px);
     margin-left: auto;
@@ -62,8 +61,6 @@ export default {
                 display: table-cell;
                 padding-top: rem-calc(8px);
                 padding-bottom: rem-calc(8px);
-                padding-left:rem-calc(8px);
-                padding-right:rem-calc(8px);
                 text-align: center;
                 vertical-align: middle;
                 span {
@@ -82,6 +79,9 @@ export default {
           }
           .info-td .figure {
             color:#00aeff;
+          }
+          &:last-child span{
+            word-break:keep-all;
           }
         }
         .info-head {

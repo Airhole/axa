@@ -12,6 +12,7 @@ export default {
       formErrors: [],
       defaultModel: null,
       formStatus: {},
+      name: '',
       isValid: false,
       modQueue: [], // 如果有一个队列需要初始化
       options: {}
@@ -36,6 +37,9 @@ export default {
     updateForm (val) {
       this.formStatus[val.index] = val.status
       this.$set(this.form, val.index, val.value)
+      if (val.name !== undefined) {
+        this.name = val.name
+      }
       this.$set(this.formErrors, val.index, {msg: val.msg, isValid: val.isValid})
     },
     addOneForm () {
@@ -88,7 +92,7 @@ export default {
         }
       }
       return {
-        name: 'insuranceInfo',
+        name: this.name === undefined ? 'insuranceInfo' : this.name,
         value: this.__values(this.form),
         status: status,
         msg: this.isValid ? null : this.errorMsg,

@@ -69,8 +69,8 @@ export default {
     },
     emission () {
       this.isMiss = !this.isMiss
+      this.$set(this.$rules, 'readOnly', this.isMiss)
       // missionTarget: 通知父组件需要更新哪个字段
-      console.log('target::', this.rules.emitTarget)
       this.$emit('emission', {target: this.rules.emitTarget, value: this.isMiss})
     }
   },

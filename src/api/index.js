@@ -87,7 +87,9 @@ export const ENROLL_SUBMMIT = path(demo)
 export const MAKE_PLAN = path('/plan/createPlan', true)
 //在线投保-读取投保人信息
 export const READ_APPLICANT_INFO = path('/insure/underwriting')
-//在线投保-读取投保人信息
+//在线投保-保费计算
+export const CALC_INSURANCE_FEE = path('/insure/premTrial')
+//在线投保-读取被保人信息
 export const READ_INSURED_INFO = path('/insure/customer/loadApplicant', true)
 // 用户中心
 let user = '/user'

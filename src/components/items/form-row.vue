@@ -43,6 +43,7 @@
             @formChange="onChange"
             @formPassed="onVlid"
             @coordinate="coordinate"
+            @onEvent="evtHandler"
             :rules="$formRule.rules"
             :value="$formModel.value"
             :name="name">
@@ -216,6 +217,9 @@
       },
       onEmission (val) {
         this.$emit('emission', val)
+      },
+      evtHandler (v) {
+        this.$emit('onEvent', v)
       },
       // 兄弟组件（在同一个unit内）间的协同
       coordinate (info) {

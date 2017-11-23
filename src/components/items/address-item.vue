@@ -22,7 +22,7 @@
     </div>
     <!-- input 详细地址 -->
     <div class="baseBox">
-      <div class="main" style="background:none">
+      <div class="main">
         <div class="baseBoxLeft"> <label class="input-label">{{rules.detail.label}}</label></div>
         <div class="baseBoxright">
           <input-btn-item

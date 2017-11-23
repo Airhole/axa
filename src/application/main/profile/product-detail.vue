@@ -100,7 +100,7 @@
 </template>
 
 <script>
-  import formUnit from '@/components/unit/form-unit'
+  import {formUnit, unitMix} from '@/components/unit'
   import {Tab, TabItem} from 'vux'
   import { READ_APPLICANT_INFO, SAVE_APPLICANT_INFO, INSURE_LOAD_OR_CREATE_PLAN, CREATE_INSURE } from '@/api'
   import defaultBtn from '@/components/base/default-btn.vue'
@@ -117,7 +117,7 @@
       Tab,
       TabItem
     },
-    // mixins: [epMixin],
+    mixins: [unitMix],
     data () {
       return {
         formModels: this.__clone(formModels),

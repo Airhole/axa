@@ -23,6 +23,7 @@
     <!-- 默认插槽 -->
     <template v-else>
       <div class="main" :class="{line: underline}" >
+        <span v-if="required" class="required">*</span>
         <div class="baseBoxLeft">
           <slot name="label"></slot>
         </div>
@@ -80,46 +81,59 @@
       },
       $extraClass () {
         return this.rule.vertical ? this.rule.extraClass + ' vertical' : this.rule.extraClass
+      },
+      required () {
+        if (this.rule.rules.vRules) {
+          return this.rule.rules.vRules.indexOf('required') !== -1
+        } else {
+          return false
+        }
       }
     },
     methods: {
     }
   }
 </script>
-<style lang='scss' rel="stylesheet/scss" scope>
+<style lang='scss' rel="stylesheet/scss" scoped>
   @import '~@/assets/scss/function';
-  .line{
-    background-image: none !important;
-  }
-  .title{
-    padding-left:0 !important;
-  }
-  .baseBox{
+
+  .baseBox {
     box-sizing: border-box;
     padding-left:rem-calc(15);
-  }
-  .main{
-    min-height: rem-calc(45);
-    line-height: rem-calc(45);
-    padding-top:1px;
-    padding-bottom:1px;
-    @include borderbottom-1px(#efefef);
-    display:flex;
-    .baseBoxLeft{
-      font-size: rem-calc(15px);
+    .line{
+      background-image: none !important;
     }
-    .baseBoxright{
-      flex:1;
-      display: flex;
-      justify-content: flex-end;
-      align-items: center;
+    &.title{
+      padding-left:0 !important;
     }
-    .baseBoxright.atop{
-      align-items: flex-start!important;
+    .main{
+      min-height: rem-calc(45);
+      line-height: rem-calc(45);
+      padding-top:1px;
+      padding-bottom:1px;
+      @include borderbottom-1px(#efefef);
+      display:flex;
+      .required {
+        color: #FE1641;
+        position: absolute;
+        left: 5px;
+      }
+      .baseBoxLeft{
+        font-size: rem-calc(15px);
+      }
+      .baseBoxright{
+        flex:1;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+      }
+      .baseBoxright.atop{
+        align-items: flex-start!important;
+      }
     }
-  }
-  .nonflex{
-    display:block;
+    .nonflex{
+      display:block;
+    }
   }
 
   .vertical {
