@@ -716,26 +716,27 @@ export default new Router({
         description: '注册',
         param: {}
       }
-    },
-    { //  找回密码
-      path: '/findpassword',
-      name: 'findpassword',
-      component: () => import('@/application/main/login/findpassword'),
-      // {
-      //   default: resolve => require(['@/application/main/login/findpassword'], resolve)
-      // },
-      meta: {
-        requireAuth: true,
-        title: '找回密码',
-        leftMenu: {
-          title: '返回',
-          javascript: 'gobackbtn'
-        }
-      },
-      Info: {
-        description: '找回密码',
-        param: {}
-      }
     }
+    // ,
+    // { //  找回密码
+    //   path: '/findpassword',
+    //   name: 'findpassword',
+    //   component: () => import('@/application/main/login/findpassword'),
+    //   // {
+    //   //   default: resolve => require(['@/application/main/login/findpassword'], resolve)
+    //   // },
+    //   meta: {
+    //     requireAuth: true,
+    //     title: '找回密码',
+    //     leftMenu: {
+    //       title: '返回',
+    //       javascript: 'gobackbtn'
+    //     }
+    //   },
+    //   Info: {
+    //     description: '找回密码',
+    //     param: {}
+    //   }
+    // }
   ]
 })
